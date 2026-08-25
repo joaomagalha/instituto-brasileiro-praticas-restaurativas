@@ -28,8 +28,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260825d" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260825f" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260825f" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <script type="application/ld+json">
 {
@@ -171,9 +171,11 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
+<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#formacoes"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
 <section aria-label="Formações" class="page-hero">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
+<a class="page-back" data-voltar href="index.html#formacoes"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
 <p class="overline overline--light page-hero__eyebrow">Formações</p>
 <h1 data-aos="fade-up">Conhecimento que transforma a prática.</h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Uma boa formação não se mede pela quantidade de horas-aula ou pelo volume de conteúdo apresentado. Seu verdadeiro valor está na capacidade de preparar profissionais para enfrentar desafios reais.</p>
@@ -638,6 +640,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v={CSS_V}"></script>
+<script src="assets/js/site-interactions.js?v=20260825f"></script>
 </body>
 </html>

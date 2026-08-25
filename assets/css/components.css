@@ -2325,6 +2325,95 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .page-hero h1 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: var(--weight-semibold); color: var(--color-white); line-height: var(--leading-display); letter-spacing: var(--tracking-tight); max-width: 62rem; margin: var(--space-sm) 0 var(--space-md); text-wrap: balance; }
 .page-hero__sub { font-size: var(--text-body); color: rgba(var(--white-rgb), 0.72); max-width: 58rem; line-height: var(--leading-body); }
 
+/* ---- Voltar pra página anterior ----
+   Duas formas do mesmo link, presentes em toda página interna (nunca na
+   Home, que é o destino). A do hero é a principal e fica sempre no mesmo
+   canto; a flutuante entra depois que o hero sai da tela, pra quem está
+   lendo o fim de uma página longa não ter que subir tudo só pra achar o
+   caminho de volta.
+
+   O href é o destino de emergência, pra quem chegou por link direto e
+   não tem histórico deste site. Quando existe histórico, o JS troca por
+   history.back() — é ele que devolve a rolagem exata de onde a pessoa
+   clicou, coisa que um href pra âncora não consegue fazer. */
+.page-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+  font-size: 1.35rem;
+  font-weight: var(--weight-medium);
+  color: rgba(var(--white-rgb), 0.78);
+  transition: color var(--transition-fast);
+}
+
+.page-back__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: rgba(var(--white-rgb), 0.07);
+  border: 1px solid rgba(var(--white-rgb), 0.16);
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.page-back:hover { color: var(--color-white); }
+
+.page-back:hover .page-back__icon {
+  background: rgba(var(--gold-rgb), 0.16);
+  border-color: rgba(var(--gold-rgb), 0.45);
+  transform: translateX(-3px);
+}
+
+/* O botão é navy por dentro, então o anel de foco padrão (navy) sumiria
+   contra ele — aqui o foco é dourado, como no skip link. */
+.back-fab {
+  --color-focus: var(--color-gold);
+  --color-focus-halo: rgba(6, 26, 48, 0.9);
+  position: fixed;
+  left: var(--container-pad);
+  bottom: 2.4rem;
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 1.1rem 1.9rem 1.1rem 1.5rem;
+  border-radius: var(--radius-pill);
+  background: rgba(6, 26, 48, 0.94);
+  border: 1px solid rgba(var(--gold-rgb), 0.32);
+  color: var(--color-paper);
+  font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  box-shadow: 0 1.2rem 3.2rem rgba(6, 26, 48, 0.34);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(1.2rem);
+  transition: opacity var(--transition-base), transform var(--transition-base),
+              visibility var(--transition-base), background var(--transition-fast),
+              border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.back-fab i { color: var(--color-gold); font-size: 1.2rem; transition: transform var(--transition-fast); }
+.back-fab.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-fab:hover { background: var(--color-navy); border-color: rgba(var(--gold-rgb), 0.62); color: var(--color-white); }
+.back-fab:hover i { transform: translateX(-3px); }
+
+@media (max-width: 599px) {
+  .back-fab { bottom: 1.6rem; padding: 1rem 1.6rem 1rem 1.3rem; font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .back-fab { transform: none; }
+  .back-fab.is-visible { transform: none; }
+  .page-back:hover .page-back__icon, .back-fab:hover i { transform: none; }
+}
+
 /* Data de publicação, opcional, dentro de .service-card__body — mesmo
    family usado nas Formações (data-aos, category tag), só que o post de
    notícia também tem data, formação não. */
@@ -2435,8 +2524,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .section--dark  { background: var(--color-navy-900); overflow: hidden; }
 
 /* Âncoras: a navbar é fixa (~7.6rem), então um id no topo da seção
-   ficaria escondido atrás dela ao pular pelo menu. */
-.section[id], .formacao[id] { scroll-margin-top: 11rem; }
+   ficaria escondido atrás dela ao pular pelo menu.
+   Vale pra qualquer <section> com id, não só as que usam a classe
+   .section: as seções da Home têm classe própria (.proposito, .formacoes,
+   .solucoes, .founders, .noticias) e ficavam de fora, então todo link
+   index.html#secao aterrissava com o topo da seção atrás da navbar. */
+section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 .section__head { margin-bottom: var(--space-2xl); }
 .section__head--center { text-align: center; }

@@ -416,3 +416,63 @@ document.querySelectorAll('.mobile-menu__link').forEach(link => link.addEventLis
     setTimeout(recolocar, 900);
   }, { once: true });
 })();
+
+// Botão de voltar das páginas internas.
+//
+// A navbar leva pro topo da Home; isto aqui faz outra coisa: desfaz o
+// clique e devolve a pessoa ao ponto exato de onde ela veio.
+//
+// Só history.back() consegue isso — a posição da rolagem fica guardada
+// junto com a entrada do histórico (e o bloco acima cobre os casos em
+// que o navegador não devolve). Um href pra âncora pararia no começo da
+// seção, que é justamente o incômodo que estamos resolvendo.
+//
+// Por isso o href do HTML é só destino de emergência: quem abriu a
+// página por link direto (WhatsApp, Google, favorito) não tem histórico
+// deste site pra desfazer, e aí o clique segue o link normalmente.
+(function () {
+  const botoes = document.querySelectorAll('[data-voltar]');
+  if (!botoes.length) return;
+
+  function temHistoricoDoSite() {
+    // aba nova: não há entrada anterior pra onde voltar
+    if (window.history.length <= 1) return false;
+    if (!document.referrer) return false;
+
+    let de;
+    try { de = new URL(document.referrer); } catch (e) { return false; }
+    if (de.origin !== location.origin) return false;
+    // veio da própria página (recarga, âncora interna): voltar cairia
+    // aqui mesmo de novo, não na página de origem
+    return de.pathname !== location.pathname;
+  }
+
+  const podeVoltar = temHistoricoDoSite();
+
+  botoes.forEach(function (botao) {
+    botao.addEventListener('click', function (e) {
+      if (!podeVoltar) return;                                       // segue o href
+      if (e.button !== 0) return;                                    // meio/direito
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;  // abrir em nova aba
+      e.preventDefault();
+      window.history.back();
+    });
+  });
+
+  // O flutuante só entra depois que o botão do hero sai de vista — antes
+  // disso seriam dois botões iguais na tela ao mesmo tempo. O recuo de
+  // 100px no topo é a navbar fixa: ela cobre o botão do hero antes de ele
+  // sair da viewport de verdade.
+  const fab = document.querySelector('.back-fab');
+  const noHero = document.querySelector('.page-back');
+  if (!fab || !noHero) return;
+
+  if (!('IntersectionObserver' in window)) {
+    fab.classList.add('is-visible');
+    return;
+  }
+
+  new IntersectionObserver(function (entradas) {
+    fab.classList.toggle('is-visible', !entradas[0].isIntersecting);
+  }, { rootMargin: '-100px 0px 0px 0px', threshold: 0 }).observe(noHero);
+})();
