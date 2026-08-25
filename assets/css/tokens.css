@@ -1,0 +1,174 @@
+/* ===================================
+   IBPR — DESIGN TOKENS
+   Identidade real do cliente (manual de marca em
+   assets/logo-manual-marca.png). Ver contexto-*.md para
+   a justificativa de cada escolha (sobretudo contraste).
+=================================== */
+:root {
+  /* AZUL MARINHO — primária (manual: confiança, seriedade, credibilidade) */
+  --color-navy-900: #061A30; /* derivado, mais escuro — fundo de seções escuras/footer */
+  --color-navy:     #0A2A4D; /* oficial do manual — botões, headings, marca */
+  --color-navy-700: #123A63; /* derivado — hover/superfície escura secundária */
+  --color-navy-mid: #3D5773; /* derivado — texto secundário em fundo claro (AAA) */
+
+  /* VERDE — secundária (manual: vida, esperança, renovação) */
+  --color-green: #2E7D32;
+
+  /* AZUL PETRÓLEO — terciária (manual: equilíbrio, harmonia, profundidade) */
+  --color-teal: #0F6B6D;
+
+  /* DOURADO — accent (manual: excelência, valor, reconhecimento)
+     Manual impresso traz "#CS9A2B" — "S" não é dígito hex, é typo.
+     G(9A) e B(2B) são certos; só o 1º dígito do R é ambíguo (5 ou 9).
+     Usando #C9A22B — conferir com quem fez o manual antes de produção. */
+  --color-gold: #C9A22B;
+
+  /* NEUTROS CLAROS */
+  --color-white:        #FFFFFF;
+  --color-paper:        #F6F8F7;
+  --color-mist-bg:      #E9EEEC;
+  --color-border-light: #D7DFDC;
+
+  /* TEXTO */
+  --color-ink:  #101823;
+  --color-mist: #56616D;
+
+  /* FUNCIONAIS — extensão derivada, NÃO existe no manual.
+     Feitas pra manter contraste AA (ver contexto-*.md). */
+  --color-success:    var(--color-green);
+  --color-warning:    #8A6A1A; /* dourado escurecido — legível como texto em fundo claro */
+  --color-warning-bg: var(--color-gold);
+  --color-danger:     #A6432E; /* terracota derivado, harmoniza com a paleta */
+
+  /* ACCENT CONTEXTUAL
+     Dourado reprova contraste em fundo claro (2.27:1) — então o "accent"
+     usado em kickers/links/ícones/bordas é o Azul Petróleo por padrão,
+     e vira Dourado dentro de qualquer contêiner de fundo escuro (ver
+     escopo no fim deste arquivo). Nunca usar --color-gold direto como
+     cor de TEXTO pequeno em fundo claro — use --color-accent. */
+  --color-accent: var(--color-teal);
+
+  /* RGB tuples — pra opacidade via rgba(var(--x-rgb), alpha) sem hardcode */
+  --navy-rgb:     10, 42, 77;
+  --navy900-rgb:   6, 26, 48;
+  --gold-rgb:    201, 162, 43;
+  --teal-rgb:     15, 107, 109;
+  --green-rgb:    46, 125, 50;
+  --white-rgb:   255, 255, 255;
+  --ink-rgb:      16, 24, 35;
+  --accent-rgb:  var(--teal-rgb); /* acompanha --color-accent (petróleo claro / dourado escuro) */
+
+  /* TIPOGRAFIA — sem definição do cliente; escolha do design system
+     (Google Fonts gratuitas, tom institucional/científico). */
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-body:    "Poppins", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
+
+  /* ESCALA TIPOGRÁFICA */
+  --text-h1:   clamp(3.2rem, 5.5vw, 5.6rem);
+  --text-h2:   clamp(2.8rem, 4vw, 4.8rem);
+  --text-h3:   clamp(2rem, 3vw, 3.2rem);
+  --text-h4:   clamp(1.6rem, 1.8vw, 2rem);
+  --text-h5:   clamp(1.4rem, 1.5vw, 1.6rem);
+  --text-h6:   clamp(1.2rem, 1.3vw, 1.4rem);
+  --text-body: clamp(1.5rem, 1.6vw, 1.7rem);
+  --text-sm:   1.3rem;
+  --text-btn:  1.5rem;
+
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --leading-display: 1.15;
+  --leading-body:    1.65;
+  --leading-ui:      1.4;
+
+  --tracking-tight:    -0.01em;
+  --tracking-snug:     -0.005em;
+  --tracking-overline:  0.10em;
+
+  /* ESPAÇAMENTO — escala genérica (proporção, não identidade de marca) */
+  --space-2xs: 0.4rem;
+  --space-xs:  0.8rem;
+  --space-sm:  1.2rem;
+  --space-md:  1.6rem;
+  --space-lg:  2.4rem;
+  --space-xl:  3.2rem;
+  --space-2xl: 4.8rem;
+  --space-3xl: 6.4rem;
+  --space-4xl: 9.6rem;
+  --space-5xl: 12.8rem;
+
+  /* LAYOUT */
+  --container-max: 128rem;
+  /* Espaçamento lateral do conteúdo — cresce com a largura da tela em vez
+     de ficar fixo, pra nunca colar nas bordas em janela mais estreita
+     (o max-width do .container sozinho não resolve isso). */
+  --container-pad: clamp(2.4rem, 5vw, 6.4rem);
+
+  /* RAIO */
+  --radius-sm:   0.4rem;
+  --radius-md:   0.8rem;
+  --radius-lg:   1.6rem;
+  --radius-pill: 100rem;
+
+  /* SOMBRA — tingida de azul marinho (era verde na referência) */
+  --shadow-sm: 0 1px 3px rgba(var(--navy900-rgb), 0.08), 0 1px 2px rgba(var(--navy900-rgb), 0.06);
+  --shadow-md: 0 4px 12px rgba(var(--navy900-rgb), 0.10), 0 2px 4px rgba(var(--navy900-rgb), 0.06);
+  --shadow-lg: 0 10px 24px rgba(var(--navy900-rgb), 0.12), 0 4px 6px rgba(var(--navy900-rgb), 0.06);
+
+  /* TRANSIÇÃO */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* ANEL DE FOCO — nenhuma cor sozinha serve nos dois fundos (medido):
+   dourado 7.25:1 no navy mas 2.27:1 no papel; navy 14.47:1 no claro mas
+   1.21:1 no escuro. Por isso o anel é contextual, igual ao accent: navy
+   em fundo claro, dourado em fundo escuro, os dois acima do mínimo de
+   3:1 que a WCAG 2.2 (SC 1.4.11) pede pra indicador de foco.
+   O halo é a segunda camada, pro anel não sumir quando o elemento está
+   sobre foto (os cards de Soluções). */
+:root {
+  --color-focus: var(--color-navy);
+  --color-focus-halo: rgba(255, 255, 255, 0.95);
+}
+
+/* Contêineres de fundo escuro: --color-accent vira Dourado (7.25:1 AAA
+   sobre --color-navy-900), porque Petróleo reprova contraste em fundo
+   escuro (2.79:1). Ver tabela de contraste em contexto-*.md.
+   .page-hero e .section--dark entraram depois: são as seções escuras das
+   páginas internas e ficaram de fora quando foram criadas, então o
+   eyebrow de todas elas estava saindo em petróleo sobre navy (2.3:1,
+   reprova AA pra texto). */
+.navbar,
+.navbar.scrolled,
+.mobile-menu,
+.hero,
+.page-hero,
+.section--dark,
+.footer,
+.testimonials,
+.proposito,
+.solucoes,
+.noticias,
+.ds-section--dark,
+.ds-marquee,
+.ds-modal,
+.ds-component__demo--dark {
+  --color-accent: var(--color-gold);
+  --accent-rgb: var(--gold-rgb);
+  --color-focus: var(--color-gold);
+  --color-focus-halo: rgba(6, 26, 48, 0.9);
+}
+
+/* Exceções dentro de contêiner escuro que na verdade são superfícies
+   claras: a navbar vira pílula branca ao rolar e o dropdown é branco.
+   Sem isto o anel sairia dourado sobre branco (2.42:1). */
+.navbar.scrolled,
+.navbar__dropdown {
+  --color-focus: var(--color-navy);
+  --color-focus-halo: rgba(255, 255, 255, 0.95);
+}

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Conheça o IBPR: missão, visão, valores e os fundadores do Instituto Brasileiro de Práticas Restaurativas." name="description"/>
+<title>O Instituto | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<!-- Compartilhamento (Open Graph / Twitter Card).
+     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
+     IBPR, que o cliente ainda não informou. -->
+<meta content="O Instituto | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
+<meta content="Conheça o IBPR: missão, visão, valores e os fundadores do Instituto Brasileiro de Práticas Restaurativas." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
+<meta content="pt_BR" property="og:locale"/>
+<meta content="assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="O Instituto | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
+<meta content="Conheça o IBPR: missão, visão, valores e os fundadores do Instituto Brasileiro de Práticas Restaurativas." name="twitter:description"/>
+<meta content="assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<!-- Tokens e componentes reais do site (mesma base do design system) -->
+<link href="assets/css/tokens.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
+<!-- navbar -->
+<header class="navbar" id="navbar">
+<div class="navbar__container">
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.png"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.png"/></a>
+<nav aria-label="Navegação principal" class="navbar__nav">
+<ul class="navbar__links">
+<li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
+<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="o-instituto.html">O Instituto</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Justiça Restaurativa <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#o-que-e" role="menuitem">O que é Justiça Restaurativa?</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#educacao" role="menuitem">Justiça Restaurativa na Educação</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#justica-seguranca" role="menuitem">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="solucoes.html">Soluções</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="noticias.html">Notícias</a></li>
+</ul>
+</nav>
+<div class="navbar__actions">
+<a aria-label="Acessar Área do Aluno" class="btn btn--white navbar__cta" href="area-do-aluno.html">Área do Aluno</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="navbar__mobile-btn" id="menuBtn"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
+</div>
+</div>
+</header>
+
+<!-- mobile-menu -->
+<div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
+<div class="mobile-menu__header">
+<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.png"/>
+<button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
+</div>
+<nav class="mobile-menu__nav">
+<ul class="mobile-menu__links">
+<li><a class="mobile-menu__link" href="index.html">Início</a></li>
+<li><a aria-current="page" class="mobile-menu__link is-active" href="o-instituto.html">O Instituto</a></li>
+<li><a class="mobile-menu__link" href="solucoes.html">Soluções</a></li>
+<li><a class="mobile-menu__link" href="formacoes.html">Formações</a></li>
+<li><a class="mobile-menu__link" href="noticias.html">Notícias</a></li>
+<li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Justiça Restaurativa</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#o-que-e">O que é Justiça Restaurativa?</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#educacao">Justiça Restaurativa na Educação</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#justica-seguranca">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Formações</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+</ul>
+</nav>
+<div class="mobile-menu__footer">
+<a class="btn btn--primary mobile-menu__cta" href="area-do-aluno.html">Área do Aluno</a>
+</div>
+</div>
+<div aria-hidden="true" class="overlay" id="overlay"></div>
+
+<main id="conteudo" tabindex="-1">
+
+<!-- hero interno -->
+<section aria-label="O Instituto" class="page-hero">
+<div aria-hidden="true" class="page-hero__glow"></div>
+<div class="container">
+<p class="overline overline--light page-hero__eyebrow">O Instituto</p>
+<h1 data-aos="fade-up">Reunimos pesquisa, formação e inovação em Justiça Restaurativa.</h1>
+<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">O Instituto Brasileiro de Práticas Restaurativas (IBPR) nasceu da convicção de que problemas, conflitos e danos fazem parte da vida em sociedade. Embora nem sempre possam ser evitados, a forma como respondemos a eles pode fortalecer pessoas, aperfeiçoar organizações e produzir transformações duradouras.</p>
+</div>
+</section>
+
+<!-- missão e visão -->
+<section aria-label="Missão e visão" class="section section--white" id="missao-visao">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header section__head" data-aos="fade-up">
+<p class="overline overline--light">Missão e visão</p>
+<h2>Por que o Instituto existe.</h2>
+<p class="section-header__sub">Reunimos pesquisa, formação e inovação para desenvolver soluções restaurativas baseadas em evidências e adaptadas aos desafios concretos enfrentados por instituições públicas, empresas e comunidades.</p>
+</div>
+<div class="card-grid card-grid--2">
+<article class="info-card info-card--accent" data-aos="fade-up">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-compass"></i></div>
+<span class="info-card__num">Nossa missão</span>
+<h3 class="info-card__title">Contribuir para respostas mais qualificadas.</h3>
+<p class="info-card__desc">Contribuir para que pessoas e instituições construam respostas mais qualificadas aos problemas, conflitos e danos da sociedade por meio da pesquisa, da formação e da inovação em Práticas Restaurativas.</p>
+</article>
+<article class="info-card info-card--accent" data-aos="fade-up" data-aos-delay="100">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-mountain-sun"></i></div>
+<span class="info-card__num">Nossa visão</span>
+<h3 class="info-card__title">Ser referência nacional em Práticas Restaurativas.</h3>
+<p class="info-card__desc">Ser reconhecido como referência nacional na produção de conhecimento, na formação de profissionais e no desenvolvimento de soluções restaurativas para organizações públicas e privadas.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- o que nos move -->
+<section aria-label="O que nos move" class="section section--dark" id="o-que-nos-move">
+<div aria-hidden="true" class="proposito__glow"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header section-header--dark section__head" data-aos="fade-up">
+<p class="overline overline--light">O que nos move</p>
+<h2>Os princípios por trás de cada solução.</h2>
+</div>
+<div class="card-grid card-grid--4">
+<article class="info-card" data-aos="fade-up">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-arrows-rotate"></i></div>
+<h3 class="info-card__title">Aprendizagem permanente</h3>
+<p class="info-card__desc">Reconhecer que toda experiência pode gerar conhecimento, aperfeiçoar práticas e fortalecer pessoas, equipes e organizações em um processo contínuo de evolução.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-flask"></i></div>
+<h3 class="info-card__title">Inovação orientada por evidências</h3>
+<p class="info-card__desc">Desenvolver soluções fundamentadas na pesquisa científica, integrando conhecimento, experiência prática e avaliação contínua para enfrentar problemas complexos.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="160">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-handshake-angle"></i></div>
+<h3 class="info-card__title">São as relações humanas que operam transformações</h3>
+<p class="info-card__desc">A transformação não acontece apenas pela adoção de um método. Ela acontece quando pessoas e instituições aprendem continuamente com suas experiências e constroem, nas relações humanas, novas formas de responder aos problemas, conflitos e danos.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="240">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-bullseye"></i></div>
+<h3 class="info-card__title">Qualificar respostas</h3>
+<p class="info-card__desc">Trabalhamos para que pessoas e instituições desenvolvam formas cada vez mais qualificadas de responder aos problemas, conflitos e danos da sociedade.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- nossa abordagem -->
+<section aria-label="Nossa abordagem" class="section section--paper" id="abordagem">
+<div class="container">
+<div class="section-header section__head" data-aos="fade-up">
+<p class="overline overline--light">Nossa abordagem</p>
+<h2>Da produção do conhecimento à transformação institucional.</h2>
+</div>
+<div class="prose" data-aos="fade-up">
+<p>O IBPR atua a partir da integração entre pesquisa, formação e inovação. Acreditamos que respostas mais qualificadas aos problemas, conflitos e danos não surgem de ações isoladas, mas da combinação entre conhecimento científico, desenvolvimento de capacidades e implementação de soluções adaptadas à realidade de cada organização.</p>
+<p>Essa forma de atuação permite aproximar a produção acadêmica dos desafios concretos enfrentados por escolas, empresas, órgãos públicos e instituições de justiça e segurança pública.</p>
+</div>
+<div class="card-grid card-grid--3" style="margin-top:var(--space-2xl)">
+<article class="info-card" data-aos="fade-up">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i></div>
+<span class="info-card__num">I</span>
+<h3 class="info-card__title">Pesquisa</h3>
+<p class="info-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i></div>
+<span class="info-card__num">II</span>
+<h3 class="info-card__title">Formação</h3>
+<p class="info-card__desc">Capacitar gestores, profissionais e equipes de instituições públicas e privadas para desenvolver respostas mais qualificadas aos problemas, conflitos e danos.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="160">
+<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-lightbulb"></i></div>
+<span class="info-card__num">III</span>
+<h3 class="info-card__title">Inovação</h3>
+<p class="info-card__desc">Desenvolver soluções para escolas, empresas e instituições de educação, justiça e segurança pública responderem de forma mais eficaz e restaurativa aos problemas, conflitos e danos.</p>
+</article>
+</div>
+</div>
+</section>
+
+<!-- fundadores -->
+<section aria-label="Fundadores" class="founders" id="fundadores">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="founders__glow"></div>
+<div class="container">
+<div class="section-header founders__header" data-aos="fade-up">
+<img alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy.png"/>
+<p class="overline overline--light">Fundadores</p>
+<h2>Quem constrói o IBPR.</h2>
+</div>
+<div class="founders__list">
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundador</span>
+<img alt="Decildo Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/decildo-lopes.jpg" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Decildo Lopes</h3>
+<p class="founder__credentials">Juiz de Direito <span aria-hidden="true">·</span> TJGO</p>
+<p class="founder__bio">Juiz de Direito do Tribunal de Justiça do Estado de Goiás, pesquisador, professor e formador em Justiça Restaurativa. Atua na coordenação de políticas públicas, na implementação de programas restaurativos e na pesquisa sobre transformação institucional, cultura organizacional e sistema prisional.</p>
+<details class="accordion">
+<summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
+<div class="accordion__content">
+<p>Juiz de Direito do Tribunal de Justiça do Estado de Goiás, atuou por mais de duas décadas na área criminal, com experiência em justiça criminal, execução penal e desenvolvimento de políticas públicas. Exerceu a coordenação do Núcleo Permanente de Justiça Restaurativa do Tribunal de Justiça do Estado de Goiás, integrou o Grupo de Monitoramento e Fiscalização do Sistema Carcerário e do Sistema Socioeducativo de Goiás (GMF-GO), o Conselho Estadual de Segurança Pública de Goiás e o Grupo de Trabalho do Ministério da Justiça responsável pela elaboração da política nacional de Justiça Restaurativa no sistema prisional brasileiro.</p>
+<p>É mestre em Políticas Públicas voltadas à reintegração social de pessoas condenadas e doutorando em Direito, desenvolvendo pesquisa sobre Justiça Restaurativa, cultura institucional e transformação de organizações. Foi pesquisador visitante da Australian National University (ANU), na Austrália, onde aprofundou estudos sobre práticas restaurativas e transformação institucional sob a supervisão da Professora Meredith Rossner.</p>
+<p>Em 2019, recebeu o prêmio de Melhor Prática da Justiça Criminal Brasileira, concedido pelo Fórum Nacional de Juízes Criminais (FONAJUC), em reconhecimento ao desenvolvimento de iniciativas inovadoras na área criminal. É coautor, ao lado do Defensor Público do Estado de Mato Grosso, Maxual Dias, do livro <em>Justiça Restaurativa na Execução Penal</em>, obra dedicada à aplicação da Justiça Restaurativa no contexto do sistema prisional brasileiro. Atua ainda na formação de magistrados, membros do sistema de justiça, policiais penais, servidores públicos e facilitadores em diferentes regiões do país.</p>
+<p>Sua trajetória é marcada pela integração entre pesquisa acadêmica, formulação de políticas públicas e implementação prática de programas restaurativos, buscando aproximar a produção científica dos desafios concretos enfrentados pelas instituições.</p>
+</div>
+</details>
+</div>
+</article>
+<div aria-hidden="true" class="founders__divider">
+<span class="founders__divider-line"></span>
+<span class="founders__seeds"><i></i><i></i><i></i></span>
+<span class="founders__divider-line"></span>
+</div>
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundadora</span>
+<img alt="Fernanda Mariela Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/fernanda-mariela-lopes.jpg" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Fernanda Mariela Lopes</h3>
+<p class="founder__credentials">Administradora <span aria-hidden="true">·</span> Advogada</p>
+<p class="founder__bio">Administradora de Empresas e Advogada, Especialista em Docência Superior responsável pelo desenvolvimento institucional, organização das atividades e apoio à implementação dos projetos conduzidos pelo instituto.</p>
+<details class="accordion">
+<summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
+<div class="accordion__content">
+<p>Graduada em Administração de Empresas e em Direito, com especialização em Docência do Ensino Superior. Atuou como professora da Universidade Estadual de Goiás (UEG), advogada e Subprocuradora-Geral do Município de Goianésia, acumulando experiência nas áreas de gestão, administração pública, docência e assessoria jurídica.</p>
+<p>É facilitadora de Círculos de Construção de Paz, certificada pela Escola Judicial do Tribunal de Justiça do Estado de Goiás (EJUG), participando de iniciativas voltadas à formação e à difusão das Práticas Restaurativas.</p>
+<p>No Instituto Brasileiro de Práticas Restaurativas (IBPR), lidera a gestão institucional e o desenvolvimento organizacional, sendo responsável pelo planejamento estratégico, pela coordenação administrativa, pela estruturação operacional e pelo suporte à implementação dos programas, cursos e projetos desenvolvidos pelo instituto. Sua atuação assegura que a produção científica, a formação e a inovação desenvolvidas pelo IBPR sejam transformadas em ações concretas, sustentáveis e capazes de gerar impacto para pessoas e instituições.</p>
+</div>
+</details>
+</div>
+</article>
+<div aria-hidden="true" class="founders__divider">
+<span class="founders__divider-line"></span>
+<span class="founders__seeds"><i></i><i></i><i></i></span>
+<span class="founders__divider-line"></span>
+</div>
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundador</span>
+<img alt="Rauny Viana" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/rauny-viana.jpg?v=2" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Rauny Viana</h3>
+<p class="founder__credentials">Assessor de Relações Institucionais <span aria-hidden="true">·</span> NUGJUR/TJMT</p>
+<p class="founder__bio">Especialista em Práticas Restaurativas, com experiência na formação de profissionais, facilitação de processos restaurativos e desenvolvimento de projetos voltados ao fortalecimento institucional e à implementação de programas restaurativos.</p>
+<details class="accordion">
+<summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
+<div class="accordion__content">
+<p>Graduado em Gestão de Recursos Humanos, atua como Assessor de Relações Institucionais do Núcleo Gestor da Justiça Restaurativa do Tribunal de Justiça do Estado de Mato Grosso (NUGJUR/TJMT), participando da elaboração e implementação de políticas públicas, da coordenação de programas de formação e da construção de parcerias institucionais com órgãos do Poder Judiciário, Ministério Público, sistemas de educação, segurança pública e demais instituições comprometidas com a promoção da Cultura de Paz.</p>
+<p>Também participa do desenvolvimento de soluções inovadoras voltadas à gestão e à expansão das Práticas Restaurativas, destacando-se sua atuação na idealização do Sistema RESTAURA, plataforma concebida para apoiar a implementação, o monitoramento e a avaliação de programas restaurativos por meio da gestão de facilitadores, produção de indicadores e fortalecimento da governança institucional. Sua atuação é marcada pela integração entre planejamento estratégico, desenvolvimento metodológico e inovação aplicada à realidade das organizações.</p>
+<p>No Instituto Brasileiro de Práticas Restaurativas (IBPR), dedica-se ao desenvolvimento de soluções baseadas em evidências, à formação de profissionais, à consultoria para instituições públicas e privadas e à implementação de projetos voltados ao fortalecimento das relações humanas, ao aperfeiçoamento institucional e à construção de respostas mais eficazes aos desafios contemporâneos. Seu trabalho busca aproximar pesquisa, formação e inovação, transformando conhecimento em práticas capazes de gerar impacto social duradouro.</p>
+</div>
+</details>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- cta final -->
+<section aria-label="Chamada final" class="cta-final" id="cta-final">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="cta-final__glow"></div>
+<div class="container">
+<p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
+<h2 class="cta-final__title" data-aos="fade-up">Leve Justiça Restaurativa pra dentro da sua instituição.</h2>
+<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações com base científica e certificação do IBPR, para profissionais da educação, da justiça e da segurança pública.</p>
+<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
+<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow" href="solucoes.html">Ver as soluções <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- footer -->
+<footer class="footer">
+<div class="container footer__container">
+<div class="footer__brand">
+<img alt="IBPR" class="footer__logo" loading="lazy" decoding="async" src="assets/images/ibpr-logo-full.png"/>
+<p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa.</p>
+</div>
+<nav aria-label="Links do rodapé" class="footer__nav">
+<div class="footer__col">
+<h2 class="footer__col-title">Instituto</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="index.html">Início</a></li>
+<li><a class="footer__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="footer__link" href="justica-restaurativa.html">Justiça Restaurativa</a></li>
+<li><a class="footer__link" href="solucoes.html">Soluções</a></li>
+<li><a class="footer__link" href="formacoes.html">Formações</a></li>
+<li><a class="footer__link" href="noticias.html">Notícias</a></li>
+<li><a class="footer__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Formações</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="formacoes.html#execucao-penal">Execução Penal</a></li>
+<li><a class="footer__link" href="formacoes.html#pena-justa">Plano Pena Justa</a></li>
+<li><a class="footer__link" href="formacoes.html#ambiente-escolar">Ambiente Escolar</a></li>
+<li><a class="footer__link" href="formacoes.html#estudantes">Formação de Estudantes</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Contato</h2>
+<ul class="footer__links">
+<li><span class="footer__link is-pending" title="E-mail institucional ainda não definido pelo Instituto"><i class="fa-regular fa-envelope"></i> E-mail a confirmar</span></li>
+</ul>
+</div>
+</nav>
+</div>
+<div class="footer__bottom">
+<div class="container footer__bottom-container">
+<p class="footer__copy">© 2026 Instituto Brasileiro de Práticas Restaurativas (IBPR). Todos os direitos reservados.</p>
+<div class="footer__social">
+<span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
+<span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin"></i></span>
+<span aria-label="YouTube, canal a confirmar" class="footer__social-link is-pending" title="Canal oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-youtube"></i></span>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({
+  duration: 800, easing: 'ease-out', once: true, offset: 60,
+  disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+});
+</script>
+<script src="assets/js/site-interactions.js?v={CSS_V}"></script>
+</body>
+</html>

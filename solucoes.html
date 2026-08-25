@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Soluções restaurativas do IBPR para fortalecer relações, construir respostas e transformar instituições." name="description"/>
+<title>Soluções | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<!-- Compartilhamento (Open Graph / Twitter Card).
+     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
+     IBPR, que o cliente ainda não informou. -->
+<meta content="Soluções | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
+<meta content="Soluções restaurativas do IBPR para fortalecer relações, construir respostas e transformar instituições." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
+<meta content="pt_BR" property="og:locale"/>
+<meta content="assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Soluções | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
+<meta content="Soluções restaurativas do IBPR para fortalecer relações, construir respostas e transformar instituições." name="twitter:description"/>
+<meta content="assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<!-- Tokens e componentes reais do site (mesma base do design system) -->
+<link href="assets/css/tokens.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
+<!-- navbar -->
+<header class="navbar" id="navbar">
+<div class="navbar__container">
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.png"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.png"/></a>
+<nav aria-label="Navegação principal" class="navbar__nav">
+<ul class="navbar__links">
+<li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
+<li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Justiça Restaurativa <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#o-que-e" role="menuitem">O que é Justiça Restaurativa?</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#educacao" role="menuitem">Justiça Restaurativa na Educação</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#justica-seguranca" role="menuitem">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+</li>
+<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="solucoes.html">Soluções</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="noticias.html">Notícias</a></li>
+</ul>
+</nav>
+<div class="navbar__actions">
+<a aria-label="Acessar Área do Aluno" class="btn btn--white navbar__cta" href="area-do-aluno.html">Área do Aluno</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="navbar__mobile-btn" id="menuBtn"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
+</div>
+</div>
+</header>
+
+<!-- mobile-menu -->
+<div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
+<div class="mobile-menu__header">
+<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.png"/>
+<button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
+</div>
+<nav class="mobile-menu__nav">
+<ul class="mobile-menu__links">
+<li><a class="mobile-menu__link" href="index.html">Início</a></li>
+<li><a class="mobile-menu__link" href="o-instituto.html">O Instituto</a></li>
+<li><a aria-current="page" class="mobile-menu__link is-active" href="solucoes.html">Soluções</a></li>
+<li><a class="mobile-menu__link" href="formacoes.html">Formações</a></li>
+<li><a class="mobile-menu__link" href="noticias.html">Notícias</a></li>
+<li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Justiça Restaurativa</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#o-que-e">O que é Justiça Restaurativa?</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#educacao">Justiça Restaurativa na Educação</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#justica-seguranca">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Formações</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+</ul>
+</nav>
+<div class="mobile-menu__footer">
+<a class="btn btn--primary mobile-menu__cta" href="area-do-aluno.html">Área do Aluno</a>
+</div>
+</div>
+<div aria-hidden="true" class="overlay" id="overlay"></div>
+
+<main id="conteudo" tabindex="-1">
+
+<!-- hero interno -->
+<section aria-label="Soluções" class="page-hero">
+<div aria-hidden="true" class="page-hero__glow"></div>
+<div class="container">
+<p class="overline overline--light page-hero__eyebrow">Soluções</p>
+<h1 data-aos="fade-up">Diferentes desafios exigem diferentes experiências.</h1>
+<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Não existe uma única prática restaurativa capaz de produzir todos os resultados que uma instituição necessita. Cada solução é construída a partir dos objetivos pretendidos e das necessidades das pessoas envolvidas.</p>
+<nav aria-label="Soluções" class="anchor-nav" data-aos="fade-up" data-aos-delay="200">
+<a class="anchor-nav__link" href="#solucao-relacoes"><i aria-hidden="true" class="fa-solid fa-handshake"></i>Fortalecer relações</a>
+<a class="anchor-nav__link" href="#solucao-respostas"><i aria-hidden="true" class="fa-solid fa-comments"></i>Construir respostas</a>
+<a class="anchor-nav__link" href="#solucao-instituicoes"><i aria-hidden="true" class="fa-solid fa-building-columns"></i>Transformar instituições</a>
+</nav>
+</div>
+</section>
+
+<!-- intro -->
+<section aria-label="Como trabalhamos" class="section section--mist">
+<div class="container">
+<div class="prose" data-aos="fade-up">
+<p>Mais do que aplicar uma metodologia, desenvolvemos processos capazes de produzir experiências que dificilmente ocorreriam na rotina institucional, mas que podem transformar a forma como pessoas e organizações respondem aos problemas, conflitos e danos.</p>
+</div>
+</div>
+</section>
+
+<section aria-label="Fortalecer relações" class="section section--white" id="solucao-relacoes">
+<div class="container">
+<div class="proj-card proj-card--featured" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/relacoes.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-handshake"></i>Relações</span><h2 class="proj-card__name">Fortalecer relações</h2><p class="proj-card__desc">Construir vínculos mais saudáveis entre pessoas, famílias e comunidades.</p></div>
+</div>
+<div class="card-grid card-grid--3">
+<article class="info-card" data-aos="fade-up">
+<span class="info-card__num">01.1</span>
+<h3 class="info-card__title">Conhecer as pessoas para além dos papéis que ocupam</h3>
+<p class="info-card__desc">A rotina institucional costuma aproximar funções, mas nem sempre aproxima pessoas. Desenvolvemos processos que permitem que profissionais compartilhem trajetórias, valores, desafios e experiências de vida, fortalecendo relações de confiança, ampliando o sentimento de pertencimento e favorecendo ambientes de trabalho mais colaborativos.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<span class="info-card__num">01.2</span>
+<h3 class="info-card__title">Criar espaços seguros para conversar sobre o que normalmente permanece em silêncio</h3>
+<p class="info-card__desc">Nem sempre os temas mais importantes encontram espaço para serem discutidos. Conduzimos processos estruturados que permitem abordar situações difíceis, tensões acumuladas, percepções, desafios cotidianos e aspectos da experiência profissional que raramente encontram espaço na rotina institucional.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="160">
+<span class="info-card__num">01.3</span>
+<h3 class="info-card__title">Romper barreiras hierárquicas sem romper a instituição</h3>
+<p class="info-card__desc">Toda organização precisa de hierarquia. Mas nem toda conversa precisa acontecer sob a lógica da hierarquia. Desenvolvemos processos que permitem a participação de gestores, lideranças e equipes em condições de igualdade durante o diálogo, favorecendo a construção de confiança, respeito mútuo e cooperação.</p>
+</article>
+</div>
+</div>
+</section>
+
+<section aria-label="Construir respostas" class="section section--paper" id="solucao-respostas">
+<div class="container">
+<div class="proj-card proj-card--featured" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/respostas.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-comments"></i>Diálogo</span><h2 class="proj-card__name">Construir respostas</h2><p class="proj-card__desc">As pessoas afetadas participam da construção das respostas aos conflitos, em vez de recebê-las prontas.</p></div>
+</div>
+<div class="card-grid card-grid--3">
+<article class="info-card" data-aos="fade-up">
+<span class="info-card__num">02.1</span>
+<h3 class="info-card__title">Compreender os impactos das próprias ações</h3>
+<p class="info-card__desc">Responsabilizar vai muito além de identificar um culpado. Desenvolvemos processos que favorecem a compreensão dos impactos produzidos por determinada conduta sobre vítimas, ofensores, equipes, famílias e comunidade, criando condições para uma responsabilização mais consciente e significativa.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<span class="info-card__num">02.2</span>
+<h3 class="info-card__title">Construir respostas em conjunto</h3>
+<p class="info-card__desc">Em vez de receber soluções prontas, as pessoas diretamente afetadas participam da construção das respostas aos problemas, conflitos e danos. Isso amplia o comprometimento com os resultados, fortalece a legitimidade das decisões e aumenta as possibilidades de cumprimento dos acordos construídos.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="160">
+<span class="info-card__num">02.3</span>
+<h3 class="info-card__title">Desenvolver novas formas de responder a situações complexas</h3>
+<p class="info-card__desc">Problemas complexos dificilmente são resolvidos apenas com as ferramentas tradicionais. As práticas restaurativas ampliam o repertório institucional, oferecendo novos caminhos para lidar com conflitos, violência, danos e desafios relacionais sem substituir os instrumentos já existentes, mas qualificando sua utilização.</p>
+</article>
+</div>
+</div>
+</section>
+
+<section aria-label="Transformar instituições" class="section section--white" id="solucao-instituicoes">
+<div class="container">
+<div class="proj-card proj-card--featured" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/instituicoes.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-building-columns"></i>Instituições</span><h2 class="proj-card__name">Transformar instituições</h2><p class="proj-card__desc">Experiências pontuais viram programas permanentes de aprendizagem institucional.</p></div>
+</div>
+<div class="card-grid card-grid--2">
+<article class="info-card" data-aos="fade-up">
+<span class="info-card__num">03.1</span>
+<h3 class="info-card__title">Transformar experiências individuais em aprendizagem institucional</h3>
+<p class="info-card__desc">Cada problema enfrentado por uma instituição pode representar uma oportunidade de aprendizado. Estruturamos processos capazes de transformar experiências concretas em conhecimento coletivo, fortalecendo equipes, aperfeiçoando práticas e contribuindo para a evolução da cultura institucional.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<span class="info-card__num">03.2</span>
+<h3 class="info-card__title">Construir programas permanentes de transformação institucional</h3>
+<p class="info-card__desc">Mais do que realizar intervenções pontuais, apoiamos instituições na construção de programas permanentes capazes de incorporar essas experiências ao cotidiano organizacional, fortalecendo pessoas, aperfeiçoando práticas e produzindo mudanças sustentáveis ao longo do tempo.</p>
+</article>
+</div>
+</div>
+</section>
+<!-- cta final -->
+<section aria-label="Chamada final" class="cta-final" id="cta-final">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="cta-final__glow"></div>
+<div class="container">
+<p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
+<h2 class="cta-final__title" data-aos="fade-up">Vamos desenhar a solução da sua instituição.</h2>
+<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Cada organização tem desafios próprios. As formações do IBPR são o caminho para desenvolver, dentro da sua equipe, a capacidade de conduzir esses processos.</p>
+<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
+<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- footer -->
+<footer class="footer">
+<div class="container footer__container">
+<div class="footer__brand">
+<img alt="IBPR" class="footer__logo" loading="lazy" decoding="async" src="assets/images/ibpr-logo-full.png"/>
+<p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa.</p>
+</div>
+<nav aria-label="Links do rodapé" class="footer__nav">
+<div class="footer__col">
+<h2 class="footer__col-title">Instituto</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="index.html">Início</a></li>
+<li><a class="footer__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="footer__link" href="justica-restaurativa.html">Justiça Restaurativa</a></li>
+<li><a class="footer__link" href="solucoes.html">Soluções</a></li>
+<li><a class="footer__link" href="formacoes.html">Formações</a></li>
+<li><a class="footer__link" href="noticias.html">Notícias</a></li>
+<li><a class="footer__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Formações</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="formacoes.html#execucao-penal">Execução Penal</a></li>
+<li><a class="footer__link" href="formacoes.html#pena-justa">Plano Pena Justa</a></li>
+<li><a class="footer__link" href="formacoes.html#ambiente-escolar">Ambiente Escolar</a></li>
+<li><a class="footer__link" href="formacoes.html#estudantes">Formação de Estudantes</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Contato</h2>
+<ul class="footer__links">
+<li><span class="footer__link is-pending" title="E-mail institucional ainda não definido pelo Instituto"><i class="fa-regular fa-envelope"></i> E-mail a confirmar</span></li>
+</ul>
+</div>
+</nav>
+</div>
+<div class="footer__bottom">
+<div class="container footer__bottom-container">
+<p class="footer__copy">© 2026 Instituto Brasileiro de Práticas Restaurativas (IBPR). Todos os direitos reservados.</p>
+<div class="footer__social">
+<span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
+<span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin"></i></span>
+<span aria-label="YouTube, canal a confirmar" class="footer__social-link is-pending" title="Canal oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-youtube"></i></span>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({
+  duration: 800, easing: 'ease-out', once: true, offset: 60,
+  disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+});
+</script>
+<script src="assets/js/site-interactions.js?v={CSS_V}"></script>
+</body>
+</html>

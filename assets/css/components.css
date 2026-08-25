@@ -1,0 +1,2906 @@
+/* ===================================
+   IBPR — COMPONENTES REAIS DO SITE
+   Estrutura/animações inspiradas na referência processada
+   (Gaia Soluções Ambientais), reescrito do zero com os
+   tokens e o conteúdo do IBPR. Nenhuma imagem da referência
+   foi reaproveitada aqui.
+=================================== */
+
+/* ===================================
+   RESET & BASE
+=================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 62.5%; scroll-behavior: smooth; width: 100%; overflow-x: hidden; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-ink);
+  background-color: var(--color-white);
+  line-height: var(--leading-body);
+  -webkit-font-smoothing: antialiased;
+  width: 100%;
+  overflow-x: clip;
+}
+
+body.no-scroll { overflow: hidden; }
+img { display: block; max-width: 100%; }
+ul, ol { list-style: none; }
+a { text-decoration: none; color: inherit; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+/* ===================================
+   LAYOUT
+=================================== */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ===================================
+   UTILITIES
+=================================== */
+
+/* Grade de quadrados de fundo — mesmo recurso das seções do design system
+   (.ds-grid-overlay), aqui na variante clara: linhas em navy translúcido,
+   porque branco sobre fundo claro sumiria. Máscara radial dissolvendo as
+   bordas pra grade não terminar em corte seco na beira da seção.
+   Genérica de propósito: usada pela Citação e pelos Fundadores, e serve
+   pra qualquer outra seção clara que precise do mesmo material.
+   A seção que usar precisa de position:relative, e o conteúdo dela de
+   z-index acima de 0. */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(var(--navy-rgb), 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--navy-rgb), 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 35%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 35%, transparent 82%);
+}
+
+/* destaca uma palavra/nome dentro de um parágrafo corrido, com a cor de
+   accent do próprio contexto (petróleo em fundo claro, dourado em fundo
+   escuro) — sem introduzir cor nova nenhuma. */
+.text-accent { color: var(--color-accent); font-weight: var(--weight-semibold); }
+
+.overline {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-navy-mid);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  display: block;
+  margin-bottom: var(--space-sm);
+}
+
+.overline--light { color: var(--color-accent); }
+
+.section-header { margin-bottom: var(--space-3xl); }
+
+.section-header .overline {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.section-header .overline::before {
+  content: "";
+  width: 2.8rem;
+  height: 2px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* Escala do cabeçalho de seção: --text-h3 no título e 1.4rem no
+   subtítulo. Menor que a escala de display (--text-h2), porque em
+   seção o título divide espaço com o conteúdo logo abaixo — o peso
+   de manchete fica reservado pro hero (--text-h1) e pro CTA final. */
+.section-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  color: var(--color-navy);
+  letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-sm);
+}
+
+.section-header__sub {
+  font-size: 1.4rem;
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+  max-width: 46rem;
+}
+
+.section-header__sub--center { max-width: 60rem; margin-inline: auto; }
+
+/* ===================================
+   BUTTONS
+=================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  border-radius: var(--radius-pill);
+  padding: 1rem 3.2rem;
+  cursor: pointer;
+  transition: color 0.4s ease, border-color 0.4s ease, box-shadow var(--transition-fast);
+  white-space: nowrap;
+  border: 2px solid transparent;
+}
+
+.btn:active { transform: scale(0.98); }
+
+/* Outline */
+.btn--outline { background: transparent; color: var(--color-navy); border-color: var(--color-navy); }
+.btn--outline:hover { background: var(--color-navy); color: var(--color-white); box-shadow: var(--shadow-md); }
+
+/* ===================================
+   .btn--white e .btn--primary — CTAs sobre fundo escuro (hero, navbar,
+   CTA final, menu mobile). Pílula branca, discreta em repouso; no
+   hover surge um anel fino dourado em gradiente cônico na borda.
+   Técnica de máscara (mask-composite:exclude) — o anel só pode pintar
+   a casca de 1px, nunca vaza pro miolo, então não depende de nenhuma
+   camada "escondendo" o centro.
+=================================== */
+@property --btn-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes btnAngleSpin {
+  from { --btn-angle: 0deg; }
+  to   { --btn-angle: 360deg; }
+}
+
+/* .btn--dark reaproveita o mesmo mecanismo (anel dourado cônico no
+   hover), só invertido — pílula navy sólida, pra CTA primário funcionar
+   sobre fundo CLARO (ex. CTA Final), onde uma pílula branca sumiria
+   contra o fundo já claro. */
+.btn--white,
+.btn--primary,
+.btn--dark {
+  position: relative;
+  isolation: isolate;
+  transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.btn--white,
+.btn--primary { background: var(--color-white); color: rgba(var(--navy-rgb), 0.65); }
+
+.btn--dark { background: var(--color-navy); color: var(--color-white); }
+
+.btn--white:hover,
+.btn--primary:hover {
+  color: var(--color-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 0 2.5rem rgba(var(--gold-rgb), 0.35);
+}
+
+.btn--dark:hover {
+  background: var(--color-navy-700);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: 0 0 2.5rem rgba(var(--gold-rgb), 0.35);
+}
+
+.btn--white:active,
+.btn--primary:active,
+.btn--dark:active { transform: translateY(0) scale(0.98); }
+
+.btn--white::after,
+.btn--primary::after,
+.btn--dark::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--btn-angle) at 50% 50%,
+    transparent 0%, transparent 75%, rgba(var(--gold-rgb), 0.95) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.btn--white:hover::after,
+.btn--primary:hover::after,
+.btn--dark:hover::after {
+  opacity: 1;
+  animation: btnAngleSpin 2.2s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn--white:hover::after, .btn--primary:hover::after, .btn--dark:hover::after { animation: none; }
+}
+
+/* ===================================
+   NAVBAR
+=================================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.navbar__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem var(--container-pad);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: rgba(var(--white-rgb), 0.10);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid transparent;
+  border-bottom-color: rgba(var(--white-rgb), 0.15);
+  border-radius: 0;
+  box-shadow: none;
+  transition:
+    max-width var(--transition-slow),
+    margin var(--transition-slow),
+    padding var(--transition-slow),
+    background var(--transition-slow),
+    border-color var(--transition-slow),
+    border-radius var(--transition-slow),
+    box-shadow var(--transition-slow),
+    backdrop-filter var(--transition-slow),
+    -webkit-backdrop-filter var(--transition-slow);
+}
+
+/* Rolada: encolhe pra uma pílula flutuante, alinhada com a borda real de
+   onde o conteúdo de QUALQUER .container do site começa — em telas
+   estreitas isso é só --container-pad (o .container não tem largura
+   máxima sobrando); em telas largas (>~1280px) o .container também centra
+   dentro de --container-max, então soma-se a margem extra que isso cria.
+   --nav-offset replica essa mesma conta com 100vw (unidade de viewport,
+   não de %) pra funcionar num elemento position:fixed. */
+.navbar__container {
+  --nav-offset: calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad));
+}
+
+.navbar.scrolled .navbar__container {
+  max-width: calc(100vw - (var(--nav-offset) * 2));
+  margin: 1.2rem auto 0;
+  padding: 1rem clamp(1.6rem, 4vw, 2.4rem);
+  background: rgba(var(--white-rgb), 0.90);
+  border-color: rgba(var(--navy900-rgb), 0.08);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* O logo sempre levou à Home, mas sem nenhuma reação ao passar o mouse
+   ninguém percebe que é clicável — o caminho de volta ficava invisível.
+   Além do item "Início" na nav, o logo agora responde ao hover. */
+.navbar__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.navbar__logo:hover { transform: translateY(-1px); opacity: 0.82; }
+.navbar__logo:active { transform: translateY(0) scale(0.99); }
+
+.navbar__logo-img {
+  height: 3.4rem;
+  width: auto;
+  transition: opacity var(--transition-slow);
+}
+
+.navbar__logo-img--scrolled {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+}
+
+/* .navbar__logo-img--full é fill branco (funciona sobre o hero escuro).
+   Rolada, a navbar vira uma pílula clara e o branco some — crossfade pra
+   ibpr-logo-full-navy.png, o mesmo lockup recolorido em var(--color-navy)
+   (só o "ink" branco: texto IBPR, silhueta humana, subtítulo; a árvore
+   colorida e "DE PRÁTICAS RESTAURATIVAS" em verde ficam intocados). */
+.navbar.scrolled .navbar__logo-img--full { opacity: 0; }
+.navbar.scrolled .navbar__logo-img--scrolled { opacity: 1; }
+
+.navbar__nav { display: none; }
+/* Gap fluido em vez de fixo: com o item "Início" a nav passou a ter 6
+   itens e, em 1024px (onde a nav desktop começa a aparecer), o gap fixo
+   de 3.2rem encostava o menu no logo de um lado e no CTA do outro,
+   folga zero. Assim ele cede em tela apertada e volta ao original no
+   desktop largo. */
+.navbar__links { display: flex; align-items: center; gap: clamp(1.8rem, 2.2vw, 3.2rem); }
+.navbar__item { position: relative; }
+
+.navbar__link {
+  font-size: 1.5rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  transition: color var(--transition-fast);
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.navbar__link:hover, .navbar__link.is-active { color: var(--color-accent); }
+
+.navbar.scrolled .navbar__link { color: var(--color-navy); }
+.navbar.scrolled .navbar__link:hover,
+.navbar.scrolled .navbar__link.is-active { color: var(--color-accent); }
+
+/* CTA (.btn--white) é uma pílula branca — some sobre o fundo já claro
+   da navbar rolada, então inverte pra navy sólido nesse estado. */
+.navbar.scrolled .navbar__cta {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.navbar.scrolled .navbar__cta:hover { color: var(--color-white); }
+
+.navbar__chevron { font-size: 1.1rem; transition: transform var(--transition-base); }
+.navbar__item--dropdown.open .navbar__chevron,
+.navbar__item--dropdown:hover .navbar__chevron { transform: rotate(180deg); }
+
+.navbar__dropdown {
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%) translateY(0.8rem);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 26rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+  overflow: hidden;
+  border: 1px solid var(--color-border-light);
+  padding-top: 1.6rem;
+}
+
+.navbar__item--dropdown:hover .navbar__dropdown,
+.navbar__item--dropdown.open .navbar__dropdown { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+
+.navbar__dropdown-link {
+  display: block;
+  padding: 1.2rem 2rem;
+  font-size: 1.4rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-ink);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.navbar__dropdown-link:hover { background: var(--color-mist-bg); color: var(--color-navy); }
+.navbar__dropdown li + li .navbar__dropdown-link { border-top: 1px solid var(--color-border-light); }
+
+/* Último item do dropdown de Formações: leva pra página completa, já que
+   o gatilho virou <button> (abre o menu) e deixou de ser link direto.
+   Tratado como fecho do menu, não como mais uma formação da lista. */
+.navbar__dropdown-link--all {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-teal);
+  background: var(--color-paper);
+}
+
+.navbar__dropdown-link--all i { font-size: 1.1rem; transition: transform var(--transition-base); }
+.navbar__dropdown-link--all:hover { color: var(--color-navy); }
+.navbar__dropdown-link--all:hover i { transform: translateX(3px); }
+
+.navbar__actions { display: flex; align-items: center; gap: var(--space-md); }
+
+.navbar__mobile-btn {
+  color: var(--color-white);
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs);
+  transition: color var(--transition-fast);
+}
+
+.navbar__mobile-btn:hover { color: var(--color-accent); }
+.navbar.scrolled .navbar__mobile-btn { color: var(--color-navy); }
+.navbar__cta { display: none; }
+
+@media (min-width: 1024px) {
+  .navbar__nav { display: block; }
+  .navbar__cta { display: inline-flex; }
+  .navbar__mobile-btn { display: none; }
+}
+
+/* ===================================
+   MOBILE MENU
+=================================== */
+.mobile-menu {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 85%;
+  max-width: 34rem;
+  background: var(--color-navy-900);
+  z-index: 200;
+  transform: translateX(100%);
+  transition: transform var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 1px solid rgba(var(--white-rgb), 0.06);
+}
+
+.mobile-menu.active { transform: translateX(0); }
+
+.mobile-menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.2rem 2.8rem;
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.06);
+  flex-shrink: 0;
+}
+
+.mobile-menu__logo { height: 3.2rem; width: auto; }
+
+.mobile-menu__close {
+  color: rgba(var(--white-rgb), 0.5);
+  font-size: 1.8rem;
+  padding: var(--space-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.mobile-menu__close:hover { color: var(--color-white); }
+
+.mobile-menu__nav {
+  flex: 1;
+  padding: var(--space-xl) 2.8rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.mobile-menu__links { display: flex; flex-direction: column; }
+
+.mobile-menu__link {
+  font-size: 1.6rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-paper);
+  padding: 1.4rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: color var(--transition-fast);
+}
+
+.mobile-menu__link::after {
+  content: '';
+  width: 1.6rem;
+  height: 1px;
+  background: var(--color-accent);
+  opacity: 0;
+  transition: opacity var(--transition-fast), width var(--transition-fast);
+}
+
+.mobile-menu__link:hover { color: var(--color-white); }
+.mobile-menu__link:hover::after { opacity: 1; width: 2.4rem; }
+
+/* Página atual: a classe já era aplicada no HTML, mas não tinha estilo —
+   o menu mobile abria sem dizer onde a pessoa está. Mesmo dourado que a
+   nav desktop usa pro item ativo. */
+.mobile-menu__link.is-active { color: var(--color-gold); }
+.mobile-menu__link.is-active::after { opacity: 1; width: 2.4rem; background: var(--color-gold); }
+
+/* Sublista mobile pra itens de dropdown (ex. as 3 subseções de Justiça
+   Restaurativa) — mesmo padrão da referência (Gaia), cores do IBPR. */
+.mobile-menu__divider { height: 1px; background: rgba(var(--white-rgb), 0.06); margin: var(--space-sm) 0; }
+
+.mobile-menu__section-label {
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-xs);
+}
+
+.mobile-menu__service-list { display: flex; flex-direction: column; }
+
+.mobile-menu__service-link {
+  font-size: 1.45rem;
+  font-weight: var(--weight-regular);
+  color: rgba(var(--white-rgb), 0.55);
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.05);
+  display: block;
+  transition: color var(--transition-fast);
+}
+
+.mobile-menu__service-link:hover { color: var(--color-white); }
+
+.mobile-menu__footer { padding: 2.4rem 2.8rem; border-top: 1px solid rgba(var(--white-rgb), 0.06); flex-shrink: 0; }
+.mobile-menu__cta { width: 100%; justify-content: center; gap: var(--space-sm); }
+
+/* ===================================
+   OVERLAY
+=================================== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(var(--navy900-rgb), 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+}
+
+.overlay.active { opacity: 1; pointer-events: all; }
+
+/* ===================================
+   HERO — 100% CSS, sem vídeo/foto
+   (nenhuma imagem de referência é reaproveitada aqui)
+=================================== */
+.hero {
+  position: relative;
+  min-height: 90dvh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-navy-900);
+}
+
+.hero__bg { position: absolute; inset: 0; z-index: 0; }
+
+/* Blobs de brilho animados nas 4 cores da marca, no lugar do vídeo */
+.hero__bg::before, .hero__bg::after {
+  content: "";
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.28;
+  animation: heroGlowMove 24s infinite alternate ease-in-out;
+}
+
+.hero__bg::before {
+  background: radial-gradient(circle, var(--color-teal) 0%, transparent 70%);
+  top: -22%; left: -14%;
+}
+
+.hero__bg::after {
+  background: radial-gradient(circle, var(--color-gold) 0%, transparent 72%);
+  bottom: -26%; right: -12%;
+  opacity: 0.18;
+  animation-duration: 30s;
+  animation-delay: -6s;
+}
+
+@keyframes heroGlowMove {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(4vw, -4vh) scale(1.12); }
+}
+
+.hero__bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--white-rgb), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--white-rgb), 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 30% 50%, black 30%, transparent 80%);
+}
+
+/* Hero de vídeo (Home real) — árvore da marca animada, gerada a partir do
+   ibpr-logo-icone.png. Mesmo padrão de .hero__bg/.hero__overlay da Gaia,
+   cores adaptadas pro navy do IBPR. Quando .hero--video está presente, os
+   blobs CSS (::before/::after de .hero__bg) somem — o vídeo já resolve o
+   movimento de fundo. */
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(6, 26, 48, 0.34) 0%,
+      rgba(6, 26, 48, 0.12) 40%,
+      rgba(6, 26, 48, 0.50) 100%
+    ),
+    linear-gradient(
+      105deg,
+      rgba(6, 26, 48, 0.55) 0%,
+      rgba(6, 26, 48, 0.30) 55%,
+      rgba(6, 26, 48, 0.08) 100%
+    );
+}
+
+.hero--video .hero__bg::before,
+.hero--video .hero__bg::after { display: none; }
+
+.hero__content { position: relative; z-index: 1; padding-top: 20rem; padding-bottom: 5rem; }
+.hero__content .overline { color: var(--color-accent); }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h1);
+  font-weight: var(--weight-regular);
+  color: var(--color-white);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-md);
+  max-width: 76rem;
+  text-wrap: balance;
+}
+
+.hero__subtitle {
+  font-size: var(--text-body);
+  color: rgba(var(--white-rgb), 0.75);
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-xl);
+  max-width: 56rem;
+}
+
+.hero__eyebrow { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.15rem; opacity: 0.75; }
+.hero__eyebrow::before { content: ""; width: 2rem; height: 1px; background: var(--color-accent); }
+
+.hero__accent {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-paper) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 2px 20px rgba(6, 26, 48, 0.5));
+  white-space: nowrap;
+}
+
+.hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-sm); }
+.hero__cta { flex-shrink: 0; border-color: transparent; }
+
+/* .link-arrow — CTA "fantasma": texto + seta, sem fundo nem borda.
+   Nasceu no hero ("Sou uma instituição") e virou o padrão de CTA
+   secundário sempre que ele fica ao lado de um botão sólido (.btn--dark/
+   .btn--white) — o par pílula-cheia + link-fantasma é o que garante que
+   um sempre pesa mais que o outro, nunca dois botões do mesmo peso lado
+   a lado. Repouso navy (funciona em fundo claro); --light inverte pra
+   branco em fundo escuro (hero). */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.4rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-navy);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.link-arrow--light { color: var(--color-white); }
+
+.link-arrow i { font-size: 1.2rem; transition: transform var(--transition-base); }
+.link-arrow:hover { color: var(--color-accent); }
+.link-arrow:hover i { transform: translateX(3px); }
+
+.hero__trust { display: inline-flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-lg); font-size: 1.3rem; color: rgba(var(--white-rgb), 0.72); }
+.hero__trust i { color: var(--color-accent); font-size: 1.5rem; }
+
+.hero__float-badge {
+  position: absolute;
+  bottom: var(--space-2xl);
+  right: var(--container-pad);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(var(--navy900-rgb), 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--white-rgb), 0.10);
+  border-radius: var(--radius-pill);
+  padding: var(--space-sm) var(--space-lg);
+  color: var(--color-paper);
+  font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+  z-index: 2;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.hero__float-badge i { color: var(--color-accent); font-size: 1.4rem; }
+
+.hero__float-badge-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 8px var(--color-gold);
+  animation: pulseGlow 1.5s infinite alternate;
+  flex-shrink: 0;
+}
+
+@keyframes pulseGlow { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.3); opacity: 1; } }
+
+@keyframes heroReveal { from { opacity: 0; transform: translateY(1.6rem); } to { opacity: 1; transform: translateY(0); } }
+
+.hero__content > * { opacity: 0; animation: heroReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.hero__eyebrow  { animation-delay: 0.05s; }
+.hero__title    { animation-delay: 0.15s; }
+.hero__subtitle { animation-delay: 0.30s; }
+.hero__actions  { animation-delay: 0.42s; }
+.hero__trust    { animation-delay: 0.54s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__content > *, .hero__bg::before, .hero__bg::after { animation: none; opacity: 1; }
+}
+
+@media (max-width: 767px) {
+  .hero__content { padding-top: 14rem; }
+  .hero__float-badge { left: var(--container-pad); right: var(--container-pad); justify-content: center; }
+  .hero__bg::before, .hero__bg::after { opacity: 0.16; }
+}
+
+/* ===================================
+   FORMAÇÕES — carrossel de cards (era "services" na referência)
+
+   Carrossel em LOOP, movido por transform (não por scroll nativo).
+   Por que loop: são 4 formações e cabem até 3 na tela ao mesmo tempo.
+   Num carrossel comum isso deixa só 2 posições de parada reais, então
+   1 ponto por card nunca funcionaria — os últimos seriam inalcançáveis
+   (ou exigiriam um vão vazio no fim do trilho pra compensar). Em loop,
+   todo card pode assumir a primeira posição, então os 4 pontos são
+   posições de verdade e as setas nunca "morrem" numa ponta.
+
+   Setas fora do trilho (linha de controles embaixo, pontos à esquerda
+   e setas à direita) — é o padrão que o próprio design system documenta
+   em .services__nav, e evita seta boiando por cima do texto do card.
+=================================== */
+.services__viewport {
+  position: relative;
+  overflow: hidden;
+  /* respiro pro card subir no hover e pra sombra não ser cortada */
+  padding: 0.8rem 0 2.4rem;
+}
+
+.services__track {
+  display: flex;
+  gap: var(--space-lg);
+  transition: transform 0.55s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+/* Cabem 1 (+ prévia do próximo) no mobile, 2 no tablet, 3 no desktop —
+   calculado a partir do gap real, então os cards encaixam certinho na
+   largura do container, sem sobra nem corte. */
+.service-card { flex: 0 0 85%; }
+@media (min-width: 768px)  { .service-card { flex-basis: calc((100% - var(--space-lg)) / 2); } }
+@media (min-width: 1024px) { .service-card { flex-basis: calc((100% - 2 * var(--space-lg)) / 3); } }
+
+.services__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.services__dots { display: flex; align-items: center; gap: var(--space-xs); }
+
+.services__dot {
+  width: 0.8rem; height: 0.8rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--navy-rgb), 0.18);
+  border: none; padding: 0; cursor: pointer;
+  transition: width var(--transition-base), background var(--transition-base);
+}
+
+.services__dot:hover { background: rgba(var(--navy-rgb), 0.35); }
+.services__dot--active { width: 2.8rem; background: var(--color-teal); }
+.services__dot--active:hover { background: var(--color-teal); }
+
+.services__arrows { display: flex; gap: var(--space-sm); }
+
+.services__arrow {
+  width: 4.4rem; height: 4.4rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--teal-rgb), 0.3);
+  background: transparent;
+  color: var(--color-navy);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-fast);
+}
+
+.services__arrow:hover { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); transform: scale(1.06); }
+.services__arrow:active { transform: scale(0.97); }
+
+/* ---- Card de formação (compartilhado com a prévia de Notícias) ---- */
+.service-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--navy-rgb), 0.08);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+/* filete de marca que cresce da esquerda no hover */
+.service-card::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-teal) 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s ease;
+}
+
+.service-card:hover { transform: translateY(-6px); border-color: rgba(var(--teal-rgb), 0.28); box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.13); }
+.service-card:hover::after { transform: scaleX(1); }
+
+.service-card__img-wrap {
+  position: relative;
+  height: 17rem;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-teal) 100%);
+}
+
+/* textura de grade — mesmo material do hero e das seções do design
+   system, aqui na variante clara sobre fundo escuro */
+.service-card__img-wrap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--white-rgb), 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--white-rgb), 0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 15%, transparent 80%);
+}
+
+/* halo dourado atrás do ícone, respira no hover */
+.service-card__img-wrap::after {
+  content: "";
+  position: absolute;
+  width: 13rem; height: 13rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.30) 0%, transparent 68%);
+  transition: transform var(--transition-slow);
+}
+
+.service-card:hover .service-card__img-wrap::after { transform: scale(1.22); }
+
+.service-card__img-wrap i {
+  position: relative;
+  z-index: 1;
+  font-size: 3.6rem;
+  color: rgba(var(--white-rgb), 0.92);
+  transition: transform var(--transition-base);
+}
+
+.service-card:hover .service-card__img-wrap i { transform: translateY(-3px) scale(1.06); }
+
+/* numeral fantasma — dá ritmo editorial à sequência de cards */
+.service-card__num {
+  position: absolute;
+  top: 1.2rem; right: 1.8rem;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 4.6rem;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  letter-spacing: var(--tracking-tight);
+  color: rgba(var(--white-rgb), 0.14);
+  pointer-events: none;
+  transition: color var(--transition-base);
+}
+
+.service-card:hover .service-card__num { color: rgba(var(--gold-rgb), 0.38); }
+
+.service-card__category {
+  position: absolute;
+  bottom: var(--space-md); left: var(--space-md);
+  z-index: 2;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-white);
+  background: rgba(var(--navy900-rgb), 0.45);
+  border: 1px solid rgba(var(--gold-rgb), 0.55);
+  border-radius: var(--radius-pill);
+  padding: 5px 13px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: inline-flex;
+  align-items: center;
+}
+
+.service-card__body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  flex: 1;
+}
+
+.service-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.9vw, 1.9rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  text-wrap: balance;
+}
+
+.service-card__desc { font-size: 1.35rem; color: var(--color-mist); line-height: var(--leading-body); flex: 1; }
+
+.service-card__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-light);
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-teal);
+  transition: color var(--transition-base);
+}
+
+.service-card__link i {
+  flex-shrink: 0;
+  width: 3.2rem; height: 3.2rem;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--teal-rgb), 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+}
+
+.service-card:hover .service-card__link { color: var(--color-navy); }
+.service-card:hover .service-card__link i { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); transform: translateX(3px); }
+
+/* Linha de público-alvo acima do título — responde "isso é pra mim?"
+   antes de qualquer outra coisa, que é a primeira pergunta de quem está
+   decidindo se investe numa formação. Conteúdo real do docx (Aba 4).
+   min-height de 2 linhas: os rótulos têm comprimentos diferentes e
+   quebram em larguras diferentes (no tablet só o card 01 quebrava), o
+   que empurrava o título dele 14px pra baixo e desalinhava a família.
+   Reservando as duas linhas, os 4 cards batem em qualquer viewport. */
+.service-card__audience {
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-accent);
+  line-height: var(--leading-ui);
+  min-height: 2.94rem; /* 2 × (1.05rem × 1.4) */
+}
+
+/* Chips de modalidade + certificação — informação de decisão real
+   (docx: Modalidades / Certificação), entre a descrição e o link.
+   Sem carga horária de propósito: no docx ela é "definida conforme a
+   instituição", não um número fixo.
+   Empilhados sempre, nunca lado a lado: em linha, "Presencial · On-line ·
+   Híbrida" só cabe ao lado do chip de certificação em alguns cards, e a
+   quebra automática deixava a família de 4 cards com alturas de chip
+   diferentes (28px em dois, 64px nos outros). */
+.service-card__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.service-card__meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.15rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-navy-mid);
+  background: var(--color-paper);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-pill);
+  padding: 0.5rem 1.2rem;
+  line-height: var(--leading-ui);
+  white-space: nowrap;
+}
+
+.service-card__meta-item i { color: var(--color-teal); font-size: 1.05rem; }
+
+/* Gradiente próprio por formação — as 4 deixam de ser clones visuais e
+   viram uma família com identidade individual, sempre dentro da paleta
+   da marca (navy/petróleo/verde). O card 01 (Execução Penal) fica no
+   gradiente padrão navy→petróleo do componente. */
+.service-card--pena-justa .service-card__img-wrap { background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%); }
+.service-card--escolar .service-card__img-wrap { background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-green) 100%); }
+.service-card--estudantes .service-card__img-wrap { background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%); }
+
+/* ===================================
+   FORMAÇÕES — faixa "o que você recebe" (fecho da seção, reforça o
+   valor da formação antes do CTA "Ver todas as formações").
+   Tratada como detalhe discreto, não como bloco/card concorrendo com
+   os service-cards acima: sem fundo, sem sombra, ícone fino em anel.
+=================================== */
+.formacoes__beneficios {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl) var(--space-sm);
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border-light);
+}
+
+/* Mobile: ícone acima do rótulo, tudo centralizado. Em linha (como no
+   desktop) o rótulo em caixa alta não cabe ao lado do ícone numa coluna
+   estreita — o texto vazava pra fora da tela. */
+.formacoes__beneficio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0; /* deixa o item encolher dentro da coluna do grid */
+}
+
+@media (min-width: 768px) {
+  .formacoes__beneficios { grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .formacoes__beneficio {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 var(--space-sm);
+    border-left: 1px solid var(--color-border-light);
+  }
+  .formacoes__beneficio:first-child { border-left: none; }
+}
+
+.formacoes__beneficio-icon {
+  width: 3.8rem;
+  height: 3.8rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--teal-rgb), 0.28);
+  color: var(--color-teal);
+  font-size: 1.4rem;
+  transition: background var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+}
+
+.formacoes__beneficio:hover .formacoes__beneficio-icon { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
+
+.formacoes__beneficio-label {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: var(--weight-regular);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-mist);
+  line-height: var(--leading-ui);
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) { .formacoes__beneficio-label { text-align: left; } }
+
+.formacoes__beneficio-label strong { font-weight: var(--weight-semibold); color: var(--color-navy); }
+
+/* ===================================
+   SOLUÇÕES — grid assimétrico (era "projetos" na referência)
+=================================== */
+.solucoes__grid { display: grid; grid-template-columns: 1fr; grid-template-rows: repeat(3, 1fr); gap: 2rem; margin-bottom: var(--space-2xl); }
+@media (min-width: 768px) { .solucoes__grid { grid-template-columns: 1.55fr 1fr; grid-template-rows: 1fr 1fr; } }
+
+.proj-card {
+  position: relative;
+  display: block;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  text-decoration: none;
+  min-height: 24rem;
+  background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+  isolation: isolate;
+  transition: transform var(--transition-base);
+}
+
+.proj-card--featured { grid-row: span 2; min-height: 48rem; background: linear-gradient(150deg, var(--color-teal) 0%, var(--color-navy-900) 100%); }
+.proj-card:hover { transform: translateY(-3px); }
+
+.proj-card__overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: radial-gradient(circle at 30% 20%, rgba(var(--white-rgb), 0.10) 0%, transparent 55%),
+              linear-gradient(to top, rgba(var(--navy900-rgb), 0.75) 0%, rgba(var(--navy900-rgb), 0.15) 60%, transparent 100%);
+}
+
+.proj-card::after { content: ""; position: absolute; inset: 0; z-index: 3; border-radius: 1.8rem; border: 1px solid rgba(var(--white-rgb), 0.10); pointer-events: none; }
+
+.proj-card__body { position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 2.6rem; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+.proj-card--featured .proj-card__body { padding: 3.4rem; }
+
+.proj-card__badge {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: var(--weight-semibold);
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-paper);
+  background: rgba(var(--gold-rgb), 0.25); border: 1px solid rgba(var(--white-rgb), 0.22);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  padding: 0.7rem 1.4rem; border-radius: var(--radius-pill);
+}
+
+.proj-card__badge i { font-size: 1.1rem; color: var(--color-gold); }
+
+.proj-card__name { font-family: var(--font-display); font-weight: var(--weight-semibold); color: #fff; line-height: 1.18; letter-spacing: var(--tracking-tight); font-size: 2.2rem; text-shadow: 0 1px 20px rgba(0, 0, 0, 0.3); }
+.proj-card--featured .proj-card__name { font-size: clamp(2.6rem, 3.4vw, 3.6rem); font-weight: 700; }
+
+.proj-card__desc { font-size: 1.4rem; font-weight: 300; color: rgba(var(--white-rgb), 0.82); max-width: 42rem; line-height: var(--leading-body); }
+
+/* Subpontos reais da solução (títulos dos processos do docx, Aba 3) —
+   dão profundidade ao painel sem virar parede de texto: uma linha por
+   processo, marcada com a semente dourada da marca. */
+.proj-card__points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+
+.proj-card__points li {
+  position: relative;
+  padding-left: 1.8rem;
+  font-size: 1.3rem;
+  color: rgba(var(--white-rgb), 0.72);
+  line-height: var(--leading-ui);
+}
+
+.proj-card__points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+/* em cards baixos (mobile) os subpontos somem — senão o corpo do card
+   cobre a foto inteira e o painel vira um bloco de texto */
+@media (max-width: 599px) { .proj-card__points { display: none; } }
+
+.proj-card__arrow {
+  position: absolute; top: 2.2rem; right: 2.2rem; z-index: 2;
+  width: 4.2rem; height: 4.2rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: rgba(var(--white-rgb), 0.14);
+  border: 1px solid rgba(var(--white-rgb), 0.25);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  color: #fff; font-size: 1.5rem;
+  opacity: 0; transform: translateY(-6px) rotate(-12deg);
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.proj-card:hover .proj-card__arrow { opacity: 1; transform: translateY(0) rotate(0); }
+
+/* ===================================
+   PROCESSO — Pesquisa · Formação · Inovação (SVG inline, currentColor/var(--color-*))
+=================================== */
+.process-card {
+  background: transparent; border: none; padding: var(--space-xl) var(--space-md); box-shadow: none;
+  transition: transform var(--transition-base);
+  display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;
+}
+
+.process-card:hover { transform: translateY(-4px); }
+
+.process-card__vector-wrapper {
+  width: 100%; max-width: 220px; height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  transition: transform var(--transition-base);
+}
+
+.process-card:hover .process-card__vector-wrapper { transform: scale(1.03); }
+.proposito-card:hover .process-card__vector-wrapper { transform: scale(1.03); }
+
+.process-card__title { font-family: var(--font-display); font-size: clamp(1.8rem, 2.2vw, 2.1rem); font-weight: var(--weight-semibold); color: var(--color-navy); margin-bottom: var(--space-sm); line-height: var(--leading-display); }
+.process-card__desc { font-family: var(--font-body); font-size: clamp(1.4rem, 1.5vw, 1.5rem); color: var(--color-mist); line-height: var(--leading-body); max-width: 30rem; margin: 0; }
+
+.process-card__vector { overflow: visible; width: 100%; height: 100%; transition: filter var(--transition-base); }
+.process-card:hover .process-card__vector { filter: drop-shadow(0 2px 8px rgba(var(--teal-rgb), 0.18)); }
+.proposito-card:hover .process-card__vector { filter: drop-shadow(0 2px 8px rgba(var(--teal-rgb), 0.18)); }
+
+/* Card 1: Pesquisa — scan & pulse */
+.process-card:hover .svg-scan-line { animation: scanSweep 2s infinite linear; }
+.proposito-card:hover .svg-scan-line { animation: scanSweep 2s infinite linear; }
+.process-card:hover .svg-accent-circle { animation: pulseScale 2s infinite ease-in-out; }
+.proposito-card:hover .svg-accent-circle { animation: pulseScale 2s infinite ease-in-out; }
+.svg-search-lens, .svg-search-handle { transition: opacity var(--transition-base), transform var(--transition-base); }
+.process-card:hover .svg-search-lens { transform: scale(1.1); transform-origin: 70px 50px; }
+.proposito-card:hover .svg-search-lens { transform: scale(1.1); transform-origin: 70px 50px; }
+.svg-doc-inner { transition: stroke var(--transition-base); }
+.process-card:hover .svg-doc-inner { stroke: rgba(var(--teal-rgb), 0.3); }
+.proposito-card:hover .svg-doc-inner { stroke: rgba(var(--teal-rgb), 0.3); }
+
+@keyframes scanSweep { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(100px); opacity: 0; } }
+@keyframes pulseScale { 0%, 100% { transform: scale(1); transform-origin: 72px 52px; fill: rgba(var(--teal-rgb), 0.10); } 50% { transform: scale(1.12); transform-origin: 72px 52px; fill: rgba(var(--teal-rgb), 0.18); } }
+
+/* Card 2: Formação — rotate & glow */
+.process-card:hover .svg-ring--mid { animation: rotateClockwise 15s infinite linear; }
+.proposito-card:hover .svg-ring--mid { animation: rotateClockwise 15s infinite linear; }
+.process-card:hover .svg-ring--outer { animation: rotateCounterClockwise 20s infinite linear; }
+.proposito-card:hover .svg-ring--outer { animation: rotateCounterClockwise 20s infinite linear; }
+.svg-compass { transition: transform var(--transition-base); }
+.process-card:hover .svg-compass { transform: scale(1.06); transform-origin: 100px 80px; }
+.proposito-card:hover .svg-compass { transform: scale(1.06); transform-origin: 100px 80px; }
+.process-card:hover .svg-needle { animation: compassWiggle 1.5s ease-in-out infinite; }
+.proposito-card:hover .svg-needle { animation: compassWiggle 1.5s ease-in-out infinite; }
+
+@keyframes rotateClockwise { from { transform: rotate(0deg); transform-origin: 100px 80px; } to { transform: rotate(360deg); transform-origin: 100px 80px; } }
+@keyframes rotateCounterClockwise { from { transform: rotate(0deg); transform-origin: 100px 80px; } to { transform: rotate(-360deg); transform-origin: 100px 80px; } }
+@keyframes compassWiggle { 0%, 100% { transform: rotate(0deg); transform-origin: 100px 80px; } 30% { transform: rotate(12deg); transform-origin: 100px 80px; } 70% { transform: rotate(-12deg); transform-origin: 100px 80px; } }
+
+.process-card:hover .svg-node--1 { animation: pulseNodeTop 2s infinite ease-in-out; }
+.proposito-card:hover .svg-node--1 { animation: pulseNodeTop 2s infinite ease-in-out; }
+.process-card:hover .svg-node--2 { animation: pulseNodeBottom 2s infinite ease-in-out 1s; }
+.proposito-card:hover .svg-node--2 { animation: pulseNodeBottom 2s infinite ease-in-out 1s; }
+
+@keyframes pulseNodeTop { 0%, 100% { transform: scale(1); transform-origin: 100px 20px; opacity: 0.8; } 50% { transform: scale(1.3); transform-origin: 100px 20px; opacity: 1; filter: drop-shadow(0 0 4px var(--color-teal)); } }
+@keyframes pulseNodeBottom { 0%, 100% { transform: scale(1); transform-origin: 100px 140px; opacity: 0.8; } 50% { transform: scale(1.3); transform-origin: 100px 140px; opacity: 1; filter: drop-shadow(0 0 4px var(--color-teal)); } }
+
+/* Card 3: Inovação — draw curve & floating badge */
+.svg-chart-curve { stroke-dasharray: 250; stroke-dashoffset: 0; transition: stroke-dashoffset 1.5s ease-in-out; }
+.process-card:hover .svg-chart-curve { animation: drawLine 1.5s ease-out forwards; }
+.proposito-card:hover .svg-chart-curve { animation: drawLine 1.5s ease-out forwards; }
+@keyframes drawLine { from { stroke-dashoffset: 250; } to { stroke-dashoffset: 0; } }
+
+/* ===================================
+   CITAÇÃO INSTITUCIONAL — placa/manifesto em fundo claro
+   (era "testimonial" na referência — sem depoimento fabricado: usa a
+   citação real do manual de marca. Tratada como declaração institucional,
+   não como card de review: sem caixa, sem avatar de pessoa — o selo é o
+   próprio ícone da árvore da marca, e as aspas viram uma marca d'água
+   tipográfica atrás do texto.)
+=================================== */
+.quotes { padding: var(--space-5xl) 0; background: var(--color-paper); position: relative; overflow: hidden; }
+
+/* textura de pontos muito sutil, mascarada pro centro — o mesmo espírito
+   do grão dos cards escuros (.proposito-card__grain), só que em tinta
+   navy quase invisível pra funcionar sobre fundo claro */
+.quotes__texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--navy-rgb), 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 55% 65% at 50% 42%, black 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 55% 65% at 50% 42%, black 0%, transparent 72%);
+}
+
+.quotes .container { position: relative; z-index: 1; }
+
+.quote-mark {
+  max-width: 74rem;
+  margin-inline: auto;
+  text-align: center;
+  position: relative;
+}
+
+/* a silhueta humana do ícone é branca (feita pra fundo escuro) e some no
+   papel claro da seção — usa ibpr-logo-icone-navy.png, a mesma árvore com
+   a silhueta recolorida em var(--color-navy) (só o "ink" branco; as
+   folhas coloridas e o traço azul da base ficam intocados) */
+.quote-mark__emblem {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 4.6rem;
+  width: auto;
+  margin: 0 auto var(--space-lg);
+}
+
+.quote-mark__text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+  line-height: 1.38;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-navy);
+  text-wrap: balance;
+}
+
+.quote-mark__footer {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* selo de três sementes — as cores reais das folhas da árvore da marca
+   (petróleo, verde, dourado), no lugar de um filete genérico */
+.quote-mark__seeds { display: flex; align-items: center; gap: 0.8rem; }
+.quote-mark__seeds i { display: block; width: 0.6rem; height: 0.6rem; border-radius: 50%; }
+.quote-mark__seeds i:nth-child(1) { background: var(--color-teal); }
+.quote-mark__seeds i:nth-child(2) { background: var(--color-green); }
+.quote-mark__seeds i:nth-child(3) { background: var(--color-gold); }
+
+.quote-mark__cite { font-style: normal; display: flex; flex-direction: column; gap: 0.5rem; }
+.quote-mark__cite strong {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+.quote-mark__cite span { font-size: 1.3rem; color: var(--color-mist); }
+
+/* ===================================
+   SECTION HEADER — variante fundo escuro
+=================================== */
+.section-header--dark .overline { color: var(--color-accent); }
+.section-header--dark .overline::before { background: var(--color-accent); }
+.section-header--dark h2 { color: var(--color-white); }
+.section-header--dark .section-header__sub { color: rgba(var(--white-rgb), 0.68); }
+
+/* ===================================
+   SEÇÕES REAIS DA HOME
+=================================== */
+.proposito { padding: var(--space-5xl) 0; background: var(--color-navy-900); position: relative; overflow: hidden; }
+
+/* Glow ambiente atrás dos cards — mesmo espírito da referência (Aura
+   Build), cores da marca (petróleo/dourado) no lugar de indigo/azul */
+.proposito__glow {
+  position: absolute;
+  top: -14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64rem;
+  height: 64rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.22) 0%, rgba(var(--gold-rgb), 0.08) 45%, transparent 72%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.proposito .container { position: relative; z-index: 1; }
+
+.proposito__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+@media (min-width: 768px) { .proposito__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); } }
+
+/* Card de vidro — borda translúcida, textura de grão sutil, badge com
+   ícone e um painel de ilustração próprio pra cada SVG existente */
+.proposito-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  border: 1px solid rgba(var(--white-rgb), 0.10);
+  background-color: rgba(var(--white-rgb), 0.04);
+  padding: var(--space-lg) var(--space-lg) var(--space-xl);
+  /* !important necessário: o AOS aplica transition inline no elemento
+     (pra animar a entrada dele na tela) e isso sempre vence a transition
+     declarada aqui em CSS normal — sem isso, o hover fica instantâneo. */
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.8s ease, background-color 0.8s ease !important;
+}
+
+.proposito-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--white-rgb), 0.18);
+  background-color: rgba(var(--white-rgb), 0.06);
+}
+
+.proposito-card__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.proposito-card__badge {
+  position: relative;
+  z-index: 1;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(var(--white-rgb), 0.06);
+  border: 1px solid rgba(var(--white-rgb), 0.20);
+  box-shadow: var(--shadow-md);
+  color: var(--color-white);
+  font-size: 1.9rem;
+  margin-bottom: var(--space-lg);
+}
+
+.proposito-card__title { position: relative; z-index: 1; font-family: var(--font-display); font-size: var(--text-h4); font-weight: var(--weight-semibold); color: var(--color-white); margin-bottom: var(--space-xs); }
+.proposito-card__desc { position: relative; z-index: 1; font-size: 1.4rem; color: rgba(var(--white-rgb), 0.68); line-height: var(--leading-body); }
+
+.proposito-card__illustration {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-lg);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(var(--white-rgb), 0.10);
+  background: linear-gradient(180deg, rgba(var(--white-rgb), 0.035) 0%, transparent 100%);
+}
+
+.proposito-card__illustration svg { display: block; width: 100%; height: auto; }
+
+.formacoes { padding: var(--space-5xl) 0; background: var(--color-mist-bg); position: relative; }
+.formacoes .container { position: relative; z-index: 1; }
+
+/* Cabeçalho em linha — texto à esquerda, CTA à direita (mesma ideia do
+   .noticias__header). Os tamanhos de título/subtítulo já vêm do
+   .section-header padrão; aqui só o arranjo em linha. */
+.formacoes__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.formacoes__header-text { flex: 1 1 44rem; }
+.formacoes__header .btn { flex-shrink: 0; }
+
+/* sem overflow:hidden aqui de propósito — quebraria o position:sticky da
+   nav de soluções (overflow em qualquer ancestral impede o sticky de
+   "grudar" ao rolar). Esta seção não tem nenhum elemento decorativo que
+   precise ser cortado nas bordas, então não faz falta. */
+.solucoes { padding: var(--space-5xl) 0; background: var(--color-navy-900); position: relative; }
+.solucoes .container { position: relative; z-index: 1; }
+
+/* Layout com nav fixa (scrollspy) + painéis que passam por ela ao rolar —
+   destaque muda sozinho conforme o painel alinhado fica em foco, e clicar
+   num item da nav rola até o painel correspondente. */
+/* align-items fica no padrão (stretch) de propósito: a coluna da nav
+   precisa esticar até a altura da coluna dos painéis (bem mais alta) pra
+   sobrar espaço de rolagem — é isso que dá ao position:sticky onde
+   "grudar" enquanto os painéis passam por ela. Com align-items:start a
+   coluna da nav encolhe pro tamanho do próprio conteúdo e o sticky não
+   tem margem nenhuma pra segurar (rola junto com o resto da página). */
+.solucoes__layout { display: grid; grid-template-columns: minmax(26rem, 34rem) 1fr; gap: var(--space-3xl); }
+
+.solucoes__nav { position: sticky; top: 13rem; display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.solucoes__nav-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  text-align: left;
+  background: rgba(var(--white-rgb), 0.02);
+  border: 1px solid rgba(var(--white-rgb), 0.07);
+  border-radius: 1.6rem;
+  padding: var(--space-lg) var(--space-lg) var(--space-lg) calc(var(--space-lg) + 1rem);
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+/* mesmo grão sutil do .proposito-card__grain — sem isso os itens da nav
+   ficam com "cara de componente emprestado", desligados do resto do site */
+.solucoes__nav-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* barrinha de destaque inserida (não uma borda cheia) — sempre presente,
+   só muda de opacidade/cor entre repouso e ativo, igual à referência */
+.solucoes__nav-item::before {
+  content: "";
+  position: absolute;
+  left: var(--space-sm);
+  top: 18%;
+  bottom: 18%;
+  width: 3px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  opacity: 0.15;
+  transition: opacity var(--transition-base);
+}
+
+.solucoes__nav-item.is-active {
+  background: linear-gradient(150deg, rgba(var(--gold-rgb), 0.12) 0%, rgba(var(--white-rgb), 0.03) 100%);
+  border-color: rgba(var(--gold-rgb), 0.25);
+  box-shadow: 0 12px 28px rgba(var(--navy900-rgb), 0.30);
+}
+
+/* A barra do item ativo vira indicador de percurso: a parte dourada cresce
+   conforme o painel correspondente atravessa a nav (--solucao-progresso vem
+   do JS, 0→1). Sem isso a coluna só saltava de um item pro outro e não dava
+   nenhuma noção de "estou no meio deste aqui".
+   Sem transição de propósito: a barra tem que acompanhar o dedo na rolagem,
+   qualquer easing aqui viraria atraso. O fallback 1 deixa a barra cheia se
+   o JS não rodar, que é o visual antigo. */
+.solucoes__nav-item.is-active::before {
+  opacity: 1;
+  background: linear-gradient(to bottom,
+    var(--color-gold) calc(var(--solucao-progresso, 1) * 100%),
+    rgba(var(--white-rgb), 0.20) 0);
+}
+
+.solucoes__nav-index {
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: var(--weight-medium);
+  color: rgba(var(--white-rgb), 0.28);
+  transition: color var(--transition-base);
+}
+
+.solucoes__nav-item.is-active .solucoes__nav-index { color: var(--color-gold); }
+
+.solucoes__nav-body { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.solucoes__nav-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-medium);
+  color: rgba(var(--white-rgb), 0.45);
+  line-height: var(--leading-display);
+  transition: color var(--transition-base);
+}
+
+.solucoes__nav-item.is-active .solucoes__nav-title { color: var(--color-white); }
+
+/* minmax(0, 0fr) e não 0fr puro: o texto aqui é um item de grade anônimo
+   e, com `0fr` sozinho, a linha mantém o tamanho mínimo automático
+   (min-content) — media 161px fechada, então os itens inativos ficavam
+   com um buraco vazio do tamanho do texto e o accordion nunca colapsava
+   de fato. minmax(0, …) zera esse mínimo. */
+.solucoes__nav-desc {
+  display: grid;
+  grid-template-rows: minmax(0, 0fr);
+  max-width: 38rem;
+  font-size: 1.4rem;
+  color: rgba(var(--white-rgb), 0.68);
+  line-height: var(--leading-body);
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows var(--transition-slow), opacity var(--transition-base);
+}
+
+.solucoes__nav-item.is-active .solucoes__nav-desc { grid-template-rows: minmax(0, 1fr); opacity: 1; }
+
+.solucoes__panels { display: flex; flex-direction: column; gap: var(--space-xl); }
+.solucoes__panel { min-height: clamp(34rem, 56vh, 52rem); scroll-margin-top: 13rem; }
+.solucoes__panel--alt { background: linear-gradient(150deg, var(--color-navy-700) 0%, var(--color-navy-900) 100%); }
+
+/* Realce recíproco: o painel que a nav está descrevendo fica em cor cheia e
+   os outros recuam. É isso que torna o par esquerda/direita legível — sem
+   essa amarração, a coluna e as imagens pareciam dois elementos soltos
+   rolando lado a lado.
+   Escurece só a FOTO, nunca o corpo do card: o texto é branco sobre o
+   scrim navy, então baixar a opacidade do card inteiro derrubaria o
+   contraste da legenda; escurecer a foto vai no sentido contrário e ainda
+   melhora a leitura.
+   .has-spy só existe se o JS rodou (progressive enhancement) e a regra é
+   escopada ao desktop, onde a nav é sticky — no mobile os 3 itens já vêm
+   abertos e não existe "painel ao lado". */
+@media (min-width: 900px) {
+  .solucoes__panels.has-spy .solucoes__panel:not(.is-current) .proj-card__photo {
+    filter: saturate(0.28) brightness(0.52);
+  }
+  .solucoes__panels.has-spy .solucoes__panel.is-current::after {
+    border-color: rgba(var(--gold-rgb), 0.30);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .proj-card__photo { transition: none; }
+}
+
+/* Foto de banco de imagens com licença livre (Unsplash License — uso
+   comercial liberado, sem atribuição obrigatória), pedida explicitamente
+   pelo João pra esta seção. Dessaturada + duotone navy no overlay pra
+   unificar 3 fotos de fontes diferentes sob a mesma identidade, em vez
+   de parecerem 3 fotos de banco soltas coladas no card.
+   Seletor solto (não preso a .solucoes__panel): a foto dentro de um
+   .proj-card é sempre fundo do card, nunca imagem em fluxo. Preso ao
+   painel da Home, o mesmo card em solucoes.html perdia o tratamento —
+   a img entrava no fluxo, esticava o card na altura natural do arquivo
+   e o título caía sobre a parte clara da foto. */
+.proj-card__photo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.75) brightness(0.92);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.55s ease;
+}
+
+/* zoom sutil da foto no hover — o card inteiro já sobe 3px, a foto
+   respirando junto dá a sensação de profundidade sem exagero */
+.proj-card:hover .proj-card__photo { transform: scale(1.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .proj-card:hover .proj-card__photo { transform: none; }
+}
+
+.solucoes__foot { display: flex; justify-content: center; margin-top: var(--space-2xl); }
+
+/* Scrim em rampa rápida: o corpo do card cresceu (badge + título + resumo
+   + subpontos ≈ 60% da altura), então a subida do escuro precisa ser mais
+   cedo — com a rampa antiga o título caía numa faixa de 0.22 de overlay e
+   dependia só do text-shadow pra se sustentar sobre foto clara. */
+.proj-card:has(.proj-card__photo) .proj-card__overlay {
+  background:
+    radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.07) 1px, transparent 1px) 0 0/14px 14px,
+    linear-gradient(150deg, rgba(var(--navy900-rgb), 0.55) 0%, rgba(var(--navy900-rgb), 0.16) 45%, rgba(var(--navy900-rgb), 0.72) 100%),
+    linear-gradient(to top, rgba(var(--navy900-rgb), 0.94) 0%, rgba(var(--navy900-rgb), 0.80) 34%, rgba(var(--navy900-rgb), 0.34) 66%, transparent 100%);
+}
+
+/* Sem nav fixa, o "ativo" nunca fica visível na tela ao mesmo tempo que o
+   painel correspondente (a nav já rolou pra fora antes dos painéis
+   aparecerem) — resultado prático: parecia que só o primeiro card
+   "funcionava" e travava ativo pra sempre. Solução: no mobile os 3 itens
+   já vêm com o visual de destaque (o clique ainda rola até o painel certo,
+   só não depende do scroll pra acender). */
+@media (max-width: 899px) {
+  .solucoes__layout { grid-template-columns: 1fr; gap: var(--space-2xl); }
+  .solucoes__nav { position: static; gap: var(--space-md); }
+  .solucoes__nav-item {
+    padding: var(--space-md) var(--space-md) var(--space-md) calc(var(--space-md) + 1rem);
+    background: linear-gradient(150deg, rgba(var(--gold-rgb), 0.12) 0%, rgba(var(--white-rgb), 0.03) 100%);
+    border-color: rgba(var(--gold-rgb), 0.25);
+    box-shadow: 0 12px 28px rgba(var(--navy900-rgb), 0.30);
+  }
+  .solucoes__nav-item::before { opacity: 1; }
+  .solucoes__nav-index { color: var(--color-gold); }
+  .solucoes__nav-title { color: var(--color-white); }
+  .solucoes__nav-desc { grid-template-rows: minmax(0, 1fr); opacity: 1; }
+}
+
+/* ===================================
+   FUNDADORES — linhas editoriais alternadas
+   Composição inspirada na seção "Fundadores" da Luminae (site do próprio
+   João): retrato emoldurado de um lado, bloco de texto do outro,
+   invertendo o lado a cada pessoa. Duas diferenças deliberadas: aqui o
+   fundo é claro, porque esta seção é a respirada clara entre Soluções e
+   CTA Final (as duas escuras), e a hierarquia carrega no tamanho do nome
+   em vez de no volume de texto, já que a bio de cada fundador é curta.
+=================================== */
+.founders { padding: var(--space-5xl) 0; background: var(--color-white); position: relative; overflow: hidden; }
+
+/* material de fundo — mesma dupla textura/brilho que .proposito e as
+   seções do design system usam, na variante clara (navy translúcido em
+   vez de branco, senão some no fundo branco) */
+.founders__glow {
+  position: absolute;
+  top: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 72rem;
+  height: 72rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.10) 0%, rgba(var(--gold-rgb), 0.05) 45%, transparent 72%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.founders .container { position: relative; z-index: 1; }
+.founders__header { text-align: center; }
+
+/* árvore da marca abrindo a seção — versão navy do ícone, mesmo recurso
+   que a citação institucional (.quote-mark__emblem) usa em fundo claro */
+.founders__emblem { display: block; height: 4rem; width: auto; margin: 0 auto var(--space-lg); }
+
+.founders__list { position: relative; display: flex; flex-direction: column; gap: var(--space-2xl); }
+
+/* (havia aqui uma espinha vertical em left:50%. Removida ao ver renderizado:
+   com a grade de fundo já desenhando verticais, viravam três sistemas de
+   linha competindo — grade + espinha + divisor — e a espinha não se
+   distinguia de uma linha qualquer da grade. Ficaram dois: grade como
+   material de fundo, sementes como marcação de ritmo.) */
+
+.founder {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+/* alterna o lado do retrato a cada pessoa — é o que dá o ritmo editorial
+   da referência; sem isso viram três linhas idênticas empilhadas.
+   nth-of-type, não nth-child: os divisores são irmãos na mesma lista e
+   quebrariam a contagem par/ímpar. */
+.founder:nth-of-type(even) .founder__portrait { order: 2; }
+
+/* quando o retrato vai pra coluna direita (fundador par), flex-start
+   coincidiria com o gap do meio, não com a borda real da página. Precisa
+   ser flex-end pra colar na borda direita — espelho exato do flex-start da
+   coluna esquerda, conforme o wireframe: card sempre na borda verdadeira
+   do lado em que está, nunca flutuando perto do meio. */
+.founder:nth-of-type(even) .founder__portrait { justify-content: flex-end; }
+
+/* divisor entre fundadores: filete que dissolve nas pontas com as três
+   sementes no meio — as mesmas cores das folhas do ícone da marca
+   (petróleo/verde/dourado) já usadas na assinatura da citação */
+.founders__divider { display: flex; align-items: center; gap: var(--space-lg); }
+
+.founders__divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--navy-rgb), 0.20), transparent);
+}
+
+.founders__seeds { display: flex; align-items: center; gap: 1rem; }
+.founders__seeds i { display: block; width: 0.7rem; height: 0.7rem; border-radius: 50%; }
+.founders__seeds i:nth-child(1) { background: var(--color-teal); }
+.founders__seeds i:nth-child(2) { background: var(--color-green); }
+.founders__seeds i:nth-child(3) { background: var(--color-gold); }
+
+/* flex-start, não center: a moldura tem largura fixa menor que a coluna
+   do grid, então centralizada ela nunca encosta na borda da coluna — o
+   card fica flutuando sem se alinhar com o texto da linha vizinha, que é
+   sempre flush no início da própria coluna (.founder__content). Com
+   flex-start os dois (card de uma linha, texto da linha ao lado) passam a
+   compartilhar a mesma borda. */
+.founder__portrait { display: flex; justify-content: flex-start; }
+
+/* moldura no formato dos cards de "APLICAÇÕES DA MARCA" do manual:
+   painel claro, borda fina, legenda pequena em caixa alta centralizada no
+   topo e o conteúdo montado dentro. É o mesmo device do manual, aplicado
+   ao retrato — por isso o papel ("Fundador"/"Fundadora") virou legenda da
+   placa e saiu da coluna de texto, senão seria dito duas vezes na
+   mesma linha.
+   Raios concêntricos de propósito: 2rem externo - 1.2rem de padding =
+   0.8rem interno, senão o canto interno "aperta" contra o externo.
+   30rem e não mais: a bio de cada fundador é uma frase só, então um
+   retrato 4:5 muito alto abria um vazio vertical grande ao lado do texto
+   (align-items:center centra um bloco curto contra uma moldura alta). */
+.founder__frame {
+  width: 100%;
+  max-width: 30rem;
+  padding: var(--space-sm);
+  background: var(--color-paper);
+  border: 1px solid rgba(var(--navy-rgb), 0.09);
+  border-radius: 2rem;
+  box-shadow: 0 2px 8px rgba(var(--navy900-rgb), 0.05);
+  transition: transform var(--transition-slow), border-color var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+.founder__frame-label {
+  display: block;
+  padding: 0.6rem 0 1.2rem;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+.founder__frame:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--teal-rgb), 0.4);
+  box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.12);
+}
+
+/* placeholder enquanto as fotos reais não chegam: monograma sobre o
+   gradiente da marca, com a árvore do ícone como marca d'água (versão
+   branca do ícone, porque o interior da moldura é escuro) */
+.founder__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-teal) 100%);
+}
+
+.founder__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* achatada pra silhueta branca (brightness(0) invert(1)): o PNG do ícone
+   tem folhas verdes/petróleo e, colorido, virava uma ilustração de árvore
+   competindo com o monograma em vez de marca d'água */
+.founder__watermark {
+  position: absolute;
+  width: 76%;
+  height: auto;
+  opacity: 0.10;
+  filter: brightness(0) invert(1);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.founder__frame:hover .founder__watermark { opacity: 0.16; transform: scale(1.03); }
+
+.founder__monogram {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 5vw, 5.2rem);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-white);
+}
+
+/* foto real, quando o cliente enviar — mesma janela 4:5 da moldura, é só
+   trocar o .founder__media por um <img class="founder__photo"> */
+/* height:auto é obrigatório aqui: os atributos width/height do <img>
+   (que existem pra reservar espaço se o CSS falhar) entram como hint de
+   apresentação e, sem isto, vencem o aspect-ratio — a moldura virava uma
+   tira de 274x875 em vez do retrato 4:5. */
+.founder__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 0.8rem;
+}
+
+.founder__content { display: flex; flex-direction: column; align-items: flex-start; max-width: 46rem; }
+
+/* (a pílula .founder__badge saiu daqui: o papel passou a ser a legenda da
+   placa, no topo da moldura, como nos cards do manual) */
+.founder__name {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 3.6vw, 4.2rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+/* linha de credenciais — mesmo tratamento do .quote-mark__cite strong
+   (caixa alta, rastreada, pequena), em navy-mid pra ficar AAA no claro */
+.founder__credentials {
+  margin-top: var(--space-sm);
+  font-size: 1.2rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-navy-mid);
+  line-height: var(--leading-ui);
+}
+
+.founder__credentials span { color: var(--color-accent); margin: 0 0.6rem; }
+
+.founder__bio {
+  position: relative;
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  font-size: var(--text-body);
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+}
+
+/* filete curto abrindo a bio — mesmo elemento que o .section-header
+   .overline::before usa antes do texto, reaproveitado como separador */
+.founder__bio::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4.8rem;
+  height: 2px;
+  background: var(--color-accent);
+}
+
+.founders__foot { display: flex; justify-content: center; margin-top: var(--space-4xl); }
+
+@media (max-width: 899px) {
+  .founders__list { gap: var(--space-2xl); }
+  .founder { grid-template-columns: 1fr; gap: var(--space-xl); }
+  /* empilhado, o retrato vem sempre antes do texto em qualquer linha —
+     alternar sem duas colunas só embaralharia a leitura.
+     nth-of-type tem que casar com o seletor do desktop: com nth-child o
+     reset não pegava nenhum article (eles são os filhos 1, 3 e 5 — os
+     pares são os divisores) e o retrato da 2ª pessoa caía sob o texto. */
+  .founder:nth-of-type(even) .founder__portrait { order: 0; justify-content: center; }
+  .founder__portrait { justify-content: center; }
+  .founder__frame { max-width: 28rem; }
+  .founder__content { align-items: center; text-align: center; margin-inline: auto; }
+  .founder__bio::before { left: 50%; transform: translateX(-50%); }
+  .founders__foot { margin-top: var(--space-2xl); }
+}
+
+/* ===================================
+   VÍDEO INSTITUCIONAL — vídeo de um lado, texto do outro, pedido a
+   partir de referência visual (case-study em vídeo + texto, bastante
+   respiro). Adaptado ao sistema real do IBPR sem copiar a referência
+   literalmente: nada de serifada nova nem pílula "CASE STUDY" — eyebrow
+   e heading reaproveitam o mesmo .section-header usado em toda seção do
+   site. O placeholder de vídeo reaproveita o material visual já usado
+   no retrato dos fundadores (gradiente navy→petróleo + marca d'água da
+   árvore), só que widescreen com botão de play no lugar do monograma —
+   ainda sem o vídeo real.
+=================================== */
+.about-video { padding: var(--space-5xl) 0; background: var(--color-paper); }
+
+.about-video__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); align-items: center; }
+@media (min-width: 900px) { .about-video__grid { grid-template-columns: 1.05fr 1fr; gap: var(--space-3xl); } }
+
+.about-video__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-teal) 100%);
+  box-shadow: var(--shadow-lg);
+}
+
+.about-video__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.about-video__watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 42%;
+  height: auto;
+  opacity: 0.10;
+  filter: brightness(0) invert(1);
+}
+
+.about-video__label {
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: rgba(var(--white-rgb), 0.72);
+}
+
+.about-video__play { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; }
+
+.about-video__play-icon {
+  width: 7.2rem;
+  height: 7.2rem;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  color: var(--color-navy);
+  font-size: 2.2rem;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-base);
+}
+
+.about-video__media:hover .about-video__play-icon { transform: scale(1.08); }
+
+.about-video .section-header { margin-bottom: 0; }
+
+/* ===================================
+   NOTÍCIAS — pedido real do cliente (Decildo/Rauny, reunião 13/08 e
+   áudio do Rauny em 15/08: "postar notícia... cursos, notícias,
+   artigos"), fechado no escopo do CMS em 17/08. Ainda sem conteúdo real
+   (tabela do Supabase pra isso nem foi montada) — em vez de inventar
+   notícia falsa (erro que o protótipo do próprio Rauny cometeu, ver
+   analise-prototipo.md), a seção assume estado vazio, honesto sobre
+   "ainda não tem nada aqui" em vez de fingir. Fundo escuro (mesma
+   família de .proposito/.solucoes) pra alternar com Fundadores e CTA
+   Final, que são claras dos dois lados.
+=================================== */
+.noticias { padding: var(--space-5xl) 0; background: var(--color-navy-900); position: relative; overflow: hidden; }
+
+.noticias__glow {
+  position: absolute;
+  top: -14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64rem;
+  height: 64rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.18) 0%, rgba(var(--gold-rgb), 0.07) 45%, transparent 72%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.noticias .container { position: relative; z-index: 1; }
+
+/* Cabeçalho em linha (título+subtítulo à esquerda, CTA à direita) — foge
+   do .section-header centralizado que o resto do site usa, de propósito:
+   é o padrão que o João pediu (referência: prévia de blog da Luminae),
+   só que a única seção do IBPR com esse layout. */
+.noticias__header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-lg); margin-bottom: var(--space-2xl); }
+.noticias__header .section-header__sub { margin-top: var(--space-sm); }
+
+/* Grid estático de 3 — não é carrossel (isso é só das Formações, que tem
+   mais itens que cabem na tela). Reaproveita .service-card tal e qual;
+   dentro de um grid (não de .services__track, que é flex) o
+   flex:0 0 80% dele não se aplica, a largura vem da coluna do grid. */
+.noticias__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-xl); }
+@media (min-width: 768px) { .noticias__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .noticias__grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ===================================
+   NOTÍCIAS — estado vazio editorial
+   Substitui os 3 cards "Em breve" repetidos (honestos, mas com cara de
+   seção inacabada) por um painel único e intencional: statement + as 3
+   categorias reais que o Instituto vai publicar + uma pilha de "artigos
+   fantasma" sinalizando conteúdo a caminho. Some inteiro quando a
+   primeira notícia real existir (volta o .noticias__grid).
+   Mesmo material dos cards de vidro do site (borda translúcida + grão),
+   pra não parecer componente emprestado.
+=================================== */
+.noticias__empty {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  border: 1px solid rgba(var(--white-rgb), 0.10);
+  background: rgba(var(--white-rgb), 0.04);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2xl);
+  padding: var(--space-xl);
+}
+
+@media (min-width: 900px) {
+  .noticias__empty {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    padding: var(--space-2xl) var(--space-3xl);
+  }
+}
+
+.noticias__empty-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.noticias__empty-content { position: relative; z-index: 1; }
+
+.noticias__empty-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.1rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-paper);
+  background: rgba(var(--gold-rgb), 0.10);
+  border: 1px solid rgba(var(--gold-rgb), 0.35);
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.5rem;
+  margin-bottom: var(--space-lg);
+}
+
+/* mesma pulsação do badge do hero (keyframes pulseGlow, já globais) */
+.noticias__empty-pulse {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 8px var(--color-gold);
+  animation: pulseGlow 1.5s infinite alternate;
+  flex-shrink: 0;
+}
+
+.noticias__empty-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.6vw, 2.6rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-white);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-snug);
+  margin-bottom: var(--space-sm);
+  text-wrap: balance;
+}
+
+.noticias__empty-desc {
+  font-size: 1.4rem;
+  color: rgba(var(--white-rgb), 0.68);
+  line-height: var(--leading-body);
+  max-width: 46rem;
+}
+
+.noticias__empty-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: var(--space-lg);
+}
+
+.noticias__empty-topics li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.25rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-paper);
+  background: rgba(var(--white-rgb), 0.06);
+  border: 1px solid rgba(var(--white-rgb), 0.14);
+  border-radius: var(--radius-pill);
+  padding: 0.7rem 1.5rem;
+}
+
+.noticias__empty-topics li i { color: var(--color-gold); font-size: 1.2rem; }
+
+/* pilha de artigos fantasma — três cartões esboçados, o da frente com
+   esqueleto de post (chip de categoria + linhas de texto) e a árvore da
+   marca como marca d'água. Nenhum texto real: é sinal de "conteúdo a
+   caminho", não notícia fingida. */
+.noticias__empty-visual { position: relative; z-index: 1; height: 24rem; }
+
+.ghost-card {
+  position: absolute;
+  width: min(26rem, 82%);
+  height: 16rem;
+  border-radius: 1.6rem;
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+  background: linear-gradient(165deg, rgba(var(--white-rgb), 0.06) 0%, rgba(var(--white-rgb), 0.02) 100%);
+}
+
+.ghost-card--back { top: 4%; right: 4%; transform: rotate(5deg); opacity: 0.45; }
+.ghost-card--mid { top: 14%; left: 2%; transform: rotate(-4deg); opacity: 0.7; }
+
+.ghost-card--front {
+  top: 26%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: linear-gradient(165deg, rgba(var(--white-rgb), 0.09) 0%, rgba(var(--white-rgb), 0.04) 100%);
+  border-color: rgba(var(--white-rgb), 0.18);
+  box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: ghostFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes ghostFloat {
+  from { transform: translateX(-50%) translateY(0); }
+  to   { transform: translateX(-50%) translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ghost-card--front { animation: none; }
+  .noticias__empty-pulse { animation: none; }
+}
+
+.ghost-card__chip {
+  width: 7.2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(var(--gold-rgb), 0.55);
+  background: rgba(var(--gold-rgb), 0.12);
+}
+
+.ghost-card__line {
+  display: block;
+  height: 0.9rem;
+  width: 92%;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--white-rgb), 0.14);
+}
+
+.ghost-card__line--title { height: 1.3rem; width: 80%; background: rgba(var(--white-rgb), 0.24); }
+.ghost-card__line--short { width: 58%; }
+
+.ghost-card__watermark {
+  position: absolute;
+  right: 1.6rem;
+  bottom: 1.4rem;
+  width: 4.2rem;
+  height: auto;
+  opacity: 0.12;
+  filter: brightness(0) invert(1);
+}
+
+/* no mobile a pilha vira o único elemento abaixo de um bloco de texto já
+   alto — encolhe pra não gastar meia tela em decoração */
+@media (max-width: 599px) {
+  .noticias__empty-visual { height: 19rem; }
+  .ghost-card { height: 13rem; }
+}
+
+/* ===================================
+   PÁGINA INTERNA — hero de banner (título + intro), pras páginas que não
+   são a Home. Primeiro uso: noticias.html. `estrutura-secoes-site.md` já
+   previa "Hero interno" em toda página 2-6; esta é a versão real, então
+   as próximas páginas internas reaproveitam em vez de reinventar.
+   Mesmo fundo escuro do hero da Home, só sem vídeo/altura de 90dvh —
+   é uma faixa, não a primeira dobra inteira. Padding-top generoso pra
+   não ficar atrás da navbar fixa (~7.6rem de altura real).
+=================================== */
+.page-hero { padding: calc(var(--space-4xl) + 7.6rem) 0 var(--space-4xl); background: linear-gradient(165deg, var(--color-navy) 0%, var(--color-navy-900) 100%); position: relative; overflow: hidden; }
+
+.page-hero__glow {
+  position: absolute;
+  top: -30%;
+  left: 15%;
+  width: 56rem;
+  height: 56rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.20) 0%, rgba(var(--gold-rgb), 0.08) 45%, transparent 72%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-hero .container { position: relative; z-index: 1; }
+.page-hero__eyebrow { color: var(--color-accent); }
+.page-hero h1 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: var(--weight-semibold); color: var(--color-white); line-height: var(--leading-display); letter-spacing: var(--tracking-tight); max-width: 62rem; margin: var(--space-sm) 0 var(--space-md); text-wrap: balance; }
+.page-hero__sub { font-size: var(--text-body); color: rgba(var(--white-rgb), 0.72); max-width: 58rem; line-height: var(--leading-body); }
+
+/* Data de publicação, opcional, dentro de .service-card__body — mesmo
+   family usado nas Formações (data-aos, category tag), só que o post de
+   notícia também tem data, formação não. */
+.service-card__date { font-size: 1.2rem; color: var(--color-mist); text-transform: uppercase; letter-spacing: var(--tracking-overline); }
+
+/* ===================================
+   CTA FINAL — banner de fechamento antes do footer
+   Referência: seção de fechamento clara e "arejada" que o João mandou
+   (print de outro site — mesh gradient suave + título grande em negrito +
+   dois botões pílula). Trazida pro sistema real do IBPR: nada de mesh
+   verde/pêssego gringo — fundo claro do próprio site (paper→mist-bg,
+   igual Fundadores), com o brilho radial petróleo/dourado do design
+   system (mesmo material do .founders__glow) no lugar do gradiente
+   pastel, e grão sutil (.grid-overlay, já genérica) pra não ficar um
+   fundo liso demais. É a 2ª seção clara seguida (depois de Fundadores),
+   decisão deliberada: fecha a página num tom convidativo antes do rodapé
+   escuro, em vez de mais um bloco navy. */
+.cta-final { padding: var(--space-5xl) 0; background: linear-gradient(165deg, var(--color-paper) 0%, var(--color-mist-bg) 55%, var(--color-paper) 100%); position: relative; overflow: hidden; text-align: center; }
+.cta-final__glow {
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80rem;
+  height: 80rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.14) 0%, rgba(var(--teal-rgb), 0.09) 45%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+.cta-final .container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+.cta-final__eyebrow { color: var(--color-accent); }
+.cta-final__title { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--color-navy); line-height: var(--leading-display); max-width: 62rem; margin-bottom: var(--space-md); text-wrap: balance; }
+.cta-final__sub { font-size: var(--text-body); color: var(--color-mist); max-width: 52rem; margin-bottom: var(--space-xl); line-height: var(--leading-body); }
+.cta-final__actions { display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center; }
+
+/* ===================================
+   FOOTER
+=================================== */
+.footer { background: var(--color-navy-900); border-top: 1px solid rgba(var(--white-rgb), 0.06); }
+
+.footer__container { padding-top: var(--space-5xl); padding-bottom: var(--space-3xl); display: flex; flex-direction: column; gap: var(--space-3xl); }
+
+.footer__logo { height: 3.4rem; width: auto; }
+
+.footer__brand-desc { font-size: 1.3rem; color: rgba(var(--white-rgb), 0.55); margin-top: var(--space-sm); line-height: var(--leading-body); max-width: 30rem; }
+
+.footer__nav { display: flex; flex-direction: column; gap: var(--space-2xl); }
+.footer__col-title { font-size: 1.1rem; font-weight: var(--weight-semibold); color: var(--color-gold); margin-bottom: var(--space-md); text-transform: uppercase; letter-spacing: var(--tracking-overline); }
+.footer__links { display: flex; flex-direction: column; gap: var(--space-sm); }
+.footer__link { font-size: 1.35rem; color: rgba(var(--white-rgb), 0.65); display: flex; align-items: center; gap: var(--space-xs); transition: color var(--transition-fast); line-height: var(--leading-ui); text-decoration: none; }
+.footer__link:hover { color: var(--color-white); }
+.footer__link i { font-size: 1.3rem; width: 1.8rem; flex-shrink: 0; }
+
+.footer__bottom { border-top: 1px solid rgba(var(--white-rgb), 0.06); }
+.footer__bottom-container { padding-top: var(--space-lg); padding-bottom: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); }
+.footer__copy { font-size: 1.2rem; color: rgba(var(--white-rgb), 0.4); }
+.footer__social { display: flex; gap: var(--space-sm); }
+
+.footer__social-link {
+  width: 3.6rem; height: 3.6rem; border-radius: 50%;
+  border: 1px solid rgba(var(--white-rgb), 0.08);
+  background: rgba(var(--white-rgb), 0.03);
+  color: rgba(var(--white-rgb), 0.65);
+  font-size: 1.6rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer__social-link:hover { background: rgba(var(--gold-rgb), 0.14); border-color: rgba(var(--gold-rgb), 0.4); color: var(--color-white); transform: translateY(-2px); }
+
+@media (min-width: 768px) { .footer__container { flex-direction: row; justify-content: space-between; gap: var(--space-2xl); } .footer__nav { flex-direction: row; gap: var(--space-3xl); } .footer__bottom-container { flex-direction: row; justify-content: space-between; align-items: center; } }
+
+/* ===================================
+   CHIP / PILLAR — usado na demo de badges
+=================================== */
+.pillar-chip {
+  display: inline-flex; align-items: center; gap: var(--space-sm);
+  background: rgba(var(--white-rgb), 0.08);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--white-rgb), 0.14);
+  border-radius: var(--radius-pill);
+  padding: var(--space-sm) var(--space-lg);
+  color: var(--color-white);
+  font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+}
+
+.pillar-chip i { color: var(--color-accent); }
+
+/* ===================================
+   PÁGINAS INTERNAS — componentes compartilhados
+   Base comum de o-instituto / justica-restaurativa / solucoes /
+   formacoes / area-do-aluno. Tudo montado sobre os tokens e o
+   vocabulário visual que a Home já usa (.page-hero, .section-header,
+   .cta-final, .footer) — nenhuma linguagem nova, só as peças de
+   conteúdo que a Home não precisava ter.
+=================================== */
+
+/* Faixa de seção genérica. A Home tem uma classe por seção (.formacoes,
+   .solucoes...) porque cada uma tem material de fundo próprio; nas
+   páginas internas o ritmo é claro/escuro alternado e uma utilitária
+   com modificador resolve sem multiplicar classes. */
+.section { padding: var(--space-4xl) 0; position: relative; }
+.section--white { background: var(--color-white); }
+.section--paper { background: var(--color-paper); }
+.section--mist  { background: var(--color-mist-bg); }
+.section--dark  { background: var(--color-navy-900); overflow: hidden; }
+
+/* Âncoras: a navbar é fixa (~7.6rem), então um id no topo da seção
+   ficaria escondido atrás dela ao pular pelo menu. */
+.section[id], .formacao[id] { scroll-margin-top: 11rem; }
+
+.section__head { margin-bottom: var(--space-2xl); }
+.section__head--center { text-align: center; }
+.section__head--center .section-header__sub { margin-inline: auto; }
+.section__head--center .overline { justify-content: center; }
+
+/* Bloco de texto corrido — usado nas aberturas ("Nossa Abordagem",
+   intro de cada aba). max-width em ch pra travar a medida de leitura. */
+.prose { max-width: 68ch; }
+.prose p { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
+.prose p + p { margin-top: var(--space-md); }
+.section--dark .prose p { color: rgba(var(--white-rgb), 0.72); }
+
+/* ---- Grade de cards de conteúdo ----
+   Uma única família cobre Missão/Visão (2), "O que nos move" (4),
+   blocos da Justiça Restaurativa (4/5) e subpontos de Soluções (3). */
+.card-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+@media (min-width: 700px)  { .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 700px)  { .card-grid--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 700px)  { .card-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+
+.info-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.info-card:hover { transform: translateY(-4px); border-color: rgba(var(--teal-rgb), 0.28); box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.10); }
+
+.info-card__icon {
+  width: 4.4rem; height: 4.4rem;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--color-navy) 0%, var(--color-teal) 100%);
+  color: var(--color-white);
+  font-size: 1.7rem;
+  margin-bottom: var(--space-xs);
+}
+
+.info-card__num {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-accent);
+}
+
+.info-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  text-wrap: balance;
+}
+
+.info-card__desc { font-size: 1.4rem; color: var(--color-mist); line-height: var(--leading-body); }
+
+/* variante em fundo escuro — mesmo card de vidro do .proposito-card */
+.section--dark .info-card {
+  background: rgba(var(--white-rgb), 0.04);
+  border-color: rgba(var(--white-rgb), 0.10);
+  box-shadow: none;
+}
+.section--dark .info-card:hover { background: rgba(var(--white-rgb), 0.06); border-color: rgba(var(--white-rgb), 0.18); }
+.section--dark .info-card__title { color: var(--color-white); }
+.section--dark .info-card__desc { color: rgba(var(--white-rgb), 0.68); }
+
+/* card destacado — abre a lista de Missão/Visão sem virar cor nova */
+.info-card--accent { background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%); border-color: transparent; }
+.info-card--accent .info-card__title { color: var(--color-white); }
+.info-card--accent .info-card__desc { color: rgba(var(--white-rgb), 0.75); }
+.info-card--accent .info-card__num { color: var(--color-gold); }
+.info-card--accent .info-card__icon { background: rgba(var(--white-rgb), 0.10); border: 1px solid rgba(var(--white-rgb), 0.22); }
+
+/* ---- Lista com marcador de checagem ----
+   Cobre "Quando pode ser utilizada", "Como o IBPR pode apoiar",
+   "Competências desenvolvidas", "Diferenciais", "Estrutura da formação". */
+.check-list { display: grid; grid-template-columns: 1fr; gap: var(--space-sm); }
+@media (min-width: 800px) { .check-list--2col { grid-template-columns: repeat(2, 1fr); gap: var(--space-sm) var(--space-xl); } }
+
+.check-list li {
+  position: relative;
+  padding-left: 3rem;
+  font-size: 1.45rem;
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+}
+
+.check-list li::before {
+  content: "\f00c"; /* fa-check */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 1.9rem; height: 1.9rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  color: var(--color-teal);
+  background: rgba(var(--teal-rgb), 0.10);
+  border: 1px solid rgba(var(--teal-rgb), 0.22);
+}
+
+.section--dark .check-list li { color: rgba(var(--white-rgb), 0.72); }
+.section--dark .check-list li::before { color: var(--color-gold); background: rgba(var(--gold-rgb), 0.12); border-color: rgba(var(--gold-rgb), 0.32); }
+
+/* lista neutra (sem check) — pra "Público-alvo", que é enumeração e não
+   promessa de resultado; marcador vira a semente dourada da marca */
+.dot-list { display: grid; grid-template-columns: 1fr; gap: var(--space-xs); }
+@media (min-width: 800px) { .dot-list { grid-template-columns: repeat(2, 1fr); gap: var(--space-xs) var(--space-xl); } }
+.dot-list li { position: relative; padding-left: 1.8rem; font-size: 1.4rem; color: var(--color-mist); line-height: var(--leading-body); }
+.dot-list li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--color-accent); }
+
+/* ---- Título de bloco dentro de uma seção ---- */
+.block-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h5);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.block-title i { color: var(--color-accent); font-size: 0.85em; margin-right: var(--space-xs); }
+.section--dark .block-title { color: var(--color-white); border-bottom-color: rgba(var(--white-rgb), 0.12); }
+
+.block + .block { margin-top: var(--space-2xl); }
+
+/* ---- Navegação por âncora no topo de página com subseções ---- */
+.anchor-nav { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+
+.anchor-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-paper);
+  background: rgba(var(--white-rgb), 0.07);
+  border: 1px solid rgba(var(--white-rgb), 0.16);
+  border-radius: var(--radius-pill);
+  padding: 0.9rem 1.8rem;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.anchor-nav__link i { color: var(--color-gold); font-size: 1.1rem; }
+.anchor-nav__link:hover { background: rgba(var(--gold-rgb), 0.14); border-color: rgba(var(--gold-rgb), 0.42); color: var(--color-white); transform: translateY(-2px); }
+
+/* ---- Ficha de formação (formacoes.html) ----
+   Cada formação é um bloco longo: chamada, specs, competências,
+   público-alvo, estrutura, diferenciais e o que a instituição sai
+   capaz de implementar. Cartão largo pra separar uma formação da
+   próxima sem depender só de espaço em branco. */
+.formacao {
+  border-radius: 2.4rem;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.formacao + .formacao { margin-top: var(--space-2xl); }
+
+/* cabeçalho colorido — mesma família de gradientes dos cards da Home,
+   pra formação ter a mesma cor nos dois lugares do site */
+.formacao__head {
+  position: relative;
+  padding: var(--space-2xl) var(--space-xl);
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-teal) 100%);
+  overflow: hidden;
+}
+
+.formacao--pena-justa .formacao__head { background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%); }
+.formacao--escolar .formacao__head    { background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-green) 100%); }
+.formacao--estudantes .formacao__head { background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%); }
+
+.formacao__head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--white-rgb), 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--white-rgb), 0.07) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(ellipse at 30% 50%, black 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse at 30% 50%, black 10%, transparent 78%);
+  pointer-events: none;
+}
+
+.formacao__head > * { position: relative; z-index: 1; }
+
+.formacao__num {
+  position: absolute;
+  top: var(--space-md); right: var(--space-xl);
+  z-index: 0;
+  font-family: var(--font-display);
+  font-size: 7rem;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  color: rgba(var(--white-rgb), 0.12);
+  pointer-events: none;
+}
+
+.formacao__category {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-white);
+  background: rgba(var(--navy900-rgb), 0.35);
+  border: 1px solid rgba(var(--gold-rgb), 0.55);
+  border-radius: var(--radius-pill);
+  padding: 5px 13px;
+  margin-bottom: var(--space-md);
+}
+
+.formacao__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3vw, 3rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-white);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-snug);
+  max-width: 60rem;
+  text-wrap: balance;
+}
+
+.formacao__lead {
+  margin-top: var(--space-sm);
+  font-size: 1.55rem;
+  color: rgba(var(--white-rgb), 0.82);
+  line-height: var(--leading-body);
+  max-width: 62rem;
+}
+
+.formacao__body { padding: var(--space-2xl) var(--space-xl); }
+@media (min-width: 900px) { .formacao__head, .formacao__body { padding-inline: var(--space-2xl); } }
+
+.formacao__intro { max-width: 68ch; font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
+.formacao__intro + .formacao__intro { margin-top: var(--space-md); }
+
+/* faixa de specs — modalidade / carga horária / certificação */
+.spec-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--color-paper);
+  border: 1px solid var(--color-border-light);
+}
+
+@media (min-width: 800px) { .spec-row { grid-template-columns: repeat(3, 1fr); } }
+
+.spec { display: flex; gap: var(--space-md); align-items: flex-start; }
+
+.spec__icon {
+  width: 3.6rem; height: 3.6rem;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--teal-rgb), 0.28);
+  color: var(--color-teal);
+  font-size: 1.3rem;
+}
+
+.spec__label {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-navy-mid);
+  margin-bottom: 0.4rem;
+}
+
+.spec__value { font-size: 1.35rem; color: var(--color-navy); line-height: var(--leading-ui); }
+
+/* fecho da ficha — o que a instituição sai capaz de implementar */
+.formacao__outcome {
+  margin-top: var(--space-xl);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(150deg, rgba(var(--teal-rgb), 0.07) 0%, rgba(var(--gold-rgb), 0.05) 100%);
+  border: 1px solid rgba(var(--teal-rgb), 0.18);
+}
+
+.formacao__foot { margin-top: var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
+
+/* ---- Accordion (bio longa dos fundadores) ----
+   <details>/<summary> nativo: abre sem JS, é acessível por teclado de
+   graça e o estado fechado não fica no DOM como texto invisível. */
+.accordion { margin-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
+
+.accordion__summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  font-size: 1.35rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-teal);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--transition-fast);
+}
+
+.accordion__summary::-webkit-details-marker { display: none; }
+.accordion__summary:hover { color: var(--color-navy); }
+
+.accordion__summary i { font-size: 1.1rem; transition: transform var(--transition-base); }
+.accordion[open] .accordion__summary i { transform: rotate(180deg); }
+
+.accordion__content { padding-top: var(--space-md); }
+.accordion__content p { font-size: 1.45rem; color: var(--color-mist); line-height: var(--leading-body); }
+.accordion__content p + p { margin-top: var(--space-md); }
+
+@keyframes accordionReveal { from { opacity: 0; transform: translateY(-0.6rem); } to { opacity: 1; transform: translateY(0); } }
+.accordion[open] .accordion__content { animation: accordionReveal 0.35s ease-out; }
+@media (prefers-reduced-motion: reduce) { .accordion[open] .accordion__content { animation: none; } }
+
+/* ---- Estado pendente ----
+   Destino real ainda não existe (perfis sociais, e-mail institucional,
+   link da Hotmart). Em vez de href="#" — que parece link e não leva a
+   lugar nenhum — o elemento fica visível, sem ser link, e legendado
+   como pendente. Some assim que o cliente mandar o dado. */
+/* Sempre <span>, nunca <a>: sem href não há link morto pra clicar, então
+   basta tirar o cursor de mão e baixar o peso visual. */
+.is-pending { cursor: default; opacity: 0.55; }
+
+.footer__social-link.is-pending:hover { background: rgba(var(--white-rgb), 0.03); border-color: rgba(var(--white-rgb), 0.08); color: rgba(var(--white-rgb), 0.65); transform: none; }
+
+.pending-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.2rem;
+  color: var(--color-navy-mid);
+  font-style: italic;
+}
+
+.pending-note i { color: var(--color-warning); font-style: normal; }
+.section--dark .pending-note { color: rgba(var(--white-rgb), 0.6); }
+.section--dark .pending-note i { color: var(--color-gold); }
+
+/* botão em estado pendente — mantém a massa visual do CTA real pra
+   composição não mudar quando o link chegar */
+.btn.is-pending { background: var(--color-mist-bg); color: var(--color-navy-mid); box-shadow: none; }
+.btn.is-pending::after { display: none; }
+
+/* ---- Área do Aluno ---- */
+.aluno-panel {
+  max-width: 62rem;
+  margin-inline: auto;
+  text-align: center;
+  padding: var(--space-3xl) var(--space-xl);
+  border-radius: 2.4rem;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+}
+
+.aluno-panel__icon {
+  width: 7.2rem; height: 7.2rem;
+  margin: 0 auto var(--space-lg);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--color-navy) 0%, var(--color-teal) 100%);
+  color: var(--color-white);
+  font-size: 2.6rem;
+}
+
+.aluno-panel__title { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-sm); text-wrap: balance; }
+.aluno-panel__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-xl); }
+.aluno-panel__foot { margin-top: var(--space-lg); }
+
+/* ===================================
+   FOCO VISÍVEL E SALTO DE CONTEÚDO
+   O site não tinha nenhuma regra de foco, então valia o anel padrão do
+   Chrome (azul #005FCC). Medido contra os fundos reais: 2.93:1 sobre
+   navy-900 e 2.42:1 sobre navy — abaixo do mínimo de 3:1 que a WCAG 2.2
+   pede pra indicador de foco (SC 1.4.11). E como boa parte do site é
+   escura (Propósito, Soluções, Notícias, rodapé, todos os heros), quem
+   navega por teclado ficava sem referência justamente ali.
+   O anel usa --color-focus, que é contextual (navy no claro, dourado no
+   escuro) — ver tokens.css.
+=================================== */
+
+/* :focus-visible, não :focus — o anel aparece pra teclado e não pisca a
+   cada clique de mouse. Sem border-radius aqui de propósito: o outline
+   já acompanha o raio do próprio elemento, e forçar um valor deixaria
+   pílulas e círculos com anel quadrado. */
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Sobre foto o anel sozinho pode se perder: os cards de Soluções ganham
+   o halo como segunda camada. */
+.proj-card:focus-visible,
+.solucoes__panel:focus-visible {
+  box-shadow: 0 0 0 7px var(--color-focus-halo);
+}
+
+/* Dentro do menu mobile o scroll é vertical e o offset de 3px encostaria
+   na borda lateral. */
+.mobile-menu :focus-visible { outline-offset: 2px; }
+
+/* Salto de conteúdo: com navbar fixa + menu, quem usa teclado ou leitor
+   de tela passava por ~15 links antes de chegar ao conteúdo de cada
+   página. Fica escondido acima da dobra até receber foco. */
+.skip-link {
+  /* fixed, não absolute: com absolute ele fica ancorado no topo do
+     DOCUMENTO, então quem desse Tab no meio da página não o alcançaria
+     sem a tela dar um salto até o topo. */
+  position: fixed;
+  top: 0;
+  left: var(--container-pad);
+  z-index: 300;
+  transform: translateY(-130%);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background: var(--color-navy);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-ui);
+  padding: 1.2rem 2.4rem;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition-base);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+/* O próprio skip link é navy e some contra o navy do topo, então aqui o
+   anel é dourado (5.99:1 sobre navy) em vez do padrão contextual. */
+.skip-link:focus-visible { outline-color: var(--color-gold); }
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
+}
+
+/* Alvo do skip link: recebe foco por tabindex="-1" pra que o próximo Tab
+   continue de dentro do conteúdo (sem isso, em alguns navegadores o foco
+   ficava preso no link e a pessoa voltava pro menu). Sem anel: a
+   indicação aqui é a página ter pulado, e um contorno em volta do <main>
+   inteiro pareceria defeito. */
+#conteudo:focus { outline: none; }

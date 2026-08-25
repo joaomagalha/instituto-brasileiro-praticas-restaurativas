@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Notícias, artigos e bastidores da pesquisa em Justiça Restaurativa, publicados direto pelo Instituto Brasileiro de Práticas Restaurativas (IBPR)." name="description"/>
+<title>Notícias | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<!-- Compartilhamento (Open Graph / Twitter Card).
+     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
+     IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
+     de apontarem pra um endereço inventado. Quando o domínio existir,
+     acrescentar em cada página:
+       <meta content="https://DOMINIO/noticias.html" property="og:url"/>
+       <link href="https://DOMINIO/noticias.html" rel="canonical"/>
+     e trocar og:image pelo caminho absoluto (crawlers do WhatsApp e do
+     LinkedIn não resolvem caminho relativo).
+     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
+<meta content="Notícias | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
+<meta content="Notícias, artigos e bastidores da pesquisa em Justiça Restaurativa, publicados direto pelo Instituto Brasileiro de Práticas Restaurativas (IBPR)." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
+<meta content="pt_BR" property="og:locale"/>
+<meta content="assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Notícias | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
+<meta content="Notícias, artigos e bastidores da pesquisa em Justiça Restaurativa, publicados direto pelo Instituto Brasileiro de Práticas Restaurativas (IBPR)." name="twitter:description"/>
+<meta content="assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<!-- Tokens e componentes reais do site (mesma base do design system) -->
+<link href="assets/css/tokens.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
+
+<!-- navbar -->
+<header class="navbar" id="navbar">
+<div class="navbar__container">
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.png"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.png"/></a>
+<nav aria-label="Navegação principal" class="navbar__nav">
+<ul class="navbar__links">
+<li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
+<li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Justiça Restaurativa <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#o-que-e" role="menuitem">O que é Justiça Restaurativa?</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#educacao" role="menuitem">Justiça Restaurativa na Educação</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#justica-seguranca" role="menuitem">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="solucoes.html">Soluções</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+</ul>
+</li>
+<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="noticias.html">Notícias</a></li>
+</ul>
+</nav>
+<div class="navbar__actions">
+<a aria-label="Acessar Área do Aluno" class="btn btn--white navbar__cta" href="area-do-aluno.html">Área do Aluno</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="navbar__mobile-btn" id="menuBtn"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
+</div>
+</div>
+</header>
+
+<!-- mobile-menu -->
+<div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
+<div class="mobile-menu__header">
+<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.png"/>
+<button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
+</div>
+<nav class="mobile-menu__nav">
+<ul class="mobile-menu__links">
+<li><a class="mobile-menu__link" href="index.html">Início</a></li>
+<li><a class="mobile-menu__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="mobile-menu__link" href="solucoes.html">Soluções</a></li>
+<li><a class="mobile-menu__link" href="formacoes.html">Formações</a></li>
+<li><a aria-current="page" class="mobile-menu__link is-active" href="noticias.html">Notícias</a></li>
+<li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Justiça Restaurativa</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#o-que-e">O que é Justiça Restaurativa?</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#educacao">Justiça Restaurativa na Educação</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#justica-seguranca">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Formações</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+</ul>
+</nav>
+<div class="mobile-menu__footer">
+<a class="btn btn--primary mobile-menu__cta" href="area-do-aluno.html">Área do Aluno</a>
+</div>
+</div>
+<div aria-hidden="true" class="overlay" id="overlay"></div>
+
+<main id="conteudo" tabindex="-1">
+
+<!-- hero interno -->
+<section aria-label="Notícias" class="page-hero">
+<div aria-hidden="true" class="page-hero__glow"></div>
+<div class="container">
+<p class="overline overline--light page-hero__eyebrow">Notícias</p>
+<h1 data-aos="fade-up">Ciência, prática e atuação institucional, contadas pelo próprio IBPR.</h1>
+<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Atualizações sobre pesquisa, formações e a atuação do Instituto em Justiça Restaurativa, publicadas direto pelo IBPR, sem intermediários.</p>
+</div>
+</section>
+
+<!-- listagem de notícias -->
+<section aria-label="Lista de notícias" class="noticias" id="noticias-lista">
+<div aria-hidden="true" class="noticias__glow"></div>
+<div class="container">
+
+<!-- Estado vazio deliberado — sem conteúdo real ainda (tabela do Supabase
+     pro CMS de Notícias não foi desenhada), e notícia inventada é o erro
+     que o protótipo do Rauny cometeu (ver analise-prototipo.md). Mesmo
+     painel editorial da prévia da Home. Quando o primeiro post real
+     existir: apagar .noticias__empty e voltar com
+     <div class="noticias__grid" data-aos="fade-up">
+       <article class="service-card">
+         <div class="service-card__img-wrap"><i class="fa-solid fa-..."></i><span class="service-card__category">Categoria</span></div>
+         <div class="service-card__body"><span class="service-card__date">DD mmm AAAA</span><h3 class="service-card__title">Título</h3><p class="service-card__desc">Resumo.</p><a class="service-card__link" href="noticia.html">Ler notícia <i class="fa-solid fa-arrow-right"></i></a></div>
+       </article>
+     </div>
+     empilhando um card por post conforme o volume crescer. -->
+<div class="noticias__empty" data-aos="fade-up">
+<div aria-hidden="true" class="noticias__empty-grain"></div>
+<div class="noticias__empty-content">
+<span class="noticias__empty-status"><span aria-hidden="true" class="noticias__empty-pulse"></span>Primeiras publicações em preparação</span>
+<h2 class="noticias__empty-title">As primeiras notícias do IBPR estão a caminho.</h2>
+<p class="noticias__empty-desc">O Instituto vai publicar por aqui os resultados da pesquisa científica, as novidades das formações e os bastidores da atuação institucional, direto da própria equipe.</p>
+<ul class="noticias__empty-topics">
+<li><i aria-hidden="true" class="fa-solid fa-flask"></i>Pesquisa</li>
+<li><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Formações</li>
+<li><i aria-hidden="true" class="fa-solid fa-building-columns"></i>Institucional</li>
+</ul>
+</div>
+<div aria-hidden="true" class="noticias__empty-visual">
+<div class="ghost-card ghost-card--back"></div>
+<div class="ghost-card ghost-card--mid"></div>
+<div class="ghost-card ghost-card--front">
+<span class="ghost-card__chip"></span>
+<span class="ghost-card__line ghost-card__line--title"></span>
+<span class="ghost-card__line"></span>
+<span class="ghost-card__line ghost-card__line--short"></span>
+<img loading="lazy" decoding="async" alt="" class="ghost-card__watermark" src="assets/images/ibpr-logo-icone.png"/>
+</div>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- cta final -->
+<section aria-label="Chamada final" class="cta-final" id="cta-final">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="cta-final__glow"></div>
+<div class="container">
+<p class="overline overline--light cta-final__eyebrow">Formações IBPR</p>
+<h2 class="cta-final__title" data-aos="fade-up">Leve Justiça Restaurativa pra dentro da sua instituição.</h2>
+<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações com base científica e certificação do IBPR, para profissionais da educação, da justiça e da segurança pública.</p>
+<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
+<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- footer -->
+<footer class="footer">
+<div class="container footer__container">
+<div class="footer__brand">
+<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.png"/>
+<p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa.</p>
+</div>
+<nav aria-label="Links do rodapé" class="footer__nav">
+<div class="footer__col">
+<h2 class="footer__col-title">Instituto</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="index.html">Início</a></li>
+<li><a class="footer__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="footer__link" href="justica-restaurativa.html">Justiça Restaurativa</a></li>
+<li><a class="footer__link" href="solucoes.html">Soluções</a></li>
+<li><a class="footer__link" href="formacoes.html">Formações</a></li>
+<li><a class="footer__link" href="noticias.html">Notícias</a></li>
+<li><a class="footer__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Formações</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="formacoes.html#execucao-penal">Execução Penal</a></li>
+<li><a class="footer__link" href="formacoes.html#pena-justa">Plano Pena Justa</a></li>
+<li><a class="footer__link" href="formacoes.html#ambiente-escolar">Ambiente Escolar</a></li>
+<li><a class="footer__link" href="formacoes.html#estudantes">Formação de Estudantes</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Contato</h2>
+<ul class="footer__links">
+<li><span class="footer__link is-pending" title="E-mail institucional ainda não definido pelo Instituto"><i class="fa-regular fa-envelope"></i> E-mail a confirmar</span></li>
+</ul>
+</div>
+</nav>
+</div>
+<div class="footer__bottom">
+<div class="container footer__bottom-container">
+<p class="footer__copy">© 2026 Instituto Brasileiro de Práticas Restaurativas (IBPR). Todos os direitos reservados.</p>
+<div class="footer__social">
+<span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
+<span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin"></i></span>
+<span aria-label="YouTube, canal a confirmar" class="footer__social-link is-pending" title="Canal oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-youtube"></i></span>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+<script>
+// disable como função: o AOS avalia na inicialização e desliga as animações
+// de rolagem pra quem pediu menos movimento no sistema. Sem isto a página
+// inteira animava igual, mesmo com prefers-reduced-motion ativo.
+AOS.init({
+  duration: 800, easing: 'ease-out', once: true, offset: 60,
+  disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+});
+</script>
+<script src="assets/js/site-interactions.js?v=20260825d"></script>
+</body>
+</html>

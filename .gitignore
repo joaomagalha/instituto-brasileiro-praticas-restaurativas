@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+._*
+
+# segredos — nunca versionar
+.env
+.env.*
+*.pem
+*.key
+
+# dependências e build (caso o projeto passe a usar)
+node_modules/
+.vercel
+dist/

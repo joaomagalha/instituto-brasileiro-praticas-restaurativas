@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Pesquisa, formação e inovação em Justiça Restaurativa. Conheça o IBPR e as formações para profissionais da educação, da justiça e da segurança pública." name="description"/>
+<title>Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<!-- Compartilhamento (Open Graph / Twitter Card).
+     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
+     IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
+     de apontarem pra um endereço inventado. Quando o domínio existir,
+     acrescentar em cada página:
+       <meta content="https://DOMINIO/index.html" property="og:url"/>
+       <link href="https://DOMINIO/index.html" rel="canonical"/>
+     e trocar og:image pelo caminho absoluto (crawlers do WhatsApp e do
+     LinkedIn não resolvem caminho relativo).
+     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
+<meta content="Pesquisa, formação e inovação em Justiça Restaurativa. Conheça o IBPR e as formações para profissionais da educação, da justiça e da segurança pública." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
+<meta content="pt_BR" property="og:locale"/>
+<meta content="assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
+<meta content="Pesquisa, formação e inovação em Justiça Restaurativa. Conheça o IBPR e as formações para profissionais da educação, da justiça e da segurança pública." name="twitter:description"/>
+<meta content="assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
+<link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<!-- Tokens e componentes reais do site (mesma base do design system) -->
+<link href="assets/css/tokens.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260825d" rel="stylesheet"/>
+<link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+<!-- Dados estruturados: ajudam o Google a entender que isto é uma
+     instituição de ensino (e quais formações ela oferece), em vez de
+     uma página institucional qualquer. Sem "url" e sem "offers" porque
+     dependem do domínio e do preço, que ainda não existem. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "Instituto Brasileiro de Práticas Restaurativas",
+  "alternateName": "IBPR",
+  "description": "Instituto dedicado à pesquisa, à formação e à inovação em Justiça Restaurativa, desenvolvendo soluções baseadas em evidências para instituições públicas, empresas e comunidades.",
+  "knowsAbout": [
+    "Justiça Restaurativa",
+    "Práticas Restaurativas",
+    "Execução penal",
+    "Plano Pena Justa",
+    "Cultura de convivência escolar"
+  ],
+  "founder": [
+    {
+      "@type": "Person",
+      "name": "Decildo Lopes",
+      "jobTitle": "Juiz de Direito"
+    },
+    {
+      "@type": "Person",
+      "name": "Fernanda Mariela Lopes",
+      "jobTitle": "Administradora e Advogada"
+    },
+    {
+      "@type": "Person",
+      "name": "Rauny Viana",
+      "jobTitle": "Assessor de Relações Institucionais"
+    }
+  ]
+}
+</script>
+</head>
+<body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
+<!-- navbar -->
+<header class="navbar" id="navbar">
+<div class="navbar__container">
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.png"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.png"/></a>
+<nav aria-label="Navegação principal" class="navbar__nav">
+<ul class="navbar__links">
+<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="index.html">Início</a></li>
+<li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Justiça Restaurativa <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#o-que-e" role="menuitem">O que é Justiça Restaurativa?</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#educacao" role="menuitem">Justiça Restaurativa na Educação</a></li>
+<li><a class="navbar__dropdown-link" href="justica-restaurativa.html#justica-seguranca" role="menuitem">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="solucoes.html">Soluções</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+</ul>
+</li>
+<li class="navbar__item"><a class="navbar__link" href="noticias.html">Notícias</a></li>
+</ul>
+</nav>
+<div class="navbar__actions">
+<a aria-label="Acessar Área do Aluno" class="btn btn--white navbar__cta" href="area-do-aluno.html">Área do Aluno</a>
+<button aria-expanded="false" aria-label="Abrir menu" class="navbar__mobile-btn" id="menuBtn"><i aria-hidden="true" class="fa-solid fa-bars"></i></button>
+</div>
+</div>
+</header>
+
+<!-- mobile-menu -->
+<div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
+<div class="mobile-menu__header">
+<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.png"/>
+<button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
+</div>
+<nav class="mobile-menu__nav">
+<ul class="mobile-menu__links">
+<li><a class="mobile-menu__link" href="index.html">Início</a></li>
+<li><a class="mobile-menu__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="mobile-menu__link" href="solucoes.html">Soluções</a></li>
+<li><a class="mobile-menu__link" href="formacoes.html">Formações</a></li>
+<li><a class="mobile-menu__link" href="noticias.html">Notícias</a></li>
+<li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Justiça Restaurativa</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#o-que-e">O que é Justiça Restaurativa?</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#educacao">Justiça Restaurativa na Educação</a></li>
+<li><a class="mobile-menu__service-link" href="justica-restaurativa.html#justica-seguranca">Práticas Restaurativas na Justiça e Sistema Prisional</a></li>
+</ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">Formações</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+</ul>
+</nav>
+<div class="mobile-menu__footer">
+<a class="btn btn--primary mobile-menu__cta" href="area-do-aluno.html">Área do Aluno</a>
+
+</div>
+</div>
+<div aria-hidden="true" class="overlay" id="overlay"></div>
+
+<main id="conteudo" tabindex="-1">
+
+<!-- hero -->
+<section aria-label="Apresentação" class="hero hero--video" id="hero">
+<div class="hero__bg">
+<video aria-hidden="true" autoplay="" class="hero__video" loop="" muted="" playsinline="" poster="assets/images/hero-instituto-poster.jpg" preload="metadata" webkit-playsinline="">
+<source src="assets/videos/hero-instituto-loop.mp4" type="video/mp4"/>
+</video>
+<div aria-hidden="true" class="hero__overlay"></div>
+<div aria-hidden="true" class="hero__bg-grid"></div>
+</div>
+<div class="hero__content container">
+<p class="overline overline--light hero__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
+<h1 class="hero__title">Ciência, prática e inovação em <span class="hero__accent">Justiça Restaurativa</span>.</h1>
+<p class="hero__subtitle">Problemas, conflitos e danos são inevitáveis em qualquer sociedade. A forma como respondemos a eles é uma escolha.</p>
+<div class="hero__actions">
+<a class="btn btn--white hero__cta" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow link-arrow--light" href="solucoes.html">Sou uma instituição <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<!-- TODO: número provisório — confirmar com o cliente após reunião e trocar por dado real (profissionais formados, instituições atendidas ou anos de atuação) -->
+<p class="hero__trust"><i aria-hidden="true" class="fa-solid fa-circle-check"></i> +500 profissionais formados em Justiça Restaurativa</p>
+</div>
+</section>
+
+<!-- nosso propósito -->
+<section aria-label="Nosso propósito" class="proposito" id="proposito">
+<div aria-hidden="true" class="proposito__glow"></div>
+<div class="container">
+<div class="section-header section-header--dark" data-aos="fade-up">
+<p class="overline overline--light">Nosso propósito</p>
+<h2>Pesquisa, formação e inovação, juntas.</h2>
+<p class="section-header__sub">Famílias, escolas, empresas e instituições públicas convivem diariamente com situações que geram sofrimento, rompem relações e desafiam a convivência. É possível desenvolver conhecimentos, habilidades e práticas para construir respostas mais qualificadas.</p>
+</div>
+<div class="proposito__grid">
+
+<article class="proposito-card" data-aos="fade-up">
+<div aria-hidden="true" class="proposito-card__grain"></div>
+<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-magnifying-glass"></i></div>
+<h3 class="proposito-card__title">Pesquisa</h3>
+<p class="proposito-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
+<div class="proposito-card__illustration">
+<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+<rect class="svg-doc-base" fill="rgba(255,255,255,0.04)" height="128" rx="10" stroke="rgba(255,255,255,0.14)" stroke-width="1.2" width="120" x="40" y="16"/>
+<rect class="svg-doc-inner" fill="rgba(255,255,255,0.05)" height="104" rx="7" stroke="rgba(255,255,255,0.10)" stroke-width="1" width="96" x="52" y="28"/>
+<circle class="svg-accent-circle" cx="72" cy="52" fill="rgba(201,162,43,0.10)" r="12" stroke="rgba(201,162,43,0.32)" stroke-width="0.8"/>
+<circle class="svg-search-lens" cx="70" cy="50" fill="none" r="5" stroke="var(--color-gold)" stroke-width="1.5"/>
+<line class="svg-search-handle" stroke="var(--color-gold)" stroke-linecap="round" stroke-width="1.5" x1="74" x2="78" y1="54" y2="58"/>
+<line stroke="rgba(255,255,255,0.20)" stroke-linecap="round" stroke-width="4" x1="92" x2="136" y1="47" y2="47"/>
+<line stroke="rgba(255,255,255,0.10)" stroke-linecap="round" stroke-width="4" x1="92" x2="122" y1="57" y2="57"/>
+<line stroke="rgba(255,255,255,0.10)" stroke-width="0.8" x1="62" x2="138" y1="74" y2="74"/>
+<rect fill="rgba(255,255,255,0.14)" height="5" rx="2.5" width="76" x="62" y="84"/>
+<rect fill="rgba(255,255,255,0.10)" height="5" rx="2.5" width="56" x="62" y="95"/>
+<rect fill="rgba(255,255,255,0.07)" height="5" rx="2.5" width="66" x="62" y="106"/>
+</svg>
+</div>
+</article>
+
+<article class="proposito-card" data-aos="fade-up" data-aos-delay="100">
+<div aria-hidden="true" class="proposito-card__grain"></div>
+<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-graduation-cap"></i></div>
+<h3 class="proposito-card__title">Formação</h3>
+<p class="proposito-card__desc">Capacitar gestores, profissionais e equipes para desenvolver respostas mais qualificadas.</p>
+<div class="proposito-card__illustration">
+<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+<circle class="svg-ring svg-ring--outer" cx="100" cy="80" r="60" stroke="rgba(255,255,255,0.14)" stroke-dasharray="8,5" stroke-width="0.8"/>
+<circle class="svg-ring svg-ring--mid" cx="100" cy="80" r="46" stroke="rgba(255,255,255,0.20)" stroke-dasharray="5,5" stroke-width="1"/>
+<circle class="svg-ring svg-ring--inner" cx="100" cy="80" r="32" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3,4" stroke-width="0.8"/>
+<g class="svg-compass">
+<circle cx="100" cy="80" fill="rgba(255,255,255,0.06)" r="22" stroke="rgba(255,255,255,0.25)" stroke-width="1.2"/>
+<circle cx="100" cy="80" fill="rgba(255,255,255,0.05)" r="18"/>
+<path class="svg-needle" d="M93 76L100 70L107 76" fill="none" stroke="var(--color-gold)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+<line stroke="var(--color-gold)" stroke-linecap="round" stroke-width="1.8" x1="100" x2="100" y1="70" y2="86"/>
+<path d="M107 84L100 90L93 84" fill="none" stroke="rgba(255,255,255,0.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+</g>
+<circle class="svg-node svg-node--1" cx="100" cy="20" fill="var(--color-gold)" r="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+<circle class="svg-node svg-node--2" cx="100" cy="140" fill="var(--color-gold)" r="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+<circle class="svg-node svg-node--3" cx="40" cy="80" fill="rgba(255,255,255,0.4)" opacity="0.5" r="2.5"/>
+<circle class="svg-node svg-node--4" cx="160" cy="80" fill="rgba(255,255,255,0.4)" opacity="0.5" r="2.5"/>
+</svg>
+</div>
+</article>
+
+<article class="proposito-card" data-aos="fade-up" data-aos-delay="200">
+<div aria-hidden="true" class="proposito-card__grain"></div>
+<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-lightbulb"></i></div>
+<h3 class="proposito-card__title">Inovação</h3>
+<p class="proposito-card__desc">Desenvolver soluções para escolas, empresas e instituições responderem de forma mais restaurativa.</p>
+<div class="proposito-card__illustration">
+<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+<line stroke="rgba(255,255,255,0.12)" stroke-width="0.8" x1="24" x2="176" y1="130" y2="130"/>
+<line stroke="rgba(255,255,255,0.09)" stroke-width="0.8" x1="24" x2="176" y1="100" y2="100"/>
+<line stroke="rgba(255,255,255,0.06)" stroke-width="0.8" x1="24" x2="176" y1="70" y2="70"/>
+<path class="svg-chart-curve" d="M24 128C50 118 80 96 110 74C140 54 158 42 176 38" stroke="var(--color-gold)" stroke-linecap="round" stroke-width="2.5"/>
+<path d="M24 128C50 118 80 96 110 74C140 54 158 42 176 38L176 130L24 130Z" fill="url(#chartGradientHome)" opacity="0.6"/>
+<defs>
+<linearGradient gradientUnits="userSpaceOnUse" id="chartGradientHome" x1="100" x2="100" y1="38" y2="130">
+<stop offset="0%" stop-color="var(--color-gold)" stop-opacity="0.22"/>
+<stop offset="100%" stop-color="var(--color-gold)" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<circle class="svg-chart-point" cx="176" cy="38" fill="var(--color-gold)" r="5" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+</svg>
+</div>
+</article>
+
+</div>
+</div>
+</section>
+
+<!-- citação institucional -->
+<section aria-label="Citação institucional" class="quotes" id="citacao">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="quotes__texture"></div>
+<div class="container">
+<div class="quote-mark" data-aos="fade-up">
+<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="quote-mark__emblem" src="assets/images/ibpr-logo-icone-navy.png"/>
+<blockquote class="quote-mark__text">Quando cuidamos das relações, transformamos histórias e construímos um futuro com mais humanidade.</blockquote>
+<footer class="quote-mark__footer">
+<span aria-hidden="true" class="quote-mark__seeds"><i></i><i></i><i></i></span>
+<cite class="quote-mark__cite"><strong>IBPR</strong><span>Manual de marca, citação institucional</span></cite>
+</footer>
+</div>
+</div>
+</section>
+
+<!-- formações -->
+<section aria-label="Formações" class="formacoes" id="formacoes">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
+<p class="overline overline--light">Formações</p>
+<h2>Conhecimento que transforma a prática.</h2>
+<p class="section-header__sub">As formações do IBPR combinam pesquisa científica, experiência prática e aprendizagem aplicada, para desenvolver competências que se incorporam de imediato ao exercício profissional.</p>
+</div>
+<a class="btn btn--dark" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<!-- Carrossel em loop: o JS (site-interactions.js) clona os cards uma vez
+     pra dar continuidade ao trilho, então qualquer card pode assumir a
+     primeira posição e os 4 pontos abaixo são posições reais. -->
+<!-- Público-alvo, modalidades e certificação de cada card vêm do
+     conteúdo oficial do cliente (assets/conteudo-inicial-site.docx,
+     Aba 4) — nada inventado. Carga horária ficou de fora de propósito:
+     no docx ela é "definida conforme a instituição contratante", não
+     é um número fixo que caiba num chip. -->
+<div class="services__viewport" data-aos="fade-up">
+<div class="services__track" id="servicesTrack">
+<article class="service-card">
+<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">01</span><i aria-hidden="true" class="fa-solid fa-scale-balanced"></i><span class="service-card__category">Execução Penal</span></div>
+<div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · Híbrida</span><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-certificate"></i>Certificação IBPR</span></div><a class="service-card__link" href="formacoes.html#execucao-penal">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+</article>
+<article class="service-card service-card--pena-justa">
+<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">02</span><i aria-hidden="true" class="fa-solid fa-building-shield"></i><span class="service-card__category">Pena Justa</span></div>
+<div class="service-card__body"><p class="service-card__audience">Para gestores e comitês de políticas penais</p><h3 class="service-card__title">Implementação da JR no Plano Pena Justa</h3><p class="service-card__desc">Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · On-line · Híbrida</span><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-certificate"></i>Certificação IBPR</span></div><a class="service-card__link" href="formacoes.html#pena-justa">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+</article>
+<article class="service-card service-card--escolar">
+<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">03</span><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i><span class="service-card__category">Educação</span></div>
+<div class="service-card__body"><p class="service-card__audience">Para diretores, professores e equipes</p><h3 class="service-card__title">Práticas Restaurativas no Ambiente Escolar</h3><p class="service-card__desc">Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · On-line · Híbrida</span><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-certificate"></i>Certificação IBPR</span></div><a class="service-card__link" href="formacoes.html#ambiente-escolar">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+</article>
+<article class="service-card service-card--estudantes">
+<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">04</span><i aria-hidden="true" class="fa-solid fa-people-group"></i><span class="service-card__category">Estudantes</span></div>
+<div class="service-card__body"><p class="service-card__audience">Para estudantes do Fundamental II e Médio</p><h3 class="service-card__title">Formação de Estudantes em Práticas Restaurativas</h3><p class="service-card__desc">Forma estudantes multiplicadores da cultura restaurativa, com metodologia vivencial adaptada a cada faixa etária.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial</span><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-certificate"></i>Certificação IBPR</span></div><a class="service-card__link" href="formacoes.html#estudantes">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+</article>
+</div>
+</div>
+<div class="services__nav">
+<div aria-label="Navegação das formações" class="services__dots" id="servicesDots" role="group">
+<button aria-label="Ir para a formação 1" class="services__dot services__dot--active"></button>
+<button aria-label="Ir para a formação 2" class="services__dot"></button>
+<button aria-label="Ir para a formação 3" class="services__dot"></button>
+<button aria-label="Ir para a formação 4" class="services__dot"></button>
+</div>
+<div class="services__arrows">
+<button aria-label="Formação anterior" class="services__arrow services__arrow--prev"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i></button>
+<button aria-label="Próxima formação" class="services__arrow services__arrow--next"><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></button>
+</div>
+</div>
+<!-- Itens vindos dos "Diferenciais da formação" reais do docx (base em
+     evidências, modalidades, personalização por instituição, certificado
+     IBPR) — substituíram rótulos genéricos que não tinham lastro no
+     conteúdo oficial ("Material Didático", "Conteúdo Digital"). -->
+<div class="formacoes__beneficios" data-aos="fade-up">
+<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-flask"></i></div><span class="formacoes__beneficio-label">Base em <strong>Evidências Científicas</strong></span></div>
+<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-people-arrows"></i></div><span class="formacoes__beneficio-label">Teoria, Casos e <strong>Atividades Práticas</strong></span></div>
+<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-sliders"></i></div><span class="formacoes__beneficio-label">Personalizada para <strong>Sua Instituição</strong></span></div>
+<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-certificate"></i></div><span class="formacoes__beneficio-label">Certificação <strong>IBPR</strong></span></div>
+</div>
+</div>
+</section>
+
+<!-- soluções -->
+<section aria-label="Soluções" class="solucoes" id="solucoes-preview">
+<div class="container">
+<div class="section-header section-header--dark" data-aos="fade-up">
+<p class="overline overline--light">Soluções</p>
+<h2>Diferentes desafios exigem diferentes experiências.</h2>
+<p class="section-header__sub">Cada solução é construída a partir dos objetivos pretendidos e das necessidades das pessoas envolvidas.</p>
+</div>
+<div class="solucoes__layout">
+<div class="solucoes__nav-col">
+<nav aria-label="Soluções" class="solucoes__nav" id="solucoesNav">
+<button aria-current="true" class="solucoes__nav-item is-active" data-target="solucao-1" type="button">
+<span class="solucoes__nav-index">01</span>
+<span class="solucoes__nav-body">
+<span class="solucoes__nav-title">Fortalecer relações</span>
+<span class="solucoes__nav-desc">A rotina institucional costuma aproximar funções, mas nem sempre aproxima pessoas. Desenvolvemos processos que fortalecem relações de confiança e o sentimento de pertencimento entre as equipes.</span>
+</span>
+</button>
+<button aria-current="false" class="solucoes__nav-item" data-target="solucao-2" type="button">
+<span class="solucoes__nav-index">02</span>
+<span class="solucoes__nav-body">
+<span class="solucoes__nav-title">Construir respostas</span>
+<span class="solucoes__nav-desc">Em vez de receber soluções prontas, as pessoas diretamente afetadas participam da construção das respostas aos problemas, conflitos e danos, o que amplia o comprometimento com os resultados.</span>
+</span>
+</button>
+<button aria-current="false" class="solucoes__nav-item" data-target="solucao-3" type="button">
+<span class="solucoes__nav-index">03</span>
+<span class="solucoes__nav-body">
+<span class="solucoes__nav-title">Transformar instituições</span>
+<span class="solucoes__nav-desc">Cada problema enfrentado por uma instituição pode representar uma oportunidade de aprendizado. Estruturamos programas permanentes que transformam experiências em cultura institucional.</span>
+</span>
+</button>
+</nav>
+</div>
+<div class="solucoes__panels-col">
+<!-- Os subpontos de cada painel são os títulos reais dos processos que o
+     docx oficial (Aba 3) lista dentro de cada solução, encurtados pra
+     caber no card — 3/3/2, mesma contagem do conteúdo do cliente. -->
+<div class="solucoes__panels" id="solucoesPanels">
+<a class="proj-card proj-card--featured solucoes__panel" href="solucoes.html#solucao-relacoes" id="solucao-1">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/relacoes.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<span aria-hidden="true" class="proj-card__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-handshake"></i>Relações</span><h3 class="proj-card__name">Fortalecer relações</h3><p class="proj-card__desc">Construir vínculos mais saudáveis entre pessoas, famílias e comunidades.</p><ul class="proj-card__points"><li>Conhecer as pessoas além dos papéis que ocupam</li><li>Espaço seguro para o que costuma ficar em silêncio</li><li>Diálogo sem as barreiras da hierarquia</li></ul></div>
+</a>
+<a class="proj-card solucoes__panel solucoes__panel--alt" href="solucoes.html#solucao-respostas" id="solucao-2">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/respostas.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<span aria-hidden="true" class="proj-card__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-comments"></i>Diálogo</span><h3 class="proj-card__name">Construir respostas</h3><p class="proj-card__desc">As pessoas afetadas participam da construção das respostas aos conflitos, em vez de recebê-las prontas.</p><ul class="proj-card__points"><li>Compreender os impactos das próprias ações</li><li>Respostas construídas em conjunto, não impostas</li><li>Novos caminhos para situações complexas</li></ul></div>
+</a>
+<a class="proj-card solucoes__panel" href="solucoes.html#solucao-instituicoes" id="solucao-3">
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/instituicoes.jpg"/>
+<div aria-hidden="true" class="proj-card__overlay"></div>
+<span aria-hidden="true" class="proj-card__arrow"><i class="fa-solid fa-arrow-up-right"></i></span>
+<div class="proj-card__body"><span class="proj-card__badge"><i class="fa-solid fa-building-columns"></i>Instituições</span><h3 class="proj-card__name">Transformar instituições</h3><p class="proj-card__desc">Experiências pontuais viram programas permanentes de aprendizagem institucional.</p><ul class="proj-card__points"><li>Experiências concretas viram conhecimento coletivo</li><li>Programas permanentes, não intervenções pontuais</li></ul></div>
+</a>
+</div>
+</div>
+</div>
+<div class="solucoes__foot" data-aos="fade-up">
+<a class="btn btn--white" href="solucoes.html">Conhecer todas as soluções <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+<!-- vídeo institucional -->
+<!-- TODO: vídeo real de um dos fundadores (Decildo ou Fernanda, a
+     definir com o cliente) apresentando brevemente o Instituto. Até lá,
+     .about-video__media fica como placeholder (mesmo material visual do
+     retrato dos fundadores) — quando o vídeo existir, troca por
+     <video class="about-video__file" poster="..." controls><source src="..."/></video>
+     no lugar da div, mantendo .about-video__media como wrapper. -->
+<section aria-label="Conheça o Instituto" class="about-video" id="video-institucional">
+<div class="container">
+<div class="about-video__grid">
+<div class="about-video__media" data-aos="fade-up">
+<span class="about-video__label">Vídeo em breve</span>
+<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="about-video__watermark" src="assets/images/ibpr-logo-icone.png"/>
+<div class="about-video__play"><span aria-hidden="true" class="about-video__play-icon"><i class="fa-solid fa-play"></i></span></div>
+</div>
+<div class="about-video__content" data-aos="fade-up" data-aos-delay="100">
+<div class="section-header">
+<p class="overline overline--light">Conheça o Instituto</p>
+<h2>Ouça diretamente de quem constrói o IBPR.</h2>
+<p class="section-header__sub">Em poucos minutos, um dos fundadores apresenta a missão do Instituto e o que move a <span class="text-accent">pesquisa, a formação e a inovação</span> em Justiça Restaurativa: a ciência e a prática por trás do trabalho do IBPR.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- fundadores (prévia) -->
+<section aria-label="Fundadores" class="founders" id="fundadores-preview">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="founders__glow"></div>
+<div class="container">
+<div class="section-header founders__header" data-aos="fade-up">
+<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy.png"/>
+<p class="overline overline--light">Fundadores</p>
+<h2>Quem constrói o IBPR.</h2>
+</div>
+
+<div class="founders__list">
+
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundador</span>
+<img alt="Decildo Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/decildo-lopes.jpg" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Decildo Lopes</h3>
+<p class="founder__credentials">Juiz de Direito <span aria-hidden="true">·</span> TJGO</p>
+<p class="founder__bio">Juiz de Direito do TJGO há mais de duas décadas, com passagem pelo Grupo de Monitoramento e Fiscalização do Sistema Carcerário de Goiás e pelo Grupo de Trabalho do Ministério da Justiça sobre Justiça Restaurativa no sistema prisional. Mestre em Políticas Públicas e doutorando em Direito, foi pesquisador visitante na Australian National University e recebeu o prêmio de Melhor Prática da Justiça Criminal Brasileira (FONAJUC, 2019). É coautor do livro "Justiça Restaurativa na Execução Penal".</p>
+</div>
+</article>
+
+<div aria-hidden="true" class="founders__divider">
+<span class="founders__divider-line"></span>
+<span class="founders__seeds"><i></i><i></i><i></i></span>
+<span class="founders__divider-line"></span>
+</div>
+
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundadora</span>
+<img alt="Fernanda Mariela Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/fernanda-mariela-lopes.jpg" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Fernanda Mariela Lopes</h3>
+<p class="founder__credentials">Administradora <span aria-hidden="true">·</span> Advogada</p>
+<p class="founder__bio">Administradora de Empresas e Advogada, com especialização em Docência do Ensino Superior. Foi professora da Universidade Estadual de Goiás (UEG) e Subprocuradora-Geral do Município de Goianésia, acumulando experiência em gestão pública, docência e assessoria jurídica. É facilitadora de Círculos de Construção de Paz certificada pela Escola Judicial do TJGO (EJUG).</p>
+</div>
+</article>
+
+<div aria-hidden="true" class="founders__divider">
+<span class="founders__divider-line"></span>
+<span class="founders__seeds"><i></i><i></i><i></i></span>
+<span class="founders__divider-line"></span>
+</div>
+
+<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+<span class="founder__frame-label">Fundador</span>
+<img alt="Rauny Viana" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/rauny-viana.jpg?v=2" width="700"/>
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">Rauny Viana</h3>
+<p class="founder__credentials">Assessor de Relações Institucionais <span aria-hidden="true">·</span> NUGJUR/TJMT</p>
+<p class="founder__bio">Graduado em Gestão de Recursos Humanos, atua como Assessor de Relações Institucionais do NUGJUR/TJMT, participando da elaboração de políticas públicas e da construção de parcerias institucionais com o Judiciário, o Ministério Público e os sistemas de educação e segurança pública. É idealizador do Sistema RESTAURA, plataforma de gestão de programas restaurativos com mais de 30 mil participações registradas e 33 acordos de cooperação firmados.</p>
+</div>
+</article>
+
+</div>
+<div class="founders__foot">
+<a class="btn btn--dark" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+<!-- notícias -->
+<section aria-label="Notícias" class="noticias" id="noticias-preview">
+<div aria-hidden="true" class="noticias__glow"></div>
+<div class="container">
+<div class="noticias__header section-header section-header--dark" data-aos="fade-up">
+<div>
+<p class="overline overline--light">Notícias</p>
+<h2>Acompanhe as novidades do IBPR.</h2>
+<p class="section-header__sub">Atualizações sobre pesquisa, formações e atuação institucional, publicadas direto pelo Instituto.</p>
+</div>
+<a class="btn btn--white" href="noticias.html">Ver todas as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<!-- Estado vazio deliberado — ainda não existe notícia real (tabela do
+     Supabase pro CMS nem foi desenhada) e notícia inventada é o erro que
+     o protótipo do Rauny cometeu (ver analise-prototipo.md). Em vez de 3
+     cards "Em breve" idênticos, um painel editorial único: statement +
+     categorias reais + visual de artigos a caminho. Quando o primeiro
+     post real existir: apagar .noticias__empty e voltar com
+     <div class="noticias__grid"> de <article class="service-card">
+     (componente igual ao das Formações, com .service-card__date). -->
+<div class="noticias__empty" data-aos="fade-up" data-aos-delay="100">
+<div aria-hidden="true" class="noticias__empty-grain"></div>
+<div class="noticias__empty-content">
+<span class="noticias__empty-status"><span aria-hidden="true" class="noticias__empty-pulse"></span>Primeiras publicações em preparação</span>
+<h3 class="noticias__empty-title">As primeiras notícias do IBPR estão a caminho.</h3>
+<p class="noticias__empty-desc">O Instituto vai publicar por aqui os resultados da pesquisa científica, as novidades das formações e os bastidores da atuação institucional, direto da própria equipe.</p>
+<ul class="noticias__empty-topics">
+<li><i aria-hidden="true" class="fa-solid fa-flask"></i>Pesquisa</li>
+<li><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Formações</li>
+<li><i aria-hidden="true" class="fa-solid fa-building-columns"></i>Institucional</li>
+</ul>
+</div>
+<div aria-hidden="true" class="noticias__empty-visual">
+<div class="ghost-card ghost-card--back"></div>
+<div class="ghost-card ghost-card--mid"></div>
+<div class="ghost-card ghost-card--front">
+<span class="ghost-card__chip"></span>
+<span class="ghost-card__line ghost-card__line--title"></span>
+<span class="ghost-card__line"></span>
+<span class="ghost-card__line ghost-card__line--short"></span>
+<img loading="lazy" decoding="async" alt="" class="ghost-card__watermark" src="assets/images/ibpr-logo-icone.png"/>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- cta final -->
+<section aria-label="Chamada final" class="cta-final" id="cta-final">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div aria-hidden="true" class="cta-final__glow"></div>
+<div class="container">
+<p class="overline overline--light cta-final__eyebrow">Formações IBPR</p>
+<h2 class="cta-final__title" data-aos="fade-up">Leve Justiça Restaurativa pra dentro da sua instituição.</h2>
+<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações com base científica e certificação do IBPR, para profissionais da educação, da justiça e da segurança pública.</p>
+<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
+<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
+</section>
+
+</main>
+
+<!-- footer -->
+<footer class="footer">
+<div class="container footer__container">
+<div class="footer__brand">
+<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.png"/>
+<p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa.</p>
+</div>
+<nav aria-label="Links do rodapé" class="footer__nav">
+<div class="footer__col">
+<h2 class="footer__col-title">Instituto</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="index.html">Início</a></li>
+<li><a class="footer__link" href="o-instituto.html">O Instituto</a></li>
+<li><a class="footer__link" href="justica-restaurativa.html">Justiça Restaurativa</a></li>
+<li><a class="footer__link" href="solucoes.html">Soluções</a></li>
+<li><a class="footer__link" href="formacoes.html">Formações</a></li>
+<li><a class="footer__link" href="noticias.html">Notícias</a></li>
+<li><a class="footer__link" href="area-do-aluno.html">Área do Aluno</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Formações</h2>
+<ul class="footer__links">
+<li><a class="footer__link" href="formacoes.html#execucao-penal">Execução Penal</a></li>
+<li><a class="footer__link" href="formacoes.html#pena-justa">Plano Pena Justa</a></li>
+<li><a class="footer__link" href="formacoes.html#ambiente-escolar">Ambiente Escolar</a></li>
+<li><a class="footer__link" href="formacoes.html#estudantes">Formação de Estudantes</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h2 class="footer__col-title">Contato</h2>
+<ul class="footer__links">
+<li><span class="footer__link is-pending" title="E-mail institucional ainda não definido pelo Instituto"><i class="fa-regular fa-envelope"></i> E-mail a confirmar</span></li>
+</ul>
+</div>
+</nav>
+</div>
+<div class="footer__bottom">
+<div class="container footer__bottom-container">
+<p class="footer__copy">© 2026 Instituto Brasileiro de Práticas Restaurativas (IBPR). Todos os direitos reservados.</p>
+<div class="footer__social">
+<span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
+<span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin"></i></span>
+<span aria-label="YouTube, canal a confirmar" class="footer__social-link is-pending" title="Canal oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-youtube"></i></span>
+</div>
+</div>
+</div>
+</footer>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+<script>
+// disable como função: o AOS avalia na inicialização e desliga as animações
+// de rolagem pra quem pediu menos movimento no sistema. Sem isto a página
+// inteira animava igual, mesmo com prefers-reduced-motion ativo.
+AOS.init({
+  duration: 800, easing: 'ease-out', once: true, offset: 60,
+  disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+});
+</script>
+<script src="assets/js/site-interactions.js?v=20260825d"></script>
+</body>
+</html>
