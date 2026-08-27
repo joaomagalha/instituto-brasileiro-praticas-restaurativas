@@ -2,6 +2,9 @@
 .DS_Store
 ._*
 
+# CLAUDE.md local (cita caminhos internos do vault pessoal, não é pra vazar)
+CLAUDE.md
+
 # segredos — nunca versionar
 .env
 .env.*
