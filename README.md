@@ -11,8 +11,7 @@ Site institucional do IBPR. HTML, CSS e JavaScript puros, sem framework e sem et
 | `praticas-restaurativas.html` | JR e práticas restaurativas, educação, justiça/sistema prisional, empresas |
 | `como-atuamos.html` | Fortalecer relações, construir respostas, transformar instituições |
 | `formacoes.html` | As 4 formações com competências, público-alvo e certificação |
-| `ideias-ibpr.html` | Artigos e reflexões do IBPR (em preparação) |
-| `noticias.html` | Listagem de notícias |
+| `ibpr-em-movimento.html` | Atuação do IBPR e da sua rede, dentro e fora do Instituto (em preparação) |
 | `area-do-aluno.html` | Acesso ao ambiente virtual de aprendizagem |
 
 ## Estrutura
