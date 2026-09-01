@@ -6,11 +6,12 @@ Site institucional do IBPR. HTML, CSS e JavaScript puros, sem framework e sem et
 
 | Arquivo | Conteúdo |
 |---|---|
-| `index.html` | Home: propósito, formações, soluções, fundadores e notícias |
-| `o-instituto.html` | Missão, visão, valores, abordagem e trajetória dos fundadores |
-| `justica-restaurativa.html` | O que é, na educação, e na justiça/segurança/sistema prisional |
-| `solucoes.html` | Fortalecer relações, construir respostas, transformar instituições |
+| `index.html` | Home: propósito, formações, como atuamos, as pessoas e notícias |
+| `o-instituto.html` | Missão, visão, valores, abordagem e as pessoas por trás do propósito |
+| `praticas-restaurativas.html` | JR e práticas restaurativas, educação, justiça/sistema prisional, empresas |
+| `como-atuamos.html` | Fortalecer relações, construir respostas, transformar instituições |
 | `formacoes.html` | As 4 formações com competências, público-alvo e certificação |
+| `ideias-ibpr.html` | Artigos e reflexões do IBPR (em preparação) |
 | `noticias.html` | Listagem de notícias |
 | `area-do-aluno.html` | Acesso ao ambiente virtual de aprendizagem |
 

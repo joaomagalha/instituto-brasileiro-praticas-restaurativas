@@ -2566,6 +2566,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    intro de cada aba). max-width em ch pra travar a medida de leitura. */
 .prose { max-width: 68ch; }
 .prose p { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
+/* usado quando o cliente pede o parágrafo alinhado nas duas margens pra
+   fechar com a lista logo abaixo (feedback aba Práticas Restaurativas) */
+.prose--justify { text-align: justify; text-align-last: left; }
 .prose p + p { margin-top: var(--space-md); }
 .section--dark .prose p { color: rgba(var(--white-rgb), 0.72); }
 
@@ -2591,7 +2594,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.info-card:hover { transform: translateY(-4px); border-color: rgba(var(--teal-rgb), 0.28); box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.10); }
+.info-card:hover { transform: translateY(-5px); border-color: rgba(var(--teal-rgb), 0.42); box-shadow: 0 20px 44px rgba(var(--navy900-rgb), 0.13); }
 
 .info-card__icon {
   width: 4.4rem; height: 4.4rem;
