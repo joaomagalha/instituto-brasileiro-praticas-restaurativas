@@ -115,7 +115,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .section-header__sub {
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   color: var(--color-mist);
   line-height: var(--leading-body);
   max-width: 46rem;
@@ -2569,6 +2569,129 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* usado quando o cliente pede o parágrafo alinhado nas duas margens pra
    fechar com a lista logo abaixo (feedback aba Práticas Restaurativas) */
 .prose--justify { text-align: justify; text-align-last: left; }
+
+/* ===================================================================
+   O Instituto — 3 seções que antes eram todas grade de .info-card.
+   Feedback do cliente (01/09): "muitos cards, um embaixo do outro".
+   Cada seção agora tem um dispositivo visual próprio.
+   =================================================================== */
+
+/* -- Missão e Visão: cabeçalho em 2 colunas (texto + painel da marca),
+      e as duas frases lado a lado separadas por um filete, sem card -- */
+.mv-head {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-3xl);
+  align-items: center;
+  margin-bottom: var(--space-3xl);
+}
+.mv-head__text .overline { margin-bottom: 1.8rem; }
+.mv-head__text h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  font-weight: var(--weight-regular);
+  color: var(--color-navy);
+  letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-display);
+}
+
+.brand-panel {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+  border: 1px solid rgba(var(--navy-rgb), 0.08);
+}
+.brand-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.brand-panel__glow {
+  position: absolute;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.38) 0%, rgba(var(--gold-rgb), 0.12) 45%, transparent 72%);
+  filter: blur(44px);
+}
+.brand-panel__emblem {
+  position: relative;
+  width: 40%;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3xl); }
+.mv-item__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-sm);
+  text-wrap: balance;
+}
+.mv-item__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
+
+@media (min-width: 700px) {
+  .mv-item:first-child { border-right: 1px solid rgba(var(--navy-rgb), 0.12); padding-right: var(--space-3xl); }
+}
+@media (max-width: 699px) {
+  .mv-head { grid-template-columns: 1fr; gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .mv-grid { grid-template-columns: 1fr; gap: var(--space-xl); }
+}
+
+/* -- Princípios: lista-manifesto numerada, sem card. Número acende e um
+      filete cresce no topo ao passar o mouse -- */
+.principles { list-style: none; display: flex; flex-direction: column; margin: 0; padding: 0; }
+.principle {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid rgba(var(--white-rgb), 0.12);
+}
+.principle:last-child { border-bottom: 1px solid rgba(var(--white-rgb), 0.12); }
+.principle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 2px;
+  width: 0;
+  background: var(--color-accent);
+  transition: width var(--transition-slow);
+}
+.principle:hover::before { width: 4.8rem; }
+.principle__num {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 3vw, 3.4rem);
+  font-weight: var(--weight-semibold);
+  color: rgba(var(--white-rgb), 0.22);
+  line-height: 1;
+  transition: color var(--transition-slow);
+}
+.principle:hover .principle__num { color: var(--color-accent); }
+.principle__title {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-semibold);
+  color: var(--color-white);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-xs);
+  text-wrap: balance;
+}
+.principle__desc { font-size: var(--text-body); color: rgba(var(--white-rgb), 0.68); line-height: var(--leading-body); max-width: 72ch; }
+@media (min-width: 800px) { .principle { grid-template-columns: 8rem 1fr; align-items: start; gap: var(--space-2xl); } }
 .prose p + p { margin-top: var(--space-md); }
 .section--dark .prose p { color: rgba(var(--white-rgb), 0.72); }
 
@@ -2624,7 +2747,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   text-wrap: balance;
 }
 
-.info-card__desc { font-size: 1.4rem; color: var(--color-mist); line-height: var(--leading-body); }
+.info-card__desc { font-size: 1.5rem; color: var(--color-mist); line-height: var(--leading-body); }
 
 /* variante em fundo escuro — mesmo card de vidro do .proposito-card */
 .section--dark .info-card {

@@ -71,8 +71,8 @@
   --text-h4:   clamp(1.6rem, 1.8vw, 2rem);
   --text-h5:   clamp(1.4rem, 1.5vw, 1.6rem);
   --text-h6:   clamp(1.2rem, 1.3vw, 1.4rem);
-  --text-body: clamp(1.5rem, 1.6vw, 1.7rem);
-  --text-sm:   1.3rem;
+  --text-body: clamp(1.6rem, 1.55vw, 1.8rem);
+  --text-sm:   1.35rem;
   --text-btn:  1.5rem;
 
   --weight-regular:  400;

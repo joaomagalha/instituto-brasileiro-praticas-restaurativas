@@ -28,8 +28,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260901b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260901b" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260901c" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260901c" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
@@ -129,58 +129,67 @@
 <section aria-label="Missão e visão" class="section section--white" id="missao-visao">
 <div aria-hidden="true" class="grid-overlay"></div>
 <div class="container" style="position:relative;z-index:1">
-<div class="section-header section__head" data-aos="fade-up">
+<div class="mv-head" data-aos="fade-up">
+<div class="mv-head__text">
 <p class="overline overline--light">Missão e visão</p>
-<h2>Por que o Instituto existe.</h2>
-<p class="section-header__sub">Reunimos pesquisa, formação e inovação para desenvolver soluções restaurativas baseadas em evidências e adaptadas aos desafios concretos enfrentados por instituições públicas, empresas e comunidades.</p>
+<h2>Por que o Instituto existe?</h2>
 </div>
-<div class="card-grid card-grid--2">
-<article class="info-card info-card--accent" data-aos="fade-up">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-compass"></i></div>
-<span class="info-card__num">Nossa missão</span>
-<h3 class="info-card__title">Contribuir para respostas mais qualificadas.</h3>
-<p class="info-card__desc">Contribuir para que pessoas e instituições construam respostas mais qualificadas aos problemas, conflitos e danos da sociedade por meio da pesquisa, da formação e da inovação em Práticas Restaurativas.</p>
-</article>
-<article class="info-card info-card--accent" data-aos="fade-up" data-aos-delay="100">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-mountain-sun"></i></div>
-<span class="info-card__num">Nossa visão</span>
-<h3 class="info-card__title">Ser referência nacional em Práticas Restaurativas.</h3>
-<p class="info-card__desc">Ser reconhecido como referência nacional na produção de conhecimento, na formação de profissionais e no desenvolvimento de soluções restaurativas para organizações públicas e privadas.</p>
-</article>
+<div class="brand-panel" aria-hidden="true">
+<span class="brand-panel__glow"></span>
+<img alt="" class="brand-panel__emblem" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone-navy.png"/>
+</div>
+</div>
+<div class="mv-grid">
+<div class="mv-item" data-aos="fade-up">
+<h3 class="mv-item__title">Contribuir para respostas mais qualificadas.</h3>
+<p class="mv-item__desc">Contribuir para que pessoas e instituições construam respostas mais qualificadas aos problemas, conflitos e danos da sociedade.</p>
+</div>
+<div class="mv-item" data-aos="fade-up" data-aos-delay="100">
+<h3 class="mv-item__title">Ser referência nacional em Práticas Restaurativas.</h3>
+<p class="mv-item__desc">Ser referência nacional na produção de conhecimento, na formação de profissionais e no desenvolvimento de soluções restaurativas.</p>
+</div>
 </div>
 </div>
 </section>
 
-<!-- o que nos move -->
-<section aria-label="O que nos move" class="section section--dark" id="o-que-nos-move">
+<!-- princípios -->
+<section aria-label="Os princípios que orientam o IBPR" class="section section--dark" id="principios">
 <div aria-hidden="true" class="proposito__glow"></div>
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header section-header--dark section__head" data-aos="fade-up">
-<p class="overline overline--light">O que nos move</p>
+<p class="overline overline--light">Princípios</p>
 <h2>Os princípios por trás de cada solução.</h2>
 </div>
-<div class="card-grid card-grid--4">
-<article class="info-card" data-aos="fade-up">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-arrows-rotate"></i></div>
-<h3 class="info-card__title">Aprendizagem permanente</h3>
-<p class="info-card__desc">Reconhecer que toda experiência pode gerar conhecimento, aperfeiçoar práticas e fortalecer pessoas, equipes e organizações em um processo contínuo de evolução.</p>
-</article>
-<article class="info-card" data-aos="fade-up" data-aos-delay="80">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-flask"></i></div>
-<h3 class="info-card__title">Inovação orientada por evidências</h3>
-<p class="info-card__desc">Desenvolver soluções fundamentadas na pesquisa científica, integrando conhecimento, experiência prática e avaliação contínua para enfrentar problemas complexos.</p>
-</article>
-<article class="info-card" data-aos="fade-up" data-aos-delay="160">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-handshake-angle"></i></div>
-<h3 class="info-card__title">São as relações humanas que operam transformações</h3>
-<p class="info-card__desc">A transformação não acontece apenas pela adoção de um método. Ela acontece quando pessoas e instituições aprendem continuamente com suas experiências e constroem, nas relações humanas, novas formas de responder aos problemas, conflitos e danos.</p>
-</article>
-<article class="info-card" data-aos="fade-up" data-aos-delay="240">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-bullseye"></i></div>
-<h3 class="info-card__title">Qualificar respostas</h3>
-<p class="info-card__desc">Trabalhamos para que pessoas e instituições desenvolvam formas cada vez mais qualificadas de responder aos problemas, conflitos e danos da sociedade.</p>
-</article>
+<ol class="principles">
+<li class="principle" data-aos="fade-up">
+<span class="principle__num">01</span>
+<div class="principle__body">
+<h3 class="principle__title">Aprendizagem permanente</h3>
+<p class="principle__desc">Reconhecer que toda experiência pode gerar conhecimento, aperfeiçoar práticas e fortalecer pessoas, equipes e organizações em um processo contínuo de evolução.</p>
 </div>
+</li>
+<li class="principle" data-aos="fade-up">
+<span class="principle__num">02</span>
+<div class="principle__body">
+<h3 class="principle__title">Inovação orientada por evidências</h3>
+<p class="principle__desc">Desenvolver soluções fundamentadas na pesquisa científica, integrando conhecimento, experiência prática e avaliação contínua para enfrentar problemas complexos.</p>
+</div>
+</li>
+<li class="principle" data-aos="fade-up">
+<span class="principle__num">03</span>
+<div class="principle__body">
+<h3 class="principle__title">São as relações humanas que operam transformações</h3>
+<p class="principle__desc">A transformação não vem só do método. São as relações humanas que constroem novas formas de responder aos problemas, conflitos e danos.</p>
+</div>
+</li>
+<li class="principle" data-aos="fade-up">
+<span class="principle__num">04</span>
+<div class="principle__body">
+<h3 class="principle__title">Qualificar respostas</h3>
+<p class="principle__desc">Trabalhamos para que pessoas e instituições desenvolvam formas cada vez mais qualificadas de responder aos problemas, conflitos e danos da sociedade.</p>
+</div>
+</li>
+</ol>
 </div>
 </section>
 
