@@ -1970,8 +1970,34 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .founders__foot { display: flex; justify-content: center; margin-top: var(--space-4xl); }
 
+/* subcabeçalho da rede que se juntou depois do núcleo — mesmo device do
+   .founders__header, sem o emblema (a árvore da marca abre a seção uma vez
+   só) e com respiro grande acima pra separar do bloco principal */
+.founders__subhead { margin-top: var(--space-5xl); }
+
+/* convite de fecho — filete superior separando das pessoas, texto centrado
+   na mesma medida de leitura das bios e o botão no estado "a confirmar"
+   enquanto o Instituto não define o canal de contato */
+.founders__invite {
+  max-width: 60rem;
+  margin: var(--space-4xl) auto 0;
+  padding-top: var(--space-2xl);
+  border-top: 1px solid rgba(var(--navy-rgb), 0.14);
+  text-align: center;
+}
+
+.founders__invite-text {
+  font-size: var(--text-body);
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+}
+
+.founders__invite .btn { margin-top: var(--space-lg); }
+
 @media (max-width: 899px) {
   .founders__list { gap: var(--space-2xl); }
+  .founders__subhead { margin-top: var(--space-3xl); }
+  .founders__invite { margin-top: var(--space-2xl); }
   .founder { grid-template-columns: 1fr; gap: var(--space-xl); }
   /* empilhado, o retrato vem sempre antes do texto em qualquer linha —
      alternar sem duas colunas só embaralharia a leitura.
