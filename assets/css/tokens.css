@@ -64,14 +64,18 @@
   --font-body:    "Poppins", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Consolas, monospace;
 
-  /* ESCALA TIPOGRÁFICA */
-  --text-h1:   clamp(3.2rem, 5.5vw, 5.6rem);
-  --text-h2:   clamp(2.8rem, 4vw, 4.8rem);
-  --text-h3:   clamp(2rem, 3vw, 3.2rem);
-  --text-h4:   clamp(1.6rem, 1.8vw, 2rem);
-  --text-h5:   clamp(1.4rem, 1.5vw, 1.6rem);
-  --text-h6:   clamp(1.2rem, 1.3vw, 1.4rem);
-  --text-body: clamp(1.6rem, 1.55vw, 1.8rem);
+  /* ESCALA TIPOGRÁFICA
+     Coeficiente vw calibrado pro tamanho máximo ser atingido já a ~1000px de
+     largura: de notebook a monitor grande o texto fica no mesmo tamanho
+     (estável), só encolhe abaixo disso (tablet/celular). Evita o mesmo texto
+     renderizar em tamanhos diferentes conforme o monitor. */
+  --text-h1:   clamp(3.2rem, 5.6vw, 5.6rem);
+  --text-h2:   clamp(2.8rem, 4.8vw, 4.8rem);
+  --text-h3:   clamp(2rem, 3.2vw, 3.2rem);
+  --text-h4:   clamp(1.6rem, 2vw, 2rem);
+  --text-h5:   clamp(1.4rem, 1.6vw, 1.6rem);
+  --text-h6:   clamp(1.2rem, 1.4vw, 1.4rem);
+  --text-body: clamp(1.6rem, 1.8vw, 1.8rem);
   --text-sm:   1.35rem;
   --text-btn:  1.5rem;
 

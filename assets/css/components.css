@@ -91,10 +91,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin-bottom: 1.8rem;
 }
 
-/* Escala do cabeçalho de seção: --text-h3 no título e 1.4rem no
-   subtítulo. Menor que a escala de display (--text-h2), porque em
-   seção o título divide espaço com o conteúdo logo abaixo — o peso
-   de manchete fica reservado pro hero (--text-h1) e pro CTA final. */
+/* Escala do cabeçalho de seção: --text-h3 no título; o subtítulo usa
+   --text-body (mesmo tamanho do corpo e dos subtítulos de hero/CTA).
+   O título de seção é menor que a escala de display (--text-h2) porque
+   divide espaço com o conteúdo logo abaixo — o peso de manchete fica
+   reservado pro hero (--text-h1) e pro CTA final. */
 .section-header h2 {
   font-family: var(--font-display);
   font-size: var(--text-h3);
@@ -106,7 +107,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .section-header__sub {
-  font-size: 1.55rem;
+  font-size: var(--text-body);
   color: var(--color-mist);
   line-height: var(--leading-body);
   max-width: 46rem;
@@ -1324,8 +1325,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .quotes .container { position: relative; z-index: 1; }
 
+/* Largura calibrada pra citação caber em no máximo 2 linhas no tamanho
+   do index (~34px) em tela de notebook/desktop. Em tela estreita, onde
+   o container não deixa a citação chegar a essa largura, ela pode
+   quebrar em 3 linhas — mesmo comportamento do resto do site. */
 .quote-mark {
-  max-width: 74rem;
+  max-width: 98rem;
   margin-inline: auto;
   text-align: center;
   position: relative;
@@ -1350,7 +1355,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin: 0;
   font-family: var(--font-display);
   font-weight: var(--weight-regular);
-  font-size: clamp(2.2rem, 3.2vw, 3.4rem);
+  font-size: clamp(2.2rem, 3.4vw, 3.4rem);
   line-height: 1.38;
   letter-spacing: var(--tracking-snug);
   color: var(--color-navy);
@@ -2339,8 +2344,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .page-hero .container { position: relative; z-index: 1; }
 .page-hero__eyebrow { color: var(--color-accent); }
-.page-hero h1 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: var(--weight-semibold); color: var(--color-white); line-height: var(--leading-display); letter-spacing: var(--tracking-tight); max-width: 62rem; margin: var(--space-sm) 0 var(--space-md); text-wrap: balance; }
-.page-hero__sub { font-size: var(--text-body); color: rgba(var(--white-rgb), 0.72); max-width: 58rem; line-height: var(--leading-body); }
+/* Hero de página interna: título e subtítulo dimensionados pra caberem
+   em no máximo 2 linhas (menor que o hero da Home). O título usa um
+   clamp próprio com teto de 4rem — acima de --text-h3 (título de seção)
+   e bem abaixo de --text-h1 (Home). */
+.page-hero h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 4.5vw, 4rem); font-weight: var(--weight-semibold); color: var(--color-white); line-height: var(--leading-display); letter-spacing: var(--tracking-tight); max-width: 72rem; margin: var(--space-sm) 0 var(--space-md); text-wrap: balance; }
+.page-hero__sub { font-size: var(--text-body); color: rgba(var(--white-rgb), 0.72); max-width: 66rem; line-height: var(--leading-body); }
 
 /* ---- Voltar pra página anterior ----
    Duas formas do mesmo link, presentes em toda página interna (nunca na
@@ -2463,8 +2472,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .cta-final .container { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
 .cta-final__eyebrow { color: var(--color-accent); }
-.cta-final__title { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--color-navy); line-height: var(--leading-display); max-width: 62rem; margin-bottom: var(--space-md); text-wrap: balance; }
-.cta-final__sub { font-size: var(--text-body); color: var(--color-mist); max-width: 52rem; margin-bottom: var(--space-xl); line-height: var(--leading-body); }
+.cta-final__title { font-family: var(--font-display); font-size: var(--text-h2); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--color-navy); line-height: var(--leading-display); max-width: 76rem; margin-bottom: var(--space-md); text-wrap: balance; }
+.cta-final__sub { font-size: var(--text-body); color: var(--color-mist); max-width: 58rem; margin-bottom: var(--space-xl); line-height: var(--leading-body); }
 .cta-final__actions { display: flex; flex-wrap: wrap; gap: var(--space-md); justify-content: center; }
 
 /* ===================================
@@ -3061,7 +3070,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   font-size: 2.6rem;
 }
 
-.aluno-panel__title { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-sm); text-wrap: balance; }
+.aluno-panel__title { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-regular); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-sm); text-wrap: balance; }
 .aluno-panel__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-xl); }
 .aluno-panel__foot { margin-top: var(--space-lg); }
 
