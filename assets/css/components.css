@@ -1072,7 +1072,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 =================================== */
 .formacoes__beneficios {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-xl) var(--space-sm);
   margin-top: var(--space-2xl);
   padding-top: var(--space-xl);
@@ -1091,7 +1091,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (min-width: 768px) {
-  .formacoes__beneficios { grid-template-columns: repeat(4, 1fr); gap: 0; }
+  .formacoes__beneficios { grid-template-columns: repeat(3, 1fr); gap: 0; }
   .formacoes__beneficio {
     flex-direction: row;
     justify-content: center;
@@ -2981,7 +2981,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   border: 1px solid var(--color-border-light);
 }
 
-@media (min-width: 800px) { .spec-row { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 800px) { .spec-row { grid-template-columns: repeat(2, 1fr); } }
 
 .spec { display: flex; gap: var(--space-md); align-items: flex-start; }
 
@@ -3104,6 +3104,197 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .aluno-panel__title { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-regular); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-sm); text-wrap: balance; }
 .aluno-panel__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-xl); }
 .aluno-panel__foot { margin-top: var(--space-lg); }
+
+/* ===================================
+   PÁGINA DE CURSO  (formacao-*.html)
+   Layout inspirado nas páginas de curso da Udemy, na identidade do site:
+   coluna de conteúdo à esquerda + card "Solicitar proposta" fixo à
+   direita. A .section pai NÃO pode ter overflow:hidden (o sticky depende
+   disso, mesma pegadinha do .solucoes).
+=================================== */
+
+/* --- hero: linha de metadados (no lugar de "nota/alunos" da Udemy) --- */
+.course-meta { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+.course-meta__item { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; color: var(--color-paper); background: rgba(var(--white-rgb), 0.07); border: 1px solid rgba(var(--white-rgb), 0.16); border-radius: var(--radius-pill); padding: 0.8rem 1.6rem; }
+.course-meta__item i { color: var(--color-gold); font-size: 1.1rem; }
+
+/* --- hero da página de curso: a foto da formação vira o fundo da faixa.
+   Mesmo tratamento das fotos "peladas" de Como Atuamos (.proj-card--bare):
+   a imagem aparece de verdade, o degradê navy só puxa da base pra cima,
+   o suficiente pra sustentar a leitura do título/subtítulo/pills. Uma
+   pincelada leve no topo protege o texto da navbar. Só nesta variante
+   (page-hero--course); o .page-hero padrão continua no gradiente liso. --- */
+.page-hero--course::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.50) 0%, rgba(var(--navy900-rgb), 0) 15%),
+    linear-gradient(to top,
+      rgba(var(--navy900-rgb), 0.88) 0%,
+      rgba(var(--navy900-rgb), 0.55) 34%,
+      rgba(var(--navy900-rgb), 0.18) 64%,
+      transparent 85%),
+    url("../images/formacoes/relacoes-trabalho.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.page-hero--course h1,
+.page-hero--course .page-hero__sub,
+.page-hero--course .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--course .page-hero__sub { color: rgba(var(--white-rgb), 0.9); }
+
+/* --- layout de 2 colunas ---
+   align-items: stretch (padrão) de propósito: a coluna da direita estica
+   até a altura da esquerda, dando "trilho" pro card grudar durante toda a
+   rolagem do conteúdo (mesma pegadinha do .solucoes__layout). */
+.course-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-3xl); }
+@media (min-width: 961px) { .course-layout { grid-template-columns: minmax(0, 1fr) minmax(28rem, 34rem); } }
+.course-main { min-width: 0; max-width: 80rem; }
+.course-main > * + * { margin-top: var(--space-3xl); }
+.course-aside { min-width: 0; }
+
+/* --- caixa "O que você vai desenvolver": branca, borda fina (estilo Udemy) --- */
+.course-learn {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+
+/* --- os 3 eixos: faixa clara "arejada", mesmo material do CTA final
+   (creme com brilho radial sutil) — chamativa sem pesar. --- */
+.course-eixos {
+  position: relative;
+  overflow: hidden;
+  display: grid; grid-template-columns: 1fr; gap: var(--space-lg);
+  margin-top: var(--space-lg);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(165deg, var(--color-paper) 0%, var(--color-mist-bg) 55%, var(--color-paper) 100%);
+}
+.course-eixos::before {
+  content: ""; position: absolute; top: -40%; left: 50%;
+  width: 48rem; height: 48rem; transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--gold-rgb), 0.12) 0%, rgba(var(--teal-rgb), 0.08) 45%, transparent 72%);
+  pointer-events: none;
+}
+.course-eixo { position: relative; z-index: 1; }
+@media (min-width: 720px) {
+  .course-eixos { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .course-eixo { padding-inline: var(--space-lg); border-left: 1px solid rgba(var(--navy-rgb), 0.12); }
+  .course-eixo:first-child { border-left: none; padding-left: 0; }
+  .course-eixo:last-child { padding-right: 0; }
+}
+.course-eixo__num { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: var(--weight-bold); color: var(--color-gold); margin-bottom: var(--space-2xs); }
+.course-eixo__key { display: block; font-size: 1.15rem; font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: var(--tracking-overline); color: var(--color-teal); margin-bottom: var(--space-xs); }
+.course-eixo__phrase { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); }
+.course-eixo__desc { font-size: 1.4rem; color: var(--color-navy-mid); line-height: var(--leading-body); }
+
+/* --- pills de tema / público (contexto claro) --- */
+.course-pills { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
+.tag-pill { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; font-weight: var(--weight-medium); color: var(--color-navy); background: var(--color-white); border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); padding: 0.6rem 1.4rem; transition: border-color var(--transition-fast), color var(--transition-fast); }
+a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); }
+
+/* --- acordeão: grupo de módulos (usa .accordion nativo existente).
+   Layout no naipe da lista de conteúdo da Udemy, com os tokens do site:
+   linha com fundo creme, chevron à esquerda, contagem à direita; a barra
+   de cima traz o total de módulos + o "Expandir todos". Tudo escopado em
+   .course-modules pra não mexer no .accordion usado em outras páginas. --- */
+.course-modules { margin-top: var(--space-lg); border: 1px solid var(--color-border-light); border-radius: var(--radius-md); overflow: hidden; }
+.course-modules__bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-sm); padding: var(--space-md) var(--space-lg); background: var(--color-white); border-bottom: 1px solid var(--color-border-light); }
+.course-modules__count { margin: 0; font-size: 1.3rem; color: var(--color-navy-mid); text-transform: uppercase; letter-spacing: var(--tracking-overline); }
+.course-modules__toggle { font-size: 1.3rem; font-weight: var(--weight-semibold); color: var(--color-teal); cursor: pointer; transition: color var(--transition-fast); }
+.course-modules__toggle:hover { color: var(--color-navy); }
+
+.course-modules .accordion { margin-top: 0; border-top: none; }
+.course-modules .accordion + .accordion { border-top: 1px solid var(--color-border-light); }
+.course-modules .accordion__summary {
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-paper);
+  color: var(--color-navy);
+  font-size: 1.5rem;
+}
+.course-modules .accordion__summary:hover { color: var(--color-teal); }
+.course-modules .accordion[open] .accordion__summary { background: var(--color-white); color: var(--color-teal); }
+.course-modules .accordion__summary i { color: var(--color-teal); }
+.course-modules .accordion__label { flex: 1; }
+.course-modules .accordion__meta { font-size: 1.3rem; font-weight: var(--weight-regular); color: var(--color-navy-mid); white-space: nowrap; }
+.course-modules .accordion__content { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+/* tópicos empilhados, cada um com ícone em caixinha à esquerda
+   (mesmo naipe da lista de aulas da Udemy, sem duração) */
+.course-modules .accordion__content ul { margin-top: 0; grid-template-columns: 1fr; gap: 0; }
+.course-modules .accordion__content .dot-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0.7rem 0;
+  font-size: 1.4rem;
+  color: var(--color-navy);
+}
+.course-modules .accordion__content .dot-list li::before {
+  content: "\f518"; /* fa-book-open */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: static;
+  flex-shrink: 0;
+  width: 2.4rem; height: 2.4rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--teal-rgb), 0.10);
+  color: var(--color-teal);
+  font-size: 1.05rem;
+}
+
+/* --- "O que sua instituição será capaz de implementar": caixa branca,
+   borda fina — mesma família de "O que você vai desenvolver". --- */
+.course-outcome {
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+}
+.course-outcome > p { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-lg); }
+
+/* --- card "Ir para o curso": compacto, quase quadrado, com faixa de
+   acento no topo e um leve degradê petróleo pra dar mais presença.
+   A media query do sticky vem DEPOIS da regra base de propósito: sem isso
+   o `position: relative` da base (necessário pro ::before) ganharia por
+   ordem de origem e o card não grudaria. --- */
+.proposta-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  background: linear-gradient(180deg, rgba(var(--teal-rgb), 0.07) 0%, var(--color-white) 42%);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+@media (min-width: 961px) { .proposta-card { position: sticky; top: 13rem; } }
+.proposta-card::before {
+  content: ""; position: absolute; inset: 0 0 auto 0; height: 0.6rem;
+  background: linear-gradient(90deg, var(--color-teal) 0%, var(--color-gold) 100%);
+}
+.proposta-card__body { padding: var(--space-lg); }
+.proposta-card__title { font-family: var(--font-display); font-size: 2rem; font-weight: var(--weight-bold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); }
+.proposta-card__note { font-size: 1.3rem; color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-md); }
+.proposta-card__list { display: grid; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+.proposta-card__list li { display: flex; align-items: center; gap: var(--space-sm); font-size: 1.3rem; color: var(--color-navy); line-height: var(--leading-ui); }
+.proposta-card__list li i {
+  flex-shrink: 0;
+  width: 2.4rem; height: 2.4rem;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--teal-rgb), 0.10);
+  color: var(--color-teal);
+  font-size: 1.1rem;
+}
+.proposta-card .btn { display: flex; width: 100%; justify-content: center; }
+.proposta-card__guarantee { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-top: var(--space-sm); font-size: 1.2rem; color: var(--color-navy-mid); }
+.proposta-card__guarantee i { color: var(--color-teal); }
+.proposta-card__inst { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--color-border-light); font-size: 1.2rem; color: var(--color-mist); line-height: var(--leading-body); text-align: center; }
+.proposta-card__inst a { color: var(--color-teal); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 0.2rem; }
+.proposta-card__inst a:hover { color: var(--color-navy); }
 
 /* ===================================
    FOCO VISÍVEL E SALTO DE CONTEÚDO
