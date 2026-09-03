@@ -87,6 +87,38 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .overline--light { color: var(--color-accent); }
 
+/* ===================================
+   TAG / PÍLULA — geometria única do site
+   ===================================
+   O site tinha 4 tags que não batiam entre si: 4 paddings, 2 raios,
+   2 tamanhos de fonte e 2 alfas de borda. Aqui mora a geometria, uma só;
+   cada componente abaixo declara apenas a PELE (cor de texto, fundo e
+   borda), porque tag branca sobre hero escuro não funciona. Declarado no
+   topo do arquivo de propósito: as regras de cor vêm depois e só precisam
+   sobrescrever cor, nunca forma.
+   Raio: --radius-sm (o "quadradinho" das formações), não --radius-pill. */
+.tag-pill,
+.course-meta__item,
+.anchor-nav__link,
+.noticias__empty-topics li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-ui);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 1.4rem;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+/* Ícone da tag: um tamanho só. A cor fica na pele de cada contexto —
+   sobre fundo claro o dourado dá 2.4:1 e reprova, então lá ele é navy. */
+.tag-pill i,
+.course-meta__item i,
+.anchor-nav__link i,
+.noticias__empty-topics li i { font-size: 1.1rem; }
+
 .section-header { margin-bottom: var(--space-3xl); }
 
 .section-header .overline {
@@ -876,7 +908,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   transition: transform 0.45s ease;
 }
 
-.service-card:hover { transform: translateY(-6px); border-color: rgba(var(--teal-rgb), 0.28); box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.13); }
+/* Repouso: --shadow-md, não sm. O card precisa POUSAR sobre o fundo antes
+   mesmo do hover; com sm ele ficava rente e dependia só da borda de 8%. */
+.service-card { box-shadow: var(--shadow-md); }
+.service-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(var(--teal-rgb), 0.45);
+  box-shadow: 0 28px 56px rgba(var(--navy900-rgb), 0.20), 0 8px 16px rgba(var(--navy900-rgb), 0.10);
+}
 .service-card:hover::after { transform: scaleX(1); }
 
 /* aspect-ratio 3/2 em vez de altura fixa: é a proporção nativa das fotos de
@@ -899,8 +938,9 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    modificadora no HTML, mesma técnica já usada no .proj-card--bare. */
 .service-card__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
 .service-card__img-wrap:has(.service-card__photo) { background: none; }
-.service-card__img-wrap:has(.service-card__photo)::before,
-.service-card__img-wrap:has(.service-card__photo)::after { content: none; }
+/* Só a textura de grade é desligada. O ::after é reaproveitado logo abaixo
+   como véu de hover da foto (no card de ícone ele continua sendo o halo). */
+.service-card__img-wrap:has(.service-card__photo)::before { content: none; }
 
 /* textura de grade — mesmo material do hero e das seções do design
    system, aqui na variante clara sobre fundo escuro */
@@ -992,6 +1032,21 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   overflow: hidden;
 }
 
+/* Linha de conteúdo do curso. Dado real, tirado do "Conteúdo do programa"
+   de cada página de formação. Responde "quanto tem aqui dentro?" antes do
+   clique, que é a 2ª pergunta de quem escolhe um curso, e é o que faz o
+   cartão parecer cartão de curso e não cartão de notícia. */
+.service-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 1.2rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-navy-mid);
+}
+.service-card__meta span { display: inline-flex; align-items: center; gap: 0.6rem; }
+.service-card__meta i { font-size: 1.1rem; color: var(--color-teal); }
+
 .service-card__link {
   display: flex;
   align-items: center;
@@ -1020,6 +1075,67 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .service-card:hover .service-card__link { color: var(--color-navy); }
 .service-card:hover .service-card__link i { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); transform: translateX(3px); }
+
+/* ===================================
+   REFINO DO CARD COM FOTO
+   ===================================
+   O hover do card já existia (sobe 6px, sombra, filete de marca no topo,
+   seta preenchendo), mas quando o topo é FOTO nada acontecia com a imagem:
+   o halo e o ícone que respiravam pertencem à variante de ícone. Estas
+   regras dão vida ao card de foto sem acrescentar cor nem enfeite. */
+
+/* Zoom da foto. 1.09: dá pra sentir de longe sem a imagem perder nitidez
+   (as fotos de card têm 800px pra 446 de exibição, sobra resolução). */
+.service-card__photo { transition: transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1); will-change: transform; }
+.service-card:hover .service-card__photo,
+.service-card:focus-within .service-card__photo { transform: scale(1.09); }
+
+/* Véu navy que sobe da base da foto no hover. Costura a foto com o corpo
+   branco do card (hoje a emenda é um corte seco) e dá profundidade sem
+   colorir nada. Aparece só no hover pra não escurecer o card em repouso. */
+.service-card__img-wrap:has(.service-card__photo)::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 3;
+  width: auto; height: auto; border-radius: 0;
+  background: linear-gradient(to top, rgba(var(--navy900-rgb), 0.62) 0%, rgba(var(--navy900-rgb), 0.28) 42%, rgba(var(--navy900-rgb), 0.06) 78%, transparent 100%);
+  opacity: 0;
+  transform: none;
+  transition: opacity var(--transition-base);
+}
+.service-card:hover .service-card__img-wrap:has(.service-card__photo)::after,
+.service-card:focus-within .service-card__img-wrap:has(.service-card__photo)::after { opacity: 1; }
+/* neutraliza o "respiro" do halo, que não faz sentido num véu de borda a borda */
+.service-card:hover .service-card__img-wrap:has(.service-card__photo)::after { transform: none; }
+
+/* O título passa a reagir junto com a seta: com o card inteiro clicável
+   (regra abaixo), o alvo do clique é o título, e ele precisa responder. */
+.service-card__title { transition: color var(--transition-base); }
+.service-card:hover .service-card__title { color: var(--color-teal); }
+
+/* ---- Card inteiro clicável, só em grade ----
+   Escopado em .card-grid de propósito: no carrossel da Home o viewport
+   escuta pointerdown pra detectar arrasto, e uma camada de link cobrindo o
+   card faria o arrastar terminar em navegação. Em grade não há arrasto. */
+.card-grid .service-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+}
+/* O anel de foco pertence ao card, não à linha de 1.3rem lá embaixo: quem
+   navega por teclado precisa ver o cartão inteiro selecionado. */
+.card-grid .service-card:has(.service-card__link:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+.card-grid .service-card__link:focus-visible { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card, .service-card__photo, .service-card__title, .service-card__link i { transition: none; }
+  .service-card:hover { transform: none; }
+  .service-card:hover .service-card__photo, .service-card:focus-within .service-card__photo { transform: none; }
+  .service-card:hover .service-card__link i { transform: none; }
+}
 
 /* Linha de público-alvo acima do título — responde "isso é pra mim?"
    antes de qualquer outra coisa, que é a primeira pergunta de quem está
@@ -2228,20 +2344,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   margin-top: var(--space-lg);
 }
 
+/* pele escura — a geometria vem do bloco TAG / PÍLULA no topo do arquivo */
 .noticias__empty-topics li {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  font-size: 1.25rem;
-  font-weight: var(--weight-medium);
   color: var(--color-paper);
-  background: rgba(var(--white-rgb), 0.06);
-  border: 1px solid rgba(var(--white-rgb), 0.14);
-  border-radius: var(--radius-pill);
-  padding: 0.7rem 1.5rem;
+  background: rgba(var(--white-rgb), 0.07);
+  border-color: rgba(var(--white-rgb), 0.16);
 }
 
-.noticias__empty-topics li i { color: var(--color-gold); font-size: 1.2rem; }
+.noticias__empty-topics li i { color: var(--color-gold); }
 
 /* pilha de artigos fantasma — três cartões esboçados, o da frente com
    esqueleto de post (chip de categoria + linhas de texto) e a árvore da
@@ -2842,22 +2952,17 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* ---- Navegação por âncora no topo de página com subseções ---- */
 .anchor-nav { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
 
+/* pele escura — a geometria vem do bloco TAG / PÍLULA no topo do arquivo */
 .anchor-nav__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: 1.3rem;
-  font-weight: var(--weight-medium);
   color: var(--color-paper);
   background: rgba(var(--white-rgb), 0.07);
-  border: 1px solid rgba(var(--white-rgb), 0.16);
-  border-radius: var(--radius-pill);
-  padding: 0.9rem 1.8rem;
-  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  border-color: rgba(var(--white-rgb), 0.16);
 }
 
-.anchor-nav__link i { color: var(--color-gold); font-size: 1.1rem; }
-.anchor-nav__link:hover { background: rgba(var(--gold-rgb), 0.14); border-color: rgba(var(--gold-rgb), 0.42); color: var(--color-white); transform: translateY(-2px); }
+.anchor-nav__link i { color: var(--color-gold); }
+/* Era a única tag do site que levantava 2px no hover. O realce agora é o
+   mesmo das outras tags clicáveis: borda e fundo acendem, sem deslocar. */
+.anchor-nav__link:hover { background: rgba(var(--gold-rgb), 0.14); border-color: rgba(var(--gold-rgb), 0.42); color: var(--color-white); }
 
 /* As fichas longas de formação (.formacao*, .spec*) foram removidas em
    03/09: a formacoes.html virou índice com os cards, e o conteúdo
@@ -2960,8 +3065,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 /* --- hero: linha de metadados (no lugar de "nota/alunos" da Udemy) --- */
 .course-meta { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
-.course-meta__item { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; color: var(--color-paper); background: rgba(var(--white-rgb), 0.07); border: 1px solid rgba(var(--white-rgb), 0.16); border-radius: var(--radius-pill); padding: 0.8rem 1.6rem; }
-.course-meta__item i { color: var(--color-gold); font-size: 1.1rem; }
+/* pele escura — a geometria vem do bloco TAG / PÍLULA no topo do arquivo */
+.course-meta__item { color: var(--color-paper); background: rgba(var(--white-rgb), 0.07); border-color: rgba(var(--white-rgb), 0.16); }
+.course-meta__item i { color: var(--color-gold); }
 
 /* --- hero da página de curso: a foto da formação vira o fundo da faixa.
    Mesmo tratamento das fotos "peladas" de Como Atuamos (.proj-card--bare):
@@ -3006,6 +3112,66 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   border-color: rgba(var(--white-rgb), 0.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+/* --- Variante da página-índice de Formações ---
+   Mesma ideia das páginas de curso (foto de fundo + scrim navy), só que
+   aplicada ao .page-hero padrão, que tem o __glow e não as pills de curso.
+   O glow sai pra não turvar a foto. O scrim aqui é um gradiente vertical
+   único, mais encorpado que o das páginas de curso, porque esta foto é
+   clara e movimentada justamente no lado onde o título fica. */
+.page-hero--formacoes { --course-hero: url("../images/formacoes/formacoes-hero.jpg"); }
+.page-hero--formacoes .page-hero__glow { display: none; }
+.page-hero--formacoes::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom,
+      rgba(var(--navy900-rgb), 0.66) 0%,
+      rgba(var(--navy900-rgb), 0.44) 38%,
+      rgba(var(--navy900-rgb), 0.54) 70%,
+      rgba(var(--navy900-rgb), 0.82) 100%),
+    var(--course-hero);
+  background-size: cover;
+  background-position: center 56%;
+}
+.page-hero--formacoes h1,
+.page-hero--formacoes .page-hero__sub,
+.page-hero--formacoes .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--formacoes .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
+/* --- Intro da página-índice de Formações ---
+   Era prosa corrida de 2 parágrafos, sem cabeçalho e sem entrada de leitura.
+   Agora: cabeçalho (kicker + título + lead) → 3 pilares na faixa creme dos
+   eixos → rodapé de contexto em 2 colunas. Só ajustes de encaixe aqui; o
+   visual vem de .section-header, .course-eixos e .tag-pill, que já existem. */
+.formacoes-intro .section-header { margin-bottom: var(--space-xl); }
+/* O lead é o parágrafo-chave do Instituto: 46rem (padrão) o quebrava em 4
+   linhas curtas e o fazia parecer legenda, não abertura. Em 66rem com
+   balance ele fecha em 3 linhas parelhas (625/598/653px), sem viúva. */
+.formacoes-intro .section-header__sub { max-width: 66rem; text-wrap: balance; }
+.formacoes-intro .course-eixos { margin-top: 0; }
+/* Duas faixas empilhadas, rótulo à esquerda e pílulas à direita, tipo ficha
+   técnica. Em 2 colunas lado a lado (a 1ª tentativa) cada grupo ficava com
+   ~430px e sobrava sempre uma pílula órfã na 2ª linha; em faixa cheia os 4
+   públicos e os 3 itens de formato cabem numa linha cada, e o bloco inteiro
+   fecha em 95px de altura. */
+.formacoes-intro__meta {
+  display: grid; grid-template-columns: 1fr; gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+.formacoes-intro__meta .course-pills { margin-top: 0; }
+
+/* Catálogo: os cards sobem 6px no hover, e com o gap padrão de 2.4rem o
+   card levantado quase encostava no vizinho. 3.2rem devolve o respiro. */
+#catalogo .card-grid { gap: var(--space-xl); }
+@media (min-width: 720px) {
+  .formacoes-intro__meta > div {
+    display: grid; grid-template-columns: 16rem 1fr;
+    align-items: start; gap: var(--space-lg);
+  }
+  /* alinha a linha de base do rótulo com a 1ª fileira de pílulas */
+  .formacoes-intro__meta .overline { margin-bottom: 0; padding-top: 0.7rem; }
 }
 
 /* --- layout de 2 colunas ---
@@ -3090,7 +3256,8 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 /* --- pills de tema / público (contexto claro) --- */
 .course-pills { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
-.tag-pill { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; font-weight: var(--weight-medium); color: var(--color-navy); background: var(--color-white); border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); padding: 0.6rem 1.4rem; transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast); }
+/* pele clara — a geometria vem do bloco TAG / PÍLULA no topo do arquivo */
+.tag-pill { color: var(--color-navy); background: var(--color-white); border-color: var(--color-border-light); }
 a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); background: var(--color-paper); }
 
 /* --- acordeão: grupo de módulos (usa .accordion nativo existente).
