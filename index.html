@@ -35,8 +35,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260902f" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260902f" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260903f" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260903f" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
@@ -94,10 +94,10 @@
 <li class="navbar__item navbar__item--dropdown">
 <button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
 <ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem">Práticas Restaurativas nas Relações de Trabalho</a></li>
 <li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 </ul>
 </li>
@@ -138,10 +138,10 @@
 <div class="mobile-menu__divider"></div>
 <p class="mobile-menu__section-label">Formações</p>
 <ul class="mobile-menu__service-list">
-<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-execucao-penal.html">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-pena-justa.html">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-ambiente-escolar.html">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-relacoes-trabalho.html">Práticas Restaurativas nas Relações de Trabalho</a></li>
 </ul>
 </nav>
 <div class="mobile-menu__footer">
@@ -291,28 +291,31 @@
 <!-- Carrossel em loop: o JS (site-interactions.js) clona os cards uma vez
      pra dar continuidade ao trilho, então qualquer card pode assumir a
      primeira posição e os 4 pontos abaixo são posições reais. -->
-<!-- Público-alvo e modalidades de cada card vêm do conteúdo oficial do
-     cliente (assets/conteudo-inicial-site.docx, Aba 4), nada inventado.
-     Carga horária ficou de fora de propósito: no docx ela é "definida
-     conforme a instituição contratante", não é um número fixo que caiba
-     num chip. A menção a certificação foi removida a pedido do grupo (02/09). -->
+<!-- Cards idênticos aos de "Outras formações do Instituto" no fim de cada
+     página de curso: foto, público-alvo, título e uma prévia de 2 linhas
+     (o CSS corta em reticências) que leva pra página do curso.
+     Público-alvo e descrições vêm do conteúdo oficial do cliente
+     (assets/conteudo-inicial-site.docx, Aba 4); a do card de Relações de
+     Trabalho foi derivada da página do curso e precisa do aval do grupo.
+     Modalidade e certificação saíram: o grupo tirou o certificado (02/09) e
+     as formações passaram a ser cursos gravados na Hotmart. -->
 <div class="services__viewport" data-aos="fade-up">
 <div class="services__track" id="servicesTrack">
 <article class="service-card">
-<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">01</span><i aria-hidden="true" class="fa-solid fa-scale-balanced"></i><span class="service-card__category">Execução Penal</span></div>
-<div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · Híbrida</span></div><a class="service-card__link" href="formacoes.html#execucao-penal">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<div class="service-card__img-wrap"><img alt="Formadora conduz uma roda de conversa com servidores do sistema prisional diante de um flipchart" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/execucao-penal-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><a class="service-card__link" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-<article class="service-card service-card--pena-justa">
-<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">02</span><i aria-hidden="true" class="fa-solid fa-building-shield"></i><span class="service-card__category">Pena Justa</span></div>
-<div class="service-card__body"><p class="service-card__audience">Para gestores e comitês de políticas penais</p><h3 class="service-card__title">Implementação da JR no Plano Pena Justa</h3><p class="service-card__desc">Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · On-line · Híbrida</span></div><a class="service-card__link" href="formacoes.html#pena-justa">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<article class="service-card">
+<div class="service-card__img-wrap"><img alt="Equipe reunida em volta de uma mesa organizando fichas de um plano de implementação" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/pena-justa-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para gestores e comitês de políticas penais</p><h3 class="service-card__title">Implementação da JR no Plano Pena Justa</h3><p class="service-card__desc">Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.</p><a class="service-card__link" href="formacao-pena-justa.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-<article class="service-card service-card--escolar">
-<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">03</span><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i><span class="service-card__category">Educação</span></div>
-<div class="service-card__body"><p class="service-card__audience">Para diretores, professores e equipes</p><h3 class="service-card__title">Práticas Restaurativas no Ambiente Escolar</h3><p class="service-card__desc">Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial · On-line · Híbrida</span></div><a class="service-card__link" href="formacoes.html#ambiente-escolar">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<article class="service-card">
+<div class="service-card__img-wrap"><img alt="Professores e equipe escolar em roda de conversa numa sala de aula" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/ambiente-escolar-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para diretores, professores e equipes</p><h3 class="service-card__title">Práticas Restaurativas no Ambiente Escolar</h3><p class="service-card__desc">Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.</p><a class="service-card__link" href="formacao-ambiente-escolar.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-<article class="service-card service-card--estudantes">
-<div class="service-card__img-wrap"><span aria-hidden="true" class="service-card__num">04</span><i aria-hidden="true" class="fa-solid fa-people-group"></i><span class="service-card__category">Estudantes</span></div>
-<div class="service-card__body"><p class="service-card__audience">Para estudantes do Fundamental II e Médio</p><h3 class="service-card__title">Formação de Estudantes em Práticas Restaurativas</h3><p class="service-card__desc">Forma estudantes multiplicadores da cultura restaurativa, com metodologia vivencial adaptada a cada faixa etária.</p><div class="service-card__meta"><span class="service-card__meta-item"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Presencial</span></div><a class="service-card__link" href="formacoes.html#estudantes">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<article class="service-card">
+<div class="service-card__img-wrap"><img alt="Profissionais em roda de conversa no ambiente de trabalho" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para lideranças, gestores e equipes de RH</p><h3 class="service-card__title">Práticas Restaurativas nas Relações de Trabalho</h3><p class="service-card__desc">Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.</p><a class="service-card__link" href="formacao-relacoes-trabalho.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
 </div>
 </div>

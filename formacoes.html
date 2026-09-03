@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="As formações do IBPR em Justiça Restaurativa para execução penal, Plano Pena Justa, ambiente escolar e estudantes." name="description"/>
-<title>Formações | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." name="description"/>
+<title>Formações | Instituto Brasileiro de Práticas Restaurativas</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
      TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
      IBPR, que o cliente ainda não informou. -->
-<meta content="Formações | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
-<meta content="As formações do IBPR em Justiça Restaurativa para execução penal, Plano Pena Justa, ambiente escolar e estudantes." property="og:description"/>
+<meta content="Formações | Instituto Brasileiro de Práticas Restaurativas" property="og:title"/>
+<meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="assets/images/formacoes/execucao-penal.jpg" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Formações | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
-<meta content="As formações do IBPR em Justiça Restaurativa para execução penal, Plano Pena Justa, ambiente escolar e estudantes." name="twitter:description"/>
-<meta content="assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<meta content="Formações | Instituto Brasileiro de Práticas Restaurativas" name="twitter:title"/>
+<meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." name="twitter:description"/>
+<meta content="assets/images/formacoes/execucao-penal.jpg" name="twitter:image"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -28,13 +28,16 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260902f" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260902f" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260903f" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260903f" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+<!-- Dados estruturados: esta é a página-índice, então o ItemList aponta pras
+     4 páginas de curso, onde cada uma tem seu próprio schema Course completo. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
+  "name": "Formações do Instituto Brasileiro de Práticas Restaurativas",
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -42,10 +45,17 @@
       "item": {
         "@type": "Course",
         "name": "Justiça Restaurativa aplicada à Execução Penal",
-        "description": "Desenvolver competências para implementar práticas restaurativas no sistema prisional.",
+        "description": "Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.",
+        "url": "formacao-execucao-penal.html",
         "provider": {
           "@type": "EducationalOrganization",
-          "name": "Instituto Brasileiro de Práticas Restaurativas"
+          "name": "Instituto Brasileiro de Práticas Restaurativas",
+          "alternateName": "IBPR"
+        },
+        "inLanguage": "pt-BR",
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": "online"
         }
       }
     },
@@ -55,10 +65,17 @@
       "item": {
         "@type": "Course",
         "name": "Implementação da Justiça Restaurativa no Plano Pena Justa",
-        "description": "Preparar instituições para transformar diretrizes em programas concretos.",
+        "description": "Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.",
+        "url": "formacao-pena-justa.html",
         "provider": {
           "@type": "EducationalOrganization",
-          "name": "Instituto Brasileiro de Práticas Restaurativas"
+          "name": "Instituto Brasileiro de Práticas Restaurativas",
+          "alternateName": "IBPR"
+        },
+        "inLanguage": "pt-BR",
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": "online"
         }
       }
     },
@@ -68,10 +85,17 @@
       "item": {
         "@type": "Course",
         "name": "Implementação de Práticas Restaurativas no Ambiente Escolar",
-        "description": "Desenvolver uma cultura de convivência capaz de prevenir, enfrentar e aprender com os problemas, conflitos e danos presentes na escola.",
+        "description": "Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.",
+        "url": "formacao-ambiente-escolar.html",
         "provider": {
           "@type": "EducationalOrganization",
-          "name": "Instituto Brasileiro de Práticas Restaurativas"
+          "name": "Instituto Brasileiro de Práticas Restaurativas",
+          "alternateName": "IBPR"
+        },
+        "inLanguage": "pt-BR",
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": "online"
         }
       }
     },
@@ -80,11 +104,18 @@
       "position": 4,
       "item": {
         "@type": "Course",
-        "name": "Formação de Estudantes em Práticas Restaurativas",
-        "description": "Desenvolver competências para construir uma cultura de diálogo, respeito e corresponsabilidade.",
+        "name": "Práticas Restaurativas nas Relações de Trabalho",
+        "description": "Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.",
+        "url": "formacao-relacoes-trabalho.html",
         "provider": {
           "@type": "EducationalOrganization",
-          "name": "Instituto Brasileiro de Práticas Restaurativas"
+          "name": "Instituto Brasileiro de Práticas Restaurativas",
+          "alternateName": "IBPR"
+        },
+        "inLanguage": "pt-BR",
+        "hasCourseInstance": {
+          "@type": "CourseInstance",
+          "courseMode": "online"
         }
       }
     }
@@ -115,11 +146,11 @@
 <li class="navbar__item navbar__item--dropdown">
 <button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
 <ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="formacoes.html#execucao-penal" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#pena-justa" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#ambiente-escolar" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
-<li><a class="navbar__dropdown-link" href="formacoes.html#estudantes" role="menuitem">Formação de Estudantes em Práticas Restaurativas</a></li>
-<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem">Práticas Restaurativas nas Relações de Trabalho</a></li>
+<li><a aria-current="page" class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
@@ -144,7 +175,7 @@
 <li><a class="mobile-menu__link" href="praticas-restaurativas.html">Práticas Restaurativas</a></li>
 <li><a class="mobile-menu__link" href="o-instituto.html">O Instituto</a></li>
 <li><a class="mobile-menu__link" href="como-atuamos.html">Como Atuamos</a></li>
-<li><a aria-current="page" class="mobile-menu__link is-active" href="formacoes.html">Formações</a></li>
+<li><a class="mobile-menu__link is-active" href="formacoes.html">Formações</a></li>
 <li><a class="mobile-menu__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
 <li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
 </ul>
@@ -159,10 +190,10 @@
 <div class="mobile-menu__divider"></div>
 <p class="mobile-menu__section-label">Formações</p>
 <ul class="mobile-menu__service-list">
-<li><a class="mobile-menu__service-link" href="formacoes.html#execucao-penal">Justiça Restaurativa aplicada à Execução Penal</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#pena-justa">Implementação da JR no Plano Pena Justa</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#ambiente-escolar">Práticas Restaurativas no Ambiente Escolar</a></li>
-<li><a class="mobile-menu__service-link" href="formacoes.html#estudantes">Formação de Estudantes em Práticas Restaurativas</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-execucao-penal.html">Justiça Restaurativa aplicada à Execução Penal</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-pena-justa.html">Implementação da JR no Plano Pena Justa</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-ambiente-escolar.html">Práticas Restaurativas no Ambiente Escolar</a></li>
+<li><a class="mobile-menu__service-link" href="formacao-relacoes-trabalho.html">Práticas Restaurativas nas Relações de Trabalho</a></li>
 </ul>
 </nav>
 <div class="mobile-menu__footer">
@@ -182,12 +213,6 @@
 <p class="overline overline--light page-hero__eyebrow">Formações</p>
 <h1 data-aos="fade-up">Conhecimento que transforma a prática.</h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Uma boa formação não se mede em horas-aula, mas na capacidade de preparar profissionais para desafios reais.</p>
-<nav aria-label="Formações do IBPR" class="anchor-nav" data-aos="fade-up" data-aos-delay="200">
-<a class="anchor-nav__link" href="#execucao-penal"><i aria-hidden="true" class="fa-solid fa-scale-balanced"></i>Execução Penal</a>
-<a class="anchor-nav__link" href="#pena-justa"><i aria-hidden="true" class="fa-solid fa-building-shield"></i>Plano Pena Justa</a>
-<a class="anchor-nav__link" href="#ambiente-escolar"><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i>Ambiente Escolar</a>
-<a class="anchor-nav__link" href="#estudantes"><i aria-hidden="true" class="fa-solid fa-people-group"></i>Estudantes</a>
-</nav>
 </div>
 </section>
 
@@ -196,350 +221,41 @@
 <div class="container">
 <div class="prose" data-aos="fade-up">
 <p>As formações do IBPR combinam pesquisa científica, experiência prática e aprendizagem aplicada para desenvolver competências que possam ser imediatamente incorporadas ao exercício profissional. Mais do que ensinar Justiça Restaurativa, buscamos preparar pessoas e instituições para implementar soluções capazes de qualificar respostas aos problemas, conflitos e danos presentes em sua realidade.</p>
-<p>Nossos programas são desenvolvidos para diferentes públicos e podem ser adaptados às necessidades de escolas, empresas, órgãos públicos, instituições da Justiça e da Segurança Pública.</p>
+<p>Nossos programas são desenvolvidos para diferentes públicos: escolas, empresas, órgãos públicos e instituições da Justiça e da Segurança Pública.</p>
 </div>
 <div class="formacoes__beneficios" data-aos="fade-up">
 <div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-flask"></i></div><span class="formacoes__beneficio-label">Base em <strong>Evidências Científicas</strong></span></div>
 <div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-people-arrows"></i></div><span class="formacoes__beneficio-label">Teoria, Casos e <strong>Atividades Práticas</strong></span></div>
-<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-sliders"></i></div><span class="formacoes__beneficio-label">Personalizada para <strong>Sua Instituição</strong></span></div>
+<div class="formacoes__beneficio"><div class="formacoes__beneficio-icon"><i aria-hidden="true" class="fa-solid fa-circle-play"></i></div><span class="formacoes__beneficio-label">On-line, com <strong>Acesso Vitalício</strong></span></div>
 </div>
 </div>
 </section>
 
-<!-- fichas das formações -->
-<section aria-label="Formações do IBPR" class="section section--white">
+<!-- catálogo: as 4 formações -->
+<section aria-label="As formações do IBPR" class="section section--white" id="catalogo">
 <div class="container">
-<article class="formacao " data-aos="fade" id="execucao-penal">
-<header class="formacao__head">
-<h2 class="formacao__title">Justiça Restaurativa aplicada à Execução Penal</h2>
-<p class="formacao__lead">Desenvolver competências para implementar práticas restaurativas no sistema prisional.</p>
-</header>
-<div class="formacao__body">
-<p class="formacao__intro">A incorporação da Justiça Restaurativa à execução penal exige profissionais preparados para compreender seus fundamentos, identificar oportunidades de aplicação e conduzir programas restaurativos compatíveis com a realidade das unidades prisionais.</p>
-<p class="formacao__intro">Esta formação foi desenvolvida para capacitar policiais penais e demais profissionais do sistema prisional a planejar, implementar e acompanhar práticas restaurativas voltadas tanto à resolução de casos individuais quanto ao desenvolvimento institucional e ao cumprimento das diretrizes do Plano Pena Justa.</p>
-<div class="spec-row">
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i></span><span><span class="spec__label">Modalidade</span><span class="spec__value">Presencial ou híbrida, com formação personalizada para instituições públicas e privadas.</span></span></div>
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-clock"></i></span><span><span class="spec__label">Carga horária</span><span class="spec__value">Definida de acordo com os objetivos da instituição contratante e o nível de aprofundamento pretendido.</span></span></div>
+<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<p class="overline">Catálogo</p>
+<h2>As quatro formações do Instituto</h2>
+<p class="section-header__sub">Cada uma parte de um contexto concreto. Escolha a mais próxima da sua realidade.</p>
 </div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>Competências desenvolvidas</h3>
-<ul class="check-list check-list--2col">
-<li>Compreender os fundamentos da Justiça Restaurativa e sua aplicação na execução penal.</li>
-<li>Identificar situações em que práticas restaurativas podem contribuir para a qualificação da atuação institucional.</li>
-<li>Planejar e implementar programas restaurativos em unidades prisionais.</li>
-<li>Conduzir ou integrar equipes responsáveis pela aplicação de práticas restaurativas.</li>
-<li>Desenvolver estratégias voltadas ao fortalecimento das relações institucionais e da cultura organizacional.</li>
-<li>Apoiar a implementação das diretrizes do Plano Pena Justa relacionadas à Justiça Restaurativa.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Público-alvo</h3>
-<ul class="dot-list">
-<li>Policiais Penais.</li>
-<li>Gestores do Sistema Prisional.</li>
-<li>Servidores da Polícia Penal.</li>
-<li>Equipes multidisciplinares.</li>
-<li>Magistrados.</li>
-<li>Membros do Ministério Público.</li>
-<li>Defensores Públicos.</li>
-<li>Advogados.</li>
-<li>Demais profissionais que atuam na execução penal.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-star"></i>Diferenciais da formação</h3>
-<ul class="check-list">
-<li>Conteúdo fundamentado em evidências científicas nacionais e internacionais.</li>
-<li>Formação desenvolvida especificamente para a realidade do sistema prisional brasileiro.</li>
-<li>Integração entre teoria, estudos de caso e atividades práticas.</li>
-<li>Ênfase na implementação de programas restaurativos e no desenvolvimento institucional.</li>
-<li>Conteúdo alinhado ao Plano Pena Justa e às principais políticas públicas relacionadas à Justiça Restaurativa.</li>
-</ul>
-</div>
-<div class="formacao__outcome">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h3>
-<p class="prose" style="margin-bottom:var(--space-lg)">Mais do que transmitir conhecimentos, esta formação prepara equipes para desenvolver projetos e programas compatíveis com a realidade institucional. Ao final da formação, a instituição estará preparada para:</p>
-<ul class="check-list">
-<li>Implantar programas restaurativos voltados às pessoas privadas de liberdade.</li>
-<li>Desenvolver práticas restaurativas para fortalecimento das equipes da Polícia Penal.</li>
-<li>Estruturar procedimentos para utilização de práticas restaurativas em casos individuais.</li>
-<li>Implementar projetos alinhados às diretrizes do Plano Pena Justa.</li>
-<li>Elaborar protocolos institucionais para aplicação da Justiça Restaurativa na execução penal.</li>
-<li>Formar uma base técnica capaz de ampliar e consolidar programas restaurativos ao longo do tempo.</li>
-</ul>
-</div>
-<div class="formacao__foot">
-<a class="btn btn--dark" href="#solicitar">Solicitar proposta <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="como-atuamos.html">Ver as soluções do IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
-</div>
+<div class="card-grid card-grid--2 measure-narrow">
+<article class="service-card" data-aos="fade-up">
+<div class="service-card__img-wrap"><img alt="Formadora conduz uma roda de conversa com servidores do sistema prisional diante de um flipchart" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/execucao-penal-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><a class="service-card__link" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-
-<article class="formacao formacao--pena-justa" data-aos="fade" id="pena-justa">
-<header class="formacao__head">
-<h2 class="formacao__title">Implementação da Justiça Restaurativa no Plano Pena Justa</h2>
-<p class="formacao__lead">Preparar instituições para transformar diretrizes em programas concretos.</p>
-</header>
-<div class="formacao__body">
-<p class="formacao__intro">O Plano Pena Justa incorporou a Justiça Restaurativa como uma das estratégias para o fortalecimento da política penal brasileira. Transformar essa diretriz em ações concretas exige muito mais do que conhecer o conteúdo do plano. Exige planejamento, conhecimento técnico e capacidade de implementação.</p>
-<p class="formacao__intro">Esta formação foi desenvolvida para preparar gestores e equipes responsáveis pela execução do Plano Pena Justa, oferecendo instrumentos para implementar as ações previstas, estruturar programas restaurativos, elaborar projetos institucionais e integrar a Justiça Restaurativa às políticas e práticas da instituição.</p>
-<div class="spec-row">
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i></span><span><span class="spec__label">Modalidade</span><span class="spec__value">Presencial, on-line ou híbrida, com formação personalizada para instituições públicas e privadas.</span></span></div>
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-clock"></i></span><span><span class="spec__label">Carga horária</span><span class="spec__value">Definida conforme os objetivos da instituição contratante e o nível de aprofundamento pretendido.</span></span></div>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>Competências desenvolvidas</h3>
-<ul class="check-list check-list--2col">
-<li>Compreender a estrutura, os objetivos e as diretrizes do Plano Pena Justa relacionadas à Justiça Restaurativa.</li>
-<li>Identificar os diferentes espaços de aplicação da Justiça Restaurativa previstos no Plano Pena Justa.</li>
-<li>Planejar e implementar práticas restaurativas nas audiências de custódia.</li>
-<li>Aplicar metodologias restaurativas no contexto da justiça penal negociada.</li>
-<li>Estruturar programas de Justiça Restaurativa no âmbito da execução penal.</li>
-<li>Desenvolver práticas restaurativas voltadas às alternativas penais.</li>
-<li>Elaborar planos institucionais compatíveis com a realidade local e com as diretrizes do Plano Pena Justa.</li>
-<li>Integrar práticas restaurativas às rotinas e procedimentos da instituição.</li>
-<li>Desenvolver indicadores para acompanhamento e avaliação dos programas.</li>
-<li>Estruturar projetos aptos à celebração de parcerias institucionais e à captação de recursos.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Público-alvo</h3>
-<ul class="dot-list">
-<li>Gestores da Polícia Penal.</li>
-<li>Diretores de unidades prisionais.</li>
-<li>Magistrados.</li>
-<li>Membros do Ministério Público.</li>
-<li>Defensores Públicos.</li>
-<li>Gestores estaduais e municipais.</li>
-<li>Integrantes dos Comitês de Políticas Penais.</li>
-<li>Equipes técnicas responsáveis pela implementação do Plano Pena Justa.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-layer-group"></i>Estrutura da formação</h3>
-<ul class="check-list check-list--2col">
-<li>O Plano Pena Justa: fundamentos, objetivos e diretrizes.</li>
-<li>Justiça Restaurativa como política pública.</li>
-<li>Justiça Restaurativa nas audiências de custódia.</li>
-<li>Justiça Restaurativa na justiça penal negociada.</li>
-<li>Justiça Restaurativa na execução penal.</li>
-<li>Justiça Restaurativa nas alternativas penais.</li>
-<li>Planejamento estratégico para implementação institucional.</li>
-<li>Estruturação de programas restaurativos.</li>
-<li>Governança, monitoramento e avaliação.</li>
-<li>Estudos de caso nacionais e internacionais.</li>
-<li>Oficina para elaboração do plano institucional de implementação.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-star"></i>Diferenciais da formação</h3>
-<ul class="check-list">
-<li>Conteúdo desenvolvido especificamente para apoiar a implementação das diretrizes do Plano Pena Justa.</li>
-<li>Formação estruturada a partir das ações concretas previstas na política nacional, e não apenas de seus fundamentos teóricos.</li>
-<li>Integração entre planejamento estratégico, gestão de projetos e Justiça Restaurativa.</li>
-<li>Ênfase na construção de soluções adaptadas à realidade de cada instituição.</li>
-<li>Formação baseada em experiências nacionais e internacionais.</li>
-<li>Desenvolvimento, durante o curso, de um plano de implementação aplicável à instituição participante.</li>
-</ul>
-</div>
-<div class="formacao__outcome">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h3>
-<p class="prose" style="margin-bottom:var(--space-lg)">Ao final da formação, a instituição estará preparada para:</p>
-<ul class="check-list">
-<li>Elaborar um plano institucional de implementação da Justiça Restaurativa alinhado ao Plano Pena Justa.</li>
-<li>Estruturar programas restaurativos para os diferentes espaços de aplicação previstos na política nacional.</li>
-<li>Desenvolver protocolos e fluxos institucionais para utilização da Justiça Restaurativa.</li>
-<li>Integrar magistrados, Polícia Penal, Ministério Público, Defensoria Pública e demais atores na implementação das ações.</li>
-<li>Definir metas, indicadores e mecanismos de monitoramento dos programas.</li>
-<li>Capacitar equipes para conduzir e expandir iniciativas restaurativas.</li>
-<li>Implantar ações sustentáveis capazes de consolidar a Justiça Restaurativa como política institucional.</li>
-</ul>
-</div>
-<div class="formacao__foot">
-<a class="btn btn--dark" href="#solicitar">Solicitar proposta <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="como-atuamos.html">Ver as soluções do IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
-</div>
+<article class="service-card" data-aos="fade-up" data-aos-delay="80">
+<div class="service-card__img-wrap"><img alt="Equipe reunida em volta de uma mesa organizando fichas de um plano de implementação" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/pena-justa-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para gestores e comitês de políticas penais</p><h3 class="service-card__title">Implementação da JR no Plano Pena Justa</h3><p class="service-card__desc">Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.</p><a class="service-card__link" href="formacao-pena-justa.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-
-<article class="formacao formacao--escolar" data-aos="fade" id="ambiente-escolar">
-<header class="formacao__head">
-<h2 class="formacao__title">Implementação de Práticas Restaurativas no Ambiente Escolar</h2>
-<p class="formacao__lead">Desenvolver uma cultura de convivência capaz de prevenir, enfrentar e aprender com os problemas, conflitos e danos presentes na escola.</p>
-</header>
-<div class="formacao__body">
-<p class="formacao__intro">Escolas convivem diariamente com desafios que vão muito além do processo de ensino-aprendizagem. Bullying, violência, conflitos interpessoais, dificuldades de comunicação, danos ao patrimônio e afastamento das famílias fazem parte da realidade de muitas instituições.</p>
-<p class="formacao__intro">Esta formação foi desenvolvida para preparar gestores, professores e equipes escolares para incorporar práticas restaurativas ao cotidiano da escola, fortalecendo a convivência, qualificando a gestão dos conflitos e desenvolvendo estratégias capazes de transformar problemas em oportunidades de aprendizagem e desenvolvimento coletivo.</p>
-<div class="spec-row">
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i></span><span><span class="spec__label">Modalidade</span><span class="spec__value">Presencial, on-line ou híbrida, com formação personalizada para instituições públicas e privadas.</span></span></div>
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-clock"></i></span><span><span class="spec__label">Carga horária</span><span class="spec__value">Definida conforme os objetivos da instituição contratante e o nível de aprofundamento pretendido.</span></span></div>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>Competências desenvolvidas</h3>
-<ul class="check-list check-list--2col">
-<li>Compreender os fundamentos da Justiça Restaurativa e sua aplicação no contexto escolar.</li>
-<li>Diferenciar práticas restaurativas de abordagens disciplinares tradicionais.</li>
-<li>Identificar situações em que práticas restaurativas podem contribuir para prevenir ou responder a conflitos.</li>
-<li>Planejar estratégias para fortalecimento da cultura de convivência.</li>
-<li>Conduzir processos restaurativos compatíveis com diferentes situações vivenciadas pela escola.</li>
-<li>Desenvolver práticas voltadas ao fortalecimento das relações entre estudantes, professores, famílias e comunidade escolar.</li>
-<li>Estruturar protocolos institucionais para utilização de práticas restaurativas.</li>
-<li>Integrar as práticas restaurativas ao projeto político-pedagógico da instituição.</li>
-<li>Avaliar resultados e acompanhar a evolução das ações implementadas.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Público-alvo</h3>
-<ul class="dot-list">
-<li>Diretores escolares.</li>
-<li>Coordenadores pedagógicos.</li>
-<li>Professores.</li>
-<li>Orientadores educacionais.</li>
-<li>Psicólogos escolares.</li>
-<li>Assistentes sociais.</li>
-<li>Equipes técnicas.</li>
-<li>Secretarias Municipais e Estaduais de Educação.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-layer-group"></i>Estrutura da formação</h3>
-<ul class="check-list check-list--2col">
-<li>Fundamentos da Justiça Restaurativa.</li>
-<li>Cultura de convivência e clima escolar.</li>
-<li>Práticas restaurativas aplicadas ao ambiente escolar.</li>
-<li>Prevenção e enfrentamento do bullying.</li>
-<li>Gestão restaurativa de conflitos entre estudantes.</li>
-<li>Relação escola-família.</li>
-<li>Desenvolvimento de protocolos institucionais.</li>
-<li>Planejamento da implementação.</li>
-<li>Estudos de caso e atividades práticas.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-star"></i>Diferenciais da formação</h3>
-<ul class="check-list">
-<li>Conteúdo fundamentado em evidências científicas e experiências nacionais e internacionais.</li>
-<li>Formação voltada à implementação prática e não apenas à compreensão conceitual da Justiça Restaurativa.</li>
-<li>Integração entre gestão escolar, práticas pedagógicas e cultura de convivência.</li>
-<li>Desenvolvimento de soluções adaptadas à realidade de cada escola ou rede de ensino.</li>
-<li>Ênfase na construção de protocolos e estratégias permanentes de implementação.</li>
-</ul>
-</div>
-<div class="formacao__outcome">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h3>
-<p class="prose" style="margin-bottom:var(--space-lg)">Ao final da formação, a escola ou rede de ensino estará preparada para:</p>
-<ul class="check-list">
-<li>Desenvolver um programa institucional de práticas restaurativas.</li>
-<li>Incorporar estratégias restaurativas ao cotidiano escolar.</li>
-<li>Estruturar protocolos para prevenção e enfrentamento de conflitos.</li>
-<li>Fortalecer a participação de estudantes, professores e famílias na construção das soluções.</li>
-<li>Desenvolver ações voltadas ao fortalecimento da cultura de convivência.</li>
-<li>Capacitar equipes para dar continuidade às práticas restaurativas de forma autônoma.</li>
-</ul>
-</div>
-<div class="formacao__foot">
-<a class="btn btn--dark" href="#solicitar">Solicitar proposta <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="como-atuamos.html">Ver as soluções do IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
-</div>
+<article class="service-card" data-aos="fade-up" data-aos-delay="160">
+<div class="service-card__img-wrap"><img alt="Professores e equipe escolar em roda de conversa numa sala de aula" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/ambiente-escolar-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para diretores, professores e equipes</p><h3 class="service-card__title">Práticas Restaurativas no Ambiente Escolar</h3><p class="service-card__desc">Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.</p><a class="service-card__link" href="formacao-ambiente-escolar.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-
-<article class="formacao formacao--estudantes" data-aos="fade" id="estudantes">
-<header class="formacao__head">
-<h2 class="formacao__title">Formação de Estudantes em Práticas Restaurativas</h2>
-<p class="formacao__lead">Desenvolver competências para construir uma cultura de diálogo, respeito e corresponsabilidade.</p>
-</header>
-<div class="formacao__body">
-<p class="formacao__intro">A convivência escolar é construída diariamente pelas relações entre estudantes. Desenvolver competências para dialogar, compreender diferentes perspectivas, lidar com conflitos e assumir responsabilidades contribui não apenas para reduzir episódios de violência, mas também para formar cidadãos capazes de participar de forma respeitosa e colaborativa da vida em comunidade.</p>
-<p class="formacao__intro">Esta formação foi desenvolvida para proporcionar aos estudantes experiências práticas que fortaleçam habilidades socioemocionais, estimulem o protagonismo juvenil e preparem grupos de alunos para atuar como multiplicadores da cultura restaurativa em suas escolas.</p>
-<div class="spec-row">
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i></span><span><span class="spec__label">Modalidade</span><span class="spec__value">Presencial, com formação personalizada para escolas públicas e privadas.</span></span></div>
-<div class="spec"><span class="spec__icon"><i aria-hidden="true" class="fa-solid fa-clock"></i></span><span><span class="spec__label">Carga horária</span><span class="spec__value">Definida conforme a faixa etária dos estudantes e os objetivos da instituição contratante.</span></span></div>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>Competências desenvolvidas</h3>
-<ul class="check-list check-list--2col">
-<li>Compreender os princípios das práticas restaurativas e sua aplicação no cotidiano escolar.</li>
-<li>Desenvolver habilidades de diálogo, comunicação e escuta respeitosa.</li>
-<li>Compreender os impactos que suas atitudes produzem sobre outras pessoas.</li>
-<li>Participar da construção compartilhada de soluções para problemas e conflitos.</li>
-<li>Desenvolver empatia, cooperação e senso de responsabilidade.</li>
-<li>Atuar como protagonistas na promoção de uma cultura de convivência.</li>
-<li>Contribuir para a prevenção do bullying, da exclusão e de outras formas de violência.</li>
-<li>Apoiar a construção de ambientes escolares mais acolhedores e colaborativos.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Público-alvo</h3>
-<ul class="dot-list">
-<li>Estudantes do Ensino Fundamental II.</li>
-<li>Estudantes do Ensino Médio.</li>
-<li>Grêmios estudantis.</li>
-<li>Líderes de turma.</li>
-<li>Monitores e estudantes indicados pela escola para atuação como multiplicadores.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-layer-group"></i>Estrutura da formação</h3>
-<ul class="check-list check-list--2col">
-<li>Convivência e cultura escolar.</li>
-<li>Comunicação respeitosa.</li>
-<li>Compreensão dos impactos das próprias ações.</li>
-<li>Responsabilização e construção de soluções.</li>
-<li>Cooperação e protagonismo juvenil.</li>
-<li>Práticas restaurativas no cotidiano da escola.</li>
-<li>Atividades vivenciais e exercícios práticos.</li>
-</ul>
-</div>
-<div class="block">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-star"></i>Diferenciais da formação</h3>
-<ul class="check-list">
-<li>Metodologia participativa, adequada às diferentes faixas etárias.</li>
-<li>Aprendizagem baseada em experiências práticas.</li>
-<li>Linguagem acessível e compatível com a realidade escolar.</li>
-<li>Integração entre desenvolvimento pessoal e convivência escolar.</li>
-<li>Formação voltada à construção de uma cultura restaurativa entre os próprios estudantes.</li>
-</ul>
-</div>
-<div class="formacao__outcome">
-<h3 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h3>
-<p class="prose" style="margin-bottom:var(--space-lg)">Ao final da formação, a instituição estará preparada para:</p>
-<ul class="check-list">
-<li>Formar estudantes multiplicadores de práticas restaurativas.</li>
-<li>Desenvolver projetos de protagonismo juvenil.</li>
-<li>Fortalecer a participação dos estudantes na construção da cultura de convivência.</li>
-<li>Ampliar a capacidade da escola de prevenir e enfrentar conflitos por meio do diálogo.</li>
-<li>Integrar os estudantes às estratégias institucionais de promoção da convivência.</li>
-</ul>
-</div>
-<div class="formacao__foot">
-<a class="btn btn--dark" href="#solicitar">Solicitar proposta <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="como-atuamos.html">Ver as soluções do IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
-</div>
+<article class="service-card" data-aos="fade-up" data-aos-delay="240">
+<div class="service-card__img-wrap"><img alt="Profissionais em roda de conversa no ambiente de trabalho" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card.jpg"/></div>
+<div class="service-card__body"><p class="service-card__audience">Para lideranças, gestores e equipes de RH</p><h3 class="service-card__title">Práticas Restaurativas nas Relações de Trabalho</h3><p class="service-card__desc">Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.</p><a class="service-card__link" href="formacao-relacoes-trabalho.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
-
-</div>
-</section>
-
-<!-- solicitar proposta -->
-<!-- TODO: o IBPR ainda não criou os produtos na Hotmart e o e-mail
-     institucional público não veio do cliente, então não existe canal real
-     de contato pra linkar aqui. Enquanto isso este bloco concentra o estado
-     pendente (em vez de espalhar botões mortos por cada formação) e todos os
-     CTAs das fichas acima apontam pra cá. Quando o canal existir, trocar o
-     <span class="btn ... is-pending"> por <a href="..."> e apagar a nota. -->
-<section aria-label="Solicitar proposta" class="section section--dark" id="solicitar">
-<div aria-hidden="true" class="noticias__glow"></div>
-<div class="container" style="position:relative;z-index:1">
-<div class="aluno-panel" data-aos="fade-up" style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);box-shadow:none">
-<div class="aluno-panel__icon"><i aria-hidden="true" class="fa-solid fa-file-signature"></i></div>
-<h2 class="aluno-panel__title" style="color:#fff">Solicite uma proposta para sua instituição</h2>
-<p class="aluno-panel__desc" style="color:rgba(255,255,255,0.68)">Carga horária, modalidade e conteúdo são definidos a partir dos objetivos da instituição contratante. O IBPR monta a formação junto com a sua equipe, considerando a realidade e a cultura da sua organização.</p>
-<button class="btn btn--white is-pending" disabled type="button">Falar com o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></button>
-<div class="aluno-panel__foot">
-<p class="pending-note"><i aria-hidden="true" class="fa-solid fa-circle-info"></i> O canal oficial de contato do Instituto será divulgado em breve.</p>
-</div>
 </div>
 </div>
 </section>
@@ -556,7 +272,8 @@
 </div>
 </section>
 
-<!-- cta final -->
+<!-- cta final: aqui ele fica (o grupo pediu pra tirar só da página do curso).
+     Quem não encontrou formação que sirva é levado pras soluções do Instituto. -->
 <section aria-label="Chamada final" class="cta-final" id="cta-final">
 <div aria-hidden="true" class="grid-overlay"></div>
 <div aria-hidden="true" class="cta-final__glow"></div>
@@ -565,7 +282,7 @@
 <h2 class="cta-final__title" data-aos="fade-up">Não sabe qual formação atende sua instituição?</h2>
 <p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">As soluções do IBPR partem do desafio concreto da sua organização, e não de um catálogo pronto. Vale começar por elas.</p>
 <div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="como-atuamos.html">Ver as soluções <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="btn btn--dark" href="como-atuamos.html">Ver como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
@@ -631,5 +348,27 @@ AOS.init({
 });
 </script>
 <script src="assets/js/site-interactions.js?v=20260825f"></script>
+<script>
+/* Conteúdo do programa: botão "Expandir todos / Recolher todos".
+   O acordeão em si é <details> nativo e funciona sem isto. */
+(function () {
+  var toggle = document.querySelector('[data-accordion-toggle]');
+  var group = document.getElementById('course-modules');
+  if (!toggle || !group) return;
+  var items = group.querySelectorAll('.accordion');
+  function sync() {
+    var allOpen = Array.prototype.every.call(items, function (d) { return d.open; });
+    toggle.textContent = allOpen ? 'Recolher todos' : 'Expandir todos';
+    toggle.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var expand = toggle.getAttribute('aria-expanded') !== 'true';
+    Array.prototype.forEach.call(items, function (d) { d.open = expand; });
+    sync();
+  });
+  group.addEventListener('toggle', sync, true);
+  sync();
+})();
+</script>
 </body>
 </html>

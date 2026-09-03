@@ -30,6 +30,10 @@ ul, ol { list-style: none; }
 a { text-decoration: none; color: inherit; }
 button { border: none; background: none; cursor: pointer; font-family: inherit; }
 
+/* Seleção de texto na cor da marca em vez do azul do sistema. Detalhe
+   pequeno, mas é dos que separam site feito com cuidado de template. */
+::selection { background: rgba(var(--teal-rgb), 0.22); color: var(--color-navy); }
+
 /* ===================================
    LAYOUT
 =================================== */
@@ -875,9 +879,12 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .service-card:hover { transform: translateY(-6px); border-color: rgba(var(--teal-rgb), 0.28); box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.13); }
 .service-card:hover::after { transform: scaleX(1); }
 
+/* aspect-ratio 3/2 em vez de altura fixa: é a proporção nativa das fotos de
+   formação (1400×933), então a imagem entra sem corte e o topo do card
+   acompanha a largura da coluna. */
 .service-card__img-wrap {
   position: relative;
-  height: 17rem;
+  aspect-ratio: 3 / 2;
   flex-shrink: 0;
   overflow: hidden;
   display: flex;
@@ -885,6 +892,15 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   justify-content: center;
   background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-teal) 100%);
 }
+
+/* O topo do card aceita dois preenchimentos: o degradê com ícone (usado pela
+   prévia de Notícias) e a foto da formação. Com foto, o degradê, a textura de
+   grade e o halo são desligados — o :has() evita ter que carregar uma classe
+   modificadora no HTML, mesma técnica já usada no .proj-card--bare. */
+.service-card__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; }
+.service-card__img-wrap:has(.service-card__photo) { background: none; }
+.service-card__img-wrap:has(.service-card__photo)::before,
+.service-card__img-wrap:has(.service-card__photo)::after { content: none; }
 
 /* textura de grade — mesmo material do hero e das seções do design
    system, aqui na variante clara sobre fundo escuro */
@@ -922,23 +938,9 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .service-card:hover .service-card__img-wrap i { transform: translateY(-3px) scale(1.06); }
 
-/* numeral fantasma — dá ritmo editorial à sequência de cards */
-.service-card__num {
-  position: absolute;
-  top: 1.2rem; right: 1.8rem;
-  z-index: 1;
-  font-family: var(--font-display);
-  font-size: 4.6rem;
-  font-weight: var(--weight-bold);
-  line-height: 1;
-  letter-spacing: var(--tracking-tight);
-  color: rgba(var(--white-rgb), 0.14);
-  pointer-events: none;
-  transition: color var(--transition-base);
-}
-
-.service-card:hover .service-card__num { color: rgba(var(--gold-rgb), 0.38); }
-
+/* .service-card__category segue viva por causa da prévia de Notícias
+   (template comentado em ibpr-em-movimento.html), que usa o topo em ícone.
+   Os cards de formação passaram a usar foto e não têm categoria. */
 .service-card__category {
   position: absolute;
   bottom: var(--space-md); left: var(--space-md);
@@ -976,14 +978,26 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   text-wrap: balance;
 }
 
-.service-card__desc { font-size: 1.35rem; color: var(--color-mist); line-height: var(--leading-body); flex: 1; }
+/* Travado em 2 linhas, cortando em reticências: o card entrega só uma amostra
+   da formação, o resto está na página do curso. O link vai pra base com
+   margin-top:auto, então cards com título de 2 ou 3 linhas fecham alinhados. */
+.service-card__desc {
+  font-size: 1.35rem;
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+  flex: none;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
 
 .service-card__link {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
-  margin-top: var(--space-md);
+  margin-top: auto;
   padding-top: var(--space-md);
   border-top: 1px solid var(--color-border-light);
   font-size: 1.3rem;
@@ -1024,45 +1038,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   min-height: 2.94rem; /* 2 × (1.05rem × 1.4) */
 }
 
-/* Chips de modalidade + certificação — informação de decisão real
-   (docx: Modalidades / Certificação), entre a descrição e o link.
-   Sem carga horária de propósito: no docx ela é "definida conforme a
-   instituição", não um número fixo.
-   Empilhados sempre, nunca lado a lado: em linha, "Presencial · On-line ·
-   Híbrida" só cabe ao lado do chip de certificação em alguns cards, e a
-   quebra automática deixava a família de 4 cards com alturas de chip
-   diferentes (28px em dois, 64px nos outros). */
-.service-card__meta {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.8rem;
-}
-
-.service-card__meta-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 1.15rem;
-  font-weight: var(--weight-medium);
-  color: var(--color-navy-mid);
-  background: var(--color-paper);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-pill);
-  padding: 0.5rem 1.2rem;
-  line-height: var(--leading-ui);
-  white-space: nowrap;
-}
-
-.service-card__meta-item i { color: var(--color-teal); font-size: 1.05rem; }
-
-/* Gradiente próprio por formação — as 4 deixam de ser clones visuais e
-   viram uma família com identidade individual, sempre dentro da paleta
-   da marca (navy/petróleo/verde). O card 01 (Execução Penal) fica no
-   gradiente padrão navy→petróleo do componente. */
-.service-card--pena-justa .service-card__img-wrap { background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%); }
-.service-card--escolar .service-card__img-wrap { background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-green) 100%); }
-.service-card--estudantes .service-card__img-wrap { background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%); }
+/* Os chips de modalidade/certificação (.service-card__meta) e os gradientes
+   por formação (--pena-justa / --escolar / --estudantes) foram removidos em
+   03/09: os chips deram lugar à prévia de 2 linhas e o topo do card virou
+   foto, então não havia mais degradê pra diferenciar. */
 
 /* ===================================
    FORMAÇÕES — faixa "o que você recebe" (fecho da seção, reforça o
@@ -2728,6 +2707,12 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* Grade em que todos os cards têm exatamente a mesma altura, independente do
    texto — o conteúdo fica no topo e sobra respiro embaixo nos mais curtos.
    Usada em Como Atuamos pra os blocos não ficarem com alturas diferentes. */
+/* Medida estreita do catálogo de formações: com 4 cards em 2 colunas dentro
+   do container cheio, cada card passaria de 58rem e a foto 3:2 ficaria
+   desproporcional. Em 92rem o card fica na mesma faixa de largura em que é
+   usado na Home e no fim das páginas de curso. Vale pro cabeçalho e pra
+   grade, pra os dois alinharem pela mesma margem esquerda. */
+.measure-narrow { max-width: 92rem; margin-inline: auto; }
 .card-grid--equal { align-items: stretch; }
 .card-grid--equal .info-card { min-height: 36rem; }
 @media (min-width: 700px)  { .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
@@ -2874,149 +2859,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .anchor-nav__link i { color: var(--color-gold); font-size: 1.1rem; }
 .anchor-nav__link:hover { background: rgba(var(--gold-rgb), 0.14); border-color: rgba(var(--gold-rgb), 0.42); color: var(--color-white); transform: translateY(-2px); }
 
-/* ---- Ficha de formação (formacoes.html) ----
-   Cada formação é um bloco longo: chamada, specs, competências,
-   público-alvo, estrutura, diferenciais e o que a instituição sai
-   capaz de implementar. Cartão largo pra separar uma formação da
-   próxima sem depender só de espaço em branco. */
-.formacao {
-  border-radius: 2.4rem;
-  border: 1px solid var(--color-border-light);
-  background: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-
-.formacao + .formacao { margin-top: var(--space-2xl); }
-
-/* cabeçalho colorido — mesma família de gradientes dos cards da Home,
-   pra formação ter a mesma cor nos dois lugares do site */
-.formacao__head {
-  position: relative;
-  padding: var(--space-2xl) var(--space-xl);
-  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-teal) 100%);
-  overflow: hidden;
-}
-
-.formacao--pena-justa .formacao__head { background: linear-gradient(135deg, var(--color-navy-900) 0%, var(--color-navy-700) 100%); }
-.formacao--escolar .formacao__head    { background: linear-gradient(135deg, var(--color-teal) 0%, var(--color-green) 100%); }
-.formacao--estudantes .formacao__head { background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-green) 100%); }
-
-.formacao__head::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(var(--white-rgb), 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--white-rgb), 0.07) 1px, transparent 1px);
-  background-size: 30px 30px;
-  mask-image: radial-gradient(ellipse at 30% 50%, black 10%, transparent 78%);
-  -webkit-mask-image: radial-gradient(ellipse at 30% 50%, black 10%, transparent 78%);
-  pointer-events: none;
-}
-
-.formacao__head > * { position: relative; z-index: 1; }
-
-.formacao__num {
-  position: absolute;
-  top: var(--space-md); right: var(--space-xl);
-  z-index: 0;
-  font-family: var(--font-display);
-  font-size: 7rem;
-  font-weight: var(--weight-bold);
-  line-height: 1;
-  color: rgba(var(--white-rgb), 0.12);
-  pointer-events: none;
-}
-
-.formacao__category {
-  display: inline-flex;
-  align-items: center;
-  font-size: 1.05rem;
-  font-weight: var(--weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-overline);
-  color: var(--color-white);
-  background: rgba(var(--navy900-rgb), 0.35);
-  border: 1px solid rgba(var(--gold-rgb), 0.55);
-  border-radius: var(--radius-pill);
-  padding: 5px 13px;
-  margin-bottom: var(--space-md);
-}
-
-.formacao__title {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3vw, 3rem);
-  font-weight: var(--weight-semibold);
-  color: var(--color-white);
-  line-height: var(--leading-display);
-  letter-spacing: var(--tracking-snug);
-  max-width: 60rem;
-  text-wrap: balance;
-}
-
-.formacao__lead {
-  margin-top: var(--space-sm);
-  font-size: 1.55rem;
-  color: rgba(var(--white-rgb), 0.82);
-  line-height: var(--leading-body);
-  max-width: 62rem;
-}
-
-.formacao__body { padding: var(--space-2xl) var(--space-xl); }
-@media (min-width: 900px) { .formacao__head, .formacao__body { padding-inline: var(--space-2xl); } }
-
-.formacao__intro { max-width: 68ch; font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
-.formacao__intro + .formacao__intro { margin-top: var(--space-md); }
-
-/* faixa de specs — modalidade / carga horária / certificação */
-.spec-row {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-lg);
-  margin: var(--space-xl) 0;
-  padding: var(--space-lg);
-  border-radius: var(--radius-lg);
-  background: var(--color-paper);
-  border: 1px solid var(--color-border-light);
-}
-
-@media (min-width: 800px) { .spec-row { grid-template-columns: repeat(2, 1fr); } }
-
-.spec { display: flex; gap: var(--space-md); align-items: flex-start; }
-
-.spec__icon {
-  width: 3.6rem; height: 3.6rem;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  border: 1px solid rgba(var(--teal-rgb), 0.28);
-  color: var(--color-teal);
-  font-size: 1.3rem;
-}
-
-.spec__label {
-  display: block;
-  font-size: 1.05rem;
-  font-weight: var(--weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-overline);
-  color: var(--color-navy-mid);
-  margin-bottom: 0.4rem;
-}
-
-.spec__value { font-size: 1.35rem; color: var(--color-navy); line-height: var(--leading-ui); }
-
-/* fecho da ficha — o que a instituição sai capaz de implementar */
-.formacao__outcome {
-  margin-top: var(--space-xl);
-  padding: var(--space-xl);
-  border-radius: var(--radius-lg);
-  background: linear-gradient(150deg, rgba(var(--teal-rgb), 0.07) 0%, rgba(var(--gold-rgb), 0.05) 100%);
-  border: 1px solid rgba(var(--teal-rgb), 0.18);
-}
-
-.formacao__foot { margin-top: var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-md); align-items: center; }
+/* As fichas longas de formação (.formacao*, .spec*) foram removidas em
+   03/09: a formacoes.html virou índice com os cards, e o conteúdo
+   completo passou a viver em cada formacao-<slug>.html. */
 
 /* ---- Accordion (bio longa dos fundadores) ----
    <details>/<summary> nativo: abre sem JS, é acessível por teclado de
@@ -3124,6 +2969,17 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    o suficiente pra sustentar a leitura do título/subtítulo/pills. Uma
    pincelada leve no topo protege o texto da navbar. Só nesta variante
    (page-hero--course); o .page-hero padrão continua no gradiente liso. --- */
+/* A foto vem de --course-hero, uma classe por formação. Declarada AQUI e não
+   inline no HTML de propósito: url() dentro de custom property é resolvido
+   relativo à folha de estilo que usa o var(), não ao documento — inline em
+   cada página o caminho virava assets/css/assets/images/... Default `none`
+   pra que, sem a classe, os degradês continuem válidos e o hero caia no
+   gradiente liso do .page-hero. */
+.page-hero--course { --course-hero: none; }
+.page-hero--execucao-penal    { --course-hero: url("../images/formacoes/execucao-penal.jpg"); }
+.page-hero--pena-justa        { --course-hero: url("../images/formacoes/pena-justa.jpg"); }
+.page-hero--ambiente-escolar  { --course-hero: url("../images/formacoes/ambiente-escolar.jpg"); }
+.page-hero--relacoes-trabalho { --course-hero: url("../images/formacoes/relacoes-trabalho.jpg"); }
 .page-hero--course::before {
   content: "";
   position: absolute; inset: 0; z-index: 0;
@@ -3134,7 +2990,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
       rgba(var(--navy900-rgb), 0.55) 34%,
       rgba(var(--navy900-rgb), 0.18) 64%,
       transparent 85%),
-    url("../images/formacoes/relacoes-trabalho.jpg");
+    var(--course-hero);
   background-size: cover;
   background-position: center;
 }
@@ -3142,6 +2998,15 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--course .page-hero__sub,
 .page-hero--course .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--course .page-hero__sub { color: rgba(var(--white-rgb), 0.9); }
+/* Sobre foto, a pílula translúcida de 7% some nas áreas claras da imagem.
+   Aqui ela ganha corpo (navy semi + blur) só nesta variante, pra ficar
+   legível em qualquer enquadramento das 4 fotos de formação. */
+.page-hero--course .course-meta__item {
+  background: rgba(var(--navy900-rgb), 0.42);
+  border-color: rgba(var(--white-rgb), 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 
 /* --- layout de 2 colunas ---
    align-items: stretch (padrão) de propósito: a coluna da direita estica
@@ -3149,9 +3014,29 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    rolagem do conteúdo (mesma pegadinha do .solucoes__layout). */
 .course-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-3xl); }
 @media (min-width: 961px) { .course-layout { grid-template-columns: minmax(0, 1fr) minmax(28rem, 34rem); } }
+/* Numa coluna só, o card ficaria depois de toda a página. Aqui ele sobe pro
+   topo do conteúdo, como na versão mobile da Udemy: quem entra decidido não
+   precisa rolar a página inteira pra achar o botão. */
+@media (max-width: 960px) { .course-aside { order: -1; } }
 .course-main { min-width: 0; max-width: 80rem; }
 .course-main > * + * { margin-top: var(--space-3xl); }
 .course-aside { min-width: 0; }
+
+/* Hierarquia: nesta página o .block-title é o título de SEÇÃO do conteúdo,
+   não um rótulo de sub-bloco. No tamanho herdado (--text-h5 = 1.6rem) ele
+   saía MENOR que o corpo (1.8rem), invertendo a hierarquia. Escopado em
+   .course-main pra não mexer nas outras páginas. */
+.course-main .block-title {
+  font-size: clamp(1.9rem, 1.4vw + 1.3rem, 2.2rem);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-snug);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  text-wrap: balance;
+}
+/* Medida de leitura: a coluna tem 80rem, o que dá ~85 caracteres por linha
+   no texto corrido. Aqui a prosa fecha em ~70, que é a faixa confortável. */
+.course-main .prose { max-width: 64rem; }
 
 /* --- caixa "O que você vai desenvolver": branca, borda fina (estilo Udemy) --- */
 .course-learn {
@@ -3182,46 +3067,91 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .course-eixo { position: relative; z-index: 1; }
 @media (min-width: 720px) {
   .course-eixos { grid-template-columns: repeat(3, 1fr); gap: 0; }
-  .course-eixo { padding-inline: var(--space-lg); border-left: 1px solid rgba(var(--navy-rgb), 0.12); }
+  /* padding-inline em --space-md (não --space-lg): com 3 colunas dentro da
+     coluna de conteúdo, cada eixo fica com ~24 caracteres por linha, e cada
+     centímetro devolvido ao texto reduz o rasgado. */
+  .course-eixo { padding-inline: var(--space-md); border-left: 1px solid rgba(var(--navy-rgb), 0.12); }
   .course-eixo:first-child { border-left: none; padding-left: 0; }
   .course-eixo:last-child { padding-right: 0; }
 }
-.course-eixo__num { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: var(--weight-bold); color: var(--color-gold); margin-bottom: var(--space-2xs); }
+/* Empilhado, sem os filetes verticais, os 3 eixos viravam um bloco só de
+   texto. O filete horizontal devolve a separação. */
+@media (max-width: 719px) {
+  .course-eixos { gap: 0; }
+  .course-eixo + .course-eixo { margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid rgba(var(--navy-rgb), 0.12); }
+}
+/* O dourado é acento de fundo ESCURO: sobre o creme dá 2.42:1, reprovando
+   até o mínimo de 3:1 de elemento não textual (o próprio tokens.css avisa
+   isso). O índice vira navy-mid (7.48:1) e o petróleo segue na palavra-chave. */
+.course-eixo__num { display: block; font-family: var(--font-display); font-size: 1.3rem; font-weight: var(--weight-bold); color: var(--color-navy-mid); margin-bottom: var(--space-2xs); }
 .course-eixo__key { display: block; font-size: 1.15rem; font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: var(--tracking-overline); color: var(--color-teal); margin-bottom: var(--space-xs); }
-.course-eixo__phrase { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); }
-.course-eixo__desc { font-size: 1.4rem; color: var(--color-navy-mid); line-height: var(--leading-body); }
+.course-eixo__phrase { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); text-wrap: balance; }
+.course-eixo__desc { font-size: 1.4rem; color: var(--color-navy-mid); line-height: var(--leading-body); text-wrap: pretty; }
 
 /* --- pills de tema / público (contexto claro) --- */
 .course-pills { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
-.tag-pill { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; font-weight: var(--weight-medium); color: var(--color-navy); background: var(--color-white); border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); padding: 0.6rem 1.4rem; transition: border-color var(--transition-fast), color var(--transition-fast); }
-a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); }
+.tag-pill { display: inline-flex; align-items: center; gap: var(--space-xs); font-size: 1.3rem; font-weight: var(--weight-medium); color: var(--color-navy); background: var(--color-white); border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); padding: 0.6rem 1.4rem; transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast); }
+a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); background: var(--color-paper); }
 
 /* --- acordeão: grupo de módulos (usa .accordion nativo existente).
    Layout no naipe da lista de conteúdo da Udemy, com os tokens do site:
    linha com fundo creme, chevron à esquerda, contagem à direita; a barra
    de cima traz o total de módulos + o "Expandir todos". Tudo escopado em
    .course-modules pra não mexer no .accordion usado em outras páginas. --- */
-.course-modules { margin-top: var(--space-lg); border: 1px solid var(--color-border-light); border-radius: var(--radius-md); overflow: hidden; }
+/* radius-lg (não md): iguala o raio de .course-learn, .course-eixos,
+   .course-outcome e .proposta-card — a página tinha um bloco fora do padrão. */
+.course-modules { margin-top: var(--space-lg); border: 1px solid var(--color-border-light); border-radius: var(--radius-lg); overflow: hidden; }
+/* O overflow:hidden acima recorta o anel de foco (outline-offset: 3px) das
+   linhas coladas na borda. Aqui o anel vira interno, então continua visível. */
+.course-modules :focus-visible { outline-offset: -3px; }
 .course-modules__bar { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-sm); padding: var(--space-md) var(--space-lg); background: var(--color-white); border-bottom: 1px solid var(--color-border-light); }
 .course-modules__count { margin: 0; font-size: 1.3rem; color: var(--color-navy-mid); text-transform: uppercase; letter-spacing: var(--tracking-overline); }
-.course-modules__toggle { font-size: 1.3rem; font-weight: var(--weight-semibold); color: var(--color-teal); cursor: pointer; transition: color var(--transition-fast); }
-.course-modules__toggle:hover { color: var(--color-navy); }
+.course-modules__toggle {
+  font-size: 1.3rem; font-weight: var(--weight-semibold); line-height: var(--leading-ui);
+  color: var(--color-teal); cursor: pointer;
+  /* padding com margin negativa: dá respiro pro anel de foco sem deslocar
+     o botão no fluxo. */
+  padding: 0.3rem 0.6rem; margin: -0.3rem -0.6rem;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.course-modules__toggle:hover { color: var(--color-navy); background: var(--color-mist-bg); }
 
 .course-modules .accordion { margin-top: 0; border-top: none; }
 .course-modules .accordion + .accordion { border-top: 1px solid var(--color-border-light); }
 .course-modules .accordion__summary {
+  position: relative;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   background: var(--color-paper);
   color: var(--color-navy);
   font-size: 1.5rem;
+  transition: color var(--transition-fast), background var(--transition-fast);
 }
-.course-modules .accordion__summary:hover { color: var(--color-teal); }
+/* filete de acento no módulo aberto: marca onde a pessoa está sem depender
+   só da cor do texto. */
+.course-modules .accordion__summary::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: var(--color-teal);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform var(--transition-fast);
+}
+.course-modules .accordion[open] .accordion__summary::before { transform: scaleX(1); }
+.course-modules .accordion__summary:hover { color: var(--color-teal); background: var(--color-mist-bg); }
 .course-modules .accordion[open] .accordion__summary { background: var(--color-white); color: var(--color-teal); }
 .course-modules .accordion__summary i { color: var(--color-teal); }
 .course-modules .accordion__label { flex: 1; }
-.course-modules .accordion__meta { font-size: 1.3rem; font-weight: var(--weight-regular); color: var(--color-navy-mid); white-space: nowrap; }
+.course-modules .accordion__meta { font-size: 1.3rem; font-weight: var(--weight-regular); color: var(--color-navy-mid); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .course-modules .accordion__content { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+/* Em tela estreita, título do módulo + contagem disputam a mesma linha.
+   Menos padding lateral e corpo um ponto menor resolvem sem esconder nada. */
+@media (max-width: 560px) {
+  .course-modules__bar,
+  .course-modules .accordion__summary,
+  .course-modules .accordion__content { padding-inline: var(--space-md); }
+  .course-modules .accordion__summary { font-size: 1.4rem; gap: var(--space-sm); }
+  .course-modules .accordion__meta { font-size: 1.2rem; }
+}
 /* tópicos empilhados, cada um com ícone em caixinha à esquerda
    (mesmo naipe da lista de aulas da Udemy, sem duração) */
 .course-modules .accordion__content ul { margin-top: 0; grid-template-columns: 1fr; gap: 0; }
@@ -3276,7 +3206,9 @@ a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); }
   background: linear-gradient(90deg, var(--color-teal) 0%, var(--color-gold) 100%);
 }
 .proposta-card__body { padding: var(--space-lg); }
-.proposta-card__title { font-family: var(--font-display); font-size: 2rem; font-weight: var(--weight-bold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); }
+/* sem text-wrap: balance aqui de propósito — nesta frase o balance joga
+   "Acesse a" sozinho na 1ª linha; a quebra natural fica melhor. */
+.proposta-card__title { font-family: var(--font-display); font-size: 2rem; font-weight: var(--weight-bold); color: var(--color-navy); line-height: 1.2; letter-spacing: var(--tracking-snug); margin-bottom: var(--space-xs); }
 .proposta-card__note { font-size: 1.3rem; color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-md); }
 .proposta-card__list { display: grid; gap: var(--space-sm); margin-bottom: var(--space-lg); }
 .proposta-card__list li { display: flex; align-items: center; gap: var(--space-sm); font-size: 1.3rem; color: var(--color-navy); line-height: var(--leading-ui); }
@@ -3292,6 +3224,13 @@ a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); }
 .proposta-card .btn { display: flex; width: 100%; justify-content: center; }
 .proposta-card__guarantee { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-top: var(--space-sm); font-size: 1.2rem; color: var(--color-navy-mid); }
 .proposta-card__guarantee i { color: var(--color-teal); }
+
+/* Movimento reduzido: as micro-transições de cor podem ficar, o que sai é
+   o que se move (filete do acordeão e o giro do chevron). */
+@media (prefers-reduced-motion: reduce) {
+  .course-modules .accordion__summary::before { transition: none; }
+  .course-modules .accordion__summary i { transition: none; }
+}
 .proposta-card__inst { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--color-border-light); font-size: 1.2rem; color: var(--color-mist); line-height: var(--leading-body); text-align: center; }
 .proposta-card__inst a { color: var(--color-teal); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 0.2rem; }
 .proposta-card__inst a:hover { color: var(--color-navy); }
