@@ -114,6 +114,9 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .section-header__sub--center { max-width: 60rem; margin-inline: auto; }
+/* Seção "Como Atuamos" da Home: subtítulo um pouco mais largo pra caber
+   em 2 linhas (a coluna da esquerda dá espaço de sobra). */
+#solucoes-preview .section-header__sub { max-width: 62rem; }
 
 /* ===================================
    BUTTONS
@@ -1177,6 +1180,29 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .proj-card--featured .proj-card__name { font-size: clamp(2.6rem, 3.4vw, 3.6rem); font-weight: 700; }
 
 .proj-card__desc { font-size: 1.4rem; font-weight: 300; color: rgba(var(--white-rgb), 0.82); max-width: 42rem; line-height: var(--leading-body); }
+/* Card em destaque: por padrão o subtítulo usa 2 linhas cheias. */
+.proj-card--featured .proj-card__desc { text-wrap-style: auto; }
+/* Bloco "Fortalecendo relações": texto curto que deixaria 1 palavra órfã
+   na 2ª linha — aqui o balance equilibra melhor. */
+#solucao-relacoes .proj-card__desc { text-wrap: balance; }
+
+/* Cabeçalho de bloco sem foto: faixa em gradiente, conteúdo em fluxo
+   normal (sem o posicionamento absoluto do card com imagem). */
+.proj-card--featured.proj-card--plain { min-height: 22rem; display: flex; }
+.proj-card--plain .proj-card__body { position: static; padding: clamp(3.4rem, 6vw, 6rem) 3.4rem; }
+
+/* Cabeçalho "pelado": só a foto, sem degradê de fundo, sem pontinhos e sem
+   filtro na imagem (Como Atuamos, pedido do cliente). Mantém apenas um
+   degradê limpo na base pra sustentar a leitura do título/subtítulo. */
+.proj-card--bare { background: none; }
+.proj-card--bare .proj-card__photo { filter: none; }
+.proj-card.proj-card--bare:has(.proj-card__photo) .proj-card__overlay {
+  background: linear-gradient(to top,
+    rgba(var(--navy900-rgb), 0.88) 0%,
+    rgba(var(--navy900-rgb), 0.55) 32%,
+    rgba(var(--navy900-rgb), 0.12) 62%,
+    transparent 82%);
+}
 
 /* Subpontos reais da solução (títulos dos processos do docx, Aba 3) —
    dão profundidade ao painel sem virar parede de texto: uma linha por
@@ -2699,6 +2725,11 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    Uma única família cobre Missão/Visão (2), "O que nos move" (4),
    blocos da Justiça Restaurativa (4/5) e subpontos de Soluções (3). */
 .card-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+/* Grade em que todos os cards têm exatamente a mesma altura, independente do
+   texto — o conteúdo fica no topo e sobra respiro embaixo nos mais curtos.
+   Usada em Como Atuamos pra os blocos não ficarem com alturas diferentes. */
+.card-grid--equal { align-items: stretch; }
+.card-grid--equal .info-card { min-height: 36rem; }
 @media (min-width: 700px)  { .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 700px)  { .card-grid--3 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
