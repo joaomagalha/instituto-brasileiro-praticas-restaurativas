@@ -28,8 +28,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260903k" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260903k" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260905o" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260905o" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
@@ -157,8 +157,12 @@
 <div aria-hidden="true" class="proposito__glow"></div>
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header section-header--dark section__head" data-aos="fade-up">
-<p class="overline overline--light">Princípios</p>
-<h2>Os princípios por trás de cada solução.</h2>
+<!-- H2 descritivo removido a pedido do grupo (05/09). Seguindo o padrão
+     que eles mesmos pediram na seção dos fundadores em 02/09: o rótulo
+     curto sobe pra fonte grande e entra um kicker novo, também curto,
+     em cima. "O que nos orienta" é texto meu, fácil de trocar. -->
+<p class="overline overline--light">O que nos orienta</p>
+<h2>Princípios.</h2>
 </div>
 <ol class="principles">
 <li class="principle" data-aos="fade-up">
@@ -204,26 +208,12 @@
 <p>O IBPR atua a partir da integração entre pesquisa, formação e inovação. Acreditamos que respostas mais qualificadas aos problemas, conflitos e danos não surgem de ações isoladas, mas da combinação entre conhecimento científico, desenvolvimento de capacidades e implementação de soluções adaptadas à realidade de cada organização.</p>
 <p>Essa forma de atuação permite aproximar a produção acadêmica dos desafios concretos enfrentados por escolas, empresas, órgãos públicos e instituições de justiça e segurança pública.</p>
 </div>
-<div class="card-grid card-grid--3" style="margin-top:var(--space-2xl)">
-<article class="info-card" data-aos="fade-up">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i></div>
-<span class="info-card__num">I</span>
-<h3 class="info-card__title">Pesquisa</h3>
-<p class="info-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
-</article>
-<article class="info-card" data-aos="fade-up" data-aos-delay="80">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i></div>
-<span class="info-card__num">II</span>
-<h3 class="info-card__title">Formação</h3>
-<p class="info-card__desc">Capacitar gestores, profissionais e equipes de instituições públicas e privadas para desenvolver respostas mais qualificadas aos problemas, conflitos e danos.</p>
-</article>
-<article class="info-card" data-aos="fade-up" data-aos-delay="160">
-<div class="info-card__icon"><i aria-hidden="true" class="fa-solid fa-lightbulb"></i></div>
-<span class="info-card__num">III</span>
-<h3 class="info-card__title">Inovação</h3>
-<p class="info-card__desc">Desenvolver soluções para escolas, empresas e instituições de educação, justiça e segurança pública responderem de forma mais eficaz e restaurativa aos problemas, conflitos e danos.</p>
-</article>
-</div>
+<!-- Os 3 cards (Pesquisa / Formação / Inovação) saíram a pedido do grupo
+     (05/09). Eram redundantes duas vezes: o parágrafo logo acima já diz
+     os três ("conhecimento científico, desenvolvimento de capacidades e
+     implementação de soluções adaptadas"), e os mesmos cards continuam
+     na Home, em #proposito. A seção fica kicker + título + prosa, igual
+     à #jr-praticas de praticas-restaurativas.html. -->
 </div>
 </section>
 
@@ -419,6 +409,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260825f"></script>
+<script src="assets/js/site-interactions.js?v=20260905b"></script>
 </body>
 </html>

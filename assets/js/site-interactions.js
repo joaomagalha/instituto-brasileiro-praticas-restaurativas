@@ -250,26 +250,46 @@ document.querySelectorAll('.mobile-menu__link').forEach(link => link.addEventLis
     nav.style.setProperty('--solucao-progresso', progresso.toFixed(3));
   }
 
+  // Onde a troca acontece, como fração da altura da nav a partir do topo
+  // dela. Os painéis sobem, então a relação é INVERSA do que parece:
+  // linha mais BAIXA (fração maior) = o item acende mais CEDO, porque a
+  // divisa entre dois painéis cruza uma linha baixa antes de cruzar uma
+  // alta. 0.5 é o centro, que reproduz o comportamento anterior.
+  const ANCORA = 0.65;
+
   function medir() {
     agendado = false;
     if (!desktop.matches) return;
 
     const navR = nav.getBoundingClientRect();
-    const meioDaNav = navR.top + navR.height / 2;
+    // A regra anterior era "vence quem mais cobre a caixa da nav". Fazendo a
+    // conta com a nav em 537px e os painéis em 487px, a sobreposição de dois
+    // vizinhos empata exatamente quando a divisa entre eles cruza o CENTRO
+    // da nav — ou seja, o item só trocava no ponto 50/50 de cobertura.
+    // Como se lê de cima pra baixo, o painel novo já parece "o atual" antes
+    // disso, e é daí que vinha a sensação de atraso. Com ANCORA em 0.65 a
+    // troca passa a acontecer quando o painel novo cobre ~35% da nav, uns
+    // 80px de rolagem mais cedo, sem chegar a acender antes de o painel
+    // aparecer de fato.
+    const linha = navR.top + navR.height * ANCORA;
 
+    // Vence quem contém a linha. O fallback pelo mais próximo cobre as
+    // bordas (antes do 1º painel, depois do último) pra nunca ficar sem
+    // nenhum item aceso.
     let escolhido = 0;
-    let maiorSobreposicao = -Infinity;
+    let melhorDist = Infinity;
     panels.forEach((p, i) => {
+      if (melhorDist === -1) return;
       const r = p.getBoundingClientRect();
-      const sobreposicao = Math.min(r.bottom, navR.bottom) - Math.max(r.top, navR.top);
-      if (sobreposicao > maiorSobreposicao) { maiorSobreposicao = sobreposicao; escolhido = i; }
+      if (r.top <= linha && r.bottom >= linha) { escolhido = i; melhorDist = -1; return; }
+      const dist = linha < r.top ? r.top - linha : linha - r.bottom;
+      if (dist < melhorDist) { melhorDist = dist; escolhido = i; }
     });
 
-    // Progresso medido contra a linha central da nav — é exatamente onde a
-    // vitória troca de painel, então vai de 0 (painel acabou de assumir) a
-    // 1 (está entregando o lugar ao próximo) ao longo de todo o percurso.
+    // Progresso medido contra a MESMA linha da decisão, senão a barra
+    // lateral encheria fora de sincronia com a troca do item.
     const r = panels[escolhido].getBoundingClientRect();
-    const bruto = r.height ? (meioDaNav - r.top) / r.height : 0;
+    const bruto = r.height ? (linha - r.top) / r.height : 0;
     aplicar(escolhido, Math.min(1, Math.max(0, bruto)));
   }
 

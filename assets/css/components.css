@@ -2673,6 +2673,31 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 .section__head { margin-bottom: var(--space-2xl); }
+/* Sem o subtítulo (removido a pedido do grupo em 03/09), os 4.8rem eram um
+   respiro calibrado pra separar DOIS blocos de texto do corpo. Com só o
+   título em cima, vira buraco. 3.2rem reaproxima sem colar. */
+#jr-praticas .section__head,
+#educacao .section__head,
+#justica-prisional .section__head,
+#empresas .section__head { margin-bottom: var(--space-xl); }
+/* Título novo do grupo (85 caracteres, contra ~35 dos outros dois) quebrava
+   em 1095px + 252px, sobrando uma viúva de duas palavras. Com balance fecha
+   em 713 + 634. Escopado porque os demais títulos da página cabem em 1 linha
+   e não precisam. */
+#justica-prisional .section-header h2,
+#empresas .section-header h2,
+#abordagem .section-header h2 { text-wrap: balance; }
+/* O de Empresas cabia inteiro numa linha de 1023px e ficava corrido demais.
+   Travando a caixa em 66rem ele fecha em 2 linhas de 516 e 499px. A faixa
+   de 54rem a 70rem dá o mesmo resultado, então 66rem tem folga dos dois
+   lados e não vira 3 linhas por variação de fonte. O de Justiça NÃO leva
+   max-width: ele já quebra em 2 linhas sozinho (713/634) e com 66rem iria
+   pra 3. */
+#empresas .section-header h2 { max-width: 66rem; }
+/* Mesmo caso: cabia inteiro em 973px numa linha só e ficava corrido.
+   Em 58rem fecha em 496 + 469px. A faixa de 50rem a 62rem dá o mesmo
+   resultado, então 58rem tem folga dos dois lados. */
+#abordagem .section-header h2 { max-width: 58rem; }
 .section__head--center { text-align: center; }
 .section__head--center .section-header__sub { margin-inline: auto; }
 .section__head--center .overline { justify-content: center; }
@@ -2845,24 +2870,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 .info-card:hover { transform: translateY(-5px); border-color: rgba(var(--teal-rgb), 0.42); box-shadow: 0 20px 44px rgba(var(--navy900-rgb), 0.13); }
 
-.info-card__icon {
-  width: 4.4rem; height: 4.4rem;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(140deg, var(--color-navy) 0%, var(--color-teal) 100%);
-  color: var(--color-white);
-  font-size: 1.7rem;
-  margin-bottom: var(--space-xs);
-}
 
-.info-card__num {
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-overline);
-  color: var(--color-accent);
-}
 
 .info-card__title {
   font-family: var(--font-display);
@@ -2885,12 +2893,8 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .section--dark .info-card__title { color: var(--color-white); }
 .section--dark .info-card__desc { color: rgba(var(--white-rgb), 0.68); }
 
-/* card destacado — abre a lista de Missão/Visão sem virar cor nova */
-.info-card--accent { background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%); border-color: transparent; }
-.info-card--accent .info-card__title { color: var(--color-white); }
-.info-card--accent .info-card__desc { color: rgba(var(--white-rgb), 0.75); }
-.info-card--accent .info-card__num { color: var(--color-gold); }
-.info-card--accent .info-card__icon { background: rgba(var(--white-rgb), 0.10); border: 1px solid rgba(var(--white-rgb), 0.22); }
+
+
 
 /* ---- Lista com marcador de checagem ----
    Cobre "Quando pode ser utilizada", "Como o IBPR pode apoiar",
@@ -2944,7 +2948,6 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   border-bottom: 1px solid var(--color-border-light);
 }
 
-.block-title i { color: var(--color-accent); font-size: 0.85em; margin-right: var(--space-xs); }
 .section--dark .block-title { color: var(--color-white); border-bottom-color: rgba(var(--white-rgb), 0.12); }
 
 .block + .block { margin-top: var(--space-2xl); }
@@ -3477,3 +3480,20 @@ a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); ba
    indicação aqui é a página ter pulado, e um contorno em volta do <main>
    inteiro pareceria defeito. */
 #conteudo:focus { outline: none; }
+
+/* Duas arrumações possíveis pros 5 cards do painel, sobre uma base de 6
+   colunas. Ficam as duas no arquivo até o João escolher olhando. */
+/* Intro do bloco "Como o IBPR pode apoiar": medida de leitura curta, senao
+   a linha atravessa a faixa inteira. */
+.support-panel__intro { max-width: 70rem; margin-bottom: var(--space-xl); }
+
+.support-grid { display: grid; gap: var(--space-lg); grid-template-columns: 1fr; }
+@media (min-width: 700px) {
+  .support-grid { grid-template-columns: repeat(6, 1fr); }
+  /* 2 cards largos em cima (3+3), 3 menores embaixo (2+2+2) */
+  .support-grid--2-3 > :nth-child(-n+2) { grid-column: span 3; }
+  .support-grid--2-3 > :nth-child(n+3)  { grid-column: span 2; }
+  /* 3 cards em cima (2+2+2), 2 largos embaixo (3+3) */
+  .support-grid--3-2 > :nth-child(-n+3) { grid-column: span 2; }
+  .support-grid--3-2 > :nth-child(n+4)  { grid-column: span 3; }
+}
