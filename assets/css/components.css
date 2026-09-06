@@ -3032,30 +3032,78 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .btn.is-pending { background: var(--color-mist-bg); color: var(--color-navy-mid); box-shadow: none; }
 .btn.is-pending::after { display: none; }
 
-/* ---- Área do Aluno ---- */
+/* ---- Área do Aluno ----
+   Bloco utilitário: fica entre o catálogo e o CTA final, então não pode
+   pesar mais que nenhum dos dois. Cartão branco no naipe do .info-card
+   (borda clara + --shadow-md + --radius-lg), cabeçalho centralizado e uma
+   tripla de benefícios com a MESMA tipografia e o mesmo filete vertical
+   dos .course-eixo. A hierarquia vem do kicker + ícone, não de fonte
+   grande: o título segue em --text-h3, igual aos demais títulos de seção. */
 .aluno-panel {
-  max-width: 62rem;
+  position: relative;
+  overflow: hidden;
+  max-width: 68rem;
   margin-inline: auto;
   text-align: center;
-  padding: var(--space-3xl) var(--space-xl);
-  border-radius: 2.4rem;
+  padding: var(--space-2xl) var(--space-xl);
+  border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-light);
   background: var(--color-white);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
+/* brilho radial atrás do ícone — mesma receita do .course-eixos e do
+   .cta-final, assinatura do site, sem introduzir cor nova */
+.aluno-panel::before {
+  content: ""; position: absolute; top: -16rem; left: 50%;
+  width: 34rem; height: 34rem; transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--teal-rgb), 0.10) 0%, rgba(var(--gold-rgb), 0.06) 48%, transparent 72%);
+  pointer-events: none;
+}
+.aluno-panel > * { position: relative; z-index: 1; }
+
 .aluno-panel__icon {
-  width: 7.2rem; height: 7.2rem;
-  margin: 0 auto var(--space-lg);
+  width: 6.4rem; height: 6.4rem;
+  margin: 0 auto var(--space-md);
   display: flex; align-items: center; justify-content: center;
   border-radius: 50%;
   background: linear-gradient(140deg, var(--color-navy) 0%, var(--color-teal) 100%);
   color: var(--color-white);
-  font-size: 2.6rem;
+  font-size: 2.2rem;
+  box-shadow: 0 0 0 0.8rem rgba(var(--teal-rgb), 0.08);
 }
 
+.aluno-panel__kicker { margin-bottom: var(--space-sm); }
 .aluno-panel__title { font-family: var(--font-display); font-size: var(--text-h3); font-weight: var(--weight-regular); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-sm); text-wrap: balance; }
-.aluno-panel__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); margin-bottom: var(--space-xl); }
+.aluno-panel__desc { font-size: var(--text-sm); color: var(--color-mist); line-height: var(--leading-body); max-width: 42rem; margin: 0 auto var(--space-xl); text-wrap: balance; }
+
+/* tripla de benefícios — tipografia e filete no naipe dos .course-eixo */
+.aluno-perks { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-bottom: var(--space-xl); text-align: center; }
+.aluno-perk__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 3.6rem; height: 3.6rem; margin-bottom: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: rgba(var(--teal-rgb), 0.08);
+  color: var(--color-teal);
+  font-size: 1.4rem;
+}
+.aluno-perk__title { display: block; font-family: var(--font-display); font-size: 1.5rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-2xs); }
+.aluno-perk__desc { font-size: 1.3rem; color: var(--color-mist); line-height: var(--leading-body); text-wrap: pretty; }
+@media (min-width: 720px) {
+  .aluno-perks { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .aluno-perk { padding-inline: var(--space-md); border-left: 1px solid rgba(var(--navy-rgb), 0.12); }
+  .aluno-perk:first-child { border-left: none; }
+}
+@media (max-width: 719px) {
+  .aluno-perks { gap: 0; }
+  .aluno-perk + .aluno-perk { margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid rgba(var(--navy-rgb), 0.12); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aluno-perk__icon { transition: transform var(--transition-base); }
+  .aluno-perk:hover .aluno-perk__icon { transform: translateY(-2px); }
+}
+
 .aluno-panel__foot { margin-top: var(--space-lg); }
 
 /* ===================================
@@ -3085,10 +3133,10 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    pra que, sem a classe, os degradês continuem válidos e o hero caia no
    gradiente liso do .page-hero. */
 .page-hero--course { --course-hero: none; }
-.page-hero--execucao-penal    { --course-hero: url("../images/formacoes/execucao-penal.jpg"); }
-.page-hero--pena-justa        { --course-hero: url("../images/formacoes/pena-justa.jpg"); }
-.page-hero--ambiente-escolar  { --course-hero: url("../images/formacoes/ambiente-escolar.jpg"); }
-.page-hero--relacoes-trabalho { --course-hero: url("../images/formacoes/relacoes-trabalho.jpg"); }
+.page-hero--execucao-penal    { --course-hero: url("../images/formacoes/execucao-penal.jpg?v=2"); }
+.page-hero--pena-justa        { --course-hero: url("../images/formacoes/pena-justa.jpg?v=2"); }
+.page-hero--ambiente-escolar  { --course-hero: url("../images/formacoes/ambiente-escolar.jpg?v=2"); }
+.page-hero--relacoes-trabalho { --course-hero: url("../images/formacoes/relacoes-trabalho.jpg?v=2"); }
 .page-hero--course::before {
   content: "";
   position: absolute; inset: 0; z-index: 0;
@@ -3142,6 +3190,61 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--formacoes .page-hero__sub,
 .page-hero--formacoes .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--formacoes .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
+/* --- Variante do hero de Como Atuamos ---
+   Mesma técnica da --formacoes (foto + scrim navy, __glow desligado). A foto
+   aqui é clara e contrastada no centro (a roda), com a parede lisa e vazia no
+   alto à esquerda, exatamente onde ficam kicker/título/subtítulo — então o
+   scrim principal corre da esquerda pra direita, protegendo essa coluna, e
+   uma pincelada no topo cobre a faixa da navbar. */
+.page-hero--como-atuamos { --como-hero: url("../images/como-atuamos-hero.jpg"); }
+.page-hero--como-atuamos .page-hero__glow { display: none; }
+.page-hero--como-atuamos::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.48) 0%, rgba(var(--navy900-rgb), 0) 18%),
+    linear-gradient(to right,
+      rgba(var(--navy900-rgb), 0.68) 0%,
+      rgba(var(--navy900-rgb), 0.48) 42%,
+      rgba(var(--navy900-rgb), 0.20) 70%,
+      rgba(var(--navy900-rgb), 0.08) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 56%;
+}
+.page-hero--como-atuamos h1,
+.page-hero--como-atuamos .page-hero__sub,
+.page-hero--como-atuamos .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--como-atuamos .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
+/* --- Variante do hero de O Instituto ---
+   Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é o
+   mesmo "prédio" do IBPR do hero em vídeo da Home (parede de concreto com o
+   logo em relevo, cobogó, jardim) — amarra a página de identidade à Home. O
+   cobogó à esquerda é claro e recortado, bem onde entram título/subtítulo,
+   então o scrim principal corre da esquerda pra direita e é mais encorpado
+   que o de Como Atuamos. */
+.page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.jpg"); }
+.page-hero--o-instituto .page-hero__glow { display: none; }
+.page-hero--o-instituto::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.50) 0%, rgba(var(--navy900-rgb), 0) 18%),
+    linear-gradient(to right,
+      rgba(var(--navy900-rgb), 0.82) 0%,
+      rgba(var(--navy900-rgb), 0.52) 40%,
+      rgba(var(--navy900-rgb), 0.22) 68%,
+      rgba(var(--navy900-rgb), 0.06) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 50%;
+}
+.page-hero--o-instituto h1,
+.page-hero--o-instituto .page-hero__sub,
+.page-hero--o-instituto .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--o-instituto .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
 
 /* --- Intro da página-índice de Formações ---
    Era prosa corrida de 2 parágrafos, sem cabeçalho e sem entrada de leitura.
