@@ -1,0 +1,327 @@
+/* =====================================================================
+   IBPR — Painel administrativo
+   =====================================================================
+   Carrega DEPOIS de tokens.css e components.css. Aproveita de lá o
+   reset, a tipografia, as cores e o .btn — aqui só mora o que é
+   específico de tela de administração (barra de topo, formulário,
+   lista). Assim o painel parece parte do site, não uma ferramenta
+   emprestada, e não duplica CSS.
+   ===================================================================== */
+
+body.painel {
+  background: var(--color-paper);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------------
+   Barra de topo
+   --------------------------------------------------------------------- */
+.painel-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) clamp(1.6rem, 4vw, 3.2rem);
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+.painel-topbar__logo { height: 3.2rem; width: auto; }
+.painel-topbar__nome {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+}
+.painel-topbar__dir {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: 1.3rem;
+}
+.painel-topbar__usuario { color: rgba(var(--white-rgb), 0.72); }
+.painel-topbar__sair {
+  color: var(--color-white);
+  font-weight: var(--weight-semibold);
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.35);
+  padding-bottom: 0.2rem;
+  transition: border-color var(--transition-fast);
+}
+.painel-topbar__sair:hover { border-color: var(--color-white); }
+
+/* ---------------------------------------------------------------------
+   Casca da página
+   --------------------------------------------------------------------- */
+.painel-shell {
+  max-width: 96rem;
+  margin-inline: auto;
+  padding: var(--space-2xl) clamp(1.6rem, 4vw, 3.2rem) var(--space-4xl);
+}
+.painel-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+.painel-cabeca h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3vw, 2.8rem);
+  font-weight: var(--weight-regular);
+  color: var(--color-navy);
+  letter-spacing: var(--tracking-snug);
+}
+.painel-cabeca p {
+  font-size: 1.35rem;
+  color: var(--color-mist);
+  margin-top: var(--space-2xs);
+  max-width: 52rem;
+}
+
+/* ---------------------------------------------------------------------
+   Cartão (usado no login, no formulário e nos avisos)
+   --------------------------------------------------------------------- */
+.painel-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 4vw, 3.2rem);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Login: cartão único, centralizado na tela */
+.painel-login {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-lg);
+  background: linear-gradient(165deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+}
+.painel-login .painel-card { width: min(42rem, 100%); }
+.painel-login__marca {
+  display: block;
+  height: 5.6rem;
+  width: auto;
+  margin: 0 auto var(--space-lg);
+}
+.painel-login h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  text-align: center;
+  margin-bottom: var(--space-2xs);
+}
+.painel-login__sub {
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--color-mist);
+  margin-bottom: var(--space-xl);
+}
+
+/* Link discreto abaixo do botão ("Esqueci minha senha", "Voltar") */
+.painel-login__link {
+  margin-top: var(--space-md);
+  text-align: center;
+  font-size: 1.3rem;
+}
+.painel-login__link a {
+  color: var(--color-teal);
+  font-weight: var(--weight-medium);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+.painel-login__link a:hover { border-bottom-color: var(--color-teal); }
+
+/* Explicação curta no topo da tela de recuperação */
+.painel-login__aviso {
+  font-size: 1.35rem;
+  color: var(--color-mist);
+  line-height: var(--leading-body);
+  margin-bottom: var(--space-lg);
+}
+
+/* ---------------------------------------------------------------------
+   Formulário
+   --------------------------------------------------------------------- */
+.campo { margin-bottom: var(--space-md); }
+.campo > label {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-navy-mid);
+  margin-bottom: var(--space-2xs);
+}
+.campo__dica {
+  display: block;
+  font-size: 1.2rem;
+  color: var(--color-mist);
+  margin-top: var(--space-2xs);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: var(--weight-regular);
+}
+.campo input[type="text"],
+.campo input[type="email"],
+.campo input[type="password"],
+.campo input[type="file"],
+.campo select,
+.campo textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1.45rem;
+  line-height: var(--leading-ui);
+  color: var(--color-ink);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.3rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.campo textarea { resize: vertical; min-height: 18rem; line-height: var(--leading-body); }
+/* O resumo tem teto de 220 caracteres — uma caixa de 18rem sugeriria um
+   texto muito mais longo do que cabe. */
+.campo textarea.campo__area--curta { min-height: 9rem; }
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(var(--teal-rgb), 0.15);
+}
+.campo-duplo { display: grid; gap: var(--space-md); }
+@media (min-width: 700px) { .campo-duplo { grid-template-columns: 1fr 1fr; } }
+
+/* Prévia da imagem escolhida — largura limitada de propósito: em largura
+   total ela empurrava os botões de salvar pra fora da tela, e a prévia
+   só precisa confirmar "é esta foto mesmo", não exibir em tamanho real. */
+.campo__previa {
+  max-width: 32rem;
+  margin-top: var(--space-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--color-mist-bg);
+}
+.campo__previa img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------------------------------------------------------------------
+   Botões — variações pequenas em cima do .btn do site
+   --------------------------------------------------------------------- */
+.painel-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+}
+.btn--sm { font-size: 1.3rem; padding: 0.9rem 1.8rem; }
+.btn--bloco { width: 100%; justify-content: center; }
+.btn--fantasma {
+  background: transparent;
+  color: var(--color-navy-mid);
+  border: 1px solid var(--color-border-light);
+}
+.btn--fantasma:hover { color: var(--color-navy); border-color: var(--color-navy); background: var(--color-paper); }
+.btn--perigo { background: transparent; color: var(--color-danger); border: 1px solid rgba(166, 67, 46, 0.35); }
+.btn--perigo:hover { background: rgba(166, 67, 46, 0.08); border-color: var(--color-danger); }
+.btn[disabled] { opacity: 0.55; cursor: not-allowed; }
+
+/* ---------------------------------------------------------------------
+   Lista de notícias
+   --------------------------------------------------------------------- */
+.painel-lista { display: flex; flex-direction: column; gap: var(--space-sm); }
+
+.painel-item {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  gap: var(--space-md);
+  align-items: start;
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.painel-item:hover { border-color: rgba(var(--teal-rgb), 0.4); box-shadow: var(--shadow-sm); }
+.painel-item__foto {
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--color-mist-bg);
+}
+.painel-item__foto img { width: 100%; height: 100%; object-fit: cover; }
+.painel-item__titulo {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: var(--leading-display);
+  margin-bottom: var(--space-2xs);
+}
+.painel-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 1.2rem;
+  color: var(--color-mist);
+  margin-bottom: var(--space-sm);
+}
+.painel-item__acoes { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+
+@media (max-width: 559px) {
+  .painel-item { grid-template-columns: 1fr; }
+  .painel-item__foto { max-width: 14rem; }
+}
+
+/* Selo de status — a informação mais importante da lista */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid transparent;
+}
+.selo--publicado { color: var(--color-green); background: rgba(var(--green-rgb), 0.10); border-color: rgba(var(--green-rgb), 0.30); }
+.selo--rascunho  { color: var(--color-warning); background: rgba(var(--gold-rgb), 0.12); border-color: rgba(var(--gold-rgb), 0.35); }
+
+/* ---------------------------------------------------------------------
+   Avisos (erro, sucesso, estado vazio, carregando)
+   --------------------------------------------------------------------- */
+.painel-msg {
+  font-size: 1.35rem;
+  line-height: var(--leading-body);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.4rem;
+  margin-bottom: var(--space-md);
+  border: 1px solid transparent;
+}
+.painel-msg--erro    { color: var(--color-danger); background: rgba(166, 67, 46, 0.07); border-color: rgba(166, 67, 46, 0.28); }
+.painel-msg--ok      { color: var(--color-green);  background: rgba(var(--green-rgb), 0.08); border-color: rgba(var(--green-rgb), 0.28); }
+.painel-msg--info    { color: var(--color-navy-mid); background: var(--color-mist-bg); border-color: var(--color-border-light); }
+
+.painel-vazio {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+  border: 1px dashed var(--color-border-light);
+  border-radius: var(--radius-lg);
+  color: var(--color-mist);
+  font-size: 1.4rem;
+}
+.painel-vazio strong { display: block; color: var(--color-navy); font-size: 1.7rem; font-family: var(--font-display); margin-bottom: var(--space-2xs); }
+
+[hidden] { display: none !important; }

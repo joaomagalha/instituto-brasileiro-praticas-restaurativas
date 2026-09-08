@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Nova senha | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260908a" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260908a" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260908a" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body class="painel">
+
+<!-- Destino do link que o Supabase manda por e-mail. O endereço chega com
+     um token na parte final da URL; o supabase-js reconhece sozinho e abre
+     uma sessão temporária que só serve pra trocar a senha. -->
+<main class="painel-login">
+  <div class="painel-card">
+
+    <img alt="IBPR" class="painel-login__marca" src="../assets/images/ibpr-logo-full-navy.png"/>
+    <h1>Criar nova senha</h1>
+    <p class="painel-login__sub" id="subtitulo">Confirmando o link&hellip;</p>
+
+    <div class="painel-msg" id="msg" hidden></div>
+
+    <form hidden id="formNovaSenha" novalidate>
+      <div class="campo">
+        <label for="senha1">Nova senha</label>
+        <input autocomplete="new-password" id="senha1" minlength="8" required type="password"/>
+        <span class="campo__dica">Mínimo de 8 caracteres. Use algo que só você saiba.</span>
+      </div>
+
+      <div class="campo">
+        <label for="senha2">Repita a nova senha</label>
+        <input autocomplete="new-password" id="senha2" minlength="8" required type="password"/>
+      </div>
+
+      <button class="btn btn--dark btn--bloco" id="btnSalvarSenha" type="submit">
+        Salvar e entrar <i aria-hidden="true" class="fa-solid fa-arrow-right"></i>
+      </button>
+    </form>
+
+    <p class="painel-login__link" hidden id="voltar">
+      <a href="index.html">Voltar para o login</a>
+    </p>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=20260908a"></script>
+<script src="../assets/js/supabase-client.js?v=20260908a"></script>
+<script src="assets/painel.js?v=20260908a"></script>
+<script>
+  IBPR.painel.iniciarNovaSenha();
+</script>
+
+</body>
+</html>

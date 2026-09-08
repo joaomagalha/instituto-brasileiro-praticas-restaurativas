@@ -1,0 +1,8 @@
+# Instituto Brasileiro de Práticas Restaurativas (IBPR)
+# O site inteiro pode ser indexado, menos o painel administrativo.
+# (As páginas do painel também trazem <meta name="robots" content="noindex">;
+#  isto aqui é a segunda camada, pra o buscador nem chegar a abrir.)
+
+User-agent: *
+Allow: /
+Disallow: /painel/

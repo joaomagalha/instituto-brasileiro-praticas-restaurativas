@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- Painel interno: não deve aparecer em busca do Google. -->
+<meta content="noindex, nofollow" name="robots"/>
+<title>Entrar | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260908a" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260908a" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260908a" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body class="painel">
+
+<main class="painel-login">
+  <div class="painel-card">
+
+    <img alt="IBPR" class="painel-login__marca" src="../assets/images/ibpr-logo-full-navy.png"/>
+    <h1>Painel do Instituto</h1>
+    <p class="painel-login__sub">Entre para publicar e editar o conteúdo do site.</p>
+
+    <!-- Área de mensagem: erro de login, aviso de configuração, etc. -->
+    <div class="painel-msg painel-msg--erro" id="msg" hidden></div>
+
+    <!-- TELA A — entrar -->
+    <form id="formLogin" novalidate>
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input autocomplete="username" id="email" name="email" required type="email"/>
+      </div>
+
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input autocomplete="current-password" id="senha" name="senha" required type="password"/>
+      </div>
+
+      <button class="btn btn--dark btn--bloco" id="btnEntrar" type="submit">
+        Entrar <i aria-hidden="true" class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <p class="painel-login__link">
+        <a href="#" id="linkEsqueci">Esqueci minha senha</a>
+      </p>
+    </form>
+
+    <!-- TELA B — recuperar senha. Mesmo cartão, só troca o conteúdo:
+         quem esqueceu a senha já está frustrado, mudar de página piora. -->
+    <form hidden id="formRecuperar" novalidate>
+      <p class="painel-login__aviso">
+        Digite seu e-mail. Você vai receber um link para criar uma senha nova.
+      </p>
+
+      <div class="campo">
+        <label for="emailRecuperar">E-mail</label>
+        <input autocomplete="username" id="emailRecuperar" required type="email"/>
+      </div>
+
+      <button class="btn btn--dark btn--bloco" id="btnEnviarLink" type="submit">
+        Enviar link <i aria-hidden="true" class="fa-solid fa-paper-plane"></i>
+      </button>
+
+      <p class="painel-login__link">
+        <a href="#" id="linkVoltarLogin">Voltar para o login</a>
+      </p>
+    </form>
+
+  </div>
+</main>
+
+<!-- Ordem obrigatória: biblioteca → configuração → cliente → tela -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=20260908a"></script>
+<script src="../assets/js/supabase-client.js?v=20260908a"></script>
+<script src="assets/painel.js?v=20260908a"></script>
+<script>
+  IBPR.painel.iniciarLogin();
+</script>
+
+</body>
+</html>

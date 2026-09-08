@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="description"/>
-<title>IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<meta content="Notícia publicada pelo Instituto Brasileiro de Práticas Restaurativas (IBPR)." name="description"/>
+<title>Notícia | IBPR em Movimento</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
      TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
      IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
@@ -121,75 +121,46 @@
 
 <main id="conteudo" tabindex="-1">
 
-<!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#ibpr-movimento-preview"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="IBPR em Movimento" class="page-hero page-hero--ibpr-movimento">
+<!-- Página de leitura de UMA notícia. O conteúdo vem do Supabase pelo
+     parâmetro ?slug= da URL (ver assets/js/conteudo-noticias.js).
+     Os três estados (carregando / erro / artigo) já existem no HTML e o
+     JS só troca qual está visível — nada de montar página do zero. -->
+
+<a aria-label="Voltar para o IBPR em Movimento" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
+<section aria-label="Notícia" class="page-hero">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="index.html#ibpr-movimento-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<h1 data-aos="fade-up">A atuação do IBPR e da sua rede, dentro e fora do Instituto.</h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Um espaço para acompanhar o que o IBPR e os profissionais da sua rede realizam.</p>
+<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
+<p class="overline overline--light page-hero__eyebrow" id="noticiaMeta">IBPR em Movimento</p>
+<h1 id="noticiaTitulo">Carregando a notícia&hellip;</h1>
+<p class="page-hero__sub" id="noticiaResumo"></p>
 </div>
 </section>
 
-<!-- Frentes do IBPR em Movimento — estado "em breve" deliberado: sem conteúdo
-     real ainda (CMS/Supabase não desenhado) e notícia inventada foi o erro do
-     protótipo do Rauny (analise-prototipo.md). Em vez do painel de vazio (ghost
-     cards + "estão a caminho"), as 3 frentes editoriais reais no material
-     .course-eixos, igual à prévia da Home. Quando o primeiro post real existir:
-     trocar as .course-eixos por
-     <div class="noticias__grid" data-aos="fade-up">
-       <article class="service-card">
-         <div class="service-card__img-wrap"><i class="fa-solid fa-..."></i><span class="service-card__category">Categoria</span></div>
-         <div class="service-card__body"><span class="service-card__date">DD mmm AAAA</span><h3 class="service-card__title">Título</h3><p class="service-card__desc">Resumo.</p><a class="service-card__link" href="noticia.html">Ler notícia <i class="fa-solid fa-arrow-right"></i></a></div>
-       </article>
-     </div>
-     empilhando um card por post conforme o volume crescer. -->
-<section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="ibpr-movimento-lista">
+<section aria-label="Conteúdo da notícia" class="section section--paper">
 <div class="container">
-<div class="section-header section__head measure-narrow" data-aos="fade-up">
-<p class="overline" data-com-noticias="IBPR em Movimento">O que vem aqui</p>
-<h2 data-com-noticias="Publicações do Instituto e da sua rede.">Três frentes, um mesmo movimento.</h2>
-<p class="section-header__sub" data-com-noticias="A produção científica, as formações e a atuação de campo do IBPR e dos profissionais que integram a sua rede.">Enquanto as primeiras publicações são preparadas, estas são as frentes que o IBPR em Movimento vai reunir.</p>
-</div>
-<div class="course-eixos measure-narrow" data-aos="fade-up">
-<div class="course-eixo">
-<span class="course-eixo__num">01</span>
-<span class="course-eixo__key">Pesquisa</span>
-<span class="course-eixo__phrase">Produção científica e referência</span>
-<p class="course-eixo__desc">Estudos, artigos e materiais de referência sobre Justiça Restaurativa produzidos pelo Instituto e pela sua rede.</p>
-</div>
-<div class="course-eixo">
-<span class="course-eixo__num">02</span>
-<span class="course-eixo__key">Formações</span>
-<span class="course-eixo__phrase">Turmas, campo e resultados</span>
-<p class="course-eixo__desc">O que acontece nas formações do IBPR: novas turmas, registros de campo e os resultados de quem já passou por elas.</p>
-</div>
-<div class="course-eixo">
-<span class="course-eixo__num">03</span>
-<span class="course-eixo__key">Rede</span>
-<span class="course-eixo__phrase">Atuação dentro e fora do IBPR</span>
-<p class="course-eixo__desc">A prática dos profissionais que integram a rede do Instituto em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
-</div>
-</div>
-<div class="movimento-foot measure-narrow" data-aos="fade-up">
-<p class="overline">Primeiras publicações em breve</p>
-</div>
-</div>
-</section>
 
-<!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="cta-final__glow"></div>
-<div class="container">
-<p class="overline overline--light cta-final__eyebrow">Formações IBPR</p>
-<h2 class="cta-final__title" data-aos="fade-up">Transforme conhecimento restaurativo em prática.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações para compreender, aplicar e incorporar práticas restaurativas em diferentes contextos.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<p class="measure-narrow" id="noticiaCarregando">Carregando&hellip;</p>
+
+<div class="measure-narrow" hidden id="noticiaErro">
+<div class="section-header section__head">
+<p class="overline">IBPR em Movimento</p>
+<h2 id="noticiaErroTitulo">Notícia não encontrada.</h2>
+<p class="section-header__sub" id="noticiaErroTexto">Ela pode ter sido removida, ou o endereço está incompleto.</p>
 </div>
+<a class="btn btn--dark" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+
+<article class="measure-narrow" hidden id="noticiaArtigo">
+<figure class="noticia-figura" hidden id="noticiaFigura">
+<img alt="" decoding="async" id="noticiaImagem" src=""/>
+</figure>
+<div class="prose" id="noticiaCorpo"></div>
+<div class="noticia-fim">
+<a class="link-arrow" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</article>
+
 </div>
 </section>
 
@@ -256,8 +227,6 @@ AOS.init({
 });
 </script>
 <script src="assets/js/site-interactions.js?v=20260905b"></script>
-<!-- CMS: notícias do IBPR em Movimento. Melhoria progressiva — só
-     substitui o bloco das 3 frentes se houver notícia publicada. -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
 <script src="assets/js/supabase-config.js?v=20260908a"></script>
 <script src="assets/js/supabase-client.js?v=20260908a"></script>
