@@ -158,3 +158,59 @@ pedirem recuperação na mesma hora, a terceira não recebe.
 **Solução:** configurar SMTP próprio em Authentication → Emails → SMTP Settings. O plano
 gratuito do Resend (3.000 e-mails/mês) ou do Brevo resolve, e aí o e-mail também sai com
 remetente do Instituto em vez do domínio da Supabase.
+
+---
+
+## Gatilho de publicação (deixa o site atualizar em ~2 min em vez de 6h)
+
+Sem isto o site já funciona: o robô roda de 6 em 6 horas e publica o que achar. Isto só
+encurta a espera, avisando o GitHub na hora em que alguém publica.
+
+São dois passos no **SQL Editor**, nesta ordem.
+
+### Passo 1 — guardar o token no cofre
+
+O Supabase tem um cofre criptografado (Vault). O token vai pra lá, não pro código.
+
+```sql
+select vault.create_secret(
+  'COLE_AQUI_O_TOKEN',            -- o github_pat_... que você gerou
+  'github_token_cms',             -- o nome tem que ser exatamente este
+  'Token do GitHub usado pelo gatilho de publicação do CMS'
+);
+```
+
+> ⚠️ **Depois de rodar, apague essa consulta do histórico** (menu de três pontinhos ao lado
+> do nome dela, na coluna da esquerda → Delete). O SQL Editor guarda o que você digitou, e
+> o token ficaria salvo ali em texto puro.
+
+### Passo 2 — criar o gatilho
+
+Abrir `03-gatilho-github.sql` (nesta pasta), copiar tudo, colar e rodar. Esse arquivo não
+tem segredo nenhum, por isso pode ficar versionado no GitHub.
+
+### Conferir se funcionou
+
+Publique qualquer coisa pelo painel e abra a aba **Actions** do repositório. Deve aparecer
+uma execução de "Publicar site" em poucos segundos.
+
+Se não aparecer, rode isto pra ver onde parou:
+
+```sql
+select 'extensão pg_net' as item,
+       coalesce((select extversion from pg_extension where extname='pg_net'), 'NÃO INSTALADA') as valor
+union all
+select 'segredo no Vault',
+       coalesce((select 'sim' from vault.secrets where name='github_token_cms'), 'FALTANDO')
+union all
+select 'gatilho',
+       coalesce((select tgname from pg_trigger where tgname='noticias_avisa_github'), 'FALTANDO');
+```
+
+E para ver as últimas chamadas que o banco fez ao GitHub (status 204 = deu certo):
+
+```sql
+select created, status_code, content
+  from net._http_response
+ order by created desc limit 5;
+```
