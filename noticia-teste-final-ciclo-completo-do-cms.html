@@ -3,29 +3,25 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="description"/>
-<title>IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<meta content="Notícia de teste para cronometrar o tempo entre publicar e aparecer no site. Será apagada." name="description"/>
+<title>TESTE FINAL — ciclo completo do CMS | IBPR em Movimento</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
-     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
-     IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
-     de apontarem pra um endereço inventado. Quando o domínio existir,
-     acrescentar em cada página:
-       <meta content="https://DOMINIO/ibpr-em-movimento.html" property="og:url"/>
-       <link href="https://DOMINIO/ibpr-em-movimento.html" rel="canonical"/>
-     e trocar og:image pelo caminho absoluto (crawlers do WhatsApp e do
-     LinkedIn não resolvem caminho relativo).
-     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." property="og:description"/>
-<meta content="website" property="og:type"/>
+     Preenchido pelo build com endereço ABSOLUTO: os robôs do WhatsApp e do
+     LinkedIn não resolvem caminho relativo em og:image. A base vem da
+     constante SITE em build/gerar.mjs. -->
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/noticia-teste-final-ciclo-completo-do-cms.html" property="og:url"/>
+<link href="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/noticia-teste-final-ciclo-completo-do-cms.html" rel="canonical"/>
+<meta content="TESTE FINAL — ciclo completo do CMS" property="og:title"/>
+<meta content="Notícia de teste para cronometrar o tempo entre publicar e aparecer no site. Será apagada." property="og:description"/>
+<meta content="article" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" property="og:image"/>
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/assets/images/ibpr-movimento-hero.jpg" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="twitter:description"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" name="twitter:image"/>
+<meta content="TESTE FINAL — ciclo completo do CMS" name="twitter:title"/>
+<meta content="Notícia de teste para cronometrar o tempo entre publicar e aparecer no site. Será apagada." name="twitter:description"/>
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/assets/images/ibpr-movimento-hero.jpg" name="twitter:image"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -121,62 +117,34 @@
 
 <main id="conteudo" tabindex="-1">
 
-<!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#ibpr-movimento-preview"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="IBPR em Movimento" class="page-hero page-hero--ibpr-movimento">
+<!-- MOLDE, não edite o resultado: este arquivo vira noticia-<slug>.html
+     gerado por build/gerar.mjs a partir do que está publicado no painel.
+     Editar a página gerada é trabalho perdido, o próximo build sobrescreve. -->
+
+<a aria-label="Voltar para o IBPR em Movimento" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
+<section aria-label="Notícia" class="page-hero">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="index.html#ibpr-movimento-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<h1 data-aos="fade-up">A atuação do IBPR e da sua rede, dentro e fora do Instituto.</h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Um espaço para acompanhar o que o IBPR e os profissionais da sua rede realizam.</p>
+<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
+<p class="overline overline--light page-hero__eyebrow">Rede · 08 set 2026</p>
+<h1>TESTE FINAL — ciclo completo do CMS</h1>
+<p class="page-hero__sub">Notícia de teste para cronometrar o tempo entre publicar e aparecer no site. Será apagada.</p>
 </div>
 </section>
 
-<!-- Frentes do IBPR em Movimento — estado "em breve" deliberado: sem conteúdo
-     real ainda (CMS/Supabase não desenhado) e notícia inventada foi o erro do
-     protótipo do Rauny (analise-prototipo.md). Em vez do painel de vazio (ghost
-     cards + "estão a caminho"), as 3 frentes editoriais reais no material
-     .course-eixos, igual à prévia da Home. Quando o primeiro post real existir:
-     trocar as .course-eixos por
-     <div class="noticias__grid" data-aos="fade-up">
-       <article class="service-card">
-         <div class="service-card__img-wrap"><i class="fa-solid fa-..."></i><span class="service-card__category">Categoria</span></div>
-         <div class="service-card__body"><span class="service-card__date">DD mmm AAAA</span><h3 class="service-card__title">Título</h3><p class="service-card__desc">Resumo.</p><a class="service-card__link" href="noticia.html">Ler notícia <i class="fa-solid fa-arrow-right"></i></a></div>
-       </article>
-     </div>
-     empilhando um card por post conforme o volume crescer. -->
-<section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="ibpr-movimento-lista">
+<section aria-label="Conteúdo da notícia" class="section section--paper">
 <div class="container">
-<!-- CMS:movimento-lista -->
-<div class="section-header section__head measure-narrow" data-aos="fade-up">
-<p class="overline">IBPR em Movimento</p>
-<h2>Publicações do Instituto e da sua rede.</h2>
-<p class="section-header__sub">A produção científica, as formações e a atuação de campo do IBPR e dos profissionais que integram a sua rede.</p>
+
+<article class="measure-narrow">
+
+<div class="prose">
+<p>Publicada pelo painel, gerada pelo robô, servida pelo GitHub Pages.</p>
 </div>
-<div class="noticias__grid measure-narrow" data-aos="fade-up">
-<article class="service-card">
-<div class="service-card__img-wrap"><img alt="" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/ibpr-movimento-hero.jpg"/></div>
-<div class="service-card__body"><p class="service-card__audience">Rede &middot; 08 set 2026</p><h3 class="service-card__title">TESTE FINAL — ciclo completo do CMS</h3><p class="service-card__desc">Notícia de teste para cronometrar o tempo entre publicar e aparecer no site. Será apagada.</p><a class="service-card__link" href="noticia-teste-final-ciclo-completo-do-cms.html">Ler notícia <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+<div class="noticia-fim">
+<a class="link-arrow" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
 </article>
-</div>
-<div class="movimento-foot measure-narrow" data-aos="fade-up">
-</div>
-<!-- /CMS:movimento-lista -->
-</div>
-</section>
 
-<!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="cta-final__glow"></div>
-<div class="container">
-<p class="overline overline--light cta-final__eyebrow">Formações IBPR</p>
-<h2 class="cta-final__title" data-aos="fade-up">Transforme conhecimento restaurativo em prática.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações para compreender, aplicar e incorporar práticas restaurativas em diferentes contextos.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
 </div>
 </section>
 
