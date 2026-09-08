@@ -57,7 +57,7 @@ window.IBPR.util = {
 
   /* Transforma um título em endereço de URL.
      "Parceria com o TJMT é firmada!" → "parceria-com-o-tjmt-e-firmada"
-     Usado pra montar /noticia.html?slug=... */
+     Usado pelo build pra montar o arquivo noticia-<slug>.html */
   slugify: function (texto) {
     return String(texto || '')
       .normalize('NFD')                   // separa a letra do acento

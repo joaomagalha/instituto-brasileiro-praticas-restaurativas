@@ -1,0 +1,63 @@
+# =====================================================================
+# IBPR — publica o site a partir do CMS
+# =====================================================================
+# Roda build/gerar.mjs, que lê o conteúdo publicado no Supabase e escreve
+# o HTML. Se algo mudou, commita em `main`; o GitHub Pages republica
+# sozinho (o Pages deste repo publica de main/raiz, modo clássico).
+#
+# ⚠️ NÃO ACRESCENTE `push` NOS GATILHOS.
+# Este workflow commita em main. Se ele também disparasse em push, cada
+# execução dispararia a próxima, para sempre.
+
+name: Publicar site
+
+on:
+  # 1. Chamado pelo Supabase quando alguém publica algo no painel
+  repository_dispatch:
+    types: [cms]
+
+  # 2. Rede de segurança: se um aviso do Supabase se perder, o site se
+  #    corrige sozinho em no máximo 6 horas.
+  schedule:
+    - cron: '17 */6 * * *'
+
+  # 3. Botão manual na aba Actions
+  workflow_dispatch:
+
+# Só uma execução por vez. Duas publicações seguidas não podem gerar dois
+# builds concorrentes commitando por cima um do outro.
+concurrency:
+  group: publicar-site
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # o GITHUB_TOKEN nativo já basta pra commitar
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Sem `npm install`: o gerador é Node puro, sem dependências.
+      - name: Gerar HTML a partir do CMS
+        run: node build/gerar.mjs
+
+      - name: Commitar se algo mudou
+        run: |
+          if git diff --quiet && git diff --staged --quiet; then
+            echo "Nada mudou. Nenhum commit."
+            exit 0
+          fi
+          git config user.name  "IBPR CMS"
+          git config user.email "actions@github.com"
+          git add -A
+          git commit -m "CMS: atualiza o site com o conteúdo publicado
+
+          Commit automático de build/gerar.mjs. Não editar à mão os
+          arquivos gerados: o próximo build sobrescreve."
+          git push

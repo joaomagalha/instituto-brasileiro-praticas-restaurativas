@@ -3,29 +3,25 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Notícia publicada pelo Instituto Brasileiro de Práticas Restaurativas (IBPR)." name="description"/>
-<title>Notícia | IBPR em Movimento</title>
+<meta content="{{RESUMO}}" name="description"/>
+<title>{{TITULO}} | IBPR em Movimento</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
-     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
-     IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
-     de apontarem pra um endereço inventado. Quando o domínio existir,
-     acrescentar em cada página:
-       <meta content="https://DOMINIO/ibpr-em-movimento.html" property="og:url"/>
-       <link href="https://DOMINIO/ibpr-em-movimento.html" rel="canonical"/>
-     e trocar og:image pelo caminho absoluto (crawlers do WhatsApp e do
-     LinkedIn não resolvem caminho relativo).
-     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." property="og:description"/>
-<meta content="website" property="og:type"/>
+     Preenchido pelo build com endereço ABSOLUTO: os robôs do WhatsApp e do
+     LinkedIn não resolvem caminho relativo em og:image. A base vem da
+     constante SITE em build/gerar.mjs. -->
+<meta content="{{URL}}" property="og:url"/>
+<link href="{{URL}}" rel="canonical"/>
+<meta content="{{TITULO}}" property="og:title"/>
+<meta content="{{RESUMO}}" property="og:description"/>
+<meta content="article" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" property="og:image"/>
+<meta content="{{IMAGEM}}" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="twitter:description"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" name="twitter:image"/>
+<meta content="{{TITULO}}" name="twitter:title"/>
+<meta content="{{RESUMO}}" name="twitter:description"/>
+<meta content="{{IMAGEM}}" name="twitter:image"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -121,41 +117,29 @@
 
 <main id="conteudo" tabindex="-1">
 
-<!-- Página de leitura de UMA notícia. O conteúdo vem do Supabase pelo
-     parâmetro ?slug= da URL (ver assets/js/conteudo-noticias.js).
-     Os três estados (carregando / erro / artigo) já existem no HTML e o
-     JS só troca qual está visível — nada de montar página do zero. -->
+<!-- MOLDE, não edite o resultado: este arquivo vira noticia-<slug>.html
+     gerado por build/gerar.mjs a partir do que está publicado no painel.
+     Editar a página gerada é trabalho perdido, o próximo build sobrescreve. -->
 
 <a aria-label="Voltar para o IBPR em Movimento" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
 <section aria-label="Notícia" class="page-hero">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<p class="overline overline--light page-hero__eyebrow" id="noticiaMeta">IBPR em Movimento</p>
-<h1 id="noticiaTitulo">Carregando a notícia&hellip;</h1>
-<p class="page-hero__sub" id="noticiaResumo"></p>
+<p class="overline overline--light page-hero__eyebrow">{{META}}</p>
+<h1>{{TITULO}}</h1>
+<p class="page-hero__sub">{{RESUMO}}</p>
 </div>
 </section>
 
 <section aria-label="Conteúdo da notícia" class="section section--paper">
 <div class="container">
 
-<p class="measure-narrow" id="noticiaCarregando">Carregando&hellip;</p>
-
-<div class="measure-narrow" hidden id="noticiaErro">
-<div class="section-header section__head">
-<p class="overline">IBPR em Movimento</p>
-<h2 id="noticiaErroTitulo">Notícia não encontrada.</h2>
-<p class="section-header__sub" id="noticiaErroTexto">Ela pode ter sido removida, ou o endereço está incompleto.</p>
+<article class="measure-narrow">
+{{FIGURA}}
+<div class="prose">
+{{CORPO}}
 </div>
-<a class="btn btn--dark" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-</div>
-
-<article class="measure-narrow" hidden id="noticiaArtigo">
-<figure class="noticia-figura" hidden id="noticiaFigura">
-<img alt="" decoding="async" id="noticiaImagem" src=""/>
-</figure>
-<div class="prose" id="noticiaCorpo"></div>
 <div class="noticia-fim">
 <a class="link-arrow" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
@@ -227,9 +211,5 @@ AOS.init({
 });
 </script>
 <script src="assets/js/site-interactions.js?v=20260905b"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
-<script src="assets/js/supabase-config.js?v=20260908a"></script>
-<script src="assets/js/supabase-client.js?v=20260908a"></script>
-<script src="assets/js/conteudo-noticias.js?v=20260908a"></script>
 </body>
 </html>

@@ -531,7 +531,7 @@ window.IBPR.painel = (function () {
           mostrarLista();
           carregarLista();
           aviso(status === 'publicado'
-            ? 'Publicado. Já está no ar no site (pode precisar recarregar a página).'
+            ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
             : 'Rascunho salvo. Não aparece no site enquanto não for publicado.', 'ok');
         })
         .catch(function (erro) {
@@ -583,7 +583,9 @@ window.IBPR.painel = (function () {
       db.from('noticias').update(mudanca).eq('id', id).then(function (r) {
         if (r.error) { aviso(traduzirErro(r.error)); return; }
         carregarLista();
-        aviso(status === 'publicado' ? 'Publicado no site.' : 'Despublicado. Saiu do site.', 'ok');
+        aviso(status === 'publicado'
+          ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
+          : 'Despublicado. Sai do site no próximo build, em cerca de 2 minutos.', 'ok');
       }).catch(function (erro) { aviso(traduzirErro(erro)); });
     }
 
