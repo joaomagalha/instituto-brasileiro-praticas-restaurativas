@@ -99,8 +99,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    Raio: --radius-sm (o "quadradinho" das formações), não --radius-pill. */
 .tag-pill,
 .course-meta__item,
-.anchor-nav__link,
-.noticias__empty-topics li {
+.anchor-nav__link {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
@@ -116,8 +115,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    sobre fundo claro o dourado dá 2.4:1 e reprova, então lá ele é navy. */
 .tag-pill i,
 .course-meta__item i,
-.anchor-nav__link i,
-.noticias__empty-topics li i { font-size: 1.1rem; }
+.anchor-nav__link i { font-size: 1.1rem; }
 
 .section-header { margin-bottom: var(--space-3xl); }
 
@@ -2252,186 +2250,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 @media (min-width: 768px) { .noticias__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .noticias__grid { grid-template-columns: repeat(3, 1fr); } }
 
-/* ===================================
-   NOTÍCIAS — estado vazio editorial
-   Substitui os 3 cards "Em breve" repetidos (honestos, mas com cara de
-   seção inacabada) por um painel único e intencional: statement + as 3
-   categorias reais que o Instituto vai publicar + uma pilha de "artigos
-   fantasma" sinalizando conteúdo a caminho. Some inteiro quando a
-   primeira notícia real existir (volta o .noticias__grid).
-   Mesmo material dos cards de vidro do site (borda translúcida + grão),
-   pra não parecer componente emprestado.
-=================================== */
-.noticias__empty {
-  position: relative;
-  overflow: hidden;
-  border-radius: 2.4rem;
-  border: 1px solid rgba(var(--white-rgb), 0.10);
-  background: rgba(var(--white-rgb), 0.04);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-  padding: var(--space-xl);
-}
-
-@media (min-width: 900px) {
-  .noticias__empty {
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    padding: var(--space-2xl) var(--space-3xl);
-  }
-}
-
-.noticias__empty-grain {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
-  background-size: 14px 14px;
-}
-
-.noticias__empty-content { position: relative; z-index: 1; }
-
-.noticias__empty-status {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 1.1rem;
-  font-weight: var(--weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-overline);
-  color: var(--color-paper);
-  background: rgba(var(--gold-rgb), 0.10);
-  border: 1px solid rgba(var(--gold-rgb), 0.35);
-  border-radius: var(--radius-pill);
-  padding: 0.7rem 1.5rem;
-  margin-bottom: var(--space-lg);
-}
-
-/* mesma pulsação do badge do hero (keyframes pulseGlow, já globais) */
-.noticias__empty-pulse {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--color-gold);
-  box-shadow: 0 0 8px var(--color-gold);
-  animation: pulseGlow 1.5s infinite alternate;
-  flex-shrink: 0;
-}
-
-.noticias__empty-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 2.6vw, 2.6rem);
-  font-weight: var(--weight-semibold);
-  color: var(--color-white);
-  line-height: var(--leading-display);
-  letter-spacing: var(--tracking-snug);
-  margin-bottom: var(--space-sm);
-  text-wrap: balance;
-}
-
-.noticias__empty-desc {
-  font-size: 1.4rem;
-  color: rgba(var(--white-rgb), 0.68);
-  line-height: var(--leading-body);
-  max-width: 46rem;
-}
-
-.noticias__empty-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: var(--space-lg);
-}
-
-/* pele escura — a geometria vem do bloco TAG / PÍLULA no topo do arquivo */
-.noticias__empty-topics li {
-  color: var(--color-paper);
-  background: rgba(var(--white-rgb), 0.07);
-  border-color: rgba(var(--white-rgb), 0.16);
-}
-
-.noticias__empty-topics li i { color: var(--color-gold); }
-
-/* pilha de artigos fantasma — três cartões esboçados, o da frente com
-   esqueleto de post (chip de categoria + linhas de texto) e a árvore da
-   marca como marca d'água. Nenhum texto real: é sinal de "conteúdo a
-   caminho", não notícia fingida. */
-.noticias__empty-visual { position: relative; z-index: 1; height: 24rem; }
-
-.ghost-card {
-  position: absolute;
-  width: min(26rem, 82%);
-  height: 16rem;
-  border-radius: 1.6rem;
-  border: 1px solid rgba(var(--white-rgb), 0.12);
-  background: linear-gradient(165deg, rgba(var(--white-rgb), 0.06) 0%, rgba(var(--white-rgb), 0.02) 100%);
-}
-
-.ghost-card--back { top: 4%; right: 4%; transform: rotate(5deg); opacity: 0.45; }
-.ghost-card--mid { top: 14%; left: 2%; transform: rotate(-4deg); opacity: 0.7; }
-
-.ghost-card--front {
-  top: 26%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  background: linear-gradient(165deg, rgba(var(--white-rgb), 0.09) 0%, rgba(var(--white-rgb), 0.04) 100%);
-  border-color: rgba(var(--white-rgb), 0.18);
-  box-shadow: 0 18px 40px rgba(var(--navy900-rgb), 0.45);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  animation: ghostFloat 6s ease-in-out infinite alternate;
-}
-
-@keyframes ghostFloat {
-  from { transform: translateX(-50%) translateY(0); }
-  to   { transform: translateX(-50%) translateY(-8px); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ghost-card--front { animation: none; }
-  .noticias__empty-pulse { animation: none; }
-}
-
-.ghost-card__chip {
-  width: 7.2rem;
-  height: 2rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(var(--gold-rgb), 0.55);
-  background: rgba(var(--gold-rgb), 0.12);
-}
-
-.ghost-card__line {
-  display: block;
-  height: 0.9rem;
-  width: 92%;
-  border-radius: var(--radius-pill);
-  background: rgba(var(--white-rgb), 0.14);
-}
-
-.ghost-card__line--title { height: 1.3rem; width: 80%; background: rgba(var(--white-rgb), 0.24); }
-.ghost-card__line--short { width: 58%; }
-
-.ghost-card__watermark {
-  position: absolute;
-  right: 1.6rem;
-  bottom: 1.4rem;
-  width: 4.2rem;
-  height: auto;
-  opacity: 0.12;
-  filter: brightness(0) invert(1);
-}
-
-/* no mobile a pilha vira o único elemento abaixo de um bloco de texto já
-   alto — encolhe pra não gastar meia tela em decoração */
-@media (max-width: 599px) {
-  .noticias__empty-visual { height: 19rem; }
-  .ghost-card { height: 13rem; }
-}
+/* NOTÍCIAS — estado vazio editorial (painel + ghost cards) removido em
+   08/09: a seção IBPR em Movimento passou a mostrar as 3 frentes reais no
+   material .course-eixos (Home + ibpr-em-movimento.html). .noticias,
+   .noticias__glow, .noticias__header e .noticias__grid seguem aqui pro
+   estado de conteúdo real (volta quando o CMS existir). */
 
 /* ===================================
    PÁGINA INTERNA — hero de banner (título + intro), pras páginas que não
@@ -3246,6 +3069,33 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--o-instituto .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--o-instituto .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
 
+/* --- Variante do hero de IBPR em Movimento ---
+   Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é um
+   hall de circulação de instituição brasileira em fim de tarde, gente em
+   movimento (concreto moldado, cobogó, vidro pro jardim) — amarra a "atuação
+   dentro e fora" da página. O teto claro e o fundo iluminado puxam o scrim
+   um pouco mais forte no topo e na esquerda, onde entram título/subtítulo. */
+.page-hero--ibpr-movimento { --como-hero: url("../images/ibpr-movimento-hero.jpg"); }
+.page-hero--ibpr-movimento .page-hero__glow { display: none; }
+.page-hero--ibpr-movimento::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.58) 0%, rgba(var(--navy900-rgb), 0) 24%),
+    linear-gradient(to right,
+      rgba(var(--navy900-rgb), 0.82) 0%,
+      rgba(var(--navy900-rgb), 0.50) 42%,
+      rgba(var(--navy900-rgb), 0.20) 70%,
+      rgba(var(--navy900-rgb), 0.06) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 48%;
+}
+.page-hero--ibpr-movimento h1,
+.page-hero--ibpr-movimento .page-hero__sub,
+.page-hero--ibpr-movimento .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--ibpr-movimento .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
 /* --- Intro da página-índice de Formações ---
    Era prosa corrida de 2 parágrafos, sem cabeçalho e sem entrada de leitura.
    Agora: cabeçalho (kicker + título + lead) → 3 pilares na faixa creme dos
@@ -3359,6 +3209,18 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .course-eixo__key { display: block; font-size: 1.15rem; font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: var(--tracking-overline); color: var(--color-teal); margin-bottom: var(--space-xs); }
 .course-eixo__phrase { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); text-wrap: balance; }
 .course-eixo__desc { font-size: 1.4rem; color: var(--color-navy-mid); line-height: var(--leading-body); text-wrap: pretty; }
+
+/* IBPR em Movimento — enquanto não há post real, a seção fecha com a legenda
+   discreta de "em breve" (+ botão pra página, só na Home). Alinhado à mesma
+   coluna measure-narrow das .course-eixos acima. */
+.movimento-foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-top: var(--space-2xl);
+}
+.movimento-foot .overline { margin-bottom: 0; }
 
 /* --- pills de tema / público (contexto claro) --- */
 .course-pills { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }

@@ -35,8 +35,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260906a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260906a" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260908a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260908a" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
@@ -499,49 +499,45 @@
 </div>
 </section>
 
-<!-- notícias -->
-<section aria-label="IBPR em Movimento" class="noticias" id="ibpr-movimento-preview">
-<div aria-hidden="true" class="noticias__glow"></div>
+<!-- IBPR em Movimento — teaser. Estado "em breve" deliberado: ainda não existe
+     notícia real (tabela do Supabase pro CMS nem foi desenhada) e notícia
+     inventada foi o erro do protótipo do Rauny (ver analise-prototipo.md). Em
+     vez de anunciar o vazio (ghost cards + "estão a caminho"), a seção descreve
+     as 3 frentes editoriais reais do espaço, no mesmo material (.course-eixos)
+     usado na intro de Formações. Quando o primeiro post real existir: trocar
+     as .course-eixos por
+       <div class="noticias__grid"> de <article class="service-card">
+     (componente das Formações, com .service-card__date). -->
+<section aria-label="IBPR em Movimento" class="section section--paper" id="ibpr-movimento-preview">
 <div class="container">
-<div class="noticias__header section-header section-header--dark" data-aos="fade-up">
-<div>
-<p class="overline overline--light">IBPR em Movimento</p>
+<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<p class="overline">IBPR em Movimento</p>
 <h2>Acompanhe a atuação do IBPR e da sua rede.</h2>
 <p class="section-header__sub">Um espaço para acompanhar o que o Instituto e os profissionais da sua rede realizam, dentro e fora do IBPR.</p>
 </div>
-<a class="btn btn--white" href="ibpr-em-movimento.html">Ir para o IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<div class="course-eixos measure-narrow" data-aos="fade-up">
+<div class="course-eixo">
+<span class="course-eixo__num">01</span>
+<span class="course-eixo__key">Pesquisa</span>
+<span class="course-eixo__phrase">Produção científica e referência</span>
+<p class="course-eixo__desc">Estudos, artigos e materiais de referência sobre Justiça Restaurativa produzidos pelo Instituto e pela sua rede.</p>
 </div>
-<!-- Estado vazio deliberado — ainda não existe notícia real (tabela do
-     Supabase pro CMS nem foi desenhada) e notícia inventada é o erro que
-     o protótipo do Rauny cometeu (ver analise-prototipo.md). Em vez de 3
-     cards "Em breve" idênticos, um painel editorial único: statement +
-     categorias reais + visual de artigos a caminho. Quando o primeiro
-     post real existir: apagar .noticias__empty e voltar com
-     <div class="noticias__grid"> de <article class="service-card">
-     (componente igual ao das Formações, com .service-card__date). -->
-<div class="noticias__empty" data-aos="fade-up" data-aos-delay="100">
-<div aria-hidden="true" class="noticias__empty-grain"></div>
-<div class="noticias__empty-content">
-<span class="noticias__empty-status"><span aria-hidden="true" class="noticias__empty-pulse"></span>Primeiras publicações em preparação</span>
-<h3 class="noticias__empty-title">As primeiras publicações do IBPR em Movimento estão a caminho.</h3>
-<p class="noticias__empty-desc">O Instituto vai reunir aqui a produção científica, as formações e a atuação de campo do IBPR e dos profissionais da sua rede, dentro e fora do Instituto.</p>
-<ul class="noticias__empty-topics">
-<li><i aria-hidden="true" class="fa-solid fa-flask"></i>Pesquisa</li>
-<li><i aria-hidden="true" class="fa-solid fa-chalkboard-user"></i>Formações</li>
-<li><i aria-hidden="true" class="fa-solid fa-people-group"></i>Rede</li>
-</ul>
+<div class="course-eixo">
+<span class="course-eixo__num">02</span>
+<span class="course-eixo__key">Formações</span>
+<span class="course-eixo__phrase">Turmas, campo e resultados</span>
+<p class="course-eixo__desc">O que acontece nas formações do IBPR: novas turmas, registros de campo e os resultados de quem já passou por elas.</p>
 </div>
-<div aria-hidden="true" class="noticias__empty-visual">
-<div class="ghost-card ghost-card--back"></div>
-<div class="ghost-card ghost-card--mid"></div>
-<div class="ghost-card ghost-card--front">
-<span class="ghost-card__chip"></span>
-<span class="ghost-card__line ghost-card__line--title"></span>
-<span class="ghost-card__line"></span>
-<span class="ghost-card__line ghost-card__line--short"></span>
-<img loading="lazy" decoding="async" alt="" class="ghost-card__watermark" src="assets/images/ibpr-logo-icone.png"/>
+<div class="course-eixo">
+<span class="course-eixo__num">03</span>
+<span class="course-eixo__key">Rede</span>
+<span class="course-eixo__phrase">Atuação dentro e fora do IBPR</span>
+<p class="course-eixo__desc">A prática dos profissionais que integram a rede do Instituto em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
 </div>
 </div>
+<div class="movimento-foot measure-narrow" data-aos="fade-up">
+<p class="overline">Primeiras publicações em breve</p>
+<a class="btn btn--dark" href="ibpr-em-movimento.html">Ir para o IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
 </section>
