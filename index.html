@@ -35,8 +35,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260908a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260908a" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260908b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260908b" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
@@ -94,11 +94,13 @@
 <li class="navbar__item navbar__item--dropdown">
 <button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
 <ul class="navbar__dropdown" role="menu">
+<!-- CMS:formacoes-navbar -->
 <li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem">Práticas Restaurativas nas Relações de Trabalho</a></li>
 <li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
@@ -138,10 +140,12 @@
 <div class="mobile-menu__divider"></div>
 <p class="mobile-menu__section-label">Formações</p>
 <ul class="mobile-menu__service-list">
+<!-- CMS:formacoes-mobile -->
 <li><a class="mobile-menu__service-link" href="formacao-execucao-penal.html">Justiça Restaurativa aplicada à Execução Penal</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-pena-justa.html">Implementação da JR no Plano Pena Justa</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-ambiente-escolar.html">Práticas Restaurativas no Ambiente Escolar</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-relacoes-trabalho.html">Práticas Restaurativas nas Relações de Trabalho</a></li>
+<!-- /CMS:formacoes-mobile -->
 </ul>
 </nav>
 <div class="mobile-menu__footer">
@@ -301,6 +305,7 @@
      as formações passaram a ser cursos gravados na Hotmart. -->
 <div class="services__viewport" data-aos="fade-up">
 <div class="services__track" id="servicesTrack">
+<!-- CMS:formacoes-home -->
 <article class="service-card">
 <div class="service-card__img-wrap"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/execucao-penal-card.jpg?v=2"/></div>
 <div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p><a class="service-card__link" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
@@ -317,14 +322,19 @@
 <div class="service-card__img-wrap"><img alt="Salão preparado para uma formação corporativa, com mesas redondas e flip charts" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card.jpg?v=2"/></div>
 <div class="service-card__body"><p class="service-card__audience">Para lideranças, gestores e equipes de RH</p><h3 class="service-card__title">Práticas Restaurativas nas Relações de Trabalho</h3><p class="service-card__desc">Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.</p><p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p><a class="service-card__link" href="formacao-relacoes-trabalho.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
+<!-- /CMS:formacoes-home -->
+
 </div>
 </div>
 <div class="services__nav">
 <div aria-label="Navegação das formações" class="services__dots" id="servicesDots" role="group">
+<!-- CMS:formacoes-home-dots -->
 <button aria-label="Ir para a formação 1" class="services__dot services__dot--active"></button>
 <button aria-label="Ir para a formação 2" class="services__dot"></button>
 <button aria-label="Ir para a formação 3" class="services__dot"></button>
 <button aria-label="Ir para a formação 4" class="services__dot"></button>
+<!-- /CMS:formacoes-home-dots -->
+
 </div>
 <div class="services__arrows">
 <button aria-label="Formação anterior" class="services__arrow services__arrow--prev"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i></button>
@@ -583,10 +593,12 @@
 <div class="footer__col">
 <h2 class="footer__col-title">Formações</h2>
 <ul class="footer__links">
+<!-- CMS:formacoes-rodape -->
 <li><a class="footer__link" href="formacao-execucao-penal.html">Execução Penal</a></li>
 <li><a class="footer__link" href="formacao-pena-justa.html">Plano Pena Justa</a></li>
 <li><a class="footer__link" href="formacao-ambiente-escolar.html">Ambiente Escolar</a></li>
 <li><a class="footer__link" href="formacao-relacoes-trabalho.html">Relações de Trabalho</a></li>
+<!-- /CMS:formacoes-rodape -->
 </ul>
 </div>
 <div class="footer__col">

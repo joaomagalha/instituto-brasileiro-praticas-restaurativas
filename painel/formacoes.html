@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Formações | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260908b" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260908b" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260908b" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body class="painel">
+
+<header class="painel-topbar">
+  <img alt="IBPR" class="painel-topbar__logo" src="../assets/images/ibpr-logo-full.png"/>
+  <nav class="painel-topbar__nav">
+    <a class="painel-topbar__aba" href="noticias.html">Notícias</a>
+    <a aria-current="page" class="painel-topbar__aba is-ativa" href="formacoes.html">Formações</a>
+  </nav>
+  <div class="painel-topbar__dir">
+    <a class="painel-topbar__sair" href="../formacoes.html" target="_blank" rel="noopener">Ver o site</a>
+    <span class="painel-topbar__usuario" id="usuarioAtual"></span>
+    <a class="painel-topbar__sair" href="#" id="btnSair">Sair</a>
+  </div>
+</header>
+
+<main class="painel-shell">
+
+  <div class="painel-msg" id="msg" hidden></div>
+
+  <!-- ==============================================================
+       TELA 1 — LISTA
+       ============================================================== -->
+  <section id="telaLista">
+    <div class="painel-cabeca">
+      <div>
+        <h1>Formações</h1>
+        <p>Cada formação publicada vira uma <strong>página de curso</strong> e entra sozinha no menu,
+           no menu do celular, no rodapé, no carrossel da Home e no catálogo. Rascunho não aparece
+           em lugar nenhum.</p>
+      </div>
+      <button class="btn btn--dark btn--sm" id="btnNova" type="button">
+        <i aria-hidden="true" class="fa-solid fa-plus"></i> Nova formação
+      </button>
+    </div>
+
+    <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
+
+    <div class="painel-vazio" id="listaVazia" hidden>
+      <strong>Nenhuma formação cadastrada</strong>
+      Se você está vendo isto, o banco ainda não recebeu as 4 formações que estão no ar.
+      Avise o João antes de publicar qualquer coisa (falta rodar <code>02b-seed-formacoes.sql</code>).
+    </div>
+
+    <div class="painel-lista" id="lista"></div>
+  </section>
+
+  <!-- ==============================================================
+       TELA 2 — FORMULÁRIO
+       ============================================================== -->
+  <section id="telaForm" hidden>
+    <div class="painel-cabeca">
+      <div>
+        <h1 id="formTitulo">Nova formação</h1>
+        <p>Nas listas, escreva <strong>um item por linha</strong>. Logo abaixo de cada uma
+           aparece uma prévia do que o site entendeu.</p>
+      </div>
+    </div>
+
+    <form class="painel-card" id="formFormacao" novalidate>
+      <input id="formacaoId" type="hidden"/>
+
+      <!-- ---------- identidade ---------- -->
+      <h2 class="painel-secao">Identificação</h2>
+
+      <div class="campo">
+        <label for="titulo">Título completo *</label>
+        <input id="titulo" maxlength="160" required type="text"/>
+        <span class="campo__dica">Aparece no topo da página do curso. Ex: "Implementação da Justiça Restaurativa no Plano Pena Justa".</span>
+      </div>
+
+      <div class="campo-duplo">
+        <div class="campo">
+          <label for="tituloCurto">Título curto</label>
+          <input id="tituloCurto" maxlength="120" type="text"/>
+          <span class="campo__dica">Para o menu e os cards. Em branco = usa o título completo.</span>
+        </div>
+        <div class="campo">
+          <label for="tituloRodape">Nome no rodapé</label>
+          <input id="tituloRodape" maxlength="60" type="text"/>
+          <span class="campo__dica">Bem curto, a coluna é estreita. Ex: "Plano Pena Justa".</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label for="subtitulo">Frase de apresentação</label>
+        <textarea class="campo__area--curta" id="subtitulo" maxlength="260"></textarea>
+        <span class="campo__dica">A linha logo abaixo do título, no topo da página.</span>
+      </div>
+
+      <div class="campo">
+        <label for="resumo">Resumo *</label>
+        <textarea class="campo__area--curta" id="resumo" maxlength="260" required></textarea>
+        <span class="campo__dica">Duas linhas: é o texto do card na Home e no catálogo. Também é o que o Google mostra.</span>
+      </div>
+
+      <div class="campo">
+        <label for="publicoCurto">Para quem é (linha do card)</label>
+        <input id="publicoCurto" maxlength="120" type="text"/>
+        <span class="campo__dica">Começando com "Para". Ex: "Para diretores, professores e equipes".</span>
+      </div>
+
+      <div class="campo-duplo">
+        <div class="campo">
+          <label for="area">Área</label>
+          <input id="area" maxlength="60" type="text"/>
+          <span class="campo__dica">A 3ª etiqueta no topo da página. Ex: "Educação".</span>
+        </div>
+        <div class="campo">
+          <label for="areaIcone">Ícone da área</label>
+          <select id="areaIcone">
+            <option value="fa-shapes">Genérico</option>
+            <option value="fa-scale-balanced">Balança (Justiça)</option>
+            <option value="fa-building-shield">Escudo (instituição)</option>
+            <option value="fa-graduation-cap">Capelo (educação)</option>
+            <option value="fa-school">Escola</option>
+            <option value="fa-briefcase">Pasta (trabalho)</option>
+            <option value="fa-people-group">Pessoas</option>
+            <option value="fa-handshake">Aperto de mão</option>
+            <option value="fa-heart">Coração</option>
+          </select>
+          <span class="campo__dica">Desenho que acompanha a área.</span>
+        </div>
+      </div>
+
+      <div class="campo-duplo">
+        <div class="campo">
+          <label for="ordem">Posição</label>
+          <input id="ordem" max="999" min="1" type="number"/>
+          <span class="campo__dica">Menor primeiro, em todas as listas do site.</span>
+        </div>
+        <div class="campo">
+          <label for="linkCurso">Link do curso (Hotmart)</label>
+          <input id="linkCurso" placeholder="https://..." type="url"/>
+          <span class="campo__dica">Destino do botão "Ir para o curso". Em branco, o botão não leva a lugar nenhum.</span>
+        </div>
+      </div>
+
+      <!-- ---------- imagens ---------- -->
+      <h2 class="painel-secao">Fotos</h2>
+
+      <div class="campo">
+        <label for="imagemHero">Foto do topo da página</label>
+        <input accept="image/*" id="imagemHero" type="file"/>
+        <span class="campo__dica">Horizontal, de preferência 1600&times;900. Até 5 MB. Em branco, mantém a atual.</span>
+        <div class="campo__previa" id="previaHero" hidden><img alt="" id="previaHeroImg"/></div>
+      </div>
+
+      <div class="campo">
+        <label for="imagemCard">Foto do card</label>
+        <input accept="image/*" id="imagemCard" type="file"/>
+        <span class="campo__dica">Proporção 3:2, de preferência 1200&times;800. Até 5 MB.</span>
+        <div class="campo__previa" id="previaCard" hidden><img alt="" id="previaCardImg"/></div>
+      </div>
+
+      <div class="campo">
+        <label for="imagemCardAlt">Descrição da foto do card</label>
+        <input id="imagemCardAlt" maxlength="180" type="text"/>
+        <span class="campo__dica">Para quem usa leitor de tela e para o Google. Descreva o que se vê na foto.</span>
+      </div>
+
+      <!-- ---------- conteúdo ---------- -->
+      <h2 class="painel-secao">Conteúdo da página</h2>
+
+      <div class="campo">
+        <label for="desenvolver">O que você vai desenvolver</label>
+        <textarea data-previa="previaDesenvolver" data-tipo="simples" id="desenvolver"></textarea>
+        <span class="campo__dica">Um item por linha.</span>
+        <div class="campo__entendi" id="previaDesenvolver"></div>
+      </div>
+
+      <div class="campo">
+        <label for="eixos">Os eixos da formação</label>
+        <textarea data-previa="previaEixos" data-tipo="eixos" id="eixos"></textarea>
+        <span class="campo__dica">Um eixo por linha, em três partes separadas por barra:
+          <code>Palavra-chave | Frase curta | Explicação</code></span>
+        <div class="campo__entendi" id="previaEixos"></div>
+      </div>
+
+      <div class="campo">
+        <label for="modulos">Conteúdo do programa</label>
+        <textarea data-previa="previaModulos" data-tipo="modulos" id="modulos" rows="12"></textarea>
+        <span class="campo__dica">Comece o título de cada módulo com <code>##</code>. As linhas seguintes são os tópicos dele.</span>
+        <div class="campo__entendi" id="previaModulos"></div>
+      </div>
+
+      <div class="campo">
+        <label for="fundamento">Fundamento da formação</label>
+        <textarea id="fundamento" rows="8"></textarea>
+        <span class="campo__dica">Texto corrido. Deixe uma linha em branco entre um parágrafo e outro.</span>
+      </div>
+
+      <div class="campo">
+        <label for="paraQuem">Para quem é (etiquetas)</label>
+        <textarea data-previa="previaParaQuem" data-tipo="simples" id="paraQuem"></textarea>
+        <span class="campo__dica">Um público por linha. Vira uma etiqueta cada.</span>
+        <div class="campo__entendi" id="previaParaQuem"></div>
+      </div>
+
+      <div class="campo">
+        <label for="resultadosIntro">Frase que abre os resultados</label>
+        <input id="resultadosIntro" maxlength="200" type="text"/>
+        <span class="campo__dica">Ex: "Ao final da formação, a instituição estará mais preparada para:".</span>
+      </div>
+
+      <div class="campo">
+        <label for="resultados">O que a instituição será capaz de implementar</label>
+        <textarea data-previa="previaResultados" data-tipo="simples" id="resultados"></textarea>
+        <span class="campo__dica">Um resultado por linha.</span>
+        <div class="campo__entendi" id="previaResultados"></div>
+      </div>
+
+      <div class="campo">
+        <label for="temas">Temas relacionados</label>
+        <textarea data-previa="previaTemas" data-tipo="temas" id="temas"></textarea>
+        <span class="campo__dica">Um por linha: <code>Texto da etiqueta | endereço</code>.
+          Endereços que existem hoje: <code>praticas-restaurativas.html#jr-praticas</code>,
+          <code>#educacao</code>, <code>#justica-prisional</code>, <code>#empresas</code>,
+          <code>como-atuamos.html</code>. Sem barra, a etiqueta fica sem link.</span>
+        <div class="campo__entendi" id="previaTemas"></div>
+      </div>
+
+      <!-- ---------- SEO ---------- -->
+      <details class="painel-avancado">
+        <summary>Textos que só o Google e o WhatsApp leem (opcional)</summary>
+        <p class="painel-avancado__nota">Pode deixar tudo em branco. Vazio, o site usa o resumo
+          e o "para quem é" que você preencheu acima.</p>
+
+        <div class="campo">
+          <label for="metaDescricao">Resumo para o Google</label>
+          <textarea class="campo__area--curta" id="metaDescricao" maxlength="320"></textarea>
+        </div>
+        <div class="campo">
+          <label for="seoDescricao">Descrição nos dados estruturados</label>
+          <textarea class="campo__area--curta" id="seoDescricao" maxlength="600"></textarea>
+        </div>
+        <div class="campo">
+          <label for="seoPublico">Público nos dados estruturados</label>
+          <input id="seoPublico" maxlength="300" type="text"/>
+        </div>
+      </details>
+
+      <div class="painel-acoes">
+        <button class="btn btn--dark btn--sm" id="btnPublicar" type="button">
+          <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> Publicar no site
+        </button>
+        <button class="btn btn--outline btn--sm" id="btnRascunho" type="button">Salvar rascunho</button>
+        <button class="btn btn--fantasma btn--sm" id="btnCancelar" type="button">Cancelar</button>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=20260908b"></script>
+<script src="../assets/js/supabase-client.js?v=20260908b"></script>
+<script src="assets/painel.js?v=20260908b"></script>
+<script src="assets/painel-formacoes.js?v=20260908b"></script>
+<script>
+  IBPR.painel.iniciarFormacoes();
+</script>
+
+</body>
+</html>

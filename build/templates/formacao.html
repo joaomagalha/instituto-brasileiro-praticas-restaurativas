@@ -3,29 +3,24 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="description"/>
-<title>IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<meta content="{{META_DESC}}" name="description"/>
+<title>{{TITULO}} | Formações IBPR</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
-     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
-     IBPR, que o cliente ainda não informou — por isso não estão aqui, em vez
-     de apontarem pra um endereço inventado. Quando o domínio existir,
-     acrescentar em cada página:
-       <meta content="https://DOMINIO/ibpr-em-movimento.html" property="og:url"/>
-       <link href="https://DOMINIO/ibpr-em-movimento.html" rel="canonical"/>
-     e trocar og:image pelo caminho absoluto (crawlers do WhatsApp e do
-     LinkedIn não resolvem caminho relativo).
-     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." property="og:description"/>
+     og:image e og:url são ABSOLUTOS de propósito: o robô do WhatsApp e o do
+     LinkedIn não resolvem caminho relativo, e o link sairia sem imagem. -->
+<meta content="{{TITULO}} | Formações IBPR" property="og:title"/>
+<meta content="{{META_DESC}}" property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" property="og:image"/>
+<meta content="{{URL}}" property="og:url"/>
+<meta content="{{IMAGEM_ABS}}" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="IBPR em Movimento | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
-<meta content="IBPR em Movimento: a atuação do Instituto e dos profissionais que integram sua rede em Justiça Restaurativa, dentro e fora do IBPR." name="twitter:description"/>
-<meta content="assets/images/ibpr-movimento-hero.jpg" name="twitter:image"/>
+<meta content="{{TITULO}} | Formações IBPR" name="twitter:title"/>
+<meta content="{{META_DESC}}" name="twitter:description"/>
+<meta content="{{IMAGEM_ABS}}" name="twitter:image"/>
+<link href="{{URL}}" rel="canonical"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -38,10 +33,10 @@
 <link href="assets/css/tokens.css?v=20260908b" rel="stylesheet"/>
 <link href="assets/css/components.css?v=20260908b" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+{{JSONLD}}
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
-
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
@@ -61,7 +56,7 @@
 <li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
-<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
 <ul class="navbar__dropdown" role="menu">
 <!-- CMS:formacoes-navbar -->
 <li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
@@ -72,7 +67,7 @@
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
-<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
+<li class="navbar__item"><a class="navbar__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
 </ul>
 </nav>
 <div class="navbar__actions">
@@ -94,8 +89,8 @@
 <li><a class="mobile-menu__link" href="praticas-restaurativas.html">Práticas Restaurativas</a></li>
 <li><a class="mobile-menu__link" href="o-instituto.html">O Instituto</a></li>
 <li><a class="mobile-menu__link" href="como-atuamos.html">Como Atuamos</a></li>
-<li><a class="mobile-menu__link" href="formacoes.html">Formações</a></li>
-<li><a aria-current="page" class="mobile-menu__link is-active" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
+<li><a class="mobile-menu__link is-active" href="formacoes.html">Formações</a></li>
+<li><a class="mobile-menu__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
 <li><a class="mobile-menu__link" href="area-do-aluno.html">Área do Aluno</a></li>
 </ul>
 <div class="mobile-menu__divider"></div>
@@ -126,78 +121,67 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#ibpr-movimento-preview"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="IBPR em Movimento" class="page-hero page-hero--ibpr-movimento">
-<div aria-hidden="true" class="page-hero__glow"></div>
+<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="formacoes.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
+<section aria-label="{{TITULO}}" class="page-hero page-hero--course" style="--course-hero: url('{{IMAGEM_ABS}}')">
 <div class="container">
-<a class="page-back" data-voltar href="index.html#ibpr-movimento-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<h1 data-aos="fade-up">A atuação do IBPR e da sua rede, dentro e fora do Instituto.</h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">Um espaço para acompanhar o que o IBPR e os profissionais da sua rede realizam.</p>
+<a class="page-back" data-voltar href="formacoes.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
+<h1 data-aos="fade-up">{{TITULO}}</h1>
+<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">{{SUBTITULO}}</p>
+<div class="course-meta" data-aos="fade-up" data-aos-delay="200">
+<span class="course-meta__item"><i aria-hidden="true" class="fa-solid fa-circle-play"></i>On-line, no seu ritmo</span>
+<span class="course-meta__item"><i aria-hidden="true" class="fa-solid fa-infinity"></i>Acesso vitalício</span>
+{{META_AREA}}</div>
 </div>
 </section>
 
-<!-- Frentes do IBPR em Movimento — estado "em breve" deliberado: sem conteúdo
-     real ainda (CMS/Supabase não desenhado) e notícia inventada foi o erro do
-     protótipo do Rauny (analise-prototipo.md). Em vez do painel de vazio (ghost
-     cards + "estão a caminho"), as 3 frentes editoriais reais no material
-     .course-eixos, igual à prévia da Home. Quando o primeiro post real existir:
-     trocar as .course-eixos por
-     <div class="noticias__grid" data-aos="fade-up">
-       <article class="service-card">
-         <div class="service-card__img-wrap"><i class="fa-solid fa-..."></i><span class="service-card__category">Categoria</span></div>
-         <div class="service-card__body"><span class="service-card__date">DD mmm AAAA</span><h3 class="service-card__title">Título</h3><p class="service-card__desc">Resumo.</p><a class="service-card__link" href="noticia.html">Ler notícia <i class="fa-solid fa-arrow-right"></i></a></div>
-       </article>
-     </div>
-     empilhando um card por post conforme o volume crescer. -->
-<section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="ibpr-movimento-lista">
+<!-- conteúdo + card de proposta -->
+<section aria-label="Sobre a formação" class="section section--white">
 <div class="container">
-<!-- CMS:movimento-lista -->
-<div class="section-header section__head measure-narrow" data-aos="fade-up">
-<p class="overline">O que vem aqui</p>
-<h2>Três frentes, um mesmo movimento.</h2>
-<p class="section-header__sub">Enquanto as primeiras publicações são preparadas, estas são as frentes que o IBPR em Movimento vai reunir.</p>
+<div class="course-layout">
+
+<div class="course-main">
+{{BLOCOS}}
 </div>
-<div class="course-eixos measure-narrow" data-aos="fade-up">
-<div class="course-eixo">
-<span class="course-eixo__num">01</span>
-<span class="course-eixo__key">Pesquisa</span>
-<span class="course-eixo__phrase">Produção científica e referência</span>
-<p class="course-eixo__desc">Estudos, artigos e materiais de referência sobre Justiça Restaurativa produzidos pelo Instituto e pela sua rede.</p>
-</div>
-<div class="course-eixo">
-<span class="course-eixo__num">02</span>
-<span class="course-eixo__key">Formações</span>
-<span class="course-eixo__phrase">Turmas, campo e resultados</span>
-<p class="course-eixo__desc">O que acontece nas formações do IBPR: novas turmas, registros de campo e os resultados de quem já passou por elas.</p>
-</div>
-<div class="course-eixo">
-<span class="course-eixo__num">03</span>
-<span class="course-eixo__key">Rede</span>
-<span class="course-eixo__phrase">Atuação dentro e fora do IBPR</span>
-<p class="course-eixo__desc">A prática dos profissionais que integram a rede do Instituto em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
+
+<aside class="course-aside" aria-label="Acessar a formação">
+<div class="proposta-card" data-aos="fade-up">
+<div class="proposta-card__body">
+<h2 class="proposta-card__title">Acesse a formação completa</h2>
+<p class="proposta-card__note">Conteúdo gravado, no seu ritmo, com acesso vitalício.</p>
+<ul class="proposta-card__list">
+<li><i aria-hidden="true" class="fa-solid fa-circle-play"></i>Aulas gravadas, no seu ritmo</li>
+<li><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i>Materiais e roteiros para download</li>
+<li><i aria-hidden="true" class="fa-solid fa-infinity"></i>Acesso vitalício ao conteúdo</li>
+<li><i aria-hidden="true" class="fa-solid fa-mobile-screen-button"></i>Acesso no computador e no celular</li>
+</ul>
+<a class="btn btn--dark" href="{{LINK_CURSO}}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<p class="proposta-card__guarantee"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i>Garantia de 7 dias</p>
 </div>
 </div>
-<div class="movimento-foot measure-narrow" data-aos="fade-up">
-<p class="overline">Primeiras publicações em breve</p>
+</aside>
+
 </div>
-<!-- /CMS:movimento-lista -->
 </div>
 </section>
 
-<!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="cta-final__glow"></div>
+<!-- outras formações -->
+<section aria-label="Outras formações do IBPR" class="section section--paper">
 <div class="container">
-<p class="overline overline--light cta-final__eyebrow">Formações IBPR</p>
-<h2 class="cta-final__title" data-aos="fade-up">Transforme conhecimento restaurativo em prática.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Formações para compreender, aplicar e incorporar práticas restaurativas em diferentes contextos.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<div class="section-header section__head" data-aos="fade-up">
+<p class="overline">Formações IBPR</p>
+<h2>Outras formações do Instituto</h2>
+</div>
+<div class="card-grid card-grid--3">
+<!-- CMS:outras-formacoes -->
+{{OUTRAS}}
+<!-- /CMS:outras-formacoes -->
 </div>
 </div>
 </section>
+
+<!-- Sem cta-final aqui de propósito: o doc do grupo pediu pra tirar o link
+     "Ver as soluções" da página do curso, e com "Outras formações" logo acima
+     eram duas saídas empilhadas. A página fecha no catálogo. -->
 
 </main>
 
@@ -205,7 +189,7 @@
 <footer class="footer">
 <div class="container footer__container">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.png"/>
+<img alt="IBPR" class="footer__logo" loading="lazy" decoding="async" src="assets/images/ibpr-logo-full.png"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa.</p>
 </div>
 <nav aria-label="Links do rodapé" class="footer__nav">
@@ -255,14 +239,33 @@
 <!-- scripts -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
 <script>
-// disable como função: o AOS avalia na inicialização e desliga as animações
-// de rolagem pra quem pediu menos movimento no sistema. Sem isto a página
-// inteira animava igual, mesmo com prefers-reduced-motion ativo.
 AOS.init({
   duration: 800, easing: 'ease-out', once: true, offset: 60,
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
 <script src="assets/js/site-interactions.js?v=20260905b"></script>
+<script>
+/* Conteúdo do programa: botão "Expandir todos / Recolher todos".
+   O acordeão em si é <details> nativo e funciona sem isto. */
+(function () {
+  var toggle = document.querySelector('[data-accordion-toggle]');
+  var group = document.getElementById('course-modules');
+  if (!toggle || !group) return;
+  var items = group.querySelectorAll('.accordion');
+  function sync() {
+    var allOpen = Array.prototype.every.call(items, function (d) { return d.open; });
+    toggle.textContent = allOpen ? 'Recolher todos' : 'Expandir todos';
+    toggle.setAttribute('aria-expanded', allOpen ? 'true' : 'false');
+  }
+  toggle.addEventListener('click', function () {
+    var expand = toggle.getAttribute('aria-expanded') !== 'true';
+    Array.prototype.forEach.call(items, function (d) { d.open = expand; });
+    sync();
+  });
+  group.addEventListener('toggle', sync, true);
+  sync();
+})();
+</script>
 </body>
 </html>

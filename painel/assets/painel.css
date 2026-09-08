@@ -324,4 +324,98 @@ body.painel {
 }
 .painel-vazio strong { display: block; color: var(--color-navy); font-size: 1.7rem; font-family: var(--font-display); margin-bottom: var(--space-2xs); }
 
+/* ---------------------------------------------------------------------
+   Abas do painel (Notícias / Formações)
+   --------------------------------------------------------------------- */
+.painel-topbar__nav { display: flex; gap: var(--space-xs); }
+.painel-topbar__aba {
+  color: rgba(var(--white-rgb), 0.7);
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.painel-topbar__aba:hover { color: var(--color-white); background: rgba(var(--white-rgb), 0.08); }
+.painel-topbar__aba.is-ativa {
+  color: var(--color-white);
+  background: rgba(var(--white-rgb), 0.14);
+}
+
+/* ---------------------------------------------------------------------
+   Formulário longo: divisores de assunto
+   --------------------------------------------------------------------- */
+.painel-secao {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-mist);
+  padding-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+  border-top: 1px solid var(--color-border-light);
+}
+.painel-card > .painel-secao:first-of-type { padding-top: 0; border-top: 0; }
+
+/* "O site entendeu" — a prévia do que foi digitado numa caixa de lista.
+   É o que substitui uma interface de campos que se multiplicam: em vez de
+   arrastar campo, a pessoa escreve texto e confere aqui se saiu certo. */
+.campo__entendi {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-mist-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  font-size: 1.35rem;
+  line-height: var(--leading-body);
+  color: var(--color-navy);
+}
+.campo__entendi-titulo {
+  font-size: 1.2rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-mist);
+  margin-bottom: var(--space-2xs);
+}
+.campo__entendi ul { list-style: none; padding: 0; margin: 0; }
+.campo__entendi > ul > li { padding: 0.4rem 0; border-top: 1px solid var(--color-border-light); }
+.campo__entendi > ul > li:first-child { border-top: 0; }
+.campo__entendi ul ul { margin: var(--space-2xs) 0 var(--space-2xs) var(--space-md); }
+.campo__entendi ul ul li { padding: 0.15rem 0; }
+.campo__entendi ul ul li::before { content: "· "; color: var(--color-mist); }
+.campo__entendi-sub { color: var(--color-mist); font-size: 1.25rem; }
+
+/* Bloco recolhido dos campos de SEO: existem, mas não atrapalham quem só
+   quer cadastrar o curso. */
+.painel-avancado {
+  margin: var(--space-lg) 0 var(--space-md);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+.painel-avancado > summary {
+  cursor: pointer;
+  font-size: 1.35rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy-mid);
+}
+.painel-avancado__nota {
+  font-size: 1.3rem;
+  color: var(--color-mist);
+  margin: var(--space-sm) 0 var(--space-md);
+}
+.painel-avancado .campo:last-child { margin-bottom: 0; }
+
+.campo__dica code,
+.painel-vazio code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+  background: var(--color-mist-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.4rem;
+}
+
 [hidden] { display: none !important; }

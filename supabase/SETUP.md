@@ -214,3 +214,51 @@ select created, status_code, content
   from net._http_response
  order by created desc limit 5;
 ```
+
+---
+
+## Etapa 2b — ligar as Formações (fazer uma vez)
+
+Enquanto estes dois arquivos não forem rodados, **nada quebra**: o build percebe que a tabela
+não existe, não mexe em nada e o site segue como está. As notícias continuam publicando
+normalmente. Então dá pra fazer com calma.
+
+### Passo 1 — criar a tabela
+
+SQL Editor → New query → colar `02-formacoes.sql` inteiro → **Run**.
+
+Confira no **Table Editor**: tem que existir a tabela `formacoes`, vazia, com o cadeado
+**RLS enabled**.
+
+### Passo 2 — carregar as 4 formações que já estão no ar ⚠️
+
+SQL Editor → New query → colar `02b-seed-formacoes.sql` inteiro → **Run**.
+
+No fim ele mostra uma tabelinha de conferência: têm que aparecer **4 linhas**, todas com
+status `publicado`, e as contagens de módulos e tópicos preenchidas.
+
+> **Não pule este passo e não inverta a ordem.** Enquanto a tabela estiver vazia, o build se
+> recusa a gerar as listas (senão o menu, o menu do celular, o rodapé, o carrossel da Home e o
+> catálogo ficariam vazios de uma vez). O log do Actions avisa isso em português.
+
+Este arquivo usa `on conflict (slug) do nothing`: rodar de novo por engano **não sobrescreve**
+nada que o Instituto já tenha editado pelo painel.
+
+### Passo 3 — conferir
+
+1. Abrir `/painel/formacoes.html`. Devem aparecer as 4 formações, todas como *Publicado*.
+2. Na aba **Actions** do repositório, uma execução de "Publicar site" deve ter começado
+   sozinha (o gatilho da tabela `formacoes` já vem no `02-formacoes.sql`).
+3. Quando ela terminar, o site tem que estar **exatamente igual** ao que estava antes. Se
+   alguma coisa mudou de aparência, é bug: me avise antes de continuar.
+
+Depois disso, criar uma formação nova pelo painel já a coloca sozinha em todos os lugares:
+menu, menu do celular, rodapé, Home, catálogo, dados estruturados do Google e a página
+própria dela.
+
+### O que ficou de fora, de propósito
+
+A descrição de `formacoes.html` para o Google (as três `<meta>` no topo do arquivo) ainda cita
+"as quatro formações" e lista os temas. Isso é texto técnico de SEO, não conteúdo do
+Instituto, e continua sendo manutenção minha: se o número de formações mudar, eu reescrevo
+essa frase. O título visível da página ("As quatro formações do Instituto") **é** automático.

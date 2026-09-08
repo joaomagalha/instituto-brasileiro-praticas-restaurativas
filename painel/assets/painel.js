@@ -44,7 +44,10 @@ window.IBPR.painel = (function () {
     var m = String((erro && erro.message) || erro || '');
     if (/Invalid login credentials/i.test(m)) return 'E-mail ou senha incorretos.';
     if (/Email not confirmed/i.test(m))       return 'Este e-mail ainda não foi confirmado. Avise o João.';
-    if (/duplicate key|already exists/i.test(m)) return 'Já existe uma notícia com esse título. Mude o título um pouco.';
+    if (/duplicate key|already exists/i.test(m)) return 'Já existe um item com esse título. Mude o título um pouco.';
+    if (/Could not find the table|does not exist.*relation|relation .* does not exist/i.test(m))
+      return 'Esta parte do painel ainda não foi ligada no banco de dados. ' +
+             'Avise o João: falta rodar o arquivo SQL desta etapa (ver supabase/SETUP.md).';
     if (/row-level security|violates row-level/i.test(m))
       return 'Você entrou, mas este usuário não está autorizado a publicar. ' +
              'Peça pro João cadastrar você como editor (passo 6 do SETUP).';
@@ -608,6 +611,19 @@ window.IBPR.painel = (function () {
   return {
     iniciarLogin: iniciarLogin,
     iniciarNoticias: iniciarNoticias,
-    iniciarNovaSenha: iniciarNovaSenha
+    iniciarNovaSenha: iniciarNovaSenha,
+
+    /* Peças compartilhadas com painel-formacoes.js, que é um arquivo
+       separado só pra este aqui não virar um monstro de mil linhas.
+       Não são pra uso fora do painel. */
+    interno: {
+      $: $,
+      aviso: aviso,
+      limparAviso: limparAviso,
+      traduzirErro: traduzirErro,
+      /* Devolve o cliente do banco, ou null se o painel ainda não foi
+         conectado (e nesse caso já explicou isso na tela). */
+      conectar: function () { return exigirConfiguracao() ? db : null; }
+    }
   };
 })();

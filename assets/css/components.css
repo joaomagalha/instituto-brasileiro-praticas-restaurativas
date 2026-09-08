@@ -2949,17 +2949,19 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    o suficiente pra sustentar a leitura do título/subtítulo/pills. Uma
    pincelada leve no topo protege o texto da navbar. Só nesta variante
    (page-hero--course); o .page-hero padrão continua no gradiente liso. --- */
-/* A foto vem de --course-hero, uma classe por formação. Declarada AQUI e não
-   inline no HTML de propósito: url() dentro de custom property é resolvido
-   relativo à folha de estilo que usa o var(), não ao documento — inline em
-   cada página o caminho virava assets/css/assets/images/... Default `none`
-   pra que, sem a classe, os degradês continuem válidos e o hero caia no
-   gradiente liso do .page-hero. */
+/* A foto vem de --course-hero, definida INLINE em cada página de curso pelo
+   build (build/gerar.mjs), porque agora as formações são cadastradas no
+   painel e não dá pra ter uma classe fixa por curso aqui.
+
+   ⚠️ O endereço lá tem que ser ABSOLUTO. url() dentro de custom property é
+   resolvido relativo à FOLHA DE ESTILO que usa o var(), não ao documento:
+   um "assets/images/x.jpg" inline vira assets/css/assets/images/x.jpg e a
+   foto some. O build cuida disso; se algum dia alguém escrever essa
+   variável na mão, é esta a pegadinha.
+
+   Default `none` pra que, sem a variável, os degradês continuem válidos e o
+   hero caia no gradiente liso do .page-hero. */
 .page-hero--course { --course-hero: none; }
-.page-hero--execucao-penal    { --course-hero: url("../images/formacoes/execucao-penal.jpg?v=2"); }
-.page-hero--pena-justa        { --course-hero: url("../images/formacoes/pena-justa.jpg?v=2"); }
-.page-hero--ambiente-escolar  { --course-hero: url("../images/formacoes/ambiente-escolar.jpg?v=2"); }
-.page-hero--relacoes-trabalho { --course-hero: url("../images/formacoes/relacoes-trabalho.jpg?v=2"); }
 .page-hero--course::before {
   content: "";
   position: absolute; inset: 0; z-index: 0;

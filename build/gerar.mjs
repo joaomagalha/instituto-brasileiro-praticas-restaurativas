@@ -45,8 +45,19 @@ function absoluto(caminho) {
   return /^https?:\/\//.test(caminho) ? caminho : `${SITE}/${String(caminho).replace(/^\/+/, '')}`;
 }
 
-let escritos = 0;
+const escritos = new Set();
 let apagados = 0;
+
+/* Memória da rodada: o conteúdo já produzido para cada arquivo.
+   index.html passa por duas etapas (formações e notícias). Sem isto, a
+   segunda etapa releria o arquivo do disco e, no modo --conferir (que não
+   escreve), desfaria a primeira em silêncio. */
+const memoria = new Map();
+
+async function ler(rel) {
+  if (memoria.has(rel)) return memoria.get(rel);
+  return readFile(path.join(RAIZ, rel), 'utf8');
+}
 
 
 /* ---------------------------------------------------------------------
@@ -67,10 +78,17 @@ async function lerConfig() {
 
 /* Consulta a API REST do Supabase. Sem biblioteca: o Node 24 já tem fetch,
    e uma dependência a menos é uma coisa a menos pra quebrar no Action. */
-async function consultar({ url, chave }, caminho) {
+async function consultar({ url, chave }, caminho, { toleraAusente = false } = {}) {
   const resp = await fetch(`${url}/rest/v1/${caminho}`, {
     headers: { apikey: chave, Authorization: `Bearer ${chave}` }
   });
+
+  /* Tabela que ainda não foi criada devolve 404. Para uma etapa que ainda
+     não foi ligada no banco isso não é falha: é "essa parte ainda não
+     existe". Deixar o build inteiro quebrar aqui pararia também a
+     publicação de notícias, que não tem nada a ver. */
+  if (resp.status === 404 && toleraAusente) return null;
+
   if (!resp.ok) {
     throw new Error(`Supabase respondeu ${resp.status} em ${caminho}: ${await resp.text()}`);
   }
@@ -117,13 +135,15 @@ function trocarRegiao(html, nome, miolo) {
 /* Escreve só se o conteúdo mudou. Evita commit vazio e deixa o log honesto. */
 async function salvar(rel, conteudo) {
   const abs = path.join(RAIZ, rel);
-  const atual = existsSync(abs) ? await readFile(abs, 'utf8') : null;
+  const atual = memoria.has(rel) ? memoria.get(rel)
+              : (existsSync(abs) ? await readFile(abs, 'utf8') : null);
+  memoria.set(rel, conteudo);
 
   if (atual === conteudo) return false;
 
   console.log(`${CONFERIR ? '[mudaria]' : '[escrito] '} ${rel}`);
   if (!CONFERIR) await writeFile(abs, conteudo);
-  escritos++;
+  escritos.add(rel);
   return true;
 }
 
@@ -206,7 +226,7 @@ async function gerarNoticias(cfg) {
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
 
   // --- Home: as 3 mais recentes ---
-  let home = await readFile(path.join(RAIZ, 'index.html'), 'utf8');
+  let home = await ler('index.html');
   home = trocarRegiao(home, 'movimento-home', secaoMovimento(noticias.slice(0, 3), {
     kicker: 'IBPR em Movimento',
     titulo: 'Acompanhe a atuação do IBPR e da sua rede.',
@@ -219,7 +239,7 @@ async function gerarNoticias(cfg) {
   await salvar('index.html', home);
 
   // --- Página IBPR em Movimento: todas ---
-  let lista = await readFile(path.join(RAIZ, 'ibpr-em-movimento.html'), 'utf8');
+  let lista = await ler('ibpr-em-movimento.html');
   lista = trocarRegiao(lista, 'movimento-lista', secaoMovimento(noticias, {
     kicker: 'IBPR em Movimento',
     titulo: 'Publicações do Instituto e da sua rede.',
@@ -232,7 +252,7 @@ async function gerarNoticias(cfg) {
   await salvar('ibpr-em-movimento.html', lista);
 
   // --- Uma página por notícia ---
-  const molde = await readFile(path.join(RAIZ, 'build/templates/noticia.html'), 'utf8');
+  const molde = await ler('build/templates/noticia.html');
   const gerados = new Set();
 
   for (const n of noticias) {
@@ -249,13 +269,13 @@ async function gerarNoticias(cfg) {
       : '';
 
     const html = molde
-      .replaceAll('{{TITULO}}', esc(n.titulo))
-      .replaceAll('{{RESUMO}}', esc(n.resumo || ''))
-      .replaceAll('{{META}}', esc(n.categoria) + (n.publicado_em ? ' · ' + dataCurta(n.publicado_em) : ''))
-      .replaceAll('{{URL}}', esc(`${SITE}/${arquivo}`))
-      .replaceAll('{{IMAGEM}}', esc(absoluto(n.imagem_url || IMAGEM_PADRAO)))
-      .replaceAll('{{FIGURA}}', figura)
-      .replaceAll('{{CORPO}}', corpo);
+      .replaceAll('{{TITULO}}', () => esc(n.titulo))
+      .replaceAll('{{RESUMO}}', () => esc(n.resumo || ''))
+      .replaceAll('{{META}}', () => esc(n.categoria) + (n.publicado_em ? ' · ' + dataCurta(n.publicado_em) : ''))
+      .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
+      .replaceAll('{{IMAGEM}}', () => esc(absoluto(n.imagem_url || IMAGEM_PADRAO)))
+      .replaceAll('{{FIGURA}}', () => figura)
+      .replaceAll('{{CORPO}}', () => corpo);
 
     await salvar(arquivo, html);
   }
@@ -268,15 +288,427 @@ async function gerarNoticias(cfg) {
 
 
 /* =====================================================================
+   FORMAÇÕES
+   =====================================================================
+   Uma formação publicada aparece em SETE lugares. Este bloco é o que
+   garante que criar um curso no painel atualize todos eles de uma vez:
+
+     1. o menu suspenso "Formações" da navbar, em todas as páginas
+     2. a lista de Formações do menu do celular, em todas as páginas
+     3. a coluna "Formações" do rodapé, em todas as páginas
+     4. o carrossel da Home (e a quantidade de bolinhas dele)
+     5. o catálogo de formacoes.html (e o título "As quatro formações")
+     6. os dados estruturados de formacoes.html (o ItemList do Google)
+     7. a página própria do curso, formacao-<slug>.html
+        + o bloco "Outras formações" no fim de cada uma delas
+   ===================================================================== */
+
+/* Páginas fixas do site. As formacao-*.html e noticia-*.html ficam de fora
+   porque são geradas (e recebem as regiões no momento em que nascem). */
+const PAGINAS_FIXAS = [
+  'index.html', 'formacoes.html', 'o-instituto.html', 'como-atuamos.html',
+  'praticas-restaurativas.html', 'ibpr-em-movimento.html', 'area-do-aluno.html',
+  'build/templates/noticia.html', 'build/templates/formacao.html'
+];
+
+/* Lista vinda do JSONB. Tolera null e valor que não é lista. */
+function lista(v) {
+  return Array.isArray(v) ? v : [];
+}
+
+function tituloCurto(f)  { return f.titulo_curto  || f.titulo; }
+function tituloRodape(f) { return f.titulo_rodape || f.titulo_curto || f.titulo; }
+
+function arquivoFormacao(f) { return `${f.slug}.html`; }
+
+/* Plural simples: 1 módulo / 4 módulos. */
+function plural(n, um, muitos) { return `${n} ${n === 1 ? um : muitos}`; }
+
+const EXTENSO = ['zero','uma','duas','três','quatro','cinco','seis','sete','oito','nove','dez'];
+
+/* Quantos módulos e tópicos o curso tem. Vira a linha do card. */
+function contagem(f) {
+  const mods = lista(f.modulos);
+  return { modulos: mods.length, topicos: mods.reduce((s, m) => s + lista(m.topicos).length, 0) };
+}
+
+
+/* --- os blocos da página do curso ---------------------------------- */
+
+function blocoDesenvolver(f) {
+  const itens = lista(f.desenvolver);
+  if (!itens.length) return '';
+  return `<div class="course-learn" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>O que você vai desenvolver</h2>
+<ul class="check-list check-list--2col">
+${itens.map(i => `<li>${esc(i)}</li>`).join('\n')}
+</ul>
+</div>`;
+}
+
+function blocoTemas(f) {
+  const itens = lista(f.temas_relacionados).filter(t => t && t.texto);
+  if (!itens.length) return '';
+  return `<section aria-label="Temas relacionados" id="temas" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-hashtag"></i>Temas relacionados</h2>
+<div class="course-pills">
+${itens.map(t => t.href
+    ? `<a class="tag-pill" href="${esc(t.href)}">${esc(t.texto)}</a>`
+    : `<span class="tag-pill">${esc(t.texto)}</span>`).join('\n')}
+</div>
+</section>`;
+}
+
+function blocoEixos(f) {
+  const itens = lista(f.eixos).filter(e => e && e.chave);
+  if (!itens.length) return '';
+  return `<section aria-label="Os eixos da formação" id="eixos" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-diagram-project"></i>Os eixos da formação</h2>
+<div class="course-eixos">
+${itens.map((e, i) => `<div class="course-eixo">
+<span class="course-eixo__num">${String(i + 1).padStart(2, '0')}</span>
+<span class="course-eixo__key">${esc(e.chave)}</span>
+<span class="course-eixo__phrase">${esc(e.frase || '')}</span>
+<span class="course-eixo__desc">${esc(e.desc || '')}</span>
+</div>`).join('\n')}
+</div>
+</section>`;
+}
+
+function blocoModulos(f) {
+  const itens = lista(f.modulos).filter(m => m && m.titulo);
+  if (!itens.length) return '';
+  return `<section aria-label="Conteúdo do programa" id="conteudo-programa" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-layer-group"></i>Conteúdo do programa</h2>
+<div class="course-modules" id="course-modules">
+<div class="course-modules__bar">
+<p class="course-modules__count">${plural(itens.length, 'módulo', 'módulos')}</p>
+<button type="button" class="course-modules__toggle" data-accordion-toggle aria-expanded="false">Expandir todos</button>
+</div>
+${itens.map(m => {
+    const tops = lista(m.topicos);
+    return `<details class="accordion">
+<summary class="accordion__summary"><i aria-hidden="true" class="fa-solid fa-chevron-down"></i><span class="accordion__label">${esc(m.titulo)}</span><span class="accordion__meta">${plural(tops.length, 'tópico', 'tópicos')}</span></summary>
+<div class="accordion__content">
+<ul class="dot-list">
+${tops.map(t => `<li>${esc(t)}</li>`).join('\n')}
+</ul>
+</div>
+</details>`;
+  }).join('\n')}
+</div>
+</section>`;
+}
+
+function blocoFundamento(f) {
+  const paras = String(f.fundamento || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+  if (!paras.length) return '';
+  return `<section aria-label="Fundamento da formação" id="fundamento" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-book-open"></i>Fundamento da formação</h2>
+<div class="prose">
+${paras.map(p => `<p>${esc(p).replace(/\n/g, '<br/>')}</p>`).join('\n')}
+</div>
+</section>`;
+}
+
+function blocoParaQuem(f) {
+  const itens = lista(f.para_quem);
+  if (!itens.length) return '';
+  return `<section aria-label="Para quem é" id="para-quem" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Para quem é</h2>
+<div class="course-pills">
+${itens.map(i => `<span class="tag-pill">${esc(i)}</span>`).join('\n')}
+</div>
+</section>`;
+}
+
+function blocoResultados(f) {
+  const itens = lista(f.resultados);
+  if (!itens.length) return '';
+  const intro = f.resultados_intro ? `<p>${esc(f.resultados_intro)}</p>\n` : '';
+  return `<div class="course-outcome" data-aos="fade-up">
+<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h2>
+${intro}<ul class="check-list">
+${itens.map(i => `<li>${esc(i)}</li>`).join('\n')}
+</ul>
+</div>`;
+}
+
+/* Bloco que ficou sem conteúdo simplesmente não aparece na página. */
+function blocosDoCurso(f) {
+  return [blocoDesenvolver, blocoTemas, blocoEixos, blocoModulos,
+          blocoFundamento, blocoParaQuem, blocoResultados]
+    .map(fn => fn(f)).filter(Boolean).join('\n\n');
+}
+
+
+/* --- o card, usado na Home, no catálogo e em "outras formações" ----- */
+
+function cardFormacao(f, extras = '') {
+  const { modulos, topicos } = contagem(f);
+  const meta = modulos
+    ? `<p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>${plural(modulos, 'módulo', 'módulos')}</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>${plural(topicos, 'tópico', 'tópicos')}</span></p>`
+    : '';
+
+  return `<article class="service-card"${extras}>
+<div class="service-card__img-wrap"><img alt="${esc(f.imagem_card_alt || '')}" class="service-card__photo" decoding="async" loading="lazy" src="${esc(f.imagem_card_url || '')}"/></div>
+<div class="service-card__body"><p class="service-card__audience">${esc(f.publico_curto || '')}</p><h3 class="service-card__title">${esc(tituloCurto(f))}</h3><p class="service-card__desc">${esc(f.resumo || '')}</p>${meta}<a class="service-card__link" href="${esc(arquivoFormacao(f))}">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+</article>`;
+}
+
+/* Dá o data-aos escalonado, do jeito que as páginas já usam. */
+function comAos(i) {
+  return i === 0 ? ' data-aos="fade-up"' : ` data-aos="fade-up" data-aos-delay="${i * 80}"`;
+}
+
+
+/* --- as regiões de menu, iguais em todas as páginas ----------------- */
+
+/* `atual` é o nome do arquivo que está sendo gerado, pra marcar o item do
+   menu com aria-current="page" (o leitor de tela anuncia "página atual"). */
+function regiaoNavbar(formacoes, atual) {
+  const marca = arq => (arq === atual ? 'aria-current="page" ' : '');
+
+  const itens = formacoes.map(f => {
+    const arq = arquivoFormacao(f);
+    return `<li><a ${marca(arq)}class="navbar__dropdown-link" href="${esc(arq)}" role="menuitem">${esc(tituloCurto(f))}</a></li>`;
+  });
+  itens.push(`<li><a ${marca('formacoes.html')}class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>`);
+  return itens.join('\n');
+}
+
+function regiaoMobile(formacoes) {
+  return formacoes.map(f =>
+    `<li><a class="mobile-menu__service-link" href="${esc(arquivoFormacao(f))}">${esc(tituloCurto(f))}</a></li>`
+  ).join('\n');
+}
+
+function regiaoRodape(formacoes) {
+  return formacoes.map(f =>
+    `<li><a class="footer__link" href="${esc(arquivoFormacao(f))}">${esc(tituloRodape(f))}</a></li>`
+  ).join('\n');
+}
+
+/* Aplica as três regiões de menu a um HTML qualquer. */
+function aplicarMenus(html, formacoes, atual = null) {
+  html = trocarRegiao(html, 'formacoes-navbar', regiaoNavbar(formacoes, atual));
+  html = trocarRegiao(html, 'formacoes-mobile', regiaoMobile(formacoes));
+  html = trocarRegiao(html, 'formacoes-rodape', regiaoRodape(formacoes));
+  return html;
+}
+
+
+/* --- dados estruturados -------------------------------------------- */
+
+const PROVEDOR = {
+  '@type': 'EducationalOrganization',
+  name: 'Instituto Brasileiro de Práticas Restaurativas',
+  alternateName: 'IBPR'
+};
+
+/* JSON dentro de <script> não pode conter "<" cru. Um texto do banco com
+   "</script>" no meio fecharia a tag e o resto viraria HTML solto; e a
+   sequência "<!--<script" muda o modo de leitura do navegador. Escapar
+   TODO "<" como < resolve os dois de uma vez, e o JSON continua
+   idêntico ao ser lido (< é só a forma longa de "<"). */
+function comoScript(obj) {
+  return '<script type="application/ld+json">\n' +
+    JSON.stringify(obj, null, 2).replace(/</g, '\\u003c') +
+    '\n</script>';
+}
+
+function descricaoDe(f) {
+  return f.seo_descricao || f.meta_descricao || f.resumo || '';
+}
+
+/* "Para diretores, professores e equipes" → "Diretores, professores e equipes" */
+function publicoDe(f) {
+  if (f.seo_publico) return f.seo_publico;
+  const p = String(f.publico_curto || '').replace(/^Para\s+/i, '');
+  return p ? p.charAt(0).toUpperCase() + p.slice(1) : '';
+}
+
+function jsonldCurso(f) {
+  const dados = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: f.titulo,
+    description: descricaoDe(f),
+    url: `${SITE}/${arquivoFormacao(f)}`,
+    provider: PROVEDOR,
+    inLanguage: 'pt-BR'
+  };
+
+  const ensina = lista(f.desenvolver).map(t => String(t).replace(/\.\s*$/, ''));
+  if (ensina.length) dados.teaches = ensina;
+
+  const publico = publicoDe(f);
+  if (publico) dados.audience = { '@type': 'Audience', audienceType: publico };
+
+  dados.hasCourseInstance = {
+    '@type': 'CourseInstance',
+    courseMode: 'online',
+    description: 'Curso on-line com aulas gravadas e acesso vitalício ao conteúdo.'
+  };
+  return comoScript(dados);
+}
+
+function jsonldCatalogo(formacoes) {
+  return comoScript({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Formações do Instituto Brasileiro de Práticas Restaurativas',
+    itemListElement: formacoes.map((f, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Course',
+        name: f.titulo,
+        description: f.resumo || '',
+        url: `${SITE}/${arquivoFormacao(f)}`,
+        provider: PROVEDOR,
+        inLanguage: 'pt-BR',
+        hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online' }
+      }
+    }))
+  });
+}
+
+
+/* --- a geração ------------------------------------------------------ */
+
+async function gerarFormacoes(cfg) {
+  const formacoes = await consultar(cfg,
+    'formacoes?select=*&status=eq.publicado&order=ordem.asc,titulo.asc',
+    { toleraAusente: true });
+
+  /* TRAVA DE SEGURANÇA — a mais importante deste arquivo.
+     Ao contrário das notícias, formação não tem um estado "vazio" bonito:
+     sem nenhuma, o site perderia de uma vez o menu, o menu do celular, o
+     rodapé, o carrossel da Home e o catálogo.
+
+     Duas situações levam a uma lista vazia, e nenhuma delas é uma decisão
+     editorial de verdade:
+       • a tabela ainda não foi criada (SQL da etapa não rodou);
+       • a tabela existe mas o seed dos 4 cursos não foi carregado.
+
+     Nos dois casos a resposta certa é a mesma: NÃO MEXER EM NADA e avisar
+     alto no log. O site continua exatamente como está, e as notícias
+     continuam publicando normalmente. */
+  if (formacoes === null) {
+    console.log('\n== Formações: a tabela ainda não existe no banco. Nada foi alterado.');
+    console.log('   (rode supabase/02-formacoes.sql e depois 02b-seed-formacoes.sql)');
+    return;
+  }
+
+  console.log(`\n== Formações publicadas: ${formacoes.length}`);
+
+  if (!formacoes.length) {
+    console.log('⚠  Nenhuma formação publicada. O site NÃO foi alterado, de propósito:');
+    console.log('   gerar as listas vazias apagaria o menu, o rodapé e o catálogo.');
+    console.log('   Rode supabase/02b-seed-formacoes.sql.');
+    return;
+  }
+
+  /* Slug precisa começar com "formacao-": é o que impede um curso chamado
+     "index" de sobrescrever a Home, e é o que a limpeza de órfãos usa pra
+     saber quais arquivos são dela. */
+  for (const f of formacoes) {
+    if (!/^formacao-[a-z0-9-]+$/.test(String(f.slug || ''))) {
+      throw new Error(`Slug inválido: "${f.slug}". Precisa começar com "formacao-".`);
+    }
+  }
+
+  /* --- 1, 2, 3: menus e rodapé das páginas fixas ---
+     index.html e formacoes.html ficam de fora porque têm regiões extras;
+     elas são montadas inteiras logo abaixo e salvas UMA vez só. Salvar duas
+     vezes o mesmo arquivo deixaria o modo --conferir mentindo. */
+  for (const rel of PAGINAS_FIXAS) {
+    if (rel === 'index.html' || rel === 'formacoes.html') continue;
+    await salvar(rel, aplicarMenus(await ler(rel), formacoes, rel));
+  }
+
+  // --- 4: carrossel da Home ---
+  let home = aplicarMenus(await ler('index.html'), formacoes, 'index.html');
+  home = trocarRegiao(home, 'formacoes-home',
+    formacoes.map(f => cardFormacao(f)).join('\n'));
+  home = trocarRegiao(home, 'formacoes-home-dots',
+    formacoes.map((f, i) =>
+      `<button aria-label="Ir para a formação ${i + 1}" class="services__dot${i === 0 ? ' services__dot--active' : ''}"></button>`
+    ).join('\n'));
+  await salvar('index.html', home);
+
+  // --- 5 e 6: catálogo e dados estruturados de formacoes.html ---
+  let cat = aplicarMenus(await ler('formacoes.html'), formacoes, 'formacoes.html');
+  const n = formacoes.length;
+  const titulo = n === 1
+    ? 'A formação do Instituto'
+    : `As ${EXTENSO[n] || n} formações do Instituto`;
+  cat = trocarRegiao(cat, 'formacoes-catalogo-titulo', `<h2>${esc(titulo)}</h2>`);
+  cat = trocarRegiao(cat, 'formacoes-catalogo',
+    formacoes.map((f, i) => cardFormacao(f, comAos(i))).join('\n'));
+  cat = trocarRegiao(cat, 'formacoes-jsonld', jsonldCatalogo(formacoes));
+  await salvar('formacoes.html', cat);
+
+  // --- 7: uma página por formação ---
+  const molde = await ler('build/templates/formacao.html');
+  const gerados = new Set();
+
+  for (const f of formacoes) {
+    const arquivo = arquivoFormacao(f);
+    gerados.add(arquivo);
+
+    // "Outras formações": todas as demais, na ordem do catálogo, até 3.
+    const outras = formacoes.filter(o => o.slug !== f.slug).slice(0, 3);
+
+    let html = molde
+      .replaceAll('{{TITULO}}', () => esc(f.titulo))
+      .replaceAll('{{SUBTITULO}}', () => esc(f.subtitulo || ''))
+      .replaceAll('{{META_DESC}}', () => esc(f.meta_descricao || f.resumo || ''))
+      .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
+      /* A foto do topo entra como endereço ABSOLUTO, e não relativo.
+         Motivo: ela é aplicada por uma variável CSS (--course-hero) que o
+         components.css usa dentro de um url(). O navegador resolve esse
+         url() em relação ao ARQUIVO .css, não à página — um caminho
+         "assets/images/x.jpg" viraria "assets/css/assets/images/x.jpg" e a
+         foto não carregaria. Conferido no navegador, não só no código. */
+      .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(f.imagem_hero_url || IMAGEM_PADRAO)))
+      .replaceAll('{{META_AREA}}', () => f.area
+        ? `<span class="course-meta__item"><i aria-hidden="true" class="fa-solid ${esc(f.area_icone || 'fa-shapes')}"></i>${esc(f.area)}</span>\n`
+        : '')
+      .replaceAll('{{LINK_CURSO}}', () => esc(f.link_curso || '#'))
+      .replaceAll('{{JSONLD}}', () => jsonldCurso(f))
+      .replaceAll('{{BLOCOS}}', () => blocosDoCurso(f))
+      .replaceAll('{{OUTRAS}}', () => outras.map((o, i) => cardFormacao(o, comAos(i))).join('\n'));
+
+    // Os menus desta página apontam pro curso atual (aria-current).
+    html = aplicarMenus(html, formacoes, arquivo);
+
+    await salvar(arquivo, html);
+  }
+
+  // --- limpa páginas de cursos que não existem mais ---
+  for (const arq of await readdir(RAIZ)) {
+    if (/^formacao-.+\.html$/.test(arq) && !gerados.has(arq)) await apagar(arq);
+  }
+}
+
+
+/* =====================================================================
    Execução
    ===================================================================== */
 try {
   const cfg = await lerConfig();
   console.log(`Lendo de ${cfg.url}${CONFERIR ? '  (modo conferência, não escreve)' : ''}`);
 
+  /* Formações ANTES de notícias: o gerador de formações atualiza os menus
+     dentro de build/templates/noticia.html, e o de notícias precisa ler o
+     molde já atualizado pra que as páginas de notícia saiam com o menu
+     certo na mesma rodada. */
+  await gerarFormacoes(cfg);
   await gerarNoticias(cfg);
 
-  console.log(`\nResumo: ${escritos} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);
+  console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);
 } catch (erro) {
   // Sai com erro SEM ter commitado nada. O Action falha, o site fica como
   // estava, e o problema aparece no log em vez de virar site quebrado.

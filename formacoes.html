@@ -28,11 +28,13 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260908a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260908a" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260908b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260908b" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: esta é a página-índice, então o ItemList aponta pras
      4 páginas de curso, onde cada uma tem seu próprio schema Course completo. -->
+<script type="application/ld+json">
+<!-- CMS:formacoes-jsonld -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,7 +48,7 @@
         "@type": "Course",
         "name": "Justiça Restaurativa aplicada à Execução Penal",
         "description": "Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.",
-        "url": "formacao-execucao-penal.html",
+        "url": "https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacao-execucao-penal.html",
         "provider": {
           "@type": "EducationalOrganization",
           "name": "Instituto Brasileiro de Práticas Restaurativas",
@@ -66,7 +68,7 @@
         "@type": "Course",
         "name": "Implementação da Justiça Restaurativa no Plano Pena Justa",
         "description": "Transforma as diretrizes do Plano Pena Justa em programas concretos: o participante sai do curso com um plano de implementação aplicável à própria instituição.",
-        "url": "formacao-pena-justa.html",
+        "url": "https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacao-pena-justa.html",
         "provider": {
           "@type": "EducationalOrganization",
           "name": "Instituto Brasileiro de Práticas Restaurativas",
@@ -86,7 +88,7 @@
         "@type": "Course",
         "name": "Implementação de Práticas Restaurativas no Ambiente Escolar",
         "description": "Leva práticas restaurativas para o cotidiano da escola: prevenção de bullying, gestão de conflitos e fortalecimento da cultura de convivência.",
-        "url": "formacao-ambiente-escolar.html",
+        "url": "https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacao-ambiente-escolar.html",
         "provider": {
           "@type": "EducationalOrganization",
           "name": "Instituto Brasileiro de Práticas Restaurativas",
@@ -106,7 +108,7 @@
         "@type": "Course",
         "name": "Práticas Restaurativas nas Relações de Trabalho",
         "description": "Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.",
-        "url": "formacao-relacoes-trabalho.html",
+        "url": "https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacao-relacoes-trabalho.html",
         "provider": {
           "@type": "EducationalOrganization",
           "name": "Instituto Brasileiro de Práticas Restaurativas",
@@ -121,6 +123,9 @@
     }
   ]
 }
+</script>
+<!-- /CMS:formacoes-jsonld -->
+
 </script>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
@@ -146,11 +151,13 @@
 <li class="navbar__item navbar__item--dropdown">
 <button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
 <ul class="navbar__dropdown" role="menu">
+<!-- CMS:formacoes-navbar -->
 <li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem">Implementação da JR no Plano Pena Justa</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem">Práticas Restaurativas no Ambiente Escolar</a></li>
 <li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem">Práticas Restaurativas nas Relações de Trabalho</a></li>
 <li><a aria-current="page" class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
@@ -190,10 +197,12 @@
 <div class="mobile-menu__divider"></div>
 <p class="mobile-menu__section-label">Formações</p>
 <ul class="mobile-menu__service-list">
+<!-- CMS:formacoes-mobile -->
 <li><a class="mobile-menu__service-link" href="formacao-execucao-penal.html">Justiça Restaurativa aplicada à Execução Penal</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-pena-justa.html">Implementação da JR no Plano Pena Justa</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-ambiente-escolar.html">Práticas Restaurativas no Ambiente Escolar</a></li>
 <li><a class="mobile-menu__service-link" href="formacao-relacoes-trabalho.html">Práticas Restaurativas nas Relações de Trabalho</a></li>
+<!-- /CMS:formacoes-mobile -->
 </ul>
 </nav>
 <div class="mobile-menu__footer">
@@ -275,10 +284,14 @@
 <div class="container">
 <div class="section-header section__head measure-narrow" data-aos="fade-up">
 <p class="overline">Catálogo</p>
+<!-- CMS:formacoes-catalogo-titulo -->
 <h2>As quatro formações do Instituto</h2>
+<!-- /CMS:formacoes-catalogo-titulo -->
+
 <p class="section-header__sub">Cada uma parte de um contexto concreto. Escolha a mais próxima da sua realidade.</p>
 </div>
 <div class="card-grid card-grid--2 measure-narrow">
+<!-- CMS:formacoes-catalogo -->
 <article class="service-card" data-aos="fade-up">
 <div class="service-card__img-wrap"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/execucao-penal-card.jpg?v=2"/></div>
 <div class="service-card__body"><p class="service-card__audience">Para policiais penais, gestores e magistrados</p><h3 class="service-card__title">Justiça Restaurativa aplicada à Execução Penal</h3><p class="service-card__desc">Prepara equipes para planejar, implementar e acompanhar programas restaurativos em unidades prisionais, do caso individual ao desenvolvimento institucional.</p><p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p><a class="service-card__link" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
@@ -295,6 +308,8 @@
 <div class="service-card__img-wrap"><img alt="Salão preparado para uma formação corporativa, com mesas redondas e flip charts" class="service-card__photo" decoding="async" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card.jpg?v=2"/></div>
 <div class="service-card__body"><p class="service-card__audience">Para lideranças, gestores e equipes de RH</p><h3 class="service-card__title">Práticas Restaurativas nas Relações de Trabalho</h3><p class="service-card__desc">Prepara lideranças e equipes para prevenir conflitos, conduzir conversas difíceis e reconstruir relações desgastadas no dia a dia da organização.</p><p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p><a class="service-card__link" href="formacao-relacoes-trabalho.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>
+<!-- /CMS:formacoes-catalogo -->
+
 </div>
 </div>
 </section>
@@ -370,10 +385,12 @@
 <div class="footer__col">
 <h2 class="footer__col-title">Formações</h2>
 <ul class="footer__links">
+<!-- CMS:formacoes-rodape -->
 <li><a class="footer__link" href="formacao-execucao-penal.html">Execução Penal</a></li>
 <li><a class="footer__link" href="formacao-pena-justa.html">Plano Pena Justa</a></li>
 <li><a class="footer__link" href="formacao-ambiente-escolar.html">Ambiente Escolar</a></li>
 <li><a class="footer__link" href="formacao-relacoes-trabalho.html">Relações de Trabalho</a></li>
+<!-- /CMS:formacoes-rodape -->
 </ul>
 </div>
 <div class="footer__col">

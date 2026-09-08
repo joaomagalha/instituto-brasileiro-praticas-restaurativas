@@ -84,9 +84,14 @@ window.IBPR.util = {
      Sem isto, uma notícia com "<script>" no título viraria código
      rodando na página (ataque conhecido como XSS). Como o conteúdo vem
      do banco e não do nosso HTML, todo texto passa por aqui. */
+  /* Escapa texto do banco antes de virar HTML.
+     As aspas entram na conta de propósito: o painel monta alguns atributos
+     por concatenação (src="…", data-id="…"), e sem escapar as aspas um
+     valor com " no meio fecharia o atributo mais cedo e o resto viraria
+     código. Em texto normal, &quot; continua aparecendo como aspas. */
   escapar: function (texto) {
     var div = document.createElement('div');
     div.textContent = String(texto == null ? '' : texto);
-    return div.innerHTML;
+    return div.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 };
