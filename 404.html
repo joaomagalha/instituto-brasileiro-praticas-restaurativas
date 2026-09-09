@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex" name="robots"/>
+<title>Página não encontrada | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260909c" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260909c" rel="stylesheet"/>
+<link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+<!-- Página que o GitHub Pages serve quando o endereço não existe.
+     Sem navbar de propósito: o menu é montado pelo CMS a cada publicação, e
+     acoplar esta página ao build só pra ter menu criaria uma dependência que
+     não paga o que custa. Uma saída clara pra Home resolve. -->
+<style>
+  .erro { min-height: 100vh; display: grid; place-items: center; background: var(--color-paper); text-align: center; padding: var(--space-2xl); }
+  .erro__caixa { max-width: 52rem; }
+  .erro__logo { height: 5.6rem; width: auto; margin-bottom: var(--space-2xl); }
+  .erro__num { font-family: var(--font-display); font-size: 6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: 1; }
+  .erro__titulo { font-family: var(--font-display); font-size: var(--text-h2); color: var(--color-navy); margin: var(--space-md) 0 var(--space-sm); }
+  .erro__texto { color: var(--color-ink); font-size: var(--text-body); line-height: var(--leading-body); margin-bottom: var(--space-2xl); }
+  .erro__links { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center; }
+</style>
+</head>
+<body>
+<main class="erro">
+  <div class="erro__caixa">
+    <img alt="Instituto Brasileiro de Práticas Restaurativas" class="erro__logo" src="assets/images/ibpr-logo-full-navy.png"/>
+    <p class="erro__num">404</p>
+    <h1 class="erro__titulo">Esta página não existe.</h1>
+    <p class="erro__texto">O endereço pode ter mudado, ou o link que você seguiu está desatualizado.
+      Comece pela página inicial ou vá direto para as formações.</p>
+    <div class="erro__links">
+      <a class="btn btn--dark" href="index.html">Ir para a página inicial</a>
+      <a class="btn btn--outline" href="formacoes.html">Ver as formações</a>
+    </div>
+  </div>
+</main>
+</body>
+</html>

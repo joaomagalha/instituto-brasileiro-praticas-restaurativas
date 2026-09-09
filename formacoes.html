@@ -6,19 +6,31 @@
 <meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." name="description"/>
 <title>Formações | Instituto Brasileiro de Práticas Restaurativas</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
-     TODO: og:url e <link rel="canonical"> precisam do domínio definitivo do
-     IBPR, que o cliente ainda não informou. -->
+     og:image, og:url e canonical são ABSOLUTOS de propósito: os robôs do
+     WhatsApp e do LinkedIn não resolvem caminho relativo, e com caminho
+     relativo o link compartilhado sai sem imagem nenhuma.
+
+     ⚠️ QUANDO O DOMÍNIO www.ibpr.com.br APONTAR PRA CÁ, trocar o endereço
+     em todo o repositório de uma vez:
+       grep -rl 'joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas' \
+         | xargs sed -i '' 's|https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas|https://www.ibpr.com.br|g'
+     Isso pega estas páginas, os dois templates e a constante SITE do
+     build/gerar.mjs, que é quem gera as páginas de curso e de notícia.
+
+     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
 <meta content="Formações | Instituto Brasileiro de Práticas Restaurativas" property="og:title"/>
 <meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." property="og:description"/>
 <meta content="website" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="assets/images/formacoes/execucao-penal.jpg?v=2" property="og:image"/>
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacoes.html" property="og:url"/>
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/assets/images/formacoes/execucao-penal.jpg?v=2" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Formações | Instituto Brasileiro de Práticas Restaurativas" name="twitter:title"/>
 <meta content="As quatro formações do IBPR em Justiça Restaurativa: execução penal, Plano Pena Justa, ambiente escolar e relações de trabalho. Cursos on-line, com aulas gravadas e acesso vitalício." name="twitter:description"/>
-<meta content="assets/images/formacoes/execucao-penal.jpg?v=2" name="twitter:image"/>
+<meta content="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/assets/images/formacoes/execucao-penal.jpg?v=2" name="twitter:image"/>
+<link href="https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/formacoes.html" rel="canonical"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -28,12 +40,11 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260908b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260908b" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260909c" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260909c" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: esta é a página-índice, então o ItemList aponta pras
      4 páginas de curso, onde cada uma tem seu próprio schema Course completo. -->
-<script type="application/ld+json">
 <!-- CMS:formacoes-jsonld -->
 <script type="application/ld+json">
 {
@@ -126,22 +137,21 @@
 </script>
 <!-- /CMS:formacoes-jsonld -->
 
-</script>
+<!-- Medição de uso (Microsoft Clarity): gravação de sessão e mapa de calor,
+     pra entender como o visitante navega entre Formações, Práticas
+     Restaurativas e o Instituto.
 
-<!-- Microsoft Clarity (09/09/2026): gravação de sessão e mapa de calor, pra
-     entender como o visitante navega o site. Usa cookie, então precisa estar
-     citado na política de privacidade. Mascaramento em "Equilibrado" no
-     painel do Clarity: nada que o visitante digitar é gravado.
-     NÃO entra em painel/*.html de propósito: ali trabalham a Fernanda, o
-     Decildo e o Rauny com os dados do Instituto, e gravar a sessão de quem
-     administra não serve pra nada e é invasivo. -->
-<script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "yfhufldvyc");
-</script>
+     ⚠️ O script do Clarity NÃO está aqui de propósito. Ele usa cookie, e
+     cookie que não é necessário pro site funcionar depende de consentimento
+     (Guia Orientativo da ANPD sobre cookies, 2022). Quem carrega o Clarity é
+     o assets/js/cookies.js, e só depois do "aceitar". Enquanto a pessoa não
+     escolhe, nenhuma requisição sai pro Clarity.
+
+     NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
+     Rauny com os dados do Instituto, e gravar a sessão de quem administra
+     não serve pra nada e é invasivo. -->
+<script src="assets/js/cookies.js?v=20260909c" defer></script>
+<noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
@@ -412,6 +422,7 @@
 <h2 class="footer__col-title">Contato</h2>
 <ul class="footer__links">
 <li><span class="footer__link is-pending" title="E-mail institucional ainda não definido pelo Instituto"><i class="fa-regular fa-envelope"></i> E-mail a confirmar</span></li>
+<li><a class="footer__link" href="politica-de-privacidade.html">Política de Privacidade</a></li>
 </ul>
 </div>
 </nav>
@@ -429,14 +440,14 @@
 </footer>
 
 <!-- scripts -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js" onerror="document.documentElement.classList.add('sem-aos')"></script>
 <script>
 AOS.init({
   duration: 800, easing: 'ease-out', once: true, offset: 60,
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260905b"></script>
+<script src="assets/js/site-interactions.js?v=20260909c"></script>
 <script>
 /* Conteúdo do programa: botão "Expandir todos / Recolher todos".
    O acordeão em si é <details> nativo e funciona sem isto. */

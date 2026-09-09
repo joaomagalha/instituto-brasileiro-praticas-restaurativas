@@ -308,6 +308,7 @@ async function gerarNoticias(cfg) {
 const PAGINAS_FIXAS = [
   'index.html', 'formacoes.html', 'o-instituto.html', 'como-atuamos.html',
   'praticas-restaurativas.html', 'ibpr-em-movimento.html', 'area-do-aluno.html',
+  'politica-de-privacidade.html',
   'build/templates/noticia.html', 'build/templates/formacao.html'
 ];
 
@@ -937,6 +938,36 @@ async function gerarTextos(cfg) {
 
 
 /* =====================================================================
+   SITEMAP
+   =====================================================================
+   Gerado no fim de tudo, lendo a pasta: assim a formação nova e a notícia
+   nova entram sozinhas, sem ninguém lembrar de editar uma lista.
+
+   Sem <lastmod> de propósito. A data teria que vir da data do arquivo, e
+   no GitHub Actions o repositório é clonado do zero a cada execução: a
+   data seria sempre "agora", o sitemap mudaria em toda rodada e o robô
+   ficaria commitando sozinho pra sempre.
+   ===================================================================== */
+
+const FORA_DO_SITEMAP = new Set(['404.html']);
+
+async function gerarSitemap() {
+  const paginas = (await readdir(RAIZ))
+    .filter(f => f.endsWith('.html') && !FORA_DO_SITEMAP.has(f))
+    .sort();
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${paginas.map(f => `  <url><loc>${SITE}/${f}</loc></url>`).join('\n')}
+</urlset>
+`;
+
+  console.log(`\n== Sitemap: ${paginas.length} páginas`);
+  await salvar('sitemap.xml', xml);
+}
+
+
+/* =====================================================================
    Execução
    ===================================================================== */
 try {
@@ -951,6 +982,7 @@ try {
   await gerarPessoas(cfg);
   await gerarTextos(cfg);
   await gerarNoticias(cfg);
+  await gerarSitemap();
 
   console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);
 } catch (erro) {
