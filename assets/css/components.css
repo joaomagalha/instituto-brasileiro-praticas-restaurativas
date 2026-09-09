@@ -2455,6 +2455,21 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .footer__bottom { border-top: 1px solid rgba(var(--white-rgb), 0.06); }
 .footer__bottom-container { padding-top: var(--space-lg); padding-bottom: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); }
 .footer__copy { font-size: 1.2rem; color: rgba(var(--white-rgb), 0.5); } /* 0.4 dava contraste 3,76, abaixo do mínimo de 4,5 (WCAG AA) */
+/* Identificação legal de quem opera o site: razão social, CNPJ e endereço.
+   Fica discreta, mas presente. É o que diferencia um site institucional de
+   um site provisório, e é a informação que a política de privacidade cita
+   como responsável pelo tratamento dos dados.
+
+   0.5 de opacidade, e não menos: abaixo disso o contraste cai do mínimo de
+   4,5 da WCAG AA, como já tinha acontecido com o aviso de direitos. */
+.footer__legal {
+  /* Mesmo tamanho do aviso de direitos logo acima: menor que ele deixaria a
+     informação mais importante das duas em segundo plano. */
+  font-size: 1.2rem;
+  line-height: var(--leading-body);
+  color: rgba(var(--white-rgb), 0.5);
+}
+
 .footer__social { display: flex; gap: var(--space-sm); }
 
 .footer__social-link {
