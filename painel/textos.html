@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Textos | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909b" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909b" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909b" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body class="painel">
+
+<header class="painel-topbar">
+  <img alt="IBPR" class="painel-topbar__logo" src="../assets/images/ibpr-logo-full.png"/>
+  <nav class="painel-topbar__nav">
+    <a class="painel-topbar__aba" href="noticias.html">Notícias</a>
+    <a class="painel-topbar__aba" href="formacoes.html">Formações</a>
+    <a class="painel-topbar__aba" href="pessoas.html">Pessoas</a>
+    <a aria-current="page" class="painel-topbar__aba is-ativa" href="textos.html">Textos</a>
+  </nav>
+  <div class="painel-topbar__dir">
+    <a class="painel-topbar__sair" href="../index.html" target="_blank" rel="noopener">Ver o site</a>
+    <span class="painel-topbar__usuario" id="usuarioAtual"></span>
+    <a class="painel-topbar__sair" href="#" id="btnSair">Sair</a>
+  </div>
+</header>
+
+<main class="painel-shell">
+
+  <div class="painel-msg" id="msg" hidden></div>
+
+  <div class="painel-cabeca">
+    <div>
+      <h1>Textos do site</h1>
+      <p>Os textos que mudam com o tempo, agrupados por página. Cada um aparece exatamente no
+         lugar em que já está no site; aqui você troca só as palavras. Para deixar um trecho em
+         <em>itálico</em>, escreva ele entre asteriscos: <code>*assim*</code>.</p>
+    </div>
+  </div>
+
+  <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
+
+  <div class="painel-vazio" id="listaVazia" hidden>
+    <strong>Nenhum texto cadastrado</strong>
+    Se você está vendo isto, o banco ainda não recebeu os blocos de texto do site.
+    Avise o João (falta rodar <code>05b-seed-textos.sql</code>).
+  </div>
+
+  <div id="lista"></div>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=20260909b"></script>
+<script src="../assets/js/supabase-client.js?v=20260909b"></script>
+<script src="assets/painel.js?v=20260909b"></script>
+<script src="assets/painel-textos.js?v=20260909b"></script>
+<script>
+  IBPR.painel.iniciarTextos();
+</script>
+
+</body>
+</html>

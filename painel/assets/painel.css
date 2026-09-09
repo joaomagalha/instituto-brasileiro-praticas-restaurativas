@@ -446,4 +446,81 @@ body.painel {
   cursor: pointer;
 }
 
+/* ---------------------------------------------------------------------
+   Textos institucionais (Etapa 4)
+   ---------------------------------------------------------------------
+   Tela de lista, não de formulário: tudo aberto, agrupado por página, na
+   mesma ordem em que os textos aparecem no site. */
+.painel-pagina { margin-bottom: var(--space-2xl); }
+.painel-pagina__nome {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  padding-bottom: var(--space-xs);
+  border-bottom: 2px solid var(--color-navy);
+  margin-bottom: var(--space-md);
+}
+.painel-secao--texto {
+  font-size: 1.25rem;
+  margin-top: var(--space-lg);
+  padding-top: 0;
+  border-top: 0;
+}
+
+.painel-texto {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+.painel-texto__cabeca {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-2xs);
+}
+.painel-texto__cabeca label {
+  font-size: 1.25rem;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-overline);
+  color: var(--color-navy-mid);
+}
+.painel-texto textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1.45rem;
+  line-height: var(--leading-body);
+  color: var(--color-ink);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.3rem;
+  resize: vertical;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.painel-texto textarea:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(var(--teal-rgb), 0.15);
+}
+.painel-texto__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+.painel-texto__estado { font-size: 1.2rem; color: var(--color-mist); }
+
+/* "Editado" = este texto não é mais o que foi entregue. Serve pra achar
+   rápido o que mexeram, e é o que faz aparecer o botão de restaurar. */
+.selo--editado {
+  color: var(--color-teal);
+  background: rgba(var(--teal-rgb), 0.10);
+  border-color: rgba(var(--teal-rgb), 0.30);
+}
+
 [hidden] { display: none !important; }

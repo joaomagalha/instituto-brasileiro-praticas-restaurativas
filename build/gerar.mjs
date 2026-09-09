@@ -709,14 +709,23 @@ async function gerarFormacoes(cfg) {
    endereço aqui: o slug só nomeia a foto no storage.
    ===================================================================== */
 
-/* O ÚNICO código aceito nos textos das pessoas: *palavra* vira itálico.
-   Existe por causa dos títulos de livro que já estavam na página
+/* Escape para texto que vai DENTRO de um elemento (nunca dentro de um
+   atributo). Só "&", "<" e ">" têm significado aí; aspas e apóstrofos são
+   caracteres comuns. Escapar aspas também não seria errado, mas encheria
+   o HTML de "&quot;" numa citação inteira, e a página fica mais difícil de
+   ler pra quem for dar manutenção. Para atributo continua valendo o esc(). */
+function escConteudo(t) {
+  return String(t ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+/* O ÚNICO código aceito nos textos escritos pelo Instituto: *palavra* vira
+   itálico. Existe por causa dos títulos de livro que já estavam na página
    ("coautor dos livros *Justiça Restaurativa na Execução Penal*").
 
    A ordem importa: escapa PRIMEIRO, converte depois. Assim um texto com
    "<script>" continua saindo inofensivo, e só o asterisco tem poder. */
 function textoRico(t) {
-  return esc(t).replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+  return escConteudo(t).replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
 }
 
 /* O separador de sementes entre uma pessoa e outra. É decoração pura
@@ -842,6 +851,92 @@ ${listaPessoas(rede, true)}
 
 
 /* =====================================================================
+   TEXTOS INSTITUCIONAIS
+   =====================================================================
+   A diferença das outras etapas: aqui o banco não CRIA nada no site, só
+   troca as palavras de lugares que já existem. Cada bloco editável é um
+   marcador escrito no HTML por mim; o painel só edita o que tem marcador,
+   e não deixa criar nem apagar bloco. É o que impede alguém de desmontar
+   o design sem querer.
+
+   Consequência boa disso: a rede de proteção é por bloco, não por etapa.
+   Se uma linha sumir do banco, ou vier vazia, ou o marcador não existir
+   mais, aquele pedaço específico fica exatamente como está no arquivo. O
+   resto do site continua sendo gerado normalmente.
+
+   Foram 33 blocos, escolhidos entre os 165 parágrafos do site: os que
+   mudam com o tempo. O que ficou de fora está no SETUP.md.
+   ===================================================================== */
+
+/* Igual ao trocarRegiao, mas sem quebrar linha: estes marcadores ficam
+   DENTRO de um <h2> ou <p>, e uma quebra ali viraria espaço no meio do
+   texto. Devolve null (em vez de estourar) quando o marcador não existe,
+   porque aqui isso é "esse bloco não é mais editável", não erro fatal. */
+function trocarRegiaoInline(html, nome, miolo) {
+  const abre = `<!-- CMS:${nome} -->`;
+  const fecha = `<!-- /CMS:${nome} -->`;
+  const i = html.indexOf(abre);
+  const f = html.indexOf(fecha);
+
+  if (i === -1 || f === -1 || f < i) return null;
+  return html.slice(0, i + abre.length) + miolo + html.slice(f);
+}
+
+async function gerarTextos(cfg) {
+  const textos = await consultar(cfg,
+    'textos?select=chave,arquivo,tipo,valor&order=ordem.asc',
+    { toleraAusente: true });
+
+  if (textos === null) {
+    console.log('\n== Textos: a tabela ainda não existe no banco. Nada foi alterado.');
+    console.log('   (rode supabase/05-textos.sql e depois 05b-seed-textos.sql)');
+    return;
+  }
+
+  console.log(`\n== Textos institucionais: ${textos.length} blocos no banco`);
+
+  /* Agrupa por arquivo pra ler e salvar cada página uma vez só. */
+  const porArquivo = new Map();
+  for (const t of textos) {
+    if (!porArquivo.has(t.arquivo)) porArquivo.set(t.arquivo, []);
+    porArquivo.get(t.arquivo).push(t);
+  }
+
+  let trocados = 0;
+  const pulados = [];
+
+  for (const [arquivo, blocos] of porArquivo) {
+    let html = await ler(arquivo);
+
+    for (const t of blocos) {
+      /* Bloco vazio = "não quero mexer nisso", não "apague o texto".
+         Esvaziar um título pelo painel deixaria um buraco na página, e
+         seria fácil fazer isso sem querer. */
+      const valor = String(t.valor || '').trim();
+      if (!valor) { pulados.push(`${t.chave} (vazio)`); continue; }
+
+      const miolo = t.tipo === 'prosa'
+        ? '\n' + valor.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean)
+            .map(p => `<p>${textoRico(p).replace(/\n/g, '<br/>')}</p>`).join('\n') + '\n'
+        : textoRico(valor);
+
+      const novo = trocarRegiaoInline(html, `texto:${t.chave}`, miolo);
+      if (novo === null) { pulados.push(`${t.chave} (sem marcador em ${arquivo})`); continue; }
+
+      html = novo;
+      trocados++;
+    }
+
+    await salvar(arquivo, html);
+  }
+
+  if (pulados.length) {
+    console.log(`   ${trocados} aplicados, ${pulados.length} pulados: ${pulados.join(', ')}`);
+  }
+}
+
+
+/* =====================================================================
    Execução
    ===================================================================== */
 try {
@@ -854,6 +949,7 @@ try {
      certo na mesma rodada. */
   await gerarFormacoes(cfg);
   await gerarPessoas(cfg);
+  await gerarTextos(cfg);
   await gerarNoticias(cfg);
 
   console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);

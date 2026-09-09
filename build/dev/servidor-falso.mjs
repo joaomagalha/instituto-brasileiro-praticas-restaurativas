@@ -42,7 +42,7 @@ const RAIZ = path.resolve(AQUI, '../..');
 const DADOS = path.join(AQUI, 'dados');
 
 /* As tabelas que o build consulta. Acrescentar aqui a cada etapa nova. */
-const TABELAS = ['formacoes', 'pessoas', 'noticias'];
+const TABELAS = ['formacoes', 'pessoas', 'textos', 'noticias'];
 
 async function config() {
   const txt = await readFile(path.join(RAIZ, 'assets/js/supabase-config.js'), 'utf8');

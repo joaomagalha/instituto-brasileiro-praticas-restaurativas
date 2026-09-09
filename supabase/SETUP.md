@@ -324,3 +324,78 @@ propósito"), o kicker de cada um e o convite do fim ("O IBPR está aberto a nov
 continuam no código. São a moldura da seção, não o conteúdo dela, e entram na Etapa 4, que
 trata dos textos institucionais. O bloco da rede inteiro (título junto) some sozinho se não
 houver ninguém publicado nele.
+
+---
+
+## Etapa 4 — ligar os Textos institucionais (fazer uma vez)
+
+A última etapa do CMS, e a que funciona diferente das outras três.
+
+**Nas outras, o painel cria coisas:** uma notícia vira um card e uma página, uma formação vira
+um item de menu, uma pessoa vira um retrato na seção. **Aqui não.** Cada linha desta tabela é
+um pedaço de texto que **já existe** numa página, e o painel só troca as palavras dele.
+
+Por isso o painel de Textos **não tem "novo" nem "apagar"**, e o banco também recusa as duas
+coisas. Um bloco só existe se houver um marcador correspondente no HTML, e quem escreve
+marcador sou eu. Se o Instituto quiser tornar editável um texto que hoje não é, é só pedir.
+
+### Passo 1 — criar a tabela
+
+SQL Editor → New query → colar `05-textos.sql` inteiro → **Run**.
+
+### Passo 2 — carregar os 33 blocos
+
+SQL Editor → New query → colar `05b-seed-textos.sql` inteiro → **Run**.
+
+No fim ele mostra uma tabelinha de conferência: **33 linhas**, e a coluna `igual_ao_original`
+toda em `true`.
+
+Aqui a ordem é menos crítica que nas outras etapas: com a tabela vazia, o build simplesmente
+não encosta em texto nenhum e o site fica como está. O seed é o que dá conteúdo ao painel.
+
+### Passo 3 — conferir
+
+1. Abrir `/painel/textos.html`. Devem aparecer 33 blocos, agrupados nas 7 páginas.
+2. O site tem que continuar **exatamente igual**. Se mudou alguma coisa, é bug.
+
+### Os 33 blocos, e por que só 33
+
+O site tem **165 parágrafos em 7 páginas**. Deixar todos editáveis criaria um formulário que
+ninguém do Instituto ia usar, e quem usasse desmontaria o design sem querer. Ficaram os que
+mudam com o tempo:
+
+| Página | Blocos | O quê |
+|---|---|---|
+| Página inicial | 6 | frase de abertura, seção "Nosso propósito", a citação, seção "Como Atuamos" |
+| O Instituto | 12 | topo, missão, visão, os 4 princípios, "Nossa abordagem" |
+| Como Atuamos | 6 | topo e a frase de cada um dos 4 blocos |
+| Práticas Restaurativas | 3 | topo e a citação de abertura |
+| Formações | 2 | topo |
+| IBPR em Movimento | 2 | topo |
+| Área do Aluno | 2 | topo |
+
+**O que ficou de fora, de propósito:**
+
+- **O título grande da página inicial.** É a única frase do site com uma palavra destacada em
+  cor por dentro ("Justiça Restaurativa"), e isso é design, não texto.
+- **Os títulos dos 4 blocos de Como Atuamos.** A página inicial repete esses mesmos nomes na
+  navegação lateral; editar num lugar só deixaria os dois fora de sincronia.
+- **Os nomes curtos dos princípios** ("Aprendizagem permanente"). A explicação de cada um é
+  editável; o nome é o rótulo da lista numerada.
+- **O corpo da aba Práticas Restaurativas.** São textos longos de doutrina, que mudam pouco e
+  ocupariam metade do painel.
+- **Os fechos de página** ("Transforme conhecimento restaurativo em prática") e os títulos das
+  seções de Pessoas e de IBPR em Movimento. São a moldura do site.
+- **Os textos técnicos de SEO** (as `<meta>` no topo de cada arquivo), que continuam sendo
+  manutenção minha.
+
+Nada disso é definitivo: qualquer um desses vira editável quando o Instituto pedir. O trabalho
+é escrever um marcador no HTML e acrescentar uma linha na tabela.
+
+### Duas coisas que o painel de Textos faz
+
+- **Selo "Editado"** em todo bloco que não está mais como foi entregue. Serve pra achar rápido
+  o que mexeram.
+- **"Restaurar o texto original"** devolve o texto que estava no site no dia em que o CMS foi
+  ligado. É o desfazer de última instância, e não depende de ninguém ter guardado o texto
+  antigo.
