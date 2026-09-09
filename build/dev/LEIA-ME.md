@@ -34,6 +34,14 @@ dois iframes da mesma largura e compare `getBoundingClientRect` dos blocos
 principais. **Em 1440px e em 375px.** Foi assim que apareceu que a foto do
 topo tinha parado de carregar: o texto estava perfeito.
 
+**Duas armadilhas dessa medição** (as duas custaram tempo na Etapa 3):
+
+- Os dois iframes precisam vir do **mesmo servidor**. Portas diferentes são origens
+  diferentes, e `contentDocument` volta `null` sem erro nenhum: o resultado parece "tudo
+  mudou". Sirva uma pasta só, com `antes/` e um link simbólico `depois/` pro repositório.
+- Não confie no `onload` do iframe. As páginas puxam fonte e ícone de CDN, e se a rede
+  estiver ruim o evento pode nunca chegar. Meça por `setTimeout` de uns 3 segundos.
+
 ## 3. Build idempotente
 
 Rodar duas vezes seguidas: a segunda tem que escrever **0 arquivos**. Se
@@ -52,6 +60,14 @@ ficar commitando sozinho pra sempre.
 
 Os dois últimos são os que mais importam: são o que impede o site de perder
 menu, rodapé e catálogo de uma vez.
+
+## 4b. O painel mora numa subpasta
+
+Foto cadastrada pelo seed tem caminho relativo à raiz do site
+(`assets/images/fundadores/fulano.jpg`), porque é de lá que as páginas a enxergam. O painel
+está em `/painel/`, então o mesmo caminho aponta pra `painel/assets/...` e a foto some **só no
+painel**. É invisível no build e no site: só aparece abrindo a lista do painel. Existe o
+`interno.fotoNoPainel()` pra isso; use ele em toda foto desenhada dentro do painel.
 
 ## 5. Ida e volta do formulário
 

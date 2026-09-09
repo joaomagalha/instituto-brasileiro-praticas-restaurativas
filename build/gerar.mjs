@@ -695,6 +695,153 @@ async function gerarFormacoes(cfg) {
 
 
 /* =====================================================================
+   PESSOAS
+   =====================================================================
+   A etapa mais simples do CMS. Uma pessoa aparece em dois lugares, no
+   máximo:
+
+     1. a seção "As pessoas por trás do propósito" (grupo 'direcao') ou
+        "Quem já se juntou a este propósito" (grupo 'rede'), as duas em
+        o-instituto.html;
+     2. a prévia da Home, se estiver marcada como destaque.
+
+   Sem página própria, sem menu, sem rodapé. Por isso não existe slug de
+   endereço aqui: o slug só nomeia a foto no storage.
+   ===================================================================== */
+
+/* O ÚNICO código aceito nos textos das pessoas: *palavra* vira itálico.
+   Existe por causa dos títulos de livro que já estavam na página
+   ("coautor dos livros *Justiça Restaurativa na Execução Penal*").
+
+   A ordem importa: escapa PRIMEIRO, converte depois. Assim um texto com
+   "<script>" continua saindo inofensivo, e só o asterisco tem poder. */
+function textoRico(t) {
+  return esc(t).replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+}
+
+/* O separador de sementes entre uma pessoa e outra. É decoração pura
+   (aria-hidden), por isso mora aqui e não no banco. */
+const DIVISOR_PESSOAS = `<div aria-hidden="true" class="founders__divider">
+<span class="founders__divider-line"></span>
+<span class="founders__seeds"><i></i><i></i><i></i></span>
+<span class="founders__divider-line"></span>
+</div>`;
+
+/* Um retrato. `comTrajetoria` é falso na Home: lá a seção é prévia, e a
+   sanfona "Conheça a trajetória" só existe na página do Instituto. */
+function cartaoPessoa(p, comTrajetoria) {
+  /* width/height no HTML não são estilo: são a reserva de espaço que
+     impede a página de "pular" enquanto a foto carrega. Só saem quando o
+     banco tem as duas medidas. */
+  const medidas = (p.foto_largura && p.foto_altura)
+    ? ` height="${esc(p.foto_altura)}"` : '';
+  const largura = (p.foto_largura && p.foto_altura)
+    ? ` width="${esc(p.foto_largura)}"` : '';
+
+  /* Pessoa sem foto mantém a moldura vazia em vez de sumir com o bloco:
+     o painel exige foto, então isto é rede de proteção, não caminho
+     normal. */
+  const foto = p.foto_url
+    ? `<img alt="${esc(p.foto_alt || p.nome)}" class="founder__photo" decoding="async"${medidas} loading="lazy" src="${esc(p.foto_url)}"${largura}/>`
+    : '';
+
+  const cargo = p.cargo
+    ? `<p class="founder__credentials">${esc(p.cargo)}</p>\n` : '';
+
+  const paras = comTrajetoria ? lista(p.trajetoria).filter(Boolean) : [];
+  const trajetoria = paras.length
+    ? `\n<details class="accordion">
+<summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
+<div class="accordion__content">
+${paras.map(t => `<p>${textoRico(t)}</p>`).join('\n')}
+</div>
+</details>`
+    : '';
+
+  return `<article class="founder" data-aos="fade-up">
+<div class="founder__portrait">
+<div class="founder__frame">
+${foto}
+</div>
+</div>
+<div class="founder__content">
+<h3 class="founder__name">${esc(p.nome)}</h3>
+${cargo}<p class="founder__bio">${textoRico(p.bio)}</p>${trajetoria}
+</div>
+</article>`;
+}
+
+/* A lista com os separadores entre um e outro (nunca no fim). */
+function listaPessoas(pessoas, comTrajetoria) {
+  return pessoas
+    .map(p => cartaoPessoa(p, comTrajetoria))
+    .join('\n' + DIVISOR_PESSOAS + '\n');
+}
+
+async function gerarPessoas(cfg) {
+  const pessoas = await consultar(cfg,
+    'pessoas?select=nome,grupo,cargo,bio,trajetoria,foto_url,foto_alt,' +
+    'foto_largura,foto_altura,destaque_home,ordem' +
+    '&status=eq.publicado&order=ordem.asc,nome.asc',
+    { toleraAusente: true });
+
+  /* TRAVA 1 — a tabela ainda não existe (o SQL desta etapa não rodou).
+     Igual às formações: não é falha, é "essa parte ainda não foi ligada".
+     O resto do build segue normalmente. */
+  if (pessoas === null) {
+    console.log('\n== Pessoas: a tabela ainda não existe no banco. Nada foi alterado.');
+    console.log('   (rode supabase/04-pessoas.sql e depois 04b-seed-pessoas.sql)');
+    return;
+  }
+
+  const direcao = pessoas.filter(p => p.grupo === 'direcao');
+  const rede    = pessoas.filter(p => p.grupo === 'rede');
+
+  console.log(`\n== Pessoas publicadas: ${pessoas.length} (${direcao.length} na direção, ${rede.length} na rede)`);
+
+  /* TRAVA 2 — ninguém na direção.
+     A seção "As pessoas por trás do propósito" é o coração da página do
+     Instituto: gerar ela vazia deixaria um título sozinho no meio do
+     site. Como nas formações, a resposta certa é não encostar em nada.
+
+     A rede pode ficar vazia sem problema: o bloco "Quem já se juntou"
+     inteiro (título junto) simplesmente não é escrito. */
+  if (!direcao.length) {
+    console.log('⚠  Nenhuma pessoa publicada na direção. O site NÃO foi alterado, de propósito:');
+    console.log('   a seção "As pessoas por trás do propósito" ficaria sem ninguém.');
+    console.log('   Rode supabase/04b-seed-pessoas.sql.');
+    return;
+  }
+
+  /* --- Home: a prévia ---
+     Quem está marcado como destaque. Se ninguém estiver, a direção
+     inteira: melhor mostrar demais do que deixar a Home com um buraco. */
+  const naHome = direcao.filter(p => p.destaque_home);
+  let home = await ler('index.html');
+  home = trocarRegiao(home, 'pessoas-home',
+    listaPessoas(naHome.length ? naHome : direcao, false));
+  await salvar('index.html', home);
+
+  /* --- O Instituto: os dois blocos --- */
+  let inst = await ler('o-instituto.html');
+  inst = trocarRegiao(inst, 'pessoas-direcao', listaPessoas(direcao, true));
+
+  /* O bloco da rede vem com o próprio título: sem ninguém nele, o título
+     iria junto, em vez de sobrar sozinho em cima do vazio. */
+  inst = trocarRegiao(inst, 'pessoas-rede', rede.length
+    ? `<div class="section-header founders__header founders__subhead" data-aos="fade-up">
+<p class="overline overline--light">Rede em formação</p>
+<h2>Quem já se juntou a este propósito.</h2>
+</div>
+<div class="founders__list">
+${listaPessoas(rede, true)}
+</div>`
+    : '');
+  await salvar('o-instituto.html', inst);
+}
+
+
+/* =====================================================================
    Execução
    ===================================================================== */
 try {
@@ -706,6 +853,7 @@ try {
      molde já atualizado pra que as páginas de notícia saiam com o menu
      certo na mesma rodada. */
   await gerarFormacoes(cfg);
+  await gerarPessoas(cfg);
   await gerarNoticias(cfg);
 
   console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);

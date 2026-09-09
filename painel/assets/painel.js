@@ -61,6 +61,18 @@ window.IBPR.painel = (function () {
     return 'Não deu certo: ' + m;
   }
 
+  /* Endereço de foto pra usar DENTRO do painel.
+     O caminho guardado no banco pode ser relativo à raiz do site
+     ("assets/images/fundadores/fulano.jpg"), que é onde as páginas moram.
+     O painel mora em /painel/, então o mesmo caminho apontaria pra
+     painel/assets/... e a foto apareceria quebrada na lista e na prévia.
+     Foto enviada pelo próprio painel vem do storage, já absoluta, e passa
+     direto. Só o site publicado usa o caminho como está no banco. */
+  function fotoNoPainel(url) {
+    if (!url) return '';
+    return /^(https?:)?\/\//.test(url) ? url : '../' + String(url).replace(/^\/+/, '');
+  }
+
   /* Barra os dois pontos de entrada quando o Supabase não está ligado
      ainda — sem isto a tela quebra sem explicar por quê. */
   function exigirConfiguracao() {
@@ -324,7 +336,7 @@ window.IBPR.painel = (function () {
       var data = util.formatarData(n.publicado_em || n.criado_em);
 
       var foto = n.imagem_url
-        ? '<img alt="" src="' + util.escapar(n.imagem_url) + '"/>'
+        ? '<img alt="" src="' + util.escapar(fotoNoPainel(n.imagem_url)) + '"/>'
         : '';
 
       return '' +
@@ -410,7 +422,7 @@ window.IBPR.painel = (function () {
         arquivoEscolhido = null;
         $('imagem').value = '';
         if (n.imagem_url) {
-          $('previaImg').src = n.imagem_url;
+          $('previaImg').src = fotoNoPainel(n.imagem_url);
           $('previa').hidden = false;
         } else {
           $('previa').hidden = true;
@@ -621,6 +633,7 @@ window.IBPR.painel = (function () {
       aviso: aviso,
       limparAviso: limparAviso,
       traduzirErro: traduzirErro,
+      fotoNoPainel: fotoNoPainel,
       /* Devolve o cliente do banco, ou null se o painel ainda não foi
          conectado (e nesse caso já explicou isso na tela). */
       conectar: function () { return exigirConfiguracao() ? db : null; }

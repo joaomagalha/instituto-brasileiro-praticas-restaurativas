@@ -25,6 +25,7 @@
   var aviso = interno.aviso;
   var limparAviso = interno.limparAviso;
   var traduzirErro = interno.traduzirErro;
+  var fotoNoPainel = interno.fotoNoPainel;
   var util = window.IBPR.util;
 
   var BUCKET = 'formacoes';
@@ -245,7 +246,7 @@
       var tops = (f.modulos || []).reduce(function (s, m) { return s + ((m.topicos || []).length); }, 0);
 
       var foto = f.imagem_card_url
-        ? '<img alt="" src="' + util.escapar(f.imagem_card_url) + '"/>'
+        ? '<img alt="" src="' + util.escapar(fotoNoPainel(f.imagem_card_url)) + '"/>'
         : '';
 
       return '' +
@@ -366,7 +367,7 @@
 
     function mostrarPreviaFoto(qual, url) {
       if (url) {
-        $('previa' + qual + 'Img').src = url;
+        $('previa' + qual + 'Img').src = fotoNoPainel(url);
         $('previa' + qual).hidden = false;
       } else {
         $('previa' + qual).hidden = true;

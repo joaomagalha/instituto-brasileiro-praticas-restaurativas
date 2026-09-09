@@ -262,3 +262,65 @@ A descrição de `formacoes.html` para o Google (as três `<meta>` no topo do ar
 "as quatro formações" e lista os temas. Isso é texto técnico de SEO, não conteúdo do
 Instituto, e continua sendo manutenção minha: se o número de formações mudar, eu reescrevo
 essa frase. O título visível da página ("As quatro formações do Instituto") **é** automático.
+
+---
+
+## Etapa 3 — ligar as Pessoas (fazer uma vez)
+
+Mesma lógica da 2b: enquanto estes dois arquivos não forem rodados, **nada quebra**. O build
+percebe que a tabela `pessoas` não existe, não mexe em nada e o site segue como está.
+
+Pode rodar junto com os da Etapa 2b, na mesma sessão do SQL Editor. A ordem entre as duas
+etapas não importa; o que importa é a ordem **dentro** de cada uma.
+
+### Passo 1 — criar a tabela
+
+SQL Editor → New query → colar `04-pessoas.sql` inteiro → **Run**.
+
+Confira no **Table Editor**: tem que existir a tabela `pessoas`, vazia, com o cadeado
+**RLS enabled**.
+
+(O nome começa com 04 porque o número 03 já era do gatilho do GitHub. É a Etapa 3 do CMS.)
+
+### Passo 2 — carregar as 5 pessoas que já estão no ar ⚠️
+
+SQL Editor → New query → colar `04b-seed-pessoas.sql` inteiro → **Run**.
+
+No fim ele mostra uma tabelinha de conferência: têm que aparecer **5 linhas**, todas com
+status `publicado`. Fernanda e Decildo com grupo `direcao` e `destaque_home` marcado; Érica,
+Maxuel e Mônica com grupo `rede`.
+
+> **Não pule este passo e não inverta a ordem.** Sem ninguém publicado na direção, o build se
+> recusa a mexer na seção (senão "As pessoas por trás do propósito" ficaria com o título e
+> nenhuma pessoa embaixo). O log do Actions avisa isso em português.
+
+### Passo 3 — conferir
+
+1. Abrir `/painel/pessoas.html`. Devem aparecer as 5 pessoas, com foto, todas como *Publicado*.
+2. Na aba **Actions** do repositório, uma execução de "Publicar site" deve ter começado sozinha.
+3. Quando ela terminar, a página **O Instituto** e a página inicial têm que estar
+   **exatamente iguais** ao que estavam antes. Se mudou alguma coisa de aparência, é bug.
+
+### O que dá pra fazer pelo painel depois disso
+
+- Trocar a foto, o cargo, a apresentação e a trajetória de qualquer pessoa.
+- Acrescentar alguém novo, escolhendo em qual dos dois blocos entra.
+- Marcar quem aparece também na prévia da página inicial.
+- **Recolocar o Rauny** quando o Instituto definir como descrever a função dele: é só cadastrar
+  pelo painel, com a foto que já está no repositório. Não precisa de SQL nem de mim.
+
+### Duas coisas que o painel faz e ninguém precisa saber
+
+- **Itálico com asterisco.** Escrever `*Justiça Restaurativa na Execução Penal*` deixa o
+  trecho em itálico no site. É o único código aceito; todo o resto do texto é escapado, então
+  não dá pra quebrar o site (nem invadir) escrevendo HTML no formulário.
+- **A medida da foto.** O painel lê largura e altura do arquivo escolhido e grava junto. É o
+  que impede a página de "pular" enquanto o retrato carrega.
+
+### O que ficou de fora, de propósito
+
+Os títulos dos dois blocos ("As pessoas por trás do propósito" e "Quem já se juntou a este
+propósito"), o kicker de cada um e o convite do fim ("O IBPR está aberto a novas conexões")
+continuam no código. São a moldura da seção, não o conteúdo dela, e entram na Etapa 4, que
+trata dos textos institucionais. O bloco da rede inteiro (título junto) some sozinho se não
+houver ninguém publicado nele.

@@ -42,7 +42,7 @@ const RAIZ = path.resolve(AQUI, '../..');
 const DADOS = path.join(AQUI, 'dados');
 
 /* As tabelas que o build consulta. Acrescentar aqui a cada etapa nova. */
-const TABELAS = ['formacoes', 'noticias'];
+const TABELAS = ['formacoes', 'pessoas', 'noticias'];
 
 async function config() {
   const txt = await readFile(path.join(RAIZ, 'assets/js/supabase-config.js'), 'utf8');
@@ -103,8 +103,14 @@ createServer(async (req, res) => {
   if (req.url.includes('status=eq.publicado')) {
     linhas = linhas.filter(l => l.status === 'publicado');
   }
-  if (req.url.includes('order=ordem.asc')) {
-    linhas.sort((a, b) => (a.ordem - b.ordem) || String(a.titulo).localeCompare(b.titulo));
+  /* O build pede "order=ordem.asc,<campo>.asc" (titulo nas formações, nome
+     nas pessoas). Ler o 2º campo da própria URL evita ter que lembrar
+     deste arquivo a cada etapa nova. */
+  const ordenar = req.url.match(/order=ordem\.asc(?:,([a-z_]+)\.asc)?/);
+  if (ordenar) {
+    const segundo = ordenar[1];
+    linhas.sort((a, b) => (a.ordem - b.ordem) ||
+      (segundo ? String(a[segundo]).localeCompare(String(b[segundo])) : 0));
   }
 
   res.writeHead(200, { 'content-type': 'application/json' });

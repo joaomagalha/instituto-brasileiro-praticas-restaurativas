@@ -418,4 +418,32 @@ body.painel {
   padding: 0.1rem 0.4rem;
 }
 
+/* ---------------------------------------------------------------------
+   Pessoas (Etapa 3)
+   ---------------------------------------------------------------------
+   A moldura do site é em pé. Repetir a proporção aqui evita o susto de
+   escolher a foto certa e ver, na prévia, uma versão cortada dela. */
+.campo__previa--retrato { aspect-ratio: 4 / 5; max-width: 22rem; }
+.painel-item__foto--retrato { aspect-ratio: 4 / 5; }
+
+/* O único campo do painel em que o rótulo fica ao lado, e não em cima:
+   é uma pergunta de sim ou não, não um campo pra preencher. */
+.campo--check > label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.45rem;
+  font-weight: var(--weight-regular);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.campo--check input[type="checkbox"] {
+  width: 1.8rem;
+  height: 1.8rem;
+  accent-color: var(--color-teal);
+  cursor: pointer;
+}
+
 [hidden] { display: none !important; }
