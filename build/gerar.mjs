@@ -677,7 +677,13 @@ async function gerarFormacoes(cfg) {
       .replaceAll('{{META_AREA}}', () => f.area
         ? `<span class="course-meta__item"><i aria-hidden="true" class="fa-solid ${esc(f.area_icone || 'fa-shapes')}"></i>${esc(f.area)}</span>\n`
         : '')
-      .replaceAll('{{LINK_CURSO}}', () => esc(f.link_curso || '#'))
+      /* Sem endereço da Hotmart, o botão NÃO vira um link pra "#": clicar e
+         não acontecer nada é pior do que ver que ainda não está disponível,
+         ainda mais no botão que fecha a venda. Mesmo tratamento que a Área
+         do Aluno já dava ao "Entrar na plataforma". */
+      .replaceAll('{{BOTAO_CURSO}}', () => f.link_curso
+        ? `<a class="btn btn--dark" href="${esc(f.link_curso)}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
+        : '<button class="btn btn--dark is-pending" disabled type="button" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>')
       .replaceAll('{{JSONLD}}', () => jsonldCurso(f))
       .replaceAll('{{BLOCOS}}', () => blocosDoCurso(f))
       .replaceAll('{{OUTRAS}}', () => outras.map((o, i) => cardFormacao(o, comAos(i))).join('\n'));

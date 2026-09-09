@@ -859,6 +859,23 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   transition: width var(--transition-base), background var(--transition-base);
 }
 
+/* A bolinha desenhada tem 8px, o que é bom de ver e ruim de acertar com o
+   dedo. Este pseudo-elemento estende a área clicável para 24px em volta,
+   sem mudar nada do que aparece na tela.
+
+   Nota de acessibilidade: com 8px de bolinha e 8px de intervalo, os centros
+   ficam a 16px um do outro, então o critério 2.5.8 da WCAG 2.2 (alvos de
+   24px que não se sobrepõem) continua não sendo atendido à risca. Atender
+   exigiria afastar as bolinhas, o que é decisão de design do João. Isto
+   aqui já resolve o problema prático de errar o toque. */
+.services__dot { position: relative; }
+.services__dot::after {
+  content: '';
+  position: absolute;
+  inset: -0.8rem;
+  border-radius: var(--radius-pill);
+}
+
 .services__dot:hover { background: rgba(var(--navy-rgb), 0.35); }
 .services__dot--active { width: 2.8rem; background: var(--color-teal); }
 .services__dot--active:hover { background: var(--color-teal); }

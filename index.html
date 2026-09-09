@@ -40,8 +40,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260909c" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260909c" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260909d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260909d" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
@@ -89,7 +89,7 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909c" defer></script>
+<script src="assets/js/cookies.js?v=20260909d" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
@@ -528,15 +528,18 @@
 </div>
 </section>
 
-<!-- IBPR em Movimento — teaser. Estado "em breve" deliberado: ainda não existe
-     notícia real (tabela do Supabase pro CMS nem foi desenhada) e notícia
-     inventada foi o erro do protótipo do Rauny (ver analise-prototipo.md). Em
-     vez de anunciar o vazio (ghost cards + "estão a caminho"), a seção descreve
-     as 3 frentes editoriais reais do espaço, no mesmo material (.course-eixos)
-     usado na intro de Formações. Quando o primeiro post real existir: trocar
-     as .course-eixos por
-       <div class="noticias__grid"> de <article class="service-card">
-     (componente das Formações, com .service-card__date). -->
+<!-- IBPR em Movimento. O miolo desta seção é gerado pelo build a partir do
+     Supabase: sem notícia publicada, aparecem as 3 frentes editoriais
+     (.course-eixos) com a legenda "em breve"; com notícia, elas dão lugar aos
+     cards e a copy da seção troca junto.
+
+     ⚠️ NÃO EDITAR À MÃO o que está entre <!-\- CMS:movimento-home -\-> e o fechamento:
+     o build sobrescreve na próxima publicação. Pra mudar o estado vazio, o
+     lugar é a constante TRES_FRENTES do build/gerar.mjs.
+
+     O estado vazio é assim de propósito: notícia inventada foi o erro do
+     protótipo do Rauny (ver analise-prototipo.md), então em vez de anunciar o
+     vazio com cards fantasmas, a seção descreve as frentes reais. -->
 <section aria-label="IBPR em Movimento" class="section section--paper" id="ibpr-movimento-preview">
 <div class="container">
 <!-- CMS:movimento-home -->
@@ -652,6 +655,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260909c"></script>
+<script src="assets/js/site-interactions.js?v=20260909d"></script>
 </body>
 </html>

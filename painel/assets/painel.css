@@ -128,6 +128,9 @@ body.painel {
   margin-top: var(--space-md);
   text-align: center;
   font-size: 1.3rem;
+  /* 19px de altura era abaixo do mínimo de 24px da WCAG 2.2 pra alvo de
+     toque. O padding resolve sem mudar o texto de lugar. */
+  padding: 0.4rem 0;
 }
 .painel-login__link a {
   color: var(--color-teal);
