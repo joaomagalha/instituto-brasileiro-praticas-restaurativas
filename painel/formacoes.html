@@ -9,9 +9,9 @@
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-<link href="../assets/css/tokens.css?v=20260909j" rel="stylesheet"/>
-<link href="../assets/css/components.css?v=20260909j" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909l" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909l" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909l" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -42,6 +42,7 @@
   <section id="telaLista">
     <div class="painel-cabeca">
       <div>
+        <p class="overline">Catálogo e páginas de curso</p>
         <h1>Formações</h1>
         <p>Cada formação publicada vira uma <strong>página de curso</strong> e entra sozinha no menu,
            no menu do celular, no rodapé, no carrossel da Home e no catálogo. Rascunho não aparece
@@ -51,6 +52,19 @@
         <i aria-hidden="true" class="fa-solid fa-plus"></i> Nova formação
       </button>
     </div>
+
+  <details class="painel-guia" open>
+    <summary class="painel-guia__titulo">Se bater dúvida</summary>
+    <dl>
+      <dt>Onde essa formação vai aparecer?</dt>
+      <dd>Em sete lugares de uma vez: o menu, o menu do celular, o rodapé, a página inicial, o catálogo, a busca do Google e a página própria dela.</dd>
+      <dt>Como escrevo os módulos?</dt>
+      <dd>Comece o nome de cada módulo com <code>##</code>. As linhas seguintes são os tópicos dele. A prévia embaixo do campo mostra o que o site entendeu.</dd>
+      <dt>O botão de inscrição não funciona.</dt>
+      <dd>Ele fica desativado até o endereço da Hotmart ser colado em <strong>Link do curso</strong>. Depois disso ele vira o botão de verdade sozinho.</dd>
+    </dl>
+  </details>
+
 
     <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
 
@@ -271,10 +285,10 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=20260909j"></script>
-<script src="../assets/js/supabase-client.js?v=20260909j"></script>
-<script src="assets/painel.js?v=20260909j"></script>
-<script src="assets/painel-formacoes.js?v=20260909j"></script>
+<script src="../assets/js/supabase-config.js?v=20260909l"></script>
+<script src="../assets/js/supabase-client.js?v=20260909l"></script>
+<script src="assets/painel.js?v=20260909l"></script>
+<script src="assets/painel-formacoes.js?v=20260909l"></script>
 <script>
   IBPR.painel.iniciarFormacoes();
 </script>

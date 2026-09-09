@@ -9,9 +9,9 @@
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-<link href="../assets/css/tokens.css?v=20260909j" rel="stylesheet"/>
-<link href="../assets/css/components.css?v=20260909j" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909l" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909l" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909l" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -42,6 +42,7 @@
   <section id="telaLista">
     <div class="painel-cabeca">
       <div>
+        <p class="overline">Página O Instituto</p>
         <h1>Pessoas</h1>
         <p>Quem aparece na página <strong>O Instituto</strong>, nos blocos "As pessoas por trás
            do propósito" e "Quem já se juntou a este propósito". Quem estiver marcado como
@@ -51,6 +52,19 @@
         <i aria-hidden="true" class="fa-solid fa-plus"></i> Nova pessoa
       </button>
     </div>
+
+  <details class="painel-guia" open>
+    <summary class="painel-guia__titulo">Se bater dúvida</summary>
+    <dl>
+      <dt>Qual a diferença entre os dois blocos?</dt>
+      <dd>“As pessoas por trás do propósito” tem cargo e a sanfona da trajetória. “Quem já se juntou” é só nome, foto e uma apresentação curta.</dd>
+      <dt>Que foto devo usar?</dt>
+      <dd>Em pé, mais alta que larga, de preferência 700 por 875 pontos. Se você escolher uma deitada, o painel avisa antes de salvar.</dd>
+      <dt>Não consigo despublicar alguém.</dt>
+      <dd>A seção da direção não pode ficar sem ninguém. Publique outra pessoa nela antes.</dd>
+    </dl>
+  </details>
+
 
     <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
 
@@ -168,10 +182,10 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=20260909j"></script>
-<script src="../assets/js/supabase-client.js?v=20260909j"></script>
-<script src="assets/painel.js?v=20260909j"></script>
-<script src="assets/painel-pessoas.js?v=20260909j"></script>
+<script src="../assets/js/supabase-config.js?v=20260909l"></script>
+<script src="../assets/js/supabase-client.js?v=20260909l"></script>
+<script src="assets/painel.js?v=20260909l"></script>
+<script src="assets/painel-pessoas.js?v=20260909l"></script>
 <script>
   IBPR.painel.iniciarPessoas();
 </script>

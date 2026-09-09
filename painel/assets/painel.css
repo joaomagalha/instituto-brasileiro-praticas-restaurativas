@@ -10,7 +10,13 @@
 
 body.painel {
   background: var(--color-paper);
-  font-size: var(--text-sm);
+  /* Estava em --text-sm (13,5px), uma escala inteira abaixo do site, que usa
+     16 a 18px. Era o principal motivo de o painel parecer uma ferramenta
+     emprestada e de cansar quem passa meia hora nele. 15px fica confortável
+     sem deixar as listas longas demais. */
+  font-size: 1.5rem;
+  line-height: var(--leading-body);
+  color: var(--color-ink);
 }
 
 /* ---------------------------------------------------------------------
@@ -24,8 +30,11 @@ body.painel {
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-md) clamp(1.6rem, 4vw, 3.2rem);
-  background: var(--color-navy);
+  /* O mesmo navy-900 do rodapé do site, não o navy dos botões: é a cor que
+     o visitante já associa a "área institucional do IBPR". */
+  background: var(--color-navy-900);
   color: var(--color-white);
+  box-shadow: var(--shadow-md);
 }
 .painel-topbar__logo { height: 3.2rem; width: auto; }
 .painel-topbar__nome {
@@ -56,7 +65,7 @@ body.painel {
    Casca da página
    --------------------------------------------------------------------- */
 .painel-shell {
-  max-width: 96rem;
+  max-width: 104rem;
   margin-inline: auto;
   padding: var(--space-2xl) clamp(1.6rem, 4vw, 3.2rem) var(--space-4xl);
 }
@@ -70,10 +79,18 @@ body.painel {
 }
 .painel-cabeca h1 {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 3vw, 2.8rem);
+  font-size: clamp(2.6rem, 3.4vw, 3.2rem);
   font-weight: var(--weight-regular);
   color: var(--color-navy);
   letter-spacing: var(--tracking-snug);
+  line-height: var(--leading-display);
+}
+
+/* Kicker de aba, o mesmo padrão de seção do site: só o texto em caixa alta,
+   sem filete antes (decisão de 02/09, vale pro painel também). */
+.painel-cabeca .overline {
+  color: var(--color-teal);
+  margin-bottom: var(--space-2xs);
 }
 .painel-cabeca p {
   font-size: 1.35rem;
@@ -332,17 +349,23 @@ body.painel {
    --------------------------------------------------------------------- */
 .painel-topbar__nav { display: flex; gap: var(--space-xs); }
 .painel-topbar__aba {
-  color: rgba(var(--white-rgb), 0.7);
-  font-size: 1.3rem;
-  font-weight: var(--weight-semibold);
-  padding: 0.6rem 1.2rem;
+  color: rgba(var(--white-rgb), 0.72);
+  font-size: 1.4rem;
+  font-weight: var(--weight-medium);
+  padding: 0.8rem 1.4rem;
   border-radius: var(--radius-sm);
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 .painel-topbar__aba:hover { color: var(--color-white); background: rgba(var(--white-rgb), 0.08); }
+
+/* A aba atual é marcada pelo dourado do manual de marca, o mesmo acento que
+   o site usa nos numerais e detalhes. Um traço embaixo, e não um bloco
+   preenchido: fica mais leve e é a mesma ideia da navegação do site. */
 .painel-topbar__aba.is-ativa {
   color: var(--color-white);
-  background: rgba(var(--white-rgb), 0.14);
+  font-weight: var(--weight-semibold);
+  background: rgba(var(--white-rgb), 0.10);
+  box-shadow: inset 0 -2px 0 var(--color-gold);
 }
 
 /* ---------------------------------------------------------------------
@@ -516,7 +539,21 @@ body.painel {
   gap: var(--space-xs);
   margin-top: var(--space-sm);
 }
-.painel-texto__estado { font-size: 1.2rem; color: var(--color-mist); }
+/* A confirmação nasce ao lado do botão que a pessoa acabou de clicar. A
+   tira no topo continua existindo pro que é erro, mas "salvou" precisa
+   aparecer onde o olho já está. */
+.painel-texto__estado { font-size: 1.3rem; color: var(--color-mist); }
+.painel-texto__estado:not(:empty) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-green);
+  font-weight: var(--weight-medium);
+}
+.painel-texto__estado:not(:empty)::before {
+  content: "\2713";
+  font-weight: var(--weight-bold);
+}
 
 /* "Editado" = este texto não é mais o que foi entregue. Serve pra achar
    rápido o que mexeram, e é o que faz aparecer o botão de restaurar. */
@@ -525,5 +562,74 @@ body.painel {
   background: rgba(var(--teal-rgb), 0.10);
   border-color: rgba(var(--teal-rgb), 0.30);
 }
+
+/* ---------------------------------------------------------------------
+   Ajuda no lugar da dúvida
+   ---------------------------------------------------------------------
+   A aba Ajuda existe, mas ninguém sai da tarefa pra ir ler manual. Este
+   bloco fica aberto no alto de cada aba com as perguntas que realmente
+   aparecem ali, respondidas em uma linha. É o que evita a mensagem de
+   WhatsApp às onze da noite. */
+.painel-guia {
+  border: 1px solid var(--color-border-light);
+  border-left: 3px solid var(--color-teal);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  padding: var(--space-md) var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+.painel-guia__titulo {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.painel-guia__titulo::-webkit-details-marker { display: none; }
+/* Seta que gira ao abrir: mostra o que aconteceu, que é o único tipo de
+   movimento que vale a pena aqui. */
+.painel-guia__titulo::before {
+  content: "";
+  width: 0.7rem; height: 0.7rem;
+  border-right: 2px solid var(--color-teal);
+  border-bottom: 2px solid var(--color-teal);
+  transform: rotate(45deg);
+  transition: transform var(--transition-fast);
+  flex-shrink: 0;
+}
+.painel-guia[open] .painel-guia__titulo::before { transform: rotate(-135deg); }
+.painel-guia[open] .painel-guia__titulo { margin-bottom: var(--space-sm); }
+@media (prefers-reduced-motion: reduce) {
+  .painel-guia__titulo::before { transition: none; }
+}
+.painel-guia dl { margin: 0; }
+.painel-guia dt {
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy-mid);
+  margin-top: var(--space-sm);
+}
+.painel-guia dt:first-of-type { margin-top: 0; }
+.painel-guia dd {
+  margin: 0.2rem 0 0;
+  color: var(--color-ink);
+  max-width: 62rem;
+}
+.painel-guia a { color: var(--color-teal); text-decoration: underline; }
+.painel-guia a:hover { color: var(--color-navy); }
+
+/* ---------------------------------------------------------------------
+   Estado vazio: convite, não aviso de erro
+   --------------------------------------------------------------------- */
+.painel-vazio--convite {
+  text-align: center;
+  padding: var(--space-2xl) var(--space-lg);
+  background: var(--color-white);
+  border: 1px dashed var(--color-border-light);
+}
+.painel-vazio--convite .painel-vazio__acao { margin-top: var(--space-md); }
 
 [hidden] { display: none !important; }

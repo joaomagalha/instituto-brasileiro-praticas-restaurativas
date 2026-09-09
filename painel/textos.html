@@ -9,9 +9,9 @@
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-<link href="../assets/css/tokens.css?v=20260909j" rel="stylesheet"/>
-<link href="../assets/css/components.css?v=20260909j" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909l" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909l" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909l" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -38,12 +38,26 @@
 
   <div class="painel-cabeca">
     <div>
-      <h1>Textos do site</h1>
+      <p class="overline">Textos do site</p>
+        <h1>Textos do site</h1>
       <p>Os textos que mudam com o tempo, agrupados por página. Cada um aparece exatamente no
          lugar em que já está no site; aqui você troca só as palavras. Para deixar um trecho em
          <em>itálico</em>, escreva ele entre asteriscos: <code>*assim*</code>.</p>
     </div>
   </div>
+
+  <details class="painel-guia" open>
+    <summary class="painel-guia__titulo">Se bater dúvida</summary>
+    <dl>
+      <dt>Por que não dá para criar um texto novo aqui?</dt>
+      <dd>Cada texto desta lista ocupa um lugar fixo em uma página do site. Para tornar outro trecho editável, é só pedir ao João.</dd>
+      <dt>Mudei e me arrependi.</dt>
+      <dd>Use <strong>Restaurar o texto original</strong>. Ele devolve exatamente o texto do dia da entrega do site, mesmo meses depois.</dd>
+      <dt>Como faço uma palavra em itálico?</dt>
+      <dd>Escreva ela entre asteriscos: <code>*assim*</code>. Serve principalmente para título de livro.</dd>
+    </dl>
+  </details>
+
 
   <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
 
@@ -58,10 +72,10 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=20260909j"></script>
-<script src="../assets/js/supabase-client.js?v=20260909j"></script>
-<script src="assets/painel.js?v=20260909j"></script>
-<script src="assets/painel-textos.js?v=20260909j"></script>
+<script src="../assets/js/supabase-config.js?v=20260909l"></script>
+<script src="../assets/js/supabase-client.js?v=20260909l"></script>
+<script src="assets/painel.js?v=20260909l"></script>
+<script src="assets/painel-textos.js?v=20260909l"></script>
 <script>
   IBPR.painel.iniciarTextos();
 </script>

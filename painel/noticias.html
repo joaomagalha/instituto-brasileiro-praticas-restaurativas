@@ -9,9 +9,9 @@
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
-<link href="../assets/css/tokens.css?v=20260909j" rel="stylesheet"/>
-<link href="../assets/css/components.css?v=20260909j" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909l" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909l" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909l" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -43,6 +43,7 @@
   <section id="telaLista">
     <div class="painel-cabeca">
       <div>
+        <p class="overline">IBPR em Movimento</p>
         <h1>Notícias</h1>
         <p>O que estiver <strong>publicado</strong> aparece no site, na seção IBPR em Movimento. Rascunho fica só aqui.</p>
       </div>
@@ -50,6 +51,19 @@
         <i aria-hidden="true" class="fa-solid fa-plus"></i> Nova notícia
       </button>
     </div>
+
+  <details class="painel-guia" open>
+    <summary class="painel-guia__titulo">Se bater dúvida</summary>
+    <dl>
+      <dt>Quando isso aparece no site?</dt>
+      <dd>Cerca de dois minutos depois de publicar. Se você não vir a mudança, aperte <strong>Ctrl + Shift + R</strong> na página do site.</dd>
+      <dt>Posso deixar pela metade?</dt>
+      <dd>Pode. Salve como <strong>rascunho</strong>: fica guardado aqui e não aparece no site.</dd>
+      <dt>E se eu não tiver foto?</dt>
+      <dd>Publique assim mesmo. A notícia usa uma imagem padrão do Instituto.</dd>
+    </dl>
+  </details>
+
 
     <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
 
@@ -138,9 +152,9 @@
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
-<script src="../assets/js/supabase-config.js?v=20260909j"></script>
-<script src="../assets/js/supabase-client.js?v=20260909j"></script>
-<script src="assets/painel.js?v=20260909j"></script>
+<script src="../assets/js/supabase-config.js?v=20260909l"></script>
+<script src="../assets/js/supabase-client.js?v=20260909l"></script>
+<script src="assets/painel.js?v=20260909l"></script>
 <script>
   IBPR.painel.iniciarNoticias();
 </script>

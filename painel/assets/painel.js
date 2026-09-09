@@ -10,6 +10,28 @@
 
 window.IBPR = window.IBPR || {};
 
+/* ---------------------------------------------------------------------
+   Bloco "Se bater dúvida"
+   ---------------------------------------------------------------------
+   Fica aberto por padrão: no começo, ler as três respostas é exatamente o
+   que evita a mensagem de WhatsApp. Depois de algumas semanas vira ruído
+   empurrando a lista pra baixo, então quem fechar continua com ele fechado
+   nas próximas visitas. A escolha é de quem usa, não minha. */
+(function () {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function () {
+    var guia = document.querySelector('details.painel-guia');
+    if (!guia) return;
+    var chave = 'ibpr-guia-' + location.pathname.split('/').pop();
+    try {
+      if (localStorage.getItem(chave) === 'fechado') guia.open = false;
+    } catch (e) {}
+    guia.addEventListener('toggle', function () {
+      try { localStorage.setItem(chave, guia.open ? 'aberto' : 'fechado'); } catch (e) {}
+    });
+  });
+})();
+
 window.IBPR.painel = (function () {
   'use strict';
 
