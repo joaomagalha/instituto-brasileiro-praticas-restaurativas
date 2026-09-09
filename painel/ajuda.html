@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Como usar o painel | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260909j" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260909j" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+<!-- Única página do painel que NÃO exige sessão, de propósito: ela precisa
+     poder ser lida antes do primeiro acesso e por quem esqueceu a senha.
+     Não tem dado nenhum do Instituto aqui, só instruções. -->
+</head>
+<body class="painel">
+
+<header class="painel-topbar">
+  <img alt="IBPR" class="painel-topbar__logo" src="../assets/images/ibpr-logo-full.png"/>
+  <nav class="painel-topbar__nav">
+    <a class="painel-topbar__aba" href="noticias.html">Notícias</a>
+    <a class="painel-topbar__aba" href="formacoes.html">Formações</a>
+    <a class="painel-topbar__aba" href="pessoas.html">Pessoas</a>
+    <a class="painel-topbar__aba" href="textos.html">Textos</a>
+    <a aria-current="page" class="painel-topbar__aba is-ativa" href="ajuda.html">Ajuda</a>
+  </nav>
+  <div class="painel-topbar__dir">
+    <a class="painel-topbar__sair" href="../index.html" target="_blank" rel="noopener">Ver o site</a>
+  </div>
+</header>
+
+<main class="painel-shell">
+
+  <div class="painel-cabeca">
+    <div>
+      <h1>Como usar o painel</h1>
+      <p>Este painel é o lugar onde vocês mudam o site sem depender de ninguém. Esta página
+         explica cada parte. Não precisa ler tudo de uma vez: dá para voltar aqui quando surgir
+         a dúvida.</p>
+    </div>
+  </div>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">O essencial, em um minuto</h2>
+
+    <div class="painel-card">
+      <h3 class="painel-secao painel-secao--texto">O que acontece quando você salva</h3>
+      <p class="ajuda-p">Tudo o que vocês publicam aqui entra no site sozinho, em cerca de
+        <strong>dois minutos</strong>. Não precisa avisar o João, não precisa aprovar com ninguém,
+        não precisa esperar o dia seguinte.</p>
+      <p class="ajuda-p">Se você salvou e não vê a mudança no site depois de uns minutos, quase
+        sempre é o seu navegador mostrando a versão guardada. Aperte
+        <strong>Ctrl + Shift + R</strong> (no Mac, <strong>Cmd + Shift + R</strong>) na página do
+        site para forçar a atualização.</p>
+
+      <h3 class="painel-secao painel-secao--texto">Rascunho existe para isso</h3>
+      <p class="ajuda-p">Em Notícias, Formações e Pessoas, tudo que você criar pode ficar como
+        <strong>rascunho</strong>. Rascunho não aparece no site, fica guardado só aqui. Use sem
+        medo para ir montando aos poucos e publicar quando estiver pronto.</p>
+
+      <h3 class="painel-secao painel-secao--texto">Você não consegue quebrar o site</h3>
+      <p class="ajuda-p">O painel foi feito para não deixar. Ele recusa apagar a última formação,
+        recusa deixar a seção da direção sem ninguém e recusa salvar um texto em branco. Se ele
+        disser não a alguma coisa, é porque aquilo deixaria um buraco em uma página.</p>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Notícias</h2>
+    <div class="painel-card">
+      <p class="ajuda-p">É a aba do <strong>IBPR em Movimento</strong>. Cada notícia publicada
+        vira uma página própria, entra na lista da aba e aparece na página inicial.</p>
+      <p class="ajuda-p"><strong>Enquanto não houver nenhuma notícia</strong>, a seção do site
+        mostra as três frentes (Pesquisa, Formações, Rede) com o aviso de "em breve". Assim que a
+        primeira for publicada, as frentes dão lugar às notícias sozinhas.</p>
+      <ul class="ajuda-lista">
+        <li><strong>Título e resumo</strong> são obrigatórios. O resumo é o texto que aparece no
+          card e é o que o Google mostra na busca, então vale caprichar em duas linhas.</li>
+        <li><strong>Texto:</strong> escreva normalmente. Deixe uma linha em branco entre um
+          parágrafo e outro, como no Word.</li>
+        <li><strong>Foto:</strong> horizontal, até 5 MB. Sem foto, a notícia usa uma imagem padrão
+          do Instituto.</li>
+        <li><strong>Descrição da foto:</strong> escreva o que se vê nela. É o que uma pessoa cega
+          ouve, e o Google também lê.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Formações</h2>
+    <div class="painel-card">
+      <p class="ajuda-p">Uma formação publicada aqui aparece sozinha em <strong>sete lugares</strong>
+        do site: o menu de cima, o menu do celular, o rodapé, o carrossel da página inicial, o
+        catálogo, os dados que o Google lê e a página própria dela. Vocês preenchem uma vez.</p>
+
+      <h3 class="painel-secao painel-secao--texto">As listas com barra e com ##</h3>
+      <p class="ajuda-p">Alguns campos pedem um formato. Embaixo de cada um aparece uma prévia
+        dizendo <em>"o site entendeu N itens"</em>, com a lista do que ele entendeu. <strong>Confira
+        essa prévia:</strong> ela mostra o resultado antes de publicar.</p>
+      <ul class="ajuda-lista">
+        <li><strong>Listas simples</strong> (o que vai desenvolver, para quem é, resultados): um
+          item por linha.</li>
+        <li><strong>Eixos:</strong> três partes separadas por barra, nesta ordem:
+          <code>Palavra-chave | Frase curta | Explicação</code></li>
+        <li><strong>Conteúdo do programa:</strong> comece o nome de cada módulo com
+          <code>##</code>. As linhas seguintes, sem <code>##</code>, são os tópicos dele.</li>
+      </ul>
+
+      <h3 class="painel-secao painel-secao--texto">O botão de inscrição</h3>
+      <p class="ajuda-p">Enquanto o campo <strong>Link do curso</strong> estiver vazio, a página
+        mostra "Inscrições em breve", desativado. Assim que o endereço da Hotmart for colado ali,
+        ele vira o botão de inscrição de verdade, sozinho.</p>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Pessoas</h2>
+    <div class="painel-card">
+      <p class="ajuda-p">São os dois blocos da página <strong>O Instituto</strong>. Ao cadastrar
+        alguém, você escolhe em qual entra:</p>
+      <ul class="ajuda-lista">
+        <li><strong>"As pessoas por trás do propósito":</strong> tem cargo e a sanfona "Conheça a
+          trajetória".</li>
+        <li><strong>"Quem já se juntou a este propósito":</strong> só nome, foto e uma
+          apresentação curta.</li>
+      </ul>
+      <p class="ajuda-p">A caixinha <strong>"Mostrar também na página inicial"</strong> coloca a
+        pessoa na prévia da home. Ela é curta de propósito: hoje tem duas pessoas.</p>
+      <p class="ajuda-p"><strong>A foto precisa ser em pé</strong>, mais alta que larga, de
+        preferência 700 por 875 pontos. Se você escolher uma foto deitada, o painel avisa na hora,
+        antes de salvar, porque a moldura do site vai cortar as laterais.</p>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Textos</h2>
+    <div class="painel-card">
+      <p class="ajuda-p">São os textos do site que mudam com o tempo: missão, visão, princípios,
+        as frases de abertura de cada página, as citações. Estão agrupados por página, na mesma
+        ordem em que aparecem no site.</p>
+      <p class="ajuda-p">Esta aba funciona diferente das outras: <strong>não dá para criar nem
+        apagar</strong> um texto, só trocar as palavras do que já existe. É proposital, porque
+        cada texto ocupa um lugar fixo em uma página.</p>
+      <ul class="ajuda-lista">
+        <li>O selo <strong>"Editado"</strong> marca o que já foi mudado desde a entrega do site.
+          Serve para achar rápido o que alguém alterou.</li>
+        <li><strong>"Restaurar o texto original"</strong> devolve exatamente o texto que estava no
+          site no dia em que ele foi entregue. É o desfazer de última instância, e funciona mesmo
+          meses depois.</li>
+      </ul>
+      <p class="ajuda-p">Se vocês quiserem editar um texto que não está nesta lista, é só pedir ao
+        João. Dá para incluir.</p>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Vale para todas as abas</h2>
+    <div class="painel-card">
+      <ul class="ajuda-lista">
+        <li><strong>Itálico:</strong> escreva a palavra entre asteriscos.
+          <code>*Justiça Restaurativa na Execução Penal*</code> aparece em itálico no site. É o
+          único código que o painel entende, e serve principalmente para título de livro.</li>
+        <li><strong>Fotos:</strong> até 5 MB cada. Foto muito pesada deixa o site lento no celular
+          de quem acessa.</li>
+        <li><strong>Campo com asterisco</strong> no rótulo é obrigatório.</li>
+        <li><strong>Cada um tem a própria senha</strong>, criada por vocês mesmos. Nem o João nem
+          ninguém do Instituto tem acesso à senha dos outros. Esqueceu? Use "Esqueci minha senha"
+          na tela de entrada.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Quando chamar o João</h2>
+    <div class="painel-card">
+      <ul class="ajuda-lista">
+        <li>Se aparecer uma mensagem vermelha que vocês não entendem.</li>
+        <li>Se algo publicado não aparecer no site depois de dez minutos, mesmo com
+          Ctrl + Shift + R.</li>
+        <li>Se precisarem editar um texto que não está na aba Textos.</li>
+        <li>Se quiserem uma seção nova, uma página nova ou mudar o desenho de alguma coisa.</li>
+      </ul>
+      <p class="ajuda-p">Publicar, corrigir, trocar foto e cadastrar gente vocês fazem sozinhos, a
+        qualquer hora, sem pedir licença.</p>
+    </div>
+  </section>
+
+</main>
+
+<style>
+  /* Só esta página usa: texto corrido dentro do naipe do painel. */
+  /* Teto de largura na medida de leitura. Em 830px dava 111 caracteres por
+     linha, o que cansa, ainda mais num texto de instruções que vai ser lido
+     com dúvida na cabeça. Medido nesta fonte: o caractere tem 7,47px em
+     média, então 56rem dá ~75 caracteres, o topo da faixa confortável. */
+  .ajuda-p, .ajuda-lista { max-width: 56rem; }
+  .ajuda-p { font-size: 1.45rem; line-height: var(--leading-body); color: var(--color-ink); }
+  .ajuda-p + .ajuda-p, .painel-card .ajuda-p + .ajuda-lista { margin-top: var(--space-sm); }
+  .ajuda-lista { margin-top: var(--space-sm); padding-left: var(--space-md); }
+  .ajuda-lista li { font-size: 1.45rem; line-height: var(--leading-body); color: var(--color-ink); margin-bottom: var(--space-xs); }
+  .ajuda-lista li:last-child { margin-bottom: 0; }
+  .painel-card .painel-secao--texto:first-child { margin-top: 0; }
+  .ajuda-p code, .ajuda-lista code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.92em;
+    background: var(--color-mist-bg);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-sm);
+    padding: 0.1rem 0.4rem;
+  }
+</style>
+
+</body>
+</html>
