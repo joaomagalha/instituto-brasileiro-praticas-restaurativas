@@ -101,9 +101,24 @@ window.IBPR.cookies = (function () {
       if (b) decidir(b.dataset.cookies);
     });
 
-    document.body.appendChild(caixa);
-    // deixa o navegador pintar antes de animar, senão a transição não roda
-    requestAnimationFrame(function () { caixa.classList.add('is-visivel'); });
+    /* Entra no COMEÇO do body, não no fim.
+       Ele aparece embaixo na tela (position: fixed), mas a ordem do Tab
+       segue o HTML: acrescentado no fim, quem navega por teclado só
+       chegaria nos botões depois de percorrer a página inteira. Fica logo
+       depois do "pular para o conteúdo", que por convenção é o primeiro. */
+    var pular = document.querySelector('.skip-link');
+    if (pular && pular.parentNode === document.body) {
+      document.body.insertBefore(caixa, pular.nextSibling);
+    } else {
+      document.body.insertBefore(caixa, document.body.firstChild);
+    }
+    /* Deixa o navegador pintar antes de animar, senão a transição não roda.
+       O setTimeout é rede de proteção: em aba de fundo o
+       requestAnimationFrame não dispara, e sem ele o aviso ficaria com
+       opacidade 0 pra sempre. Adicionar a classe duas vezes não faz mal. */
+    var aparecer = function () { if (caixa) caixa.classList.add('is-visivel'); };
+    requestAnimationFrame(aparecer);
+    setTimeout(aparecer, 60);
   }
 
   function iniciar() {

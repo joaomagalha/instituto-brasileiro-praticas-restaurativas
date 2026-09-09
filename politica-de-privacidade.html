@@ -40,8 +40,8 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=20260909d" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260909d" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=20260909f" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260909f" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 
 <!-- Medição de uso (Microsoft Clarity): gravação de sessão e mapa de calor,
@@ -57,7 +57,7 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909d" defer></script>
+<script src="assets/js/cookies.js?v=20260909f" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
@@ -186,7 +186,8 @@
 <p>Não vendemos, alugamos nem cedemos dados de navegação a ninguém. Eles ficam acessíveis apenas às empresas que fornecem a infraestrutura citada acima, cada uma sob sua própria política, e às pessoas do Instituto que acompanham os relatórios de uso do site.</p>
 
 <h2>Por quanto tempo</h2>
-<p>Os dados de navegação do Clarity são mantidos por até 13 meses e depois excluídos automaticamente. A sua escolha sobre cookies fica guardada no seu próprio navegador, não em um servidor do Instituto, e some se você limpar os dados do site.</p>
+<p>Os prazos são os da própria Microsoft: as <strong>gravações de sessão ficam 30 dias</strong>; os <strong>dados agregados</strong>, como mapas de calor e estatísticas de cliques, ficam <strong>9 meses</strong>. Passado o prazo, a Microsoft apaga os dados dos servidores dela, inclusive dos backups, sem possibilidade de recuperação.</p>
+<p>A sua escolha sobre cookies fica guardada no seu próprio navegador, não em um servidor do Instituto, e some se você limpar os dados do site.</p>
 
 <h2>Como recusar ou mudar de ideia</h2>
 <p>Ao entrar no site pela primeira vez, aparece um aviso com dois botões do mesmo tamanho: aceitar ou recusar. Recusar não tira nenhuma funcionalidade.</p>
@@ -268,7 +269,7 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260909d"></script>
+<script src="assets/js/site-interactions.js?v=20260909f"></script>
 
 <script>
   // Botão "rever minha escolha": apaga a decisão guardada e faz o aviso
