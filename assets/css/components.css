@@ -3133,6 +3133,65 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--ibpr-movimento .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--ibpr-movimento .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
 
+/* --- Variante do hero de Práticas Restaurativas ---
+   Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é o
+   encontro: duas cadeiras em ângulo, sem mesa no meio, numa sala simples de
+   prédio público brasileiro em fim de tarde, com a veneziana jogando barras de
+   luz no piso de concreto. O assunto vive na metade direita.
+   O scrim aqui é mais forte que nas outras variantes por um motivo medido: a
+   metade esquerda da foto é parede branca batida de sol, e é justamente onde
+   entram o "Voltar", o h1, o subtítulo e as 4 fichas da anchor-nav. Com o
+   scrim das outras (0.82 na borda) o texto branco não alcançava contraste. */
+.page-hero--praticas { --como-hero: url("../images/praticas-restaurativas-hero.jpg"); }
+.page-hero--praticas .page-hero__glow { display: none; }
+.page-hero--praticas::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.60) 0%, rgba(var(--navy900-rgb), 0) 26%),
+    linear-gradient(to right,
+      rgba(var(--navy900-rgb), 0.90) 0%,
+      rgba(var(--navy900-rgb), 0.68) 40%,
+      rgba(var(--navy900-rgb), 0.34) 68%,
+      rgba(var(--navy900-rgb), 0.10) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 52%;
+}
+.page-hero--praticas h1,
+.page-hero--praticas .page-hero__sub,
+.page-hero--praticas .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--praticas .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
+/* As fichas de atalho são o único caso do site em que a anchor-nav cai sobre
+   foto. O fundo padrão delas é branco a 7%, que separa bem do gradiente liso e
+   desaparece sobre imagem, então aqui elas ganham corpo próprio de navy. Só o
+   fundo e a borda mudam: forma, tamanho e o hover dourado seguem idênticos aos
+   das outras páginas. */
+.page-hero--praticas .anchor-nav__link {
+  background: rgba(var(--navy900-rgb), 0.58);
+  border-color: rgba(var(--white-rgb), 0.30);
+  backdrop-filter: blur(2px);
+}
+
+/* No celular o scrim lateral não serve: o título passa a ocupar a largura
+   inteira, então a ponta direita das linhas cai na parte fraca do gradiente.
+   Medido em 375px com o scrim lateral: o pior pixel atrás do h1 dava 2,80:1,
+   abaixo do mínimo de 3:1 para texto grande. Aqui o gradiente fecha mais
+   parelho da esquerda para a direita, cobrindo a linha toda. */
+@media (max-width: 768px) {
+  .page-hero--praticas::before {
+    background-image:
+      linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.62) 0%, rgba(var(--navy900-rgb), 0) 22%),
+      linear-gradient(to right,
+        rgba(var(--navy900-rgb), 0.86) 0%,
+        rgba(var(--navy900-rgb), 0.72) 45%,
+        rgba(var(--navy900-rgb), 0.52) 100%),
+      var(--como-hero);
+    background-position: 78% 52%;
+  }
+}
+
 /* --- Intro da página-índice de Formações ---
    Era prosa corrida de 2 parágrafos, sem cabeçalho e sem entrada de leitura.
    Agora: cabeçalho (kicker + título + lead) → 3 pilares na faixa creme dos
