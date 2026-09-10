@@ -61,6 +61,12 @@ function openMenu() {
   mobileMenu.setAttribute('aria-hidden', 'false');
 }
 function closeMenu() {
+  // O foco sai antes do menu ser escondido. Se o foco continuasse dentro dele,
+  // o Chrome ignora o aria-hidden ("Blocked aria-hidden on an element because
+  // its descendant retained focus") e o menu fechado segue sendo anunciado
+  // pra leitor de tela. Mesma saída do dropdown da navbar, que devolve o foco
+  // pro botão que o abriu.
+  if (mobileMenu.contains(document.activeElement)) menuBtn.focus();
   mobileMenu.classList.remove('active');
   overlay.classList.remove('active');
   document.body.classList.remove('no-scroll');
