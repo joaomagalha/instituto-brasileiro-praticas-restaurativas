@@ -3081,11 +3081,15 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* --- Variante do hero de O Instituto ---
    Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é o
    mesmo "prédio" do IBPR do hero em vídeo da Home (parede de concreto com o
-   logo em relevo, cobogó, jardim) — amarra a página de identidade à Home. O
-   cobogó à esquerda é claro e recortado, bem onde entram título/subtítulo,
-   então o scrim principal corre da esquerda pra direita e é mais encorpado
-   que o de Como Atuamos. */
-.page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.jpg"); }
+   logo em relevo, cobogó, jardim) — amarra a página de identidade à Home.
+   Desde 10/09 ela NÃO é mais frame do vídeo (era 720p esticado pra 1600px, e
+   aparecia pixelada): é imagem própria gerada em 2752px, com o logo real
+   composto na parede a partir de ibpr-logo-icone-navy.png, então o logo é
+   exato e não tem risco de deformação de IA. O cobogó à esquerda é claro e
+   recortado, bem onde entram título/subtítulo, então o scrim principal corre
+   da esquerda pra direita e é mais encorpado que o de Como Atuamos (subiu de
+   0.82/0.52/0.22 pra 0.86/0.56/0.24 porque o cobogó novo é mais luminoso). */
+.page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.jpg?v=2"); }
 .page-hero--o-instituto .page-hero__glow { display: none; }
 .page-hero--o-instituto::before {
   content: "";
@@ -3093,9 +3097,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   background-image:
     linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.50) 0%, rgba(var(--navy900-rgb), 0) 18%),
     linear-gradient(to right,
-      rgba(var(--navy900-rgb), 0.82) 0%,
-      rgba(var(--navy900-rgb), 0.52) 40%,
-      rgba(var(--navy900-rgb), 0.22) 68%,
+      rgba(var(--navy900-rgb), 0.86) 0%,
+      rgba(var(--navy900-rgb), 0.56) 40%,
+      rgba(var(--navy900-rgb), 0.24) 68%,
       rgba(var(--navy900-rgb), 0.06) 100%),
     var(--como-hero);
   background-size: cover;
@@ -3105,6 +3109,46 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--o-instituto .page-hero__sub,
 .page-hero--o-instituto .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--o-instituto .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+
+/* Mesmo caso de praticas-restaurativas: no celular o título e o subtítulo
+   ocupam a largura inteira, então a ponta direita das linhas cai na parte
+   fraca do scrim lateral. Medido em 375px: a 3ª linha do subtítulo dava
+   2,37:1 com a foto antiga e 1,58:1 com a nova (mínimo 4,5:1), porque ali
+   embaixo aparece o piso de madeira iluminado. Falha que já existia no ar,
+   não veio da troca da foto. Gradiente parelho + recentrar em 58% traz a
+   parede com o logo pro meio do quadro e cobre a linha toda: pior caso passa
+   a 6,58:1. */
+@media (max-width: 768px) {
+  .page-hero--o-instituto::before {
+    background-image:
+      linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.56) 0%, rgba(var(--navy900-rgb), 0) 20%),
+      linear-gradient(to right,
+        rgba(var(--navy900-rgb), 0.88) 0%,
+        rgba(var(--navy900-rgb), 0.78) 50%,
+        rgba(var(--navy900-rgb), 0.64) 100%),
+      var(--como-hero);
+    background-position: 58% 50%;
+  }
+}
+
+/* Faixa do meio (tablet deitado e notebook pequeno). O container encolhe mas a
+   fonte quase não, então o subtítulo passa a ocupar até 57% da largura em
+   1024px, contra 47% em 1440px, e a ponta dele cai na parte fraca da rampa,
+   em cima da parede clara. Medido: 2,27:1 em 769px e 2,92:1 em 1024px com o
+   scrim de desktop. É a mesma falha que já estava no ar antes da troca da
+   foto (o subtítulo dava 2,80:1 e 3,08:1 aqui). Rampa mais cheia até a
+   direita resolve sem mexer no desktop grande: pior caso passa a 5,02:1. */
+@media (min-width: 769px) and (max-width: 1279px) {
+  .page-hero--o-instituto::before {
+    background-image:
+      linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.52) 0%, rgba(var(--navy900-rgb), 0) 18%),
+      linear-gradient(to right,
+        rgba(var(--navy900-rgb), 0.88) 0%,
+        rgba(var(--navy900-rgb), 0.70) 45%,
+        rgba(var(--navy900-rgb), 0.42) 100%),
+      var(--como-hero);
+  }
+}
 
 /* --- Variante do hero de IBPR em Movimento ---
    Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é um
