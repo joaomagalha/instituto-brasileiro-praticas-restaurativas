@@ -77,6 +77,13 @@ menuBtn?.addEventListener('click', openMenu);
 closeBtn?.addEventListener('click', closeMenu);
 overlay?.addEventListener('click', closeMenu);
 document.querySelectorAll('.mobile-menu__link').forEach(link => link.addEventListener('click', closeMenu));
+// O menu é role="dialog" e trava o scroll do body, então Escape tem que sair
+// dele. Mesmo padrão do dropdown da navbar, acima.
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+    closeMenu();
+  }
+});
 
 // Carrossel de Formações — trilho em loop movido por transform.
 //
