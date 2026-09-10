@@ -3087,8 +3087,15 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    composto na parede a partir de ibpr-logo-icone-navy.png, então o logo é
    exato e não tem risco de deformação de IA. O cobogó à esquerda é claro e
    recortado, bem onde entram título/subtítulo, então o scrim principal corre
-   da esquerda pra direita e é mais encorpado que o de Como Atuamos (subiu de
-   0.82/0.52/0.22 pra 0.86/0.56/0.24 porque o cobogó novo é mais luminoso). */
+   da esquerda pra direita e é mais encorpado que o de Como Atuamos.
+
+   Calibragem do desktop grande, revisada em 10/09 à tarde: 0.86/0.56/0.24 não
+   bastava. A SEGUNDA linha do subtítulo é a mais comprida e termina em 47% da
+   largura, já em cima do piso de madeira com sol, e ali o p99 do fundo dava
+   3,68:1 em 1440px (mínimo 4,5). A primeira medição do dia só pegou a linha
+   mais curta e o "Voltar", por isso passou. Corrigido pra 0.88/0.66/0.28, que
+   é o suficiente pra linha longa e não fecha a foto: o logo na parede fica em
+   60-70% da largura, onde o scrim continua leve. */
 .page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.jpg?v=2"); }
 .page-hero--o-instituto .page-hero__glow { display: none; }
 .page-hero--o-instituto::before {
@@ -3097,9 +3104,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   background-image:
     linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.50) 0%, rgba(var(--navy900-rgb), 0) 18%),
     linear-gradient(to right,
-      rgba(var(--navy900-rgb), 0.86) 0%,
-      rgba(var(--navy900-rgb), 0.56) 40%,
-      rgba(var(--navy900-rgb), 0.24) 68%,
+      rgba(var(--navy900-rgb), 0.88) 0%,
+      rgba(var(--navy900-rgb), 0.66) 40%,
+      rgba(var(--navy900-rgb), 0.28) 68%,
       rgba(var(--navy900-rgb), 0.06) 100%),
     var(--como-hero);
   background-size: cover;

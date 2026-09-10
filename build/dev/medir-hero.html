@@ -1,0 +1,110 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Medição de heros (iframes de várias larguras)</title>
+<!--
+  Ferramenta de medição, não faz parte do site.
+
+  Carrega cada página com hero de foto dentro de um iframe por largura e
+  devolve, num JSON só: as LINHAS REAIS de texto (Range.getClientRects, não a
+  caixa do elemento), a cor computada de cada uma, a caixa do ::before do hero
+  e o background-image JÁ RESOLVIDO pelo navegador (gradientes com rgba em
+  número). Quem calcula o contraste é o `medir-contraste.py`, compondo a foto
+  em Python.
+
+  Por que iframe e não redimensionar a janela: 11 larguras num carregamento só,
+  sem depender de automação de janela. Os iframes têm que vir do MESMO servidor,
+  senão contentDocument volta null sem erro (armadilha registrada no LEIA-ME).
+-->
+<style>
+  body { margin: 0; font: 12px monospace; }
+  iframe { border: 0; display: block; height: 900px; }
+</style>
+<div id="palco"></div>
+<script>
+const PAGINAS = [
+  'o-instituto.html', 'como-atuamos.html', 'praticas-restaurativas.html',
+  'ibpr-em-movimento.html', 'formacoes.html', 'formacao-pena-justa.html',
+  'formacao-ambiente-escolar.html', 'formacao-execucao-penal.html',
+  'formacao-relacoes-trabalho.html', 'area-do-aluno.html', 'index.html'
+];
+const LARGURAS = [320, 375, 768, 1024, 1280, 1440, 1920];
+
+/* ⚠️ Aba escondida: o Chrome joga o setTimeout pra 1x por MINUTO depois de 5
+   minutos em segundo plano ("intensive throttling"), e a medição trava no meio
+   sem erro nenhum. Por isso a espera é curta e o progresso fica em
+   window.PROGRESSO, pra dar pra ver se andou ou empacou. */
+
+/* O aviso de cookies cobre a faixa do subtítulo em 375px e falseia a medição. */
+try { localStorage.setItem('ibpr-cookies', 'recusado'); } catch (e) {}
+
+function linhas(el, doc) {
+  const out = [];
+  const walker = doc.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let no;
+  while ((no = walker.nextNode())) {
+    if (!no.textContent.trim()) continue;
+    const r = doc.createRange();
+    r.selectNodeContents(no);
+    for (const rect of r.getClientRects()) {
+      if (rect.width < 1 || rect.height < 1) continue;
+      out.push({ x: rect.x, y: rect.y, w: rect.width, h: rect.height });
+    }
+  }
+  return out;
+}
+
+window.medir = async function () {
+  const palco = document.getElementById('palco');
+  const resultado = [];
+  for (const pagina of PAGINAS) {
+    for (const largura of LARGURAS) {
+      const f = document.createElement('iframe');
+      f.style.width = largura + 'px';
+      f.src = '/' + pagina;
+      palco.appendChild(f);
+      window.PROGRESSO = pagina + ' @ ' + largura;
+      await new Promise(ok => {
+        let pronto = false;
+        const fim = () => { if (!pronto) { pronto = true; ok(); } };
+        f.addEventListener('load', () => setTimeout(fim, 250));
+        setTimeout(fim, 2500);
+      });
+      try {
+        const doc = f.contentDocument;
+        const hero = doc.querySelector('.page-hero, .hero');
+        if (!hero) { resultado.push({ pagina, largura, erro: 'sem hero' }); f.remove(); continue; }
+        const antes = f.contentWindow.getComputedStyle(hero, '::before');
+        const caixa = hero.getBoundingClientRect();
+        const alvos = [];
+        for (const sel of ['h1', '.page-hero__sub', '.page-back', '.hero__sub', '.hero__title', '.eyebrow', '.hero__eyebrow']) {
+          for (const el of doc.querySelectorAll('.page-hero ' + sel + ', .hero ' + sel)) {
+            const cs = f.contentWindow.getComputedStyle(el);
+            if (cs.visibility === 'hidden' || cs.display === 'none') continue;
+            for (const l of linhas(el, doc)) {
+              alvos.push({ sel, cor: cs.color, tamanho: parseFloat(cs.fontSize), peso: cs.fontWeight, ...l });
+            }
+          }
+        }
+        resultado.push({
+          pagina, largura,
+          hero: { x: caixa.x, y: caixa.y, w: caixa.width, h: caixa.height },
+          fundoHero: f.contentWindow.getComputedStyle(hero).backgroundColor,
+          antes: {
+            imagem: antes.backgroundImage,
+            tamanho: antes.backgroundSize,
+            posicao: antes.backgroundPosition,
+            inset: [antes.top, antes.right, antes.bottom, antes.left].join(' ')
+          },
+          alvos
+        });
+      } catch (e) {
+        resultado.push({ pagina, largura, erro: String(e) });
+      }
+      f.remove();
+    }
+  }
+  window.RESULTADO = JSON.stringify(resultado);
+  document.title = 'PRONTO ' + resultado.length;
+  return 'pronto';
+};
+</script>

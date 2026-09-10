@@ -42,6 +42,25 @@ topo tinha parado de carregar: o texto estava perfeito.
 - Não confie no `onload` do iframe. As páginas puxam fonte e ícone de CDN, e se a rede
   estiver ruim o evento pode nunca chegar. Meça por `setTimeout` de uns 3 segundos.
 
+## 2b. Contraste do texto sobre foto (`medir-hero.html`)
+
+Abra `build/dev/medir-hero.html` pelo servidor local e rode `window.medir()`
+no console. Ele percorre as páginas com hero de foto em 7 larguras e devolve,
+em `window.RESULTADO`, as **linhas reais** de texto (`Range.getClientRects`,
+não a caixa do elemento) mais o `background-image` já resolvido pelo Chrome.
+Quem calcula é um script Python que compõe a foto com os gradientes e tira o
+p99 mais claro do fundo sob cada linha.
+
+Três armadilhas, todas já custaram tempo:
+
+- **Aba escondida trava a medição.** Depois de 5 minutos em segundo plano o
+  Chrome joga o `setTimeout` pra 1x por minuto e a varredura para no meio sem
+  erro nenhum. Por isso a espera é curta e existe `window.PROGRESSO`.
+- **`background-position` e `background-size` vêm com um valor por camada**
+  ("cover, cover, cover"). A foto é a última, então é a última vírgula que vale.
+- **Medir a caixa da linha inteira reprova de mentira**, porque a entrelinha
+  entra na conta. Só o miolo (60% central) é onde o glifo encosta.
+
 ## 3. Build idempotente
 
 Rodar duas vezes seguidas: a segunda tem que escrever **0 arquivos**. Se
