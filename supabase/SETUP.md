@@ -146,18 +146,34 @@ Se um dia virar incômodo, a gente resolve com um ping automático gratuito.
 > A biblioteca `supabase-js` teve que subir de 2.45.4 para **2.116.0**: a versão
 > antiga não reconhece o formato novo de chave (`sb_publishable_`).
 
-## ⚠️ Pendência antes de entregar o painel ao IBPR: SMTP próprio
+## 🚧 Bloqueante pra entregar o painel ao IBPR: SMTP próprio
 
-O e-mail embutido do Supabase tem **limite de 2 e-mails por hora** (Authentication →
-Rate Limits, campo travado no plano gratuito) e a própria Supabase diz que ele serve só
-para testes.
+São **dois** problemas no e-mail embutido do Supabase, e o segundo é o que trava de verdade.
 
-Isso afeta direto o "Esqueci minha senha": com três pessoas usando o painel, se duas
-pedirem recuperação na mesma hora, a terceira não recebe.
+**1. Limite de 2 e-mails por hora** (Authentication → Rate Limits, campo travado no plano
+gratuito). A própria Supabase diz que o serviço é "best-effort only", sem SLA de entrega nem
+de uptime, e serve só para testes.
 
-**Solução:** configurar SMTP próprio em Authentication → Emails → SMTP Settings. O plano
-gratuito do Resend (3.000 e-mails/mês) ou do Brevo resolve, e aí o e-mail também sai com
-remetente do Instituto em vez do domínio da Supabase.
+**2. Ele se recusa a entregar pra fora do time do projeto.** Doc oficial: "Unless you
+configure a custom SMTP server for your project, Supabase Auth will refuse to deliver
+messages to addresses that are not part of the project's team." Endereço de fora volta com
+"Email address not authorized". Então **Fernanda, Decildo e Rauny não recebem nem o convite de
+primeiro acesso, nem "esqueci minha senha"**. Não é atraso nem spam: o e-mail não é enviado.
+
+**Solução:** SMTP próprio em Authentication → Emails → SMTP Settings. São 6 campos (host,
+porta, usuário, senha, endereço remetente, nome do remetente). Depois de ligado, o limite sobe
+pra 30/hora e fica ajustável em Rate Limits.
+
+**Por que ainda não está feito:** o Resend (free: 3.000/mês, 100/dia, 3 domínios) **exige
+domínio verificado** ("You must add and verify at least one domain to send emails with
+Resend"). Verificar `ibpr.com.br` exige DKIM/SPF na zona do Registro.br, e esse acesso ainda
+não chegou. Conferido na zona real em 09/09: NS no Registro.br, MX do Google Workspace ativos,
+**sem SPF, sem DMARC e sem DKIM** no seletor `google`.
+
+**Decisão do João (09/09):** esperar o acesso ao DNS do IBPR e configurar com remetente
+`@ibpr.com.br`, numa tarefa só junto com o `dns-apontar-dominio.md`. Não comprar domínio
+próprio agora. O Resend recomenda enviar de **subdomínio** (ex. `envios.ibpr.com.br`) em vez
+do domínio raiz, pra isolar reputação de envio.
 
 ---
 
