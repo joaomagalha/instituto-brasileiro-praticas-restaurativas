@@ -7,4 +7,4 @@ User-agent: *
 Allow: /
 Disallow: /painel/
 
-Sitemap: https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas/sitemap.xml
+Sitemap: https://www.ibpr.com.br/sitemap.xml

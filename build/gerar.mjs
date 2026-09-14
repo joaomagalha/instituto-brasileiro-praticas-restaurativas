@@ -37,7 +37,7 @@ const CONFERIR = process.argv.includes('--conferir');
    Por que precisa ser absoluto: os robôs de preview do WhatsApp e do
    LinkedIn não resolvem caminho relativo em og:image. Com caminho relativo
    o link compartilhado sai sem imagem nenhuma. */
-const SITE = 'https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas';
+const SITE = 'https://www.ibpr.com.br';
 
 /* Transforma caminho do site em endereço completo. Imagem que já vem do
    storage do Supabase chega absoluta e passa direto. */

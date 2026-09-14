@@ -140,8 +140,9 @@ Se um dia virar incômodo, a gente resolve com um ping automático gratuito.
 | Sign-in anônimo | desligado |
 | RLS automático em tabelas novas | ligado |
 | Editores cadastrados | João Victor (`magalhaesjoaovictor81@gmail.com`) |
-| Site URL | `https://joaomagalha.github.io/instituto-brasileiro-praticas-restaurativas` |
+| Site URL | `https://www.ibpr.com.br/painel/nova-senha.html` (trocada em 14/09/2026; é onde convite e "esqueci a senha" caem) |
 | Redirect URLs | Pages, localhost:8765, ibpr.com.br (com e sem www) |
+| SMTP próprio | **ligado em 14/09/2026**: Resend, domínio `envios.ibpr.com.br` verificado, remetente `painel@envios.ibpr.com.br`, host `smtp.resend.com`:465, usuário `resend`, senha = chave de API do Resend (não está no repo nem no vault) |
 
 > A biblioteca `supabase-js` teve que subir de 2.45.4 para **2.116.0**: a versão
 > antiga não reconhece o formato novo de chave (`sb_publishable_`).
