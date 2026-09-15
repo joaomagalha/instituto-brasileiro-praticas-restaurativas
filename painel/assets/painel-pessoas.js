@@ -88,7 +88,7 @@
       .then(function (r) {
         var sessao = r.data && r.data.session;
         if (!sessao) { location.replace('index.html'); return; }
-        $('usuarioAtual').textContent = sessao.user.email;
+        window.IBPR.painel.montarConta(sessao);
         carregarLista();
       })
       .catch(function () {

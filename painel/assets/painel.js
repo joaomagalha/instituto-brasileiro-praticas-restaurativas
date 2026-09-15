@@ -32,6 +32,38 @@ window.IBPR = window.IBPR || {};
   });
 })();
 
+/* ---------------------------------------------------------------------
+   Menu de conta da barra de topo (15/09/2026)
+   ---------------------------------------------------------------------
+   Abre no clique, fecha com clique fora, Esc ou ao escolher um item.
+   Não depende de sessão: a sessão só preenche nome, iniciais e e-mail
+   (ver IBPR.painel.montarConta, chamada pelo porteiro de cada tela). */
+(function () {
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function () {
+    var botao = document.getElementById('btnConta');
+    var menu  = document.getElementById('menuConta');
+    if (!botao || !menu) return;
+
+    function abrir()  { menu.hidden = false; botao.setAttribute('aria-expanded', 'true'); }
+    function fechar() { menu.hidden = true;  botao.setAttribute('aria-expanded', 'false'); }
+
+    botao.addEventListener('click', function (e) {
+      e.stopPropagation();
+      menu.hidden ? abrir() : fechar();
+    });
+    document.addEventListener('click', function (e) {
+      if (!menu.hidden && !menu.contains(e.target)) fechar();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !menu.hidden) { fechar(); botao.focus(); }
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) fechar();
+    });
+  });
+})();
+
 window.IBPR.painel = (function () {
   'use strict';
 
@@ -105,6 +137,54 @@ window.IBPR.painel = (function () {
     aviso('O painel ainda não está conectado ao banco de dados. ' +
           'Falta preencher as chaves em assets/js/supabase-config.js (ver supabase/SETUP.md).', 'info');
     return false;
+  }
+
+
+  /* Preenche a barra de topo com quem está logado.
+     Nome vem de user_metadata.nome (definido no convite ou no perfil);
+     sem ele, usa a parte do e-mail antes do @, com inicial maiúscula.
+     Na barra fica só o primeiro nome; o e-mail completo vai pro menu. */
+  function montarConta(sessao) {
+    var u = (sessao && sessao.user) || {};
+    var meta = u.user_metadata || {};
+    var email = u.email || '';
+    var nome = (meta.nome || meta.full_name || meta.name || '').trim();
+    if (!nome) {
+      nome = email.split('@')[0].replace(/[._-]+/g, ' ').trim();
+      nome = nome.charAt(0).toUpperCase() + nome.slice(1);
+    }
+    var partes = nome.split(/\s+/).filter(Boolean);
+    var iniciais = partes.length > 1
+      ? (partes[0][0] + partes[partes.length - 1][0])
+      : nome.slice(0, 2);
+
+    aplicar(nome, partes, iniciais, email);
+
+    /* O nome de verdade mora em public.editores (é o que o João preenche
+       no passo 6 do SETUP). A política deixa cada um ler a própria linha.
+       Se vier, substitui o fallback do e-mail; se não vier, fica como está. */
+    if (db && u.id) {
+      db.from('editores').select('nome').eq('user_id', u.id).maybeSingle()
+        .then(function (r) {
+          var n = r && r.data && r.data.nome ? String(r.data.nome).trim() : '';
+          if (!n) return;
+          var ps = n.split(/\s+/).filter(Boolean);
+          var ini = ps.length > 1 ? (ps[0][0] + ps[ps.length - 1][0]) : n.slice(0, 2);
+          aplicar(n, ps, ini, email);
+        })
+        .catch(function () { /* sem nome cadastrado: fica o fallback */ });
+    }
+
+    function aplicar(nomeCompleto, ps, ini, mail) {
+      var elNome = $('usuarioAtual');
+      var elIni  = $('contaIniciais');
+      var elMail = $('contaEmail');
+      if (elNome) elNome.textContent = ps[0] || nomeCompleto;
+      if (elIni)  elIni.textContent  = ini.toUpperCase();
+      if (elMail) elMail.textContent = mail;
+      var botao = $('btnConta');
+      if (botao) botao.setAttribute('aria-label', 'Conta de ' + nomeCompleto + ', abrir menu');
+    }
   }
 
 
@@ -294,7 +374,7 @@ window.IBPR.painel = (function () {
           location.replace('index.html');
           return;
         }
-        $('usuarioAtual').textContent = sessao.user.email;
+        montarConta(sessao);
         carregarLista();
       })
       .catch(function (erro) {
@@ -643,6 +723,7 @@ window.IBPR.painel = (function () {
 
 
   return {
+    montarConta: montarConta,
     iniciarLogin: iniciarLogin,
     iniciarNoticias: iniciarNoticias,
     iniciarNovaSenha: iniciarNovaSenha,

@@ -20,46 +20,212 @@ body.painel {
 }
 
 /* ---------------------------------------------------------------------
-   Barra de topo
-   --------------------------------------------------------------------- */
+   Barra de topo (refeita em 15/09/2026)
+   ---------------------------------------------------------------------
+   Três zonas, cada uma com um papel só:
+     esquerda  → marca (volta pra Notícias)
+     centro    → as 4 seções de conteúdo, o trabalho do dia a dia
+     direita   → "Ver o site" (ação secundária) + menu de conta
+   Ajuda e Sair saem da barra e vão pro menu de conta: são raros, e coisa
+   rara não disputa espaço com coisa diária. O e-mail não aparece mais na
+   barra (é longo e não diz "quem"); vira nome + iniciais, e o e-mail fica
+   dentro do menu pra confirmar a conta. */
 .painel-topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md) clamp(1.6rem, 4vw, 3.2rem);
-  /* O mesmo navy-900 do rodapé do site, não o navy dos botões: é a cor que
-     o visitante já associa a "área institucional do IBPR". */
+  gap: var(--space-lg);
+  min-height: 6.4rem;
+  padding: 0 clamp(1.6rem, 4vw, 3.2rem);
+  /* O mesmo navy-900 do rodapé do site: a cor que o visitante já associa
+     a "área institucional do IBPR". */
   background: var(--color-navy-900);
   color: var(--color-white);
   box-shadow: var(--shadow-md);
 }
-.painel-topbar__logo { height: 3.2rem; width: auto; }
+.painel-topbar__marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  color: var(--color-white);
+}
+/* Ícone da árvore, não o lockup inteiro: a 3.2rem o lockup vira 64px de
+   largura com o subtítulo ilegível. A palavra "Painel" diz onde a pessoa
+   está (é a área de edição, não o site). */
+.painel-topbar__logo { height: 3.2rem; width: auto; display: block; }
 .painel-topbar__nome {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-overline);
   text-transform: uppercase;
+  color: rgba(var(--white-rgb), 0.86);
 }
+
+/* Seções: só texto, filete dourado embaixo da ativa (mesma ideia da
+   navegação do site). Sem caixa preenchida: a barra fica mais leve. */
+.painel-topbar__nav {
+  display: flex;
+  align-self: stretch;
+  gap: var(--space-2xs);
+}
+.painel-topbar__aba {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 1.2rem;
+  color: rgba(var(--white-rgb), 0.72);
+  font-size: 1.4rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-snug);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.painel-topbar__aba:hover { color: var(--color-white); }
+.painel-topbar__aba:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: -4px;
+  border-radius: var(--radius-sm);
+}
+.painel-topbar__aba.is-ativa {
+  color: var(--color-white);
+  font-weight: var(--weight-semibold);
+  border-bottom-color: var(--color-gold);
+}
+
 .painel-topbar__dir {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+}
+
+/* "Ver o site": botão secundário, com borda fina e ícone de link externo.
+   Parece ação (é), e não rótulo solto. */
+.painel-topbar__site {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
   font-size: 1.3rem;
+  font-weight: var(--weight-medium);
+  color: rgba(var(--white-rgb), 0.86);
+  border: 1px solid rgba(var(--white-rgb), 0.28);
+  border-radius: var(--radius-md);
+  white-space: nowrap;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
 }
-.painel-topbar__usuario { color: rgba(var(--white-rgb), 0.72); }
-.painel-topbar__sair {
+.painel-topbar__site i { font-size: 1.1rem; opacity: 0.8; }
+.painel-topbar__site:hover { color: var(--color-white); border-color: rgba(var(--white-rgb), 0.6); background: rgba(var(--white-rgb), 0.06); }
+.painel-topbar__site:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+
+/* Menu de conta: avatar com iniciais + primeiro nome + seta. */
+.painel-conta { position: relative; }
+.painel-conta__botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 0.6rem 0.4rem 0.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  background: transparent;
   color: var(--color-white);
-  font-weight: var(--weight-semibold);
-  border-bottom: 1px solid rgba(var(--white-rgb), 0.35);
-  padding-bottom: 0.2rem;
-  transition: border-color var(--transition-fast);
+  font: inherit;
+  font-size: 1.35rem;
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
-.painel-topbar__sair:hover { border-color: var(--color-white); }
+.painel-conta__botao:hover,
+.painel-conta__botao[aria-expanded="true"] { background: rgba(var(--white-rgb), 0.08); border-color: rgba(var(--white-rgb), 0.18); }
+.painel-conta__botao:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+.painel-conta__avatar {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-teal);
+  color: var(--color-white);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.02em;
+}
+.painel-conta__seta { font-size: 1rem; opacity: 0.7; transition: transform var(--transition-fast); }
+.painel-conta__botao[aria-expanded="true"] .painel-conta__seta { transform: rotate(180deg); }
+
+.painel-conta__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.8rem);
+  min-width: 24rem;
+  padding: var(--space-xs) 0;
+  background: var(--color-white);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+.painel-conta__email {
+  padding: 0.6rem 1.6rem 1rem;
+  font-size: 1.2rem;
+  color: var(--color-mist);
+  word-break: break-all;
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-2xs);
+}
+.painel-conta__menu a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.6rem;
+  font-size: 1.4rem;
+  color: var(--color-ink);
+  transition: background var(--transition-fast);
+}
+.painel-conta__menu a i { width: 1.6rem; text-align: center; color: var(--color-mist); font-size: 1.3rem; }
+.painel-conta__menu a:hover,
+.painel-conta__menu a:focus-visible { background: var(--color-paper); outline: none; }
+.painel-conta__divisor { height: 1px; margin: var(--space-2xs) 0; background: var(--color-border-light); }
+.painel-conta__menu a.painel-conta__sair { color: var(--color-mist); }
+.painel-conta__menu a.painel-conta__sair:hover { color: var(--color-danger); }
+.painel-conta__menu a.painel-conta__sair:hover i { color: var(--color-danger); }
+
+/* Tablet e janela estreita: "Ver o site" só com o ícone e espaçamento
+   menor, senão a barra estoura o padding entre 720 e 900px. */
+@media (max-width: 899px) {
+  .painel-topbar { gap: var(--space-md); }
+  .painel-topbar__site span { display: none; }
+  .painel-topbar__site { padding: 0.7rem 0.9rem; }
+  .painel-topbar__site i { font-size: 1.3rem; opacity: 1; }
+}
+
+/* Celular: marca e conta na barra; as seções descem pra uma segunda linha
+   rolável, no mesmo navy. Quatro itens não justificam hambúrguer. */
+@media (max-width: 719px) {
+  .painel-topbar { flex-wrap: wrap; gap: 0 var(--space-sm); padding-top: 0.8rem; }
+  .painel-topbar__dir { gap: var(--space-xs); }
+  .painel-topbar__site span { display: none; }         /* só o ícone */
+  .painel-topbar__site { padding: 0.7rem 0.9rem; }
+  .painel-conta__nome { display: none; }               /* só o avatar */
+  .painel-conta__seta { display: none; }
+  .painel-topbar__nav {
+    order: 10;
+    flex-basis: 100%;
+    margin: 0.6rem calc(-1 * clamp(1.6rem, 4vw, 3.2rem)) 0;
+    padding: 0 clamp(1.6rem, 4vw, 3.2rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+    align-self: auto;
+  }
+  .painel-topbar__nav::-webkit-scrollbar { display: none; }
+  .painel-topbar__aba { padding: 0.9rem 1rem; white-space: nowrap; }
+}
 
 /* ---------------------------------------------------------------------
    Casca da página
@@ -343,30 +509,6 @@ body.painel {
   font-size: 1.4rem;
 }
 .painel-vazio strong { display: block; color: var(--color-navy); font-size: 1.7rem; font-family: var(--font-display); margin-bottom: var(--space-2xs); }
-
-/* ---------------------------------------------------------------------
-   Abas do painel (Notícias / Formações)
-   --------------------------------------------------------------------- */
-.painel-topbar__nav { display: flex; gap: var(--space-xs); }
-.painel-topbar__aba {
-  color: rgba(var(--white-rgb), 0.72);
-  font-size: 1.4rem;
-  font-weight: var(--weight-medium);
-  padding: 0.8rem 1.4rem;
-  border-radius: var(--radius-sm);
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-.painel-topbar__aba:hover { color: var(--color-white); background: rgba(var(--white-rgb), 0.08); }
-
-/* A aba atual é marcada pelo dourado do manual de marca, o mesmo acento que
-   o site usa nos numerais e detalhes. Um traço embaixo, e não um bloco
-   preenchido: fica mais leve e é a mesma ideia da navegação do site. */
-.painel-topbar__aba.is-ativa {
-  color: var(--color-white);
-  font-weight: var(--weight-semibold);
-  background: rgba(var(--white-rgb), 0.10);
-  box-shadow: inset 0 -2px 0 var(--color-gold);
-}
 
 /* ---------------------------------------------------------------------
    Formulário longo: divisores de assunto
