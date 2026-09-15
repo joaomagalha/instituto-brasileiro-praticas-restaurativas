@@ -2285,11 +2285,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
+/* Hover contido: sobe 3px e a sombra cresce pouco (a de 44px/13% do
+   info-card pesava demais num card largo). A borda em petróleo faz o
+   trabalho de "está ativo". */
 .noticia-card:hover,
 .noticia-card:focus-within {
-  transform: translateY(-5px);
+  transform: translateY(-3px);
   border-color: rgba(var(--teal-rgb), 0.42);
-  box-shadow: 0 20px 44px rgba(var(--navy900-rgb), 0.13);
+  box-shadow: 0 8px 20px rgba(var(--navy900-rgb), 0.07), 0 2px 6px rgba(var(--navy900-rgb), 0.05);
 }
 .noticia-card__link {
   display: grid;
