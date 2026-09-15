@@ -309,6 +309,9 @@ async function gerarNoticias(cfg) {
       .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
       .replaceAll('{{IMAGEM}}', () => esc(absoluto(n.imagem_url || IMAGEM_PADRAO)))
       .replaceAll('{{FIGURA}}', () => figura)
+      // Com foto, ela "invade" a faixa escura do hero (só CSS); sem foto, hero normal.
+      .replaceAll('{{HERO_MOD}}', () => (figura ? ' page-hero--noticia' : ''))
+      .replaceAll('{{SECAO_MOD}}', () => (figura ? ' section--noticia' : ''))
       .replaceAll('{{FONTE}}', () => fonte)
       .replaceAll('{{CORPO}}', () => corpo);
 
