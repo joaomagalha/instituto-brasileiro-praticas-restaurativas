@@ -212,6 +212,7 @@
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
+      window.IBPR.painel.montarSumario('sumarioFormacao', 'formFormacao', 'Seções');
       limparAviso();
       window.scrollTo({ top: 0, behavior: 'instant' });
     }

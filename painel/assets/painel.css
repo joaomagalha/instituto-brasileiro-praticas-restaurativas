@@ -523,6 +523,86 @@ body.painel {
 .painel-vazio strong { display: block; color: var(--color-navy); font-size: 1.7rem; font-family: var(--font-display); margin-bottom: var(--space-2xs); }
 
 /* ---------------------------------------------------------------------
+   Sumário lateral (15/09/2026)
+   ---------------------------------------------------------------------
+   Formulário longo vira seções na mesma página, e o sumário é o que
+   transforma "seção" em navegação: fixo na lateral, marca onde a pessoa
+   está e leva pra qualquer bloco num clique. Nada fica escondido (ao
+   contrário de wizard ou abas), que é o que esse público precisa.
+   Abaixo de 960px vira uma linha de atalhos fixa logo abaixo da barra. */
+.painel-com-sumario {
+  display: grid;
+  grid-template-columns: 19rem minmax(0, 1fr);
+  gap: var(--space-xl);
+  align-items: start;
+}
+.painel-sumario {
+  position: sticky;
+  top: 8.4rem;               /* barra de topo (6.4rem) + respiro */
+}
+.painel-sumario__titulo {
+  font-size: 1.15rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-mist);
+  margin: 0 0 var(--space-xs) 1.4rem;
+}
+.painel-sumario ol { list-style: none; margin: 0; padding: 0; }
+.painel-sumario a {
+  display: block;
+  padding: 0.7rem 1.2rem;
+  border-left: 2px solid var(--color-border-light);
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--color-navy-mid);
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+.painel-sumario a:hover { color: var(--color-navy); background: rgba(var(--navy-rgb), 0.04); }
+.painel-sumario a.is-ativo {
+  color: var(--color-navy);
+  font-weight: var(--weight-semibold);
+  border-left-color: var(--color-gold);
+}
+.painel-sumario a:focus-visible { outline: 2px solid var(--color-teal); outline-offset: -2px; }
+.painel-sumario__num {
+  display: inline-block;
+  min-width: 1.6rem;
+  color: var(--color-mist);
+  font-variant-numeric: tabular-nums;
+}
+/* Onde o clique do sumário para: abaixo da barra fixa, não atrás dela. */
+[data-sumario] { scroll-margin-top: 8.4rem; }
+
+@media (max-width: 959px) {
+  .painel-com-sumario { display: block; }
+  .painel-sumario {
+    top: 6.4rem;
+    z-index: 5;
+    margin: 0 calc(-1 * clamp(1.6rem, 4vw, 3.2rem)) var(--space-lg);
+    padding: 0.6rem clamp(1.6rem, 4vw, 3.2rem);
+    background: rgba(246, 248, 247, 0.96);   /* --color-paper com leve transparência */
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  .painel-sumario__titulo { display: none; }
+  .painel-sumario ol { display: flex; gap: var(--space-2xs); overflow-x: auto; scrollbar-width: none; }
+  .painel-sumario ol::-webkit-scrollbar { display: none; }
+  .painel-sumario a {
+    white-space: nowrap;
+    padding: 0.5rem 1rem;
+    border-left: 0;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-border-light);
+    background: var(--color-white);
+    font-size: 1.25rem;
+  }
+  .painel-sumario a.is-ativo { border-color: var(--color-navy); background: var(--color-navy); color: var(--color-white); }
+  .painel-sumario__num { display: none; }
+  [data-sumario] { scroll-margin-top: 11.5rem; }
+}
+
+/* ---------------------------------------------------------------------
    Formulário longo: divisores de assunto
    --------------------------------------------------------------------- */
 .painel-secao {

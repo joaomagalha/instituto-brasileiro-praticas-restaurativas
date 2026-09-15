@@ -140,6 +140,74 @@ window.IBPR.painel = (function () {
   }
 
 
+  /* Sumário lateral: lê os títulos marcados com data-sumario dentro de
+     `conteudo`, monta a lista em `nav` e acende o item da seção visível.
+     Chamar de novo depois de redesenhar o conteúdo (Textos faz isso). */
+  function montarSumario(nav, conteudo, titulo) {
+    nav = typeof nav === 'string' ? $(nav) : nav;
+    conteudo = typeof conteudo === 'string' ? $(conteudo) : conteudo;
+    if (!nav || !conteudo) return;
+
+    var secoes = Array.prototype.slice.call(conteudo.querySelectorAll('[data-sumario]'));
+    if (!secoes.length) { nav.hidden = true; return; }
+    nav.hidden = false;
+
+    var html = titulo ? '<p class="painel-sumario__titulo">' + titulo + '</p>' : '';
+    html += '<ol>';
+    secoes.forEach(function (sec, i) {
+      if (!sec.id) sec.id = 'secao-' + (i + 1);
+      var nome = sec.getAttribute('data-sumario') || sec.textContent.trim();
+      html += '<li><a href="#' + sec.id + '" data-alvo="' + sec.id + '">' +
+              '<span class="painel-sumario__num">' + (i + 1) + '</span> ' +
+              util.escapar(nome) + '</a></li>';
+    });
+    html += '</ol>';
+    nav.innerHTML = html;
+
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+    function acender(id) {
+      links.forEach(function (a) {
+        var on = a.getAttribute('data-alvo') === id;
+        a.classList.toggle('is-ativo', on);
+        if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      });
+    }
+    acender(secoes[0].id);
+
+    // Clique: rola até a seção (scroll-margin-top cuida da barra fixa).
+    nav.addEventListener('click', function (e) {
+      var a = e.target.closest('a'); if (!a) return;
+      e.preventDefault();
+      var alvo = document.getElementById(a.getAttribute('data-alvo'));
+      if (alvo) { alvo.scrollIntoView({ behavior: 'smooth', block: 'start' }); acender(alvo.id); }
+    });
+
+    // Rolagem: a seção "atual" é a última cujo título já passou da linha
+    // de leitura (um terço da tela). Simples e sem IntersectionObserver,
+    // que dispara errado com seções de alturas muito diferentes.
+    var ticking = false;
+    function aoRolar() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var linha = window.innerHeight / 3;
+        var atual = secoes[0].id;
+        for (var i = 0; i < secoes.length; i++) {
+          if (secoes[i].getBoundingClientRect().top <= linha) atual = secoes[i].id;
+        }
+        // No fim da página, a última seção ganha mesmo que seja curta.
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+          atual = secoes[secoes.length - 1].id;
+        }
+        acender(atual);
+      });
+    }
+    if (nav._aoRolar) window.removeEventListener('scroll', nav._aoRolar);
+    nav._aoRolar = aoRolar;
+    window.addEventListener('scroll', aoRolar, { passive: true });
+  }
+
   /* Preenche a barra de topo com quem está logado.
      Nome vem de user_metadata.nome (definido no convite ou no perfil);
      sem ele, usa a parte do e-mail antes do @, com inicial maiúscula.
@@ -739,6 +807,7 @@ window.IBPR.painel = (function () {
 
   return {
     montarConta: montarConta,
+    montarSumario: montarSumario,
     iniciarLogin: iniciarLogin,
     iniciarNoticias: iniciarNoticias,
     iniciarNovaSenha: iniciarNovaSenha,

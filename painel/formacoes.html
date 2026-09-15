@@ -11,7 +11,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <link href="../assets/css/tokens.css?v=20260909m" rel="stylesheet"/>
 <link href="../assets/css/components.css?v=20260909m" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260915b" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260915c" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -100,11 +100,13 @@
       </div>
     </div>
 
+    <div class="painel-com-sumario">
+    <nav aria-label="Seções do formulário" class="painel-sumario" id="sumarioFormacao"></nav>
     <form class="painel-card" id="formFormacao" novalidate>
       <input id="formacaoId" type="hidden"/>
 
       <!-- ---------- identidade ---------- -->
-      <h2 class="painel-secao">Identificação</h2>
+      <h2 class="painel-secao" data-sumario="Identificação" id="sec-identificacao">Identificação</h2>
 
       <div class="campo">
         <label for="titulo">Título completo *</label>
@@ -180,7 +182,7 @@
       </div>
 
       <!-- ---------- imagens ---------- -->
-      <h2 class="painel-secao">Fotos</h2>
+      <h2 class="painel-secao" data-sumario="Fotos" id="sec-fotos">Fotos</h2>
 
       <div class="campo">
         <label for="imagemHero">Foto do topo da página</label>
@@ -203,7 +205,7 @@
       </div>
 
       <!-- ---------- conteúdo ---------- -->
-      <h2 class="painel-secao">Conteúdo da página</h2>
+      <h2 class="painel-secao" data-sumario="Conteúdo da página" id="sec-conteudo">Conteúdo da página</h2>
 
       <div class="campo">
         <label for="desenvolver">O que você vai desenvolver</label>
@@ -264,7 +266,7 @@
       </div>
 
       <!-- ---------- SEO ---------- -->
-      <details class="painel-avancado">
+      <details class="painel-avancado" data-sumario="Google e WhatsApp (opcional)" id="sec-google">
         <summary>Textos que só o Google e o WhatsApp leem (opcional)</summary>
         <p class="painel-avancado__nota">Pode deixar tudo em branco. Vazio, o site usa o resumo
           e o "para quem é" que você preencheu acima.</p>
@@ -291,6 +293,7 @@
         <button class="btn btn--fantasma btn--sm" id="btnCancelar" type="button">Cancelar</button>
       </div>
     </form>
+    </div>
   </section>
 
 </main>
@@ -298,8 +301,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
 <script src="../assets/js/supabase-config.js?v=20260909m"></script>
 <script src="../assets/js/supabase-client.js?v=20260909m"></script>
-<script src="assets/painel.js?v=20260915b"></script>
-<script src="assets/painel-formacoes.js?v=20260915b"></script>
+<script src="assets/painel.js?v=20260915c"></script>
+<script src="assets/painel-formacoes.js?v=20260915c"></script>
 <script>
   IBPR.painel.iniciarFormacoes();
 </script>

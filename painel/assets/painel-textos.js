@@ -96,7 +96,8 @@
           paginaAtual = t.pagina;
           secaoAtual = null;
           html += '<section class="painel-pagina">' +
-                  '<h2 class="painel-pagina__nome">' + util.escapar(t.pagina) + '</h2>';
+                  '<h2 class="painel-pagina__nome" data-sumario="' + util.escapar(t.pagina) + '">' +
+                  util.escapar(t.pagina) + '</h2>';
         }
         if (t.secao !== secaoAtual) {
           secaoAtual = t.secao;
@@ -107,6 +108,7 @@
 
       if (paginaAtual !== null) html += '</section>';
       $('lista').innerHTML = html;
+      window.IBPR.painel.montarSumario('sumarioTextos', 'lista', 'Páginas');
     }
 
     function cartao(t) {
