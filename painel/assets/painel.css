@@ -532,79 +532,67 @@ body.painel {
    Abaixo de 960px vira uma linha de atalhos fixa logo abaixo da barra. */
 .painel-com-sumario {
   display: grid;
-  grid-template-columns: 22rem minmax(0, 1fr);
+  grid-template-columns: 21rem minmax(0, 1fr);
   gap: var(--space-xl);
   align-items: start;
 }
+/* Mesmo naipe dos cartões de conteúdo: branco, borda fina, sem sombra.
+   É um índice, não uma vitrine. */
 .painel-sumario {
   position: sticky;
   top: 8.4rem;               /* barra de topo (6.4rem) + respiro */
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm) var(--space-xs);
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) 0.6rem;
 }
 .painel-sumario__titulo {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-overline);
   text-transform: uppercase;
   color: var(--color-mist);
-  margin: 0.2rem 0 var(--space-xs) 1.2rem;
+  margin: 0.4rem 0 0.6rem 1rem;
 }
-.painel-sumario ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
+.painel-sumario ol { list-style: none; margin: 0; padding: 0; }
 .painel-sumario a {
   display: grid;
-  grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+  grid-template-columns: 1.8rem minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: 0.8rem;
-  padding: 0.75rem 1rem 0.75rem 0.9rem;
-  border-radius: var(--radius-md);
-  border-left: 3px solid transparent;
-  font-size: 1.35rem;
+  column-gap: 0.7rem;
+  padding: 0.6rem 0.9rem 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.25rem;
   line-height: 1.3;
   color: var(--color-navy-mid);
-  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+  transition: color var(--transition-fast), background var(--transition-fast);
 }
 .painel-sumario a:hover { color: var(--color-navy); background: var(--color-paper); }
 .painel-sumario a.is-ativo {
   color: var(--color-navy);
   font-weight: var(--weight-semibold);
   background: rgba(var(--navy-rgb), 0.06);
-  border-left-color: var(--color-gold);
 }
 .painel-sumario a:focus-visible { outline: 2px solid var(--color-teal); outline-offset: -2px; }
 .painel-sumario__icone {
   display: inline-grid;
   place-items: center;
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 1.8rem;
   color: var(--color-mist);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
 }
 .painel-sumario a.is-ativo .painel-sumario__icone { color: var(--color-teal); }
 .painel-sumario__num {              /* usado quando não há ícone */
-  display: inline-grid;
-  place-items: center;
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  background: var(--color-mist-bg);
   color: var(--color-mist);
   font-size: 1.1rem;
-  font-weight: var(--weight-semibold);
   font-variant-numeric: tabular-nums;
+  text-align: center;
 }
-.painel-sumario a.is-ativo .painel-sumario__num { background: var(--color-navy); color: var(--color-white); }
 .painel-sumario__info {
   font-size: 1.1rem;
-  font-weight: var(--weight-medium);
   color: var(--color-mist);
-  background: var(--color-mist-bg);
-  border-radius: var(--radius-pill);
-  padding: 0.15rem 0.7rem;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 /* Onde o clique do sumário para: abaixo da barra fixa, não atrás dela. */
 [data-sumario] { scroll-margin-top: 8.4rem; }
@@ -626,7 +614,6 @@ body.painel {
   .painel-sumario {
     border: 0;
     border-radius: 0;
-    box-shadow: none;
   }
   .painel-sumario a {
     display: inline-flex;

@@ -112,7 +112,7 @@
           html += '<section class="painel-pagina">' +
                   '<h2 class="painel-pagina__nome" data-sumario="' + util.escapar(t.pagina) + '"' +
                   ' data-sumario-icone="' + iconePagina(t.pagina) + '"' +
-                  ' data-sumario-info="' + n + (n === 1 ? ' texto' : ' textos') + '">' +
+                  ' data-sumario-info="' + n + '" title="' + n + (n === 1 ? ' texto' : ' textos') + '">' +
                   util.escapar(t.pagina) + '</h2>';
         }
         if (t.secao !== secaoAtual) {
