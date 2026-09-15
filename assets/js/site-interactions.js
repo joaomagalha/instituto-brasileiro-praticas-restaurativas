@@ -55,6 +55,7 @@ const overlay = document.getElementById('overlay');
 
 function openMenu() {
   mobileMenu.classList.add('active');
+  menuBtn.querySelector('i')?.classList.replace('fa-bars', 'fa-xmark');
   overlay.classList.add('active');
   document.body.classList.add('no-scroll');
   menuBtn.setAttribute('aria-expanded', 'true');
@@ -68,6 +69,7 @@ function closeMenu() {
   // pro botão que o abriu.
   if (mobileMenu.contains(document.activeElement)) menuBtn.focus();
   mobileMenu.classList.remove('active');
+  menuBtn.querySelector('i')?.classList.replace('fa-xmark', 'fa-bars');
   overlay.classList.remove('active');
   document.body.classList.remove('no-scroll');
   menuBtn.setAttribute('aria-expanded', 'false');
@@ -76,7 +78,35 @@ function closeMenu() {
 menuBtn?.addEventListener('click', openMenu);
 closeBtn?.addEventListener('click', closeMenu);
 overlay?.addEventListener('click', closeMenu);
-document.querySelectorAll('.mobile-menu__link').forEach(link => link.addEventListener('click', closeMenu));
+document.querySelectorAll('.mobile-menu__link, .mobile-menu__service-link, .mobile-menu__cta')
+  .forEach(link => link.addEventListener('click', closeMenu));
+
+// Foco preso dentro do menu enquanto ele está aberto (é um dialog que
+// cobre a página): Tab no último item volta pro primeiro, Shift+Tab no
+// primeiro vai pro último. Sem isto o foco vazava pro conteúdo escondido.
+mobileMenu?.addEventListener('keydown', (e) => {
+  if (e.key !== 'Tab') return;
+  const focaveis = [...mobileMenu.querySelectorAll('a[href], button:not([disabled])')]
+    .filter(el => el.offsetParent !== null);
+  if (!focaveis.length) return;
+  const primeiro = focaveis[0], ultimo = focaveis[focaveis.length - 1];
+  if (e.shiftKey && document.activeElement === primeiro) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primeiro.focus(); }
+});
+
+// Deslizar pra direita fecha o menu (gesto natural numa gaveta que veio da
+// direita). Só conta um arrasto claramente horizontal, de 60px ou mais.
+let toqueX = null, toqueY = null;
+mobileMenu?.addEventListener('touchstart', (e) => {
+  toqueX = e.touches[0].clientX; toqueY = e.touches[0].clientY;
+}, { passive: true });
+mobileMenu?.addEventListener('touchend', (e) => {
+  if (toqueX === null) return;
+  const dx = e.changedTouches[0].clientX - toqueX;
+  const dy = Math.abs(e.changedTouches[0].clientY - toqueY);
+  toqueX = toqueY = null;
+  if (dx > 60 && dx > dy * 1.5) closeMenu();
+}, { passive: true });
 // O menu é role="dialog" e trava o scroll do body, então Escape tem que sair
 // dele. Mesmo padrão do dropdown da navbar, acima.
 document.addEventListener('keydown', (e) => {

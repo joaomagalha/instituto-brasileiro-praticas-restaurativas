@@ -471,115 +471,192 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 /* ===================================
    MOBILE MENU
 =================================== */
+/* --- Menu mobile (refeito em 16/09/2026): painel de vidro ---
+   Navy translúcido com desfoque do que está atrás, borda interna clara
+   e brilho no topo. Onde não há backdrop-filter, cai no navy sólido.
+   Os itens entram em cascata quando o painel abre; a página atual ganha
+   uma pílula dourada; cada linha tem 52px de toque no mínimo. */
 .mobile-menu {
   position: fixed;
   top: 0; right: 0; bottom: 0;
-  width: 85%;
-  max-width: 34rem;
-  background: var(--color-navy-900);
+  width: 86%;
+  max-width: 36rem;
   z-index: 200;
-  transform: translateX(100%);
-  transition: transform var(--transition-slow);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  border-left: 1px solid rgba(var(--white-rgb), 0.06);
+  overscroll-behavior: contain;
+  background: var(--color-navy-900);
+  border-left: 1px solid rgba(var(--white-rgb), 0.10);
+  box-shadow: -24px 0 60px rgba(var(--navy900-rgb), 0.45);
+  transform: translateX(104%);
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
-
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .mobile-menu {
+    background:
+      linear-gradient(180deg, rgba(var(--white-rgb), 0.06) 0%, rgba(var(--white-rgb), 0) 18rem),
+      rgba(var(--navy900-rgb), 0.72);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+}
 .mobile-menu.active { transform: translateX(0); }
 
 .mobile-menu__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.2rem 2.8rem;
-  border-bottom: 1px solid rgba(var(--white-rgb), 0.06);
+  padding: 2rem 2.4rem 1.6rem;
   flex-shrink: 0;
 }
-
 .mobile-menu__logo { height: 3.2rem; width: auto; }
 
+/* Fechar: botão redondo de vidro. */
 .mobile-menu__close {
-  color: rgba(var(--white-rgb), 0.5);
-  font-size: 1.8rem;
-  padding: var(--space-xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color var(--transition-fast);
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: rgba(var(--white-rgb), 0.85);
+  font-size: 1.6rem;
+  background: rgba(var(--white-rgb), 0.08);
+  border: 1px solid rgba(var(--white-rgb), 0.12);
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
-
-.mobile-menu__close:hover { color: var(--color-white); }
+.mobile-menu__close:hover,
+.mobile-menu__close:active { color: var(--color-white); background: rgba(var(--white-rgb), 0.16); transform: rotate(90deg); }
 
 .mobile-menu__nav {
   flex: 1;
-  padding: var(--space-xl) 2.8rem;
+  padding: 0.8rem 1.6rem 2.4rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-md);
 }
 
-.mobile-menu__links { display: flex; flex-direction: column; }
+.mobile-menu__links { display: flex; flex-direction: column; gap: 0.2rem; }
 
 .mobile-menu__link {
-  font-size: 1.6rem;
-  font-weight: var(--weight-medium);
-  color: var(--color-paper);
-  padding: 1.4rem 0;
+  position: relative;
+  min-height: 5.2rem;
+  padding: 1.2rem 1.4rem 1.2rem 1.6rem;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: color var(--transition-fast);
+  gap: var(--space-sm);
+  font-size: 1.65rem;
+  font-weight: var(--weight-medium);
+  color: rgba(var(--white-rgb), 0.92);
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
-
+/* Seta à direita, no lugar do risco. */
 .mobile-menu__link::after {
-  content: '';
-  width: 1.6rem;
-  height: 1px;
-  background: var(--color-accent);
-  opacity: 0;
-  transition: opacity var(--transition-fast), width var(--transition-fast);
+  content: "\f054";                       /* fa-chevron-right */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: rgba(var(--white-rgb), 0.35);
+  transition: transform var(--transition-fast), color var(--transition-fast);
 }
+.mobile-menu__link:hover,
+.mobile-menu__link:active { background: rgba(var(--white-rgb), 0.08); color: var(--color-white); }
+.mobile-menu__link:hover::after { transform: translateX(3px); color: rgba(var(--white-rgb), 0.7); }
+/* Página atual: pílula dourada translúcida + filete à esquerda. */
+.mobile-menu__link.is-active {
+  color: var(--color-gold);
+  background: rgba(var(--gold-rgb), 0.12);
+}
+.mobile-menu__link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 1.2rem; bottom: 1.2rem;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--color-gold);
+}
+.mobile-menu__link.is-active::after { color: var(--color-gold); }
 
-.mobile-menu__link:hover { color: var(--color-white); }
-.mobile-menu__link:hover::after { opacity: 1; width: 2.4rem; }
-
-/* Página atual: a classe já era aplicada no HTML, mas não tinha estilo —
-   o menu mobile abria sem dizer onde a pessoa está. Mesmo dourado que a
-   nav desktop usa pro item ativo. */
-.mobile-menu__link.is-active { color: var(--color-gold); }
-.mobile-menu__link.is-active::after { opacity: 1; width: 2.4rem; background: var(--color-gold); }
-
-/* Sublista mobile pra itens de dropdown (ex. as 3 subseções de Justiça
-   Restaurativa) — mesmo padrão da referência (Gaia), cores do IBPR. */
-.mobile-menu__divider { height: 1px; background: rgba(var(--white-rgb), 0.06); margin: var(--space-sm) 0; }
+.mobile-menu__divider { height: 1px; background: rgba(var(--white-rgb), 0.10); margin: var(--space-xs) 0.4rem; }
 
 .mobile-menu__section-label {
   font-size: 1.05rem;
   font-weight: var(--weight-semibold);
-  color: var(--color-gold);
+  color: rgba(var(--gold-rgb), 0.9);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: var(--space-xs);
+  letter-spacing: 0.1em;
+  margin: 0 0 0.4rem 1.6rem;
 }
 
 .mobile-menu__service-list { display: flex; flex-direction: column; }
-
 .mobile-menu__service-link {
-  font-size: 1.45rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 4.4rem;
+  padding: 0.9rem 1.4rem 0.9rem 1.6rem;
+  border-radius: var(--radius-md);
+  font-size: 1.4rem;
   font-weight: var(--weight-regular);
-  color: rgba(var(--white-rgb), 0.55);
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(var(--white-rgb), 0.05);
-  display: block;
-  transition: color var(--transition-fast);
+  color: rgba(var(--white-rgb), 0.66);
+  line-height: 1.35;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
+.mobile-menu__service-link::before {
+  content: "";
+  flex: 0 0 0.5rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(var(--white-rgb), 0.28);
+  transition: background var(--transition-fast);
+}
+.mobile-menu__service-link:hover,
+.mobile-menu__service-link:active { background: rgba(var(--white-rgb), 0.07); color: var(--color-white); }
+.mobile-menu__service-link:hover::before { background: var(--color-teal); }
 
-.mobile-menu__service-link:hover { color: var(--color-white); }
-
-.mobile-menu__footer { padding: 2.4rem 2.8rem; border-top: 1px solid rgba(var(--white-rgb), 0.06); flex-shrink: 0; }
+.mobile-menu__footer { padding: 1.6rem 2.4rem 2.4rem; border-top: 1px solid rgba(var(--white-rgb), 0.10); flex-shrink: 0; }
 .mobile-menu__cta { width: 100%; justify-content: center; gap: var(--space-sm); }
+
+/* Cascata: os itens entram um pouco depois do painel, cada um 40ms
+   depois do anterior. Só quando o menu está aberto. */
+.mobile-menu .mobile-menu__link,
+.mobile-menu .mobile-menu__section-label,
+.mobile-menu .mobile-menu__service-link,
+.mobile-menu .mobile-menu__footer {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease, background var(--transition-fast), color var(--transition-fast);
+}
+.mobile-menu.active .mobile-menu__link,
+.mobile-menu.active .mobile-menu__section-label,
+.mobile-menu.active .mobile-menu__service-link,
+.mobile-menu.active .mobile-menu__footer { opacity: 1; transform: none; }
+.mobile-menu.active .mobile-menu__links li:nth-child(1) .mobile-menu__link { transition-delay: 0.10s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(2) .mobile-menu__link { transition-delay: 0.14s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(3) .mobile-menu__link { transition-delay: 0.18s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(4) .mobile-menu__link { transition-delay: 0.22s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(5) .mobile-menu__link { transition-delay: 0.26s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(6) .mobile-menu__link { transition-delay: 0.30s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(7) .mobile-menu__link { transition-delay: 0.34s; }
+.mobile-menu.active .mobile-menu__section-label { transition-delay: 0.38s; }
+.mobile-menu.active .mobile-menu__service-link { transition-delay: 0.42s; }
+.mobile-menu.active .mobile-menu__footer { transition-delay: 0.46s; }
+
+/* Hambúrguer vira X quando o menu está aberto. */
+.navbar__mobile-btn i { transition: transform 0.3s ease; }
+.navbar__mobile-btn[aria-expanded="true"] i { transform: rotate(90deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu { transition: none; }
+  .mobile-menu .mobile-menu__link, .mobile-menu .mobile-menu__section-label,
+  .mobile-menu .mobile-menu__service-link, .mobile-menu .mobile-menu__footer { transition: none; opacity: 1; transform: none; }
+  .mobile-menu.active * { transition-delay: 0s !important; }
+}
 
 /* ===================================
    OVERLAY
@@ -587,8 +664,9 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(var(--navy900-rgb), 0.55);
-  backdrop-filter: blur(2px);
+  background: rgba(var(--navy900-rgb), 0.45);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
   z-index: 150;
   opacity: 0;
   pointer-events: none;
