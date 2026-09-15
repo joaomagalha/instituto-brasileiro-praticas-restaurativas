@@ -38,7 +38,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260910b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260910b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260915a" rel="stylesheet"/>
+<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
+<link as="image" fetchpriority="high" href="assets/images/formacoes/formacoes-hero.jpg" rel="preload"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: esta é a página-índice, então o ItemList aponta pras
      4 páginas de curso, onde cada uma tem seu próprio schema Course completo. -->
@@ -237,7 +239,7 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#formacoes"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Formações" class="page-hero page-hero--formacoes">
+<section aria-label="Formações" class="page-hero page-hero--formacoes" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwADAAAAAAAAAAAAAAAAAAQFAgMG/8QAJBAAAgIBBAIBBQAAAAAAAAAAAQIDEQAEBRIhE0EiFDEzkbH/xAAWAQEBAQAAAAAAAAAAAAAAAAACAwT/xAAbEQADAAIDAAAAAAAAAAAAAAAAARECQRIhMf/aAAwDAQACEQMRAD8AsaWCCD4s4sC/k2ZtqI4dSSzjiqdC/d3nLRz/AFEqMVU2vAKT12cuQ8fGKCB+FAlusypuwvFKLHfZl3R2WMNQ4X6AP99YHenh1U0piuSUCxdca6zc0Ucs6qyeSls8T7yc+3SatSvEoVW+ak39+rxd0PFJC2kUBFoD9Y+AC4sYYYdi0P6UASCgBjGi/LLhhlcA5eH/2Q==')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="index.html#formacoes"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>

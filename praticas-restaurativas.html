@@ -38,7 +38,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260910b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260910b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260915a" rel="stylesheet"/>
+<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
+<link as="image" fetchpriority="high" href="assets/images/praticas-restaurativas-hero.jpg" rel="preload"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 
 <!-- Medição de uso (Microsoft Clarity): gravação de sessão e mapa de calor,
@@ -144,7 +146,7 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#proposito"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Práticas Restaurativas" class="page-hero page-hero--praticas">
+<section aria-label="Práticas Restaurativas" class="page-hero page-hero--praticas" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQFBgECA//EACcQAAICAgECBAcAAAAAAAAAAAECAAMRIQQSMQUGExQiQVFhscHh/8QAGAEAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAXEQEBAQEAAAAAAAAAAAAAAAAAASFx/9oADAMBAAIRAxEAPwBmrhkx+jgdsmQnhvilr0L6wUWjTDH9jV/JtuCAWBMNnRx+5zttSSLxV5xW2xTXXWXb4tTl6fHTzOjLhcIGVQdYAlYt4jOzqtwBALdOO++2Zt0c33x6iGcKAFyRnIBlRPUbTotj6R+onW4QgIy270zvY/MsKqp8ybUdh8vtCEcKv//Z')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="index.html#proposito"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
@@ -202,10 +204,9 @@
 <section aria-label="Como funciona" class="section section--dark">
 <div aria-hidden="true" class="proposito__glow"></div>
 <div class="container" style="position:relative;z-index:1">
-<div class="section-header section-header--dark section__head" data-aos="fade-up">
-<p class="overline overline--light">Como funciona</p>
-<h2>O que sustenta um processo restaurativo.</h2>
-</div>
+<!-- Título de bloco pequeno, igual às outras faixas escuras da página
+     (padronização 15/09). A frase é a do grupo; só saiu o kicker. -->
+<h3 class="block-title">O que sustenta um processo restaurativo</h3>
 <div class="card-grid card-grid--4">
 <article class="info-card" data-aos="fade-up">
 <h3 class="info-card__title">Protagonismo dos interessados</h3>
@@ -228,8 +229,9 @@
 </section>
 
 <!-- 2. justiça restaurativa na educação -->
-<section aria-label="Práticas Restaurativas na Educação" class="section section--paper" id="educacao">
-<div class="container">
+<section aria-label="Práticas Restaurativas na Educação" class="section section--white" id="educacao">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
 <div class="section-header section__head" data-aos="fade-up">
 <p class="overline overline--light">Na Educação</p>
 <h2>Muito além da resolução de conflitos.</h2>
@@ -260,7 +262,7 @@
 <div class="container" style="position:relative;z-index:1">
 <h3 class="block-title">Como o IBPR pode apoiar sua instituição</h3>
 <div class="prose support-panel__intro"><p>Cada instituição possui uma realidade própria. Por isso, nossas soluções são desenvolvidas de forma personalizada, considerando os desafios, objetivos e características de cada comunidade escolar.</p></div>
-<div class="support-grid support-grid--2-3">
+<div class="support-grid support-grid--3-2">
 <article class="info-card" data-aos="fade-up"><h3 class="info-card__title">Formação</h3><p class="info-card__desc">Professores, gestores e equipes escolares preparados para integrar práticas restaurativas ao cotidiano da escola e fortalecer a cultura de convivência.</p></article>
 <article class="info-card" data-aos="fade-up" data-aos-delay="70"><h3 class="info-card__title">Implantação</h3><p class="info-card__desc">Programas restaurativos do diagnóstico institucional ao planejamento, à definição de protocolos, à formação das equipes e ao acompanhamento dos resultados.</p></article>
 <article class="info-card" data-aos="fade-up" data-aos-delay="140"><h3 class="info-card__title">Capacitação</h3><p class="info-card__desc">Facilitadores internos formados para que a própria instituição ganhe autonomia para conduzir práticas restaurativas.</p></article>
@@ -290,7 +292,16 @@
 <p>Essas práticas continuarão existindo, mas a maneira de realizá-las pode ser influenciada pelo referencial restaurativo. Uma decisão pode continuar precisando ser tomada, uma regra aplicada ou um limite imposto. O que pode mudar é o modo como isso é feito, as pessoas que são consideradas nesse processo, as consequências às quais se presta atenção e as possibilidades de participação e responsabilização que são criadas.</p>
 <p>As práticas restaurativas podem, assim, estar presentes tanto na criação e no aperfeiçoamento de processos destinados a casos concretos quanto na incorporação do referencial restaurativo ao fazer cotidiano das instituições. São duas possibilidades de aplicação de uma mesma perspectiva, capazes de alcançar diferentes dimensões do funcionamento do sistema de justiça e do sistema prisional.</p>
 </div>
-<div class="card-grid card-grid--3" style="margin-top:var(--space-2xl)">
+</div>
+</section>
+
+<!-- Faixa escura própria pros cards, mesma linguagem da Educação e de
+     "O que sustenta um processo restaurativo" (padronização 15/09). -->
+<section aria-label="Como o IBPR pode apoiar sua instituição na Justiça e no Sistema Prisional" class="section section--dark">
+<div aria-hidden="true" class="proposito__glow"></div>
+<div class="container" style="position:relative;z-index:1">
+<h3 class="block-title">Como o IBPR pode apoiar sua instituição</h3>
+<div class="card-grid card-grid--3">
 <article class="info-card" data-aos="fade-up">
 <h3 class="info-card__title">Formação para atuação em casos concretos</h3>
 <p class="info-card__desc">Capacitação de magistrados, membros do Ministério Público, defensores públicos, policiais, policiais penais, gestores e servidores para utilização de práticas restaurativas em casos individuais, desenvolvendo competências para condução, encaminhamento e acompanhamento de procedimentos restaurativos.</p>
@@ -316,14 +327,13 @@
 <p class="info-card__desc">Desenvolvimento de conhecimentos e formas de atuação que permitam incorporar princípios restaurativos às atividades cotidianas do sistema de justiça e do sistema prisional, ampliando o repertório de respostas dos profissionais para lidar com as situações concretas que fazem parte de seu trabalho e criando possibilidades de alcançar resultados diferentes daqueles produzidos pelas formas habituais de atuação.</p>
 </article>
 </div>
-<div class="block" data-aos="fade-up" style="margin-top:var(--space-2xl)">
-</div>
 </div>
 </section>
 
 <!-- 4. práticas restaurativas nas empresas -->
-<section aria-label="Práticas Restaurativas nas Empresas" class="section section--mist" id="empresas">
-<div class="container">
+<section aria-label="Práticas Restaurativas nas Empresas" class="section section--white" id="empresas">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
 <div class="section-header section__head" data-aos="fade-up">
 <p class="overline overline--light">Nas Empresas</p>
 <!-- Título e subtítulo fundidos num texto só, a pedido do grupo (05/09),
@@ -334,6 +344,30 @@
 <p>Divergências, falhas de comunicação, decisões difíceis, disputas, mudanças, relações de liderança e situações de conflito fazem parte do cotidiano do trabalho e influenciam tanto as relações quanto a forma como o trabalho é realizado.</p>
 <p>As práticas restaurativas oferecem conhecimentos e formas de atuação que podem ser incorporados a esse cotidiano. Podem ajudar equipes e lideranças a enfrentar situações difíceis antes que se transformem em rupturas, criar melhores condições para tratar conflitos quando eles surgem e construir respostas quando uma conduta ou decisão produz danos às pessoas ou à própria organização.</p>
 <p>Relações de trabalho deterioradas, conflitos recorrentes, situações de assédio, dificuldades na atuação das lideranças, falta de apoio e problemas na forma como equipes lidam com tensões podem afetar as pessoas, o ambiente de trabalho e o próprio funcionamento da organização. Nessas situações, as práticas restaurativas podem ajudar a compreender o que está sustentando determinados conflitos, identificar quem está sendo afetado, estabelecer responsabilidades e construir, com as pessoas envolvidas, caminhos possíveis para seguir adiante.</p>
+</div>
+</div>
+</section>
+
+<!-- Faixa escura própria pros 3 quadros (padronização 15/09). O título de
+     bloco é descritivo: os quadros são situações, não serviços. -->
+<section aria-label="Situações de trabalho em que as práticas restaurativas podem ajudar" class="section section--dark">
+<div aria-hidden="true" class="proposito__glow"></div>
+<div class="container" style="position:relative;z-index:1">
+<h3 class="block-title">Situações em que as práticas restaurativas podem ajudar</h3>
+<!-- Os 3 quadros vieram prontos no Word da Fernanda (13/09), texto dela. -->
+<div class="card-grid card-grid--3">
+<article class="info-card" data-aos="fade-up">
+<h3 class="info-card__title">Conflitos e relações de trabalho</h3>
+<p class="info-card__desc">Conflitos recorrentes, falhas de comunicação e relações deterioradas que afetam as equipes e o funcionamento da organização.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="80">
+<h3 class="info-card__title">Lideranças, apoio e ambiente de trabalho</h3>
+<p class="info-card__desc">Dificuldades na atuação das lideranças, falta de apoio, mudanças e formas de organização do trabalho que geram tensão e desgaste nas equipes.</p>
+</article>
+<article class="info-card" data-aos="fade-up" data-aos-delay="160">
+<h3 class="info-card__title">Assédio, violência e situações de dano</h3>
+<p class="info-card__desc">Situações de assédio, violência ou outras condutas que produzem danos e exigem respostas capazes de estabelecer responsabilidades e prevenir novas ocorrências.</p>
+</article>
 </div>
 </div>
 </section>

@@ -31,7 +31,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260910b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260910b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260915a" rel="stylesheet"/>
+<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
+<link as="image" fetchpriority="high" href="https://www.ibpr.com.br/assets/images/formacoes/execucao-penal.jpg?v=2" rel="preload"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <script type="application/ld+json">
 {
@@ -169,7 +171,7 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="formacoes.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Justiça Restaurativa aplicada à Execução Penal" class="page-hero page-hero--course" style="--course-hero: url('https://www.ibpr.com.br/assets/images/formacoes/execucao-penal.jpg?v=2')">
+<section aria-label="Justiça Restaurativa aplicada à Execução Penal" class="page-hero page-hero--course" style="--course-hero: url('https://www.ibpr.com.br/assets/images/formacoes/execucao-penal.jpg?v=2'); --hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAIDBAUGB//EACYQAAIBBAIBAgcAAAAAAAAAAAECAAMEESESMYETIgUUQWGCofD/xAAVAQEBAAAAAAAAAAAAAAAAAAACA//EABkRAAMBAQEAAAAAAAAAAAAAAAABAiFREv/aAAwDAQACEQMRAD8As6VWiuAzqSB9CMH9yWtWlgFWp+WE5pQqVFcke8HpWOpY2vzFRRz4UzjsAe6Sq30pMLhu9uSVZfxaVPwy4vr64uUuERUpaHFTknP3mePrqT6wRgNgqcZ/tyE93VQVA3MK2yvJiCfBk3NUnpT0pawVY6t2I7z34j1IngNwhGEUxPGQbjowhHIKP//Z')">
 <div class="container">
 <a class="page-back" data-voltar href="formacoes.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
 <h1 data-aos="fade-up">Justiça Restaurativa aplicada à Execução Penal</h1>

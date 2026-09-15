@@ -40,8 +40,8 @@ insert into public.textos (
     'home-proposito-sub', 'index.html',
     'Página inicial', 'Nosso propósito', 'Texto de apoio', null,
     'texto', 3,
-    'No IBPR, esses três caminhos andam juntos: a pesquisa embasa a formação, e a formação abre espaço para novas soluções.',
-    'No IBPR, esses três caminhos andam juntos: a pesquisa embasa a formação, e a formação abre espaço para novas soluções.'
+    'No IBPR, esses três caminhos andam juntos.',
+    'No IBPR, esses três caminhos andam juntos.'
   ),
   (
     'home-citacao', 'index.html',
@@ -75,8 +75,8 @@ insert into public.textos (
     'instituto-hero-sub', 'o-instituto.html',
     'O Instituto', 'Topo da página', 'Texto de apoio', null,
     'texto', 8,
-    'Conflitos e danos fazem parte da vida. A forma como respondemos a eles pode fortalecer pessoas e instituições.',
-    'Conflitos e danos fazem parte da vida. A forma como respondemos a eles pode fortalecer pessoas e instituições.'
+    'A forma como lidamos com conflitos e danos pode mudar relações e instituições.',
+    'A forma como lidamos com conflitos e danos pode mudar relações e instituições.'
   ),
   (
     'instituto-missao-titulo', 'o-instituto.html',

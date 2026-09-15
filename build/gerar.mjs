@@ -45,6 +45,16 @@ function absoluto(caminho) {
   return /^https?:\/\//.test(caminho) ? caminho : `${SITE}/${String(caminho).replace(/^\/+/, '')}`;
 }
 
+/* Miniaturas base64 das fotos de hero, chaveadas pelo caminho relativo da
+   foto (sem ?v=). Gerado por build/dev/lqip.py; se o arquivo não existir,
+   nenhuma página ganha placeholder e nada quebra. */
+let LQIP = {};
+try { LQIP = JSON.parse(await readFile(path.join(RAIZ, 'build/lqip.json'), 'utf8')); } catch { LQIP = {}; }
+function lqipDe(caminho) {
+  const chave = String(caminho).replace(/^https?:\/\/[^/]+\//, '').replace(/^\/+/, '').split('?')[0];
+  return LQIP[chave] ? `url('${LQIP[chave]}')` : 'none';
+}
+
 const escritos = new Set();
 let apagados = 0;
 
@@ -674,6 +684,10 @@ async function gerarFormacoes(cfg) {
          "assets/images/x.jpg" viraria "assets/css/assets/images/x.jpg" e a
          foto não carregaria. Conferido no navegador, não só no código. */
       .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(f.imagem_hero_url || IMAGEM_PADRAO)))
+      /* Placeholder da foto do topo (ver build/dev/lqip.py). Só existe pras
+         fotos do repositório; foto enviada pelo painel cai em "none", e a
+         página mostra o gradiente azul até a foto chegar, como antes. */
+      .replaceAll('{{LQIP}}', () => lqipDe(f.imagem_hero_url || IMAGEM_PADRAO))
       .replaceAll('{{META_AREA}}', () => f.area
         ? `<span class="course-meta__item"><i aria-hidden="true" class="fa-solid ${esc(f.area_icone || 'fa-shapes')}"></i>${esc(f.area)}</span>\n`
         : '')
@@ -846,8 +860,8 @@ async function gerarPessoas(cfg) {
      iria junto, em vez de sobrar sozinho em cima do vazio. */
   inst = trocarRegiao(inst, 'pessoas-rede', rede.length
     ? `<div class="section-header founders__header founders__subhead" data-aos="fade-up">
-<p class="overline overline--light">Rede em formação</p>
-<h2>Quem já se juntou a este propósito.</h2>
+<p class="overline overline--light">Quem já se juntou a este propósito</p>
+<h2>Quem constrói o IBPR.</h2>
 </div>
 <div class="founders__list">
 ${listaPessoas(rede, true)}

@@ -38,7 +38,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260910b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260910b" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260915a" rel="stylesheet"/>
+<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
+<link as="image" fetchpriority="high" href="assets/images/como-atuamos-hero.jpg" rel="preload"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 
 <!-- Medição de uso (Microsoft Clarity): gravação de sessão e mapa de calor,
@@ -144,7 +146,7 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#solucoes-preview"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Como Atuamos" class="page-hero page-hero--como-atuamos">
+<section aria-label="Como Atuamos" class="page-hero page-hero--como-atuamos" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFBgP/xAAnEAACAgIABAUFAAAAAAAAAAABAgMRAAQFEhMxBiEiQlEyYXGCwf/EABcBAAMBAAAAAAAAAAAAAAAAAAECAwT/xAAYEQEAAwEAAAAAAAAAAAAAAAAAAQIRMf/aAAwDAQACEQMRAD8Aeg1rA8sdh1l72tXXfJcPE6Xs5/UDImu+wkzhZAYzKrgWbJHzX5zJENOtvFpxzc9y+m6AWvjOHD9SJ9luuOogBNL5Zn11eITRxGK1VXc+piB9jlbR1NwRlIpo+cA/Q39GHA1P01UvGCoIK/GPbCrDCDEojN+0Vhhk5PCXzu5iLuzHnPc3lzw8T1W8/bhhlKdJbj//2Q==')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="index.html#solucoes-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
@@ -156,7 +158,7 @@
 <section aria-labelledby="titulo-relacoes" class="section section--white" id="solucao-relacoes">
 <div class="container">
 <div class="proj-card proj-card--featured proj-card--bare" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
-<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/relacoes.jpg?v=2"/>
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/relacoes.jpg?v=3"/>
 <div aria-hidden="true" class="proj-card__overlay"></div>
 <div class="proj-card__body"><h2 class="proj-card__name" id="titulo-relacoes">Fortalecendo relações</h2><p class="proj-card__desc"><!-- CMS:texto:atuamos-bloco-relacoes -->Construir vínculos mais saudáveis entre pessoas, famílias e comunidades.<!-- /CMS:texto:atuamos-bloco-relacoes --></p></div>
 </div>
@@ -180,7 +182,7 @@
 <section aria-labelledby="titulo-necessidades" class="section section--paper" id="solucao-necessidades">
 <div class="container">
 <div class="proj-card proj-card--featured proj-card--bare" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
-<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/necessidades.jpg"/>
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/necessidades.jpg?v=2"/>
 <div aria-hidden="true" class="proj-card__overlay"></div>
 <div class="proj-card__body"><h2 class="proj-card__name" id="titulo-necessidades">Compreendendo necessidades</h2><p class="proj-card__desc"><!-- CMS:texto:atuamos-bloco-respostas -->Olhamos para as situações pelo modo como afetam as pessoas, revelando danos, perspectivas e necessidades.<!-- /CMS:texto:atuamos-bloco-respostas --></p></div>
 </div>
@@ -204,7 +206,7 @@
 <section aria-labelledby="titulo-acao" class="section section--white" id="solucao-acao">
 <div class="container">
 <div class="proj-card proj-card--featured proj-card--bare" data-aos="fade-up" style="margin-bottom:var(--space-2xl)">
-<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/acao.jpg"/>
+<img alt="" aria-hidden="true" class="proj-card__photo" loading="lazy" src="assets/images/solucoes/acao.jpg?v=2"/>
 <div aria-hidden="true" class="proj-card__overlay"></div>
 <div class="proj-card__body"><h2 class="proj-card__name" id="titulo-acao">Mobilizando para a ação</h2><p class="proj-card__desc"><!-- CMS:texto:atuamos-bloco-instituicoes -->Quem pode contribuir para atender às necessidades geradas pelos danos e o que precisa mudar nas relações?<!-- /CMS:texto:atuamos-bloco-instituicoes --></p></div>
 </div>

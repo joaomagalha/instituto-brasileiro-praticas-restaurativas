@@ -2286,6 +2286,20 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    não ficar atrás da navbar fixa (~7.6rem de altura real).
 =================================== */
 .page-hero { padding: calc(var(--space-4xl) + 7.6rem) 0 var(--space-4xl); background: linear-gradient(165deg, var(--color-navy) 0%, var(--color-navy-900) 100%); position: relative; overflow: hidden; }
+/* Placeholder da foto do hero (LQIP). A foto de verdade é background do
+   ::before, e o navegador só a pede depois do CSS e do layout; até chegar,
+   aparecia o gradiente azul. A página embute em --hero-lqip uma miniatura
+   de 32 px da mesma foto (~650 bytes, gerada por build/dev/lqip.py), que
+   fica por baixo, esticada e suavizada pelo próprio navegador. Quando a
+   foto nítida chega, cobre a miniatura sem pulo. Sem a variável, cai no
+   gradiente de sempre. */
+.page-hero { --hero-lqip: none; }
+.page-hero--course, .page-hero--formacoes, .page-hero--como-atuamos,
+.page-hero--o-instituto, .page-hero--praticas, .page-hero--ibpr-movimento {
+  background-image: var(--hero-lqip), linear-gradient(165deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+  background-size: cover;
+  background-position: center;
+}
 
 .page-hero__glow {
   position: absolute;
