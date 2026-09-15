@@ -3511,21 +3511,20 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* --- Página de leitura de uma notícia (noticia.html) ---
    Conteúdo vem do CMS. Só duas peças de encaixe: a foto de abertura e o
    fecho com o link de volta. O corpo usa .prose, que já existe. */
-/* --- Página de leitura de uma notícia (refino de 15/09/2026) ---
-   Foto na largura toda da medida (92rem); texto numa coluna de leitura
-   mais estreita (68rem, ~72 caracteres por linha), centrada. Corpo em
-   tinta escura, entrelinha 1,75 e 2,4rem entre parágrafos: é matéria,
-   não texto de apoio. Vale pra toda notícia gerada pelo build. */
-.noticia-figura { margin: 0 0 var(--space-2xl); }
+/* --- Página de leitura de uma notícia ---
+   Conteúdo vem do CMS. O corpo usa .prose como está no resto do site (o
+   João preferiu o texto do jeito original, 15/09). O refino fica nos
+   detalhes: foto com cantos arredondados e sombra leve, legenda com um
+   filete curto em petróleo. */
+.noticia-figura { margin: 0 0 var(--space-xl); }
 .noticia-figura__moldura {
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 16 / 9;
   background: var(--color-mist-bg);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 .noticia-figura img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* Legenda + crédito: filete curto em petróleo antes do texto, cinza, 13px. */
 .noticia-figura__legenda {
   display: flex;
   align-items: flex-start;
@@ -3544,56 +3543,22 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   background: var(--color-teal);
   border-radius: 1px;
 }
-
-/* Coluna de leitura */
-.noticia-artigo__texto {
-  max-width: 68rem;
-  margin-inline: auto;
-}
-.noticia-artigo__texto p {
-  font-size: 1.8rem;
-  line-height: 1.75;
-  color: var(--color-ink);
-  text-wrap: pretty;
-}
-.noticia-artigo__texto p + p { margin-top: 2.4rem; }
-/* Abertura: o primeiro parágrafo um pouco maior e em navy, sem negrito. */
-.noticia-artigo__texto p:first-child {
-  font-size: 2rem;
-  line-height: 1.6;
-  color: var(--color-navy);
-}
-
-/* "Com informações de X": bloco discreto com borda esquerda em petróleo,
-   na mesma coluna do texto. */
+/* "Com informações de X": fecho discreto, antes do link de voltar. */
 .noticia-fonte {
-  max-width: 68rem;
-  margin: var(--space-xl) auto 0;
-  padding: var(--space-sm) var(--space-md);
-  border-left: 3px solid var(--color-teal);
-  background: var(--color-white);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  font-size: 1.4rem;
-  color: var(--color-navy-mid);
+  margin-top: var(--space-lg);
+  font-size: 1.35rem;
+  color: var(--color-mist);
 }
-.noticia-fonte a { color: var(--color-teal); font-weight: var(--weight-semibold); border-bottom: 1px solid rgba(var(--teal-rgb), 0.35); transition: border-color var(--transition-fast); }
+.noticia-fonte a { color: var(--color-teal); font-weight: var(--weight-medium); border-bottom: 1px solid rgba(var(--teal-rgb), 0.35); }
 .noticia-fonte a i { font-size: 1.05rem; margin-left: 0.4rem; }
 .noticia-fonte a:hover { border-bottom-color: var(--color-teal); }
-
-/* Fecho: divisor fino e o link de voltar com respiro. */
 .noticia-fim {
-  max-width: 68rem;
-  margin: var(--space-2xl) auto 0;
+  margin-top: var(--space-2xl);
   padding-top: var(--space-lg);
   border-top: 1px solid var(--color-border-light);
 }
-
 @media (max-width: 767px) {
-  .noticia-figura { margin-bottom: var(--space-xl); }
   .noticia-figura__moldura { border-radius: var(--radius-md); }
-  .noticia-artigo__texto p { font-size: 1.7rem; line-height: 1.7; }
-  .noticia-artigo__texto p + p { margin-top: 2rem; }
-  .noticia-artigo__texto p:first-child { font-size: 1.85rem; }
 }
 
 /* IBPR em Movimento — enquanto não há post real, a seção fecha com a legenda
