@@ -2715,6 +2715,101 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 @media (min-width: 768px) { .footer__container { flex-direction: row; justify-content: space-between; gap: var(--space-2xl); } .footer__nav { flex-direction: row; gap: var(--space-3xl); } .footer__bottom-container { flex-direction: row; justify-content: space-between; align-items: center; } }
 
+/* --- Rodapé claro, cartão flutuante (16/09/2026; só na Home até aprovação) ---
+   Fundo claro contínuo com o CTA final, cartão branco com borda fina e
+   sombra leve, "IBPR" gigante e esmaecido atrás, espiando por baixo do
+   cartão. Quatro colunas no desktop (marca + 3 de links), empilhadas no
+   celular. Linha final com direitos, CNPJ e política. */
+.footer--claro {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-paper);
+  border-top: 0;
+  padding: var(--space-3xl) 0 clamp(9rem, 14vw, 16rem);
+}
+.footer--claro .container { position: relative; z-index: 1; }
+.footer__marca-agua {
+  position: absolute;
+  left: 50%;
+  bottom: -0.22em;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  font-size: clamp(9rem, 26vw, 30rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: rgba(var(--navy-rgb), 0.06);
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.footer__cartao {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: clamp(2.4rem, 4vw, 4rem);
+}
+.footer__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+.footer--claro .footer__logo { height: 4rem; width: auto; }
+.footer--claro .footer__brand-desc { color: var(--color-navy-mid); font-size: 1.35rem; max-width: 34rem; margin-top: var(--space-md); }
+.footer--claro .footer__social { margin-top: var(--space-lg); }
+.footer--claro .footer__social-link {
+  width: 3.6rem; height: 3.6rem;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-paper);
+  color: var(--color-navy-mid);
+  font-size: 1.5rem;
+}
+.footer--claro .footer__social-link:hover { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); transform: translateY(-2px); }
+.footer--claro .footer__social-link.is-pending,
+.footer--claro .footer__social-link.is-pending:hover { background: var(--color-paper); border-color: var(--color-border-light); color: var(--color-mist); transform: none; cursor: default; }
+
+.footer--claro .footer__nav { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl) var(--space-lg); }
+.footer--claro .footer__col-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  text-transform: none;
+  letter-spacing: var(--tracking-snug);
+  margin-bottom: var(--space-sm);
+}
+.footer--claro .footer__links { gap: 0.9rem; }
+.footer--claro .footer__link { color: var(--color-navy-mid); font-size: 1.35rem; }
+.footer--claro .footer__link:hover { color: var(--color-teal); }
+.footer--claro .footer__link i { color: var(--color-teal); font-size: 1.2rem; }
+.footer--claro .footer__link--todas { color: var(--color-teal); font-weight: var(--weight-medium); margin-top: 0.2rem; }
+.footer__endereco { display: flex; align-items: center; gap: var(--space-xs); font-size: 1.35rem; color: var(--color-navy-mid); }
+.footer__endereco i { color: var(--color-teal); font-size: 1.2rem; width: 1.8rem; }
+
+.footer--claro .footer__bottom {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-xs);
+}
+.footer--claro .footer__copy { color: var(--color-navy-mid); font-size: 1.2rem; }
+.footer--claro .footer__legal { color: var(--color-mist); font-size: 1.15rem; }
+.footer__legal-links { display: flex; gap: var(--space-md); list-style: none; margin: 0; padding: 0; }
+.footer__legal-links a { font-size: 1.2rem; color: var(--color-navy-mid); border-bottom: 1px solid rgba(var(--navy-rgb), 0.25); transition: color var(--transition-fast), border-color var(--transition-fast); }
+.footer__legal-links a:hover { color: var(--color-teal); border-color: var(--color-teal); }
+
+@media (min-width: 768px) {
+  .footer__grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr); gap: var(--space-3xl); align-items: start; }
+  .footer--claro .footer__nav { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
+  .footer--claro .footer__bottom { grid-template-columns: 1fr auto; align-items: center; }
+  .footer--claro .footer__legal { grid-column: 1 / -1; }
+  .footer--claro .footer__legal-links { justify-self: end; }
+  .footer--claro .footer__copy { grid-row: 1; }
+  .footer--claro .footer__legal-links { grid-row: 1; }
+}
+@media (min-width: 1024px) {
+  .footer__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.2fr); }
+}
+
 /* ===================================
    CHIP / PILLAR — usado na demo de badges
 =================================== */
