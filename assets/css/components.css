@@ -623,29 +623,30 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .mobile-menu__cta { width: 100%; justify-content: center; gap: var(--space-sm); }
 
 /* Cascata: os itens entram um pouco depois do painel, cada um 40ms
-   depois do anterior. Só quando o menu está aberto. */
-.mobile-menu .mobile-menu__link,
-.mobile-menu .mobile-menu__section-label,
-.mobile-menu .mobile-menu__service-link,
-.mobile-menu .mobile-menu__footer {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease, background var(--transition-fast), color var(--transition-fast);
+   depois do anterior. É uma ANIMAÇÃO (roda só ao abrir), não transição
+   com delay: assim o hover continua instantâneo. */
+@keyframes mobile-menu-entra {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
+.mobile-menu:not(.active) .mobile-menu__link,
+.mobile-menu:not(.active) .mobile-menu__section-label,
+.mobile-menu:not(.active) .mobile-menu__service-link,
+.mobile-menu:not(.active) .mobile-menu__footer { opacity: 0; }
 .mobile-menu.active .mobile-menu__link,
 .mobile-menu.active .mobile-menu__section-label,
 .mobile-menu.active .mobile-menu__service-link,
-.mobile-menu.active .mobile-menu__footer { opacity: 1; transform: none; }
-.mobile-menu.active .mobile-menu__links li:nth-child(1) .mobile-menu__link { transition-delay: 0.10s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(2) .mobile-menu__link { transition-delay: 0.14s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(3) .mobile-menu__link { transition-delay: 0.18s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(4) .mobile-menu__link { transition-delay: 0.22s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(5) .mobile-menu__link { transition-delay: 0.26s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(6) .mobile-menu__link { transition-delay: 0.30s; }
-.mobile-menu.active .mobile-menu__links li:nth-child(7) .mobile-menu__link { transition-delay: 0.34s; }
-.mobile-menu.active .mobile-menu__section-label { transition-delay: 0.38s; }
-.mobile-menu.active .mobile-menu__service-link { transition-delay: 0.42s; }
-.mobile-menu.active .mobile-menu__footer { transition-delay: 0.46s; }
+.mobile-menu.active .mobile-menu__footer { animation: mobile-menu-entra 0.35s ease both; }
+.mobile-menu.active .mobile-menu__links li:nth-child(1) .mobile-menu__link { animation-delay: 0.10s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(2) .mobile-menu__link { animation-delay: 0.14s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(3) .mobile-menu__link { animation-delay: 0.18s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(4) .mobile-menu__link { animation-delay: 0.22s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(5) .mobile-menu__link { animation-delay: 0.26s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(6) .mobile-menu__link { animation-delay: 0.30s; }
+.mobile-menu.active .mobile-menu__links li:nth-child(7) .mobile-menu__link { animation-delay: 0.34s; }
+.mobile-menu.active .mobile-menu__section-label { animation-delay: 0.38s; }
+.mobile-menu.active .mobile-menu__service-link { animation-delay: 0.42s; }
+.mobile-menu.active .mobile-menu__footer { animation-delay: 0.46s; }
 
 /* Hambúrguer vira X quando o menu está aberto. */
 .navbar__mobile-btn i { transition: transform 0.3s ease; }
@@ -654,8 +655,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 @media (prefers-reduced-motion: reduce) {
   .mobile-menu { transition: none; }
   .mobile-menu .mobile-menu__link, .mobile-menu .mobile-menu__section-label,
-  .mobile-menu .mobile-menu__service-link, .mobile-menu .mobile-menu__footer { transition: none; opacity: 1; transform: none; }
-  .mobile-menu.active * { transition-delay: 0s !important; }
+  .mobile-menu .mobile-menu__service-link, .mobile-menu .mobile-menu__footer { animation: none; opacity: 1; }
 }
 
 /* ===================================
