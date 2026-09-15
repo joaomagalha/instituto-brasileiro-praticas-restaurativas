@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260910b" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260916d" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260916e" rel="stylesheet"/>
 <link href="assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
@@ -583,6 +583,7 @@
 
 <!-- footer (navy com cartão de vidro; só na Home até o João aprovar) -->
 <footer class="footer footer--vidro">
+<div aria-hidden="true" class="grid-overlay footer__grade"></div>
 <div aria-hidden="true" class="footer__marca-agua">IBPR</div>
 <div class="container">
 <div class="footer__cartao">
@@ -616,7 +617,7 @@
 <li><a class="footer__link" href="formacao-ambiente-escolar.html">Ambiente Escolar</a></li>
 <li><a class="footer__link" href="formacao-relacoes-trabalho.html">Relações de Trabalho</a></li>
 <!-- /CMS:formacoes-rodape -->
-<li><a class="footer__link footer__link--todas" href="formacoes.html">Ver todas as formações</a></li>
+<li><a class="footer__link footer__link--todas" href="formacoes.html">Todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 </ul>
 </div>
 <div class="footer__col">
@@ -634,6 +635,7 @@
 <p class="footer__legal">CNPJ 60.147.864/0001-62 · Av. Saturnino da Rocha Laranjeiras, 78, Loja B, Passagem de Areia, Parnamirim, RN, CEP 59.145-770</p>
 <ul class="footer__legal-links">
 <li><a href="politica-de-privacidade.html">Política de Privacidade</a></li>
+<li><a class="footer__topo" href="#"><i aria-hidden="true" class="fa-solid fa-arrow-up"></i> Voltar ao topo</a></li>
 </ul>
 </div>
 </div>

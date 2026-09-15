@@ -2733,6 +2733,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--color-white);
 }
 .footer--vidro .container { position: relative; z-index: 1; }
+.footer__grade {
+  background-image:
+    linear-gradient(rgba(var(--white-rgb), 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--white-rgb), 0.035) 1px, transparent 1px);
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.25) 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.25) 100%);
+}
 .footer__marca-agua {
   position: absolute;
   left: 50%;
@@ -2743,18 +2750,32 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   font-size: clamp(9rem, 26vw, 30rem);
   line-height: 1;
   letter-spacing: 0.04em;
-  color: rgba(var(--white-rgb), 0.05);
+  color: rgba(var(--white-rgb), 0.07);
   user-select: none;
   pointer-events: none;
   white-space: nowrap;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.15) 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.15) 100%);
 }
+/* Vidro: brilho diagonal no canto superior esquerdo (luz batendo) e um
+   filete dourado → petróleo no topo, o mesmo detalhe dos cards de formação. */
 .footer__cartao {
   position: relative;
-  background: rgba(var(--white-rgb), 0.06);
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(var(--white-rgb), 0.11) 0%, rgba(var(--white-rgb), 0.04) 38%, rgba(var(--white-rgb), 0.06) 100%);
   border: 1px solid rgba(var(--white-rgb), 0.12);
   border-radius: var(--radius-lg);
   box-shadow: 0 30px 80px rgba(var(--navy900-rgb), 0.45), inset 0 1px 0 rgba(var(--white-rgb), 0.10);
   padding: clamp(2.4rem, 4vw, 4rem);
+}
+.footer__cartao::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-teal) 100%);
+  opacity: 0.9;
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .footer__cartao {
@@ -2785,11 +2806,24 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   color: var(--color-white);
   text-transform: none;
   letter-spacing: var(--tracking-snug);
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: 0.8rem;
+  position: relative;
+}
+.footer--vidro .footer__col-title::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 2rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-gold);
 }
 .footer--vidro .footer__links { gap: 0.9rem; }
-.footer--vidro .footer__link { color: rgba(var(--white-rgb), 0.74); font-size: 1.35rem; }
-.footer--vidro .footer__link:hover { color: var(--color-white); }
+.footer--vidro .footer__link { color: rgba(var(--white-rgb), 0.74); font-size: 1.35rem; transition: color var(--transition-fast), transform var(--transition-fast); }
+.footer--vidro .footer__link:hover { color: var(--color-white); transform: translateX(3px); }
+.footer--vidro .footer__link--todas i { color: var(--color-gold); font-size: 1.05rem; margin-left: 0.2rem; transition: transform var(--transition-fast); }
+.footer--vidro .footer__link--todas:hover i { transform: translateX(3px); }
 .footer--vidro .footer__link i { color: var(--color-gold); font-size: 1.2rem; }
 .footer--vidro .footer__link--todas { color: var(--color-gold); font-weight: var(--weight-medium); margin-top: 0.2rem; }
 .footer--vidro .footer__link--todas:hover { color: #E3C35A; }
@@ -2810,8 +2844,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .footer__legal-links a { font-size: 1.2rem; color: rgba(var(--white-rgb), 0.74); border-bottom: 1px solid rgba(var(--white-rgb), 0.3); transition: color var(--transition-fast), border-color var(--transition-fast); }
 .footer__legal-links a:hover { color: var(--color-white); border-color: var(--color-gold); }
 
+/* Voltar ao topo, no canto direito da linha final. */
+.footer__topo { display: inline-flex; align-items: center; gap: 0.6rem; }
+.footer__topo i { font-size: 1.05rem; color: var(--color-gold); transition: transform var(--transition-fast); }
+.footer__topo:hover i { transform: translateY(-2px); }
+
 @media (min-width: 768px) {
-  .footer__grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr); gap: var(--space-3xl); align-items: start; }
+  /* Em tablet a marca fica em cima e as 3 colunas ocupam a largura toda:
+     dividir em duas colunas aqui deixava cada lista com ~70px. */
   .footer--vidro .footer__nav { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xl); }
   .footer--vidro .footer__bottom { grid-template-columns: 1fr auto; align-items: center; }
   .footer--vidro .footer__legal { grid-column: 1 / -1; }
@@ -2819,7 +2859,16 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .footer--vidro .footer__legal-links { grid-row: 1; justify-self: end; }
 }
 @media (min-width: 1024px) {
-  .footer__grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 2.2fr); }
+  .footer__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr); gap: var(--space-2xl); align-items: start; }
+  /* Divisor vertical entre a marca e as colunas de links. */
+  .footer--vidro .footer__nav { position: relative; padding-left: var(--space-2xl); }
+  .footer--vidro .footer__nav::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0.4rem; bottom: 0.4rem;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(var(--white-rgb), 0) 0%, rgba(var(--white-rgb), 0.16) 20%, rgba(var(--white-rgb), 0.16) 80%, rgba(var(--white-rgb), 0) 100%);
+  }
 }
 
 /* ===================================
