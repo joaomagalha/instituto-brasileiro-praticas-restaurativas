@@ -694,6 +694,15 @@ body.painel {
 .campo__entendi ul ul li::before { content: "· "; color: var(--color-mist); }
 .campo__entendi-sub { color: var(--color-mist); font-size: 1.25rem; }
 
+/* Nota de seção: um parágrafo curto embaixo do título da seção, quando o
+   rótulo sozinho não explica quando preencher. */
+.painel-form__nota {
+  font-size: 1.3rem;
+  color: var(--color-mist);
+  margin: calc(-1 * var(--space-2xs)) 0 var(--space-md);
+  max-width: 60rem;
+}
+
 /* Bloco recolhido dos campos de SEO: existem, mas não atrapalham quem só
    quer cadastrar o curso. */
 .painel-avancado {

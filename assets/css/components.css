@@ -3374,14 +3374,31 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 /* --- Página de leitura de uma notícia (noticia.html) ---
    Conteúdo vem do CMS. Só duas peças de encaixe: a foto de abertura e o
    fecho com o link de volta. O corpo usa .prose, que já existe. */
-.noticia-figura {
-  margin: 0 0 var(--space-xl);
+.noticia-figura { margin: 0 0 var(--space-xl); }
+.noticia-figura__moldura {
   border-radius: var(--radius-lg);
   overflow: hidden;
   aspect-ratio: 16 / 9;
   background: var(--color-mist-bg);
 }
-.noticia-figura img { width: 100%; height: 100%; object-fit: cover; }
+.noticia-figura img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Legenda + crédito: pequena, cinza, alinhada à esquerda, como em portal
+   editorial. O crédito vai dentro do mesmo texto ("... Foto: TJMT"). */
+.noticia-figura__legenda {
+  margin-top: var(--space-xs);
+  font-size: 1.3rem;
+  line-height: var(--leading-body);
+  color: var(--color-mist);
+}
+/* "Com informações de X": fecho discreto, antes do link de voltar. */
+.noticia-fonte {
+  margin-top: var(--space-lg);
+  font-size: 1.35rem;
+  color: var(--color-mist);
+}
+.noticia-fonte a { color: var(--color-teal); font-weight: var(--weight-medium); border-bottom: 1px solid rgba(var(--teal-rgb), 0.35); }
+.noticia-fonte a i { font-size: 1.05rem; margin-left: 0.4rem; }
+.noticia-fonte a:hover { border-bottom-color: var(--color-teal); }
 .noticia-fim {
   margin-top: var(--space-2xl);
   padding-top: var(--space-lg);

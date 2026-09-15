@@ -10,8 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <link href="../assets/css/tokens.css?v=20260909m" rel="stylesheet"/>
-<link href="../assets/css/components.css?v=20260909m" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260915f" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260915b" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260915g" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 </head>
 <body class="painel">
@@ -152,6 +152,25 @@
         <span class="campo__dica">Para quem usa leitor de tela e para o Google. Ex: "Equipe do IBPR em formação numa escola".</span>
       </div>
 
+      <div class="campo">
+        <label for="imagemLegenda">Legenda e crédito da foto</label>
+        <input id="imagemLegenda" maxlength="220" type="text"/>
+        <span class="campo__dica">Aparece embaixo da imagem. Ex: "Equipe do NUGJUR durante um círculo. Foto: TJMT". Se a foto for de outra pessoa ou órgão, o crédito é obrigatório.</span>
+      </div>
+
+      <h2 class="painel-secao">Fonte</h2>
+      <p class="painel-form__nota">Preencha quando a notícia vier de outro lugar (um tribunal, o CNJ, um parceiro). O site mostra "Com informações de ..." com o link no fim do texto. Notícia própria do IBPR: deixe em branco.</p>
+      <div class="campo-duplo">
+        <div class="campo">
+          <label for="fonteNome">Nome da fonte</label>
+          <input id="fonteNome" maxlength="120" placeholder="Ex: Portal do TJMT" type="text"/>
+        </div>
+        <div class="campo">
+          <label for="fonteUrl">Link da matéria original</label>
+          <input id="fonteUrl" maxlength="500" placeholder="https://..." type="url"/>
+        </div>
+      </div>
+
       <div class="painel-acoes">
         <button class="btn btn--dark btn--sm" id="btnPublicar" type="button">
           <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> Publicar no site
@@ -167,7 +186,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
 <script src="../assets/js/supabase-config.js?v=20260909m"></script>
 <script src="../assets/js/supabase-client.js?v=20260909m"></script>
-<script src="assets/painel.js?v=20260915f"></script>
+<script src="assets/painel.js?v=20260915g"></script>
 <script>
   IBPR.painel.iniciarNoticias();
 </script>

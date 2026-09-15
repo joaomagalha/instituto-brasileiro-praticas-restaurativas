@@ -230,7 +230,7 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
 
 async function gerarNoticias(cfg) {
   const noticias = await consultar(cfg,
-    'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,publicado_em' +
+    'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em' +
     '&status=eq.publicado&order=publicado_em.desc.nullslast');
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
@@ -274,8 +274,22 @@ async function gerarNoticias(cfg) {
       .map(p => `<p>${esc(p).replace(/\n/g, '<br/>')}</p>`)
       .join('\n');
 
+    const legenda = String(n.imagem_legenda || '').trim();
     const figura = n.imagem_url
-      ? `<figure class="noticia-figura">\n<img alt="${esc(n.imagem_alt || '')}" decoding="async" src="${esc(n.imagem_url)}"/>\n</figure>`
+      ? `<figure class="noticia-figura${legenda ? ' noticia-figura--com-legenda' : ''}">\n` +
+        `<div class="noticia-figura__moldura"><img alt="${esc(n.imagem_alt || '')}" decoding="async" src="${esc(n.imagem_url)}"/></div>\n` +
+        (legenda ? `<figcaption class="noticia-figura__legenda">${esc(legenda)}</figcaption>\n` : '') +
+        `</figure>`
+      : '';
+
+    // "Com informações de X": só quando a notícia veio de fora. Link em aba
+    // nova, com rel de segurança; se só houver o nome, sai sem link.
+    const fonteNome = String(n.fonte_nome || '').trim();
+    const fonteUrl  = String(n.fonte_url  || '').trim();
+    const fonte = fonteNome
+      ? `<p class="noticia-fonte">Com informações ${fonteUrl
+          ? `de <a href="${esc(fonteUrl)}" rel="noopener" target="_blank">${esc(fonteNome)}<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>`
+          : `de ${esc(fonteNome)}`}.</p>`
       : '';
 
     const html = molde
@@ -285,6 +299,7 @@ async function gerarNoticias(cfg) {
       .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
       .replaceAll('{{IMAGEM}}', () => esc(absoluto(n.imagem_url || IMAGEM_PADRAO)))
       .replaceAll('{{FIGURA}}', () => figura)
+      .replaceAll('{{FONTE}}', () => fonte)
       .replaceAll('{{CORPO}}', () => corpo);
 
     await salvar(arquivo, html);

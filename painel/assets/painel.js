@@ -589,6 +589,9 @@ window.IBPR.painel = (function () {
       $('resumo').value = '';
       $('conteudo').value = '';
       $('imagemAlt').value = '';
+        $('imagemLegenda').value = '';
+        $('fonteNome').value = '';
+        $('fonteUrl').value = '';
       $('categoria').value = 'Rede';
       $('publicadoEm').value = '';
       $('imagem').value = '';
@@ -608,6 +611,9 @@ window.IBPR.painel = (function () {
         $('conteudo').value = n.conteudo || '';
         $('categoria').value = n.categoria || 'Rede';
         $('imagemAlt').value = n.imagem_alt || '';
+        $('imagemLegenda').value = n.imagem_legenda || '';
+        $('fonteNome').value = n.fonte_nome || '';
+        $('fonteUrl').value = n.fonte_url || '';
         $('publicadoEm').value = paraCampoData(n.publicado_em);
 
         arquivoEscolhido = null;
@@ -698,6 +704,9 @@ window.IBPR.painel = (function () {
         conteudo: $('conteudo').value.trim() || null,
         categoria: $('categoria').value,
         imagem_alt: $('imagemAlt').value.trim() || null,
+        imagem_legenda: $('imagemLegenda').value.trim() || null,
+        fonte_nome: $('fonteNome').value.trim() || null,
+        fonte_url: $('fonteUrl').value.trim() || null,
         status: status
       };
 
