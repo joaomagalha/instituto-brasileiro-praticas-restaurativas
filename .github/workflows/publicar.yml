@@ -60,4 +60,15 @@ jobs:
 
           Commit automático de build/gerar.mjs. Não editar à mão os
           arquivos gerados: o próximo build sobrescreve."
-          git push
+          # Se alguém deu push no main entre o checkout e agora (aconteceu
+          # em 15/09/2026: "rejected, fetch first"), sincroniza e tenta de
+          # novo, até 3 vezes. Nos arquivos gerados vale a versão deste
+          # build (-X theirs); o resto vem do main.
+          for tentativa in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push rejeitado (tentativa $tentativa): sincronizando com o main."
+            git fetch origin main
+            git rebase -X theirs origin/main || { git rebase --abort; exit 1; }
+          done
+          echo "Não consegui publicar depois de 3 tentativas."
+          exit 1
