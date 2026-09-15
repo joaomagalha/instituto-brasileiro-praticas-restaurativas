@@ -491,6 +491,7 @@ window.IBPR.painel = (function () {
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
+      montarSumario('sumarioNoticia', 'formNoticia', 'Blocos');
       limparAviso();
       window.scrollTo({ top: 0, behavior: 'instant' });
     }

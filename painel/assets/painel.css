@@ -368,6 +368,8 @@ body.painel {
 .campo input[type="text"],
 .campo input[type="email"],
 .campo input[type="password"],
+.campo input[type="url"],
+.campo input[type="date"],
 .campo input[type="file"],
 .campo select,
 .campo textarea {
@@ -701,6 +703,59 @@ body.painel {
   color: var(--color-mist);
   margin: calc(-1 * var(--space-2xs)) 0 var(--space-md);
   max-width: 60rem;
+}
+
+/* Formulário em blocos (15/09/2026): cada assunto num cartão, com título
+   e uma frase que diz o que vai ali. É a mesma lógica de Textos. */
+.painel-form { display: grid; gap: var(--space-lg); }
+.painel-bloco { padding: clamp(2rem, 4vw, 3.2rem); }
+.painel-bloco__titulo {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  letter-spacing: var(--tracking-snug);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: var(--space-2xs);
+}
+.painel-bloco__etiqueta {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-mist);
+  background: var(--color-mist-bg);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem 0.8rem;
+}
+.painel-bloco__desc {
+  font-size: 1.35rem;
+  color: var(--color-mist);
+  max-width: 62rem;
+  margin-bottom: var(--space-lg);
+}
+.painel-bloco .campo:last-child { margin-bottom: 0; }
+
+/* Barra de ações fixa no rodapé: Publicar e Salvar sempre à vista, sem
+   rolar até o fim de um formulário longo. */
+.painel-acoes--fixa {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  margin: 0;
+  padding: var(--space-sm) 0;
+  background: rgba(246, 248, 247, 0.94);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--color-border-light);
+}
+@media (max-width: 959px) {
+  .painel-acoes--fixa {
+    margin: 0 calc(-1 * clamp(1.6rem, 4vw, 3.2rem));
+    padding: var(--space-sm) clamp(1.6rem, 4vw, 3.2rem);
+  }
 }
 
 /* Bloco recolhido dos campos de SEO: existem, mas não atrapalham quem só
