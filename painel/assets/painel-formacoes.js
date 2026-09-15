@@ -169,7 +169,8 @@
     if (!db) return;
 
     var linhasBanco = [];   // formações carregadas do banco
-    var emEdicao = null;    // a que está aberta no formulário (null = nova)
+    var emEdicao = null;
+ $('btnRascunho').textContent = 'Salvar rascunho';    // a que está aberta no formulário (null = nova)
     var arquivos = { hero: null, card: null };
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
@@ -347,6 +348,7 @@
         if (r.error) { aviso(traduzirErro(r.error)); return; }
         var f = r.data;
         emEdicao = f;
+        $('btnRascunho').textContent = (emEdicao.status === 'publicado') ? 'Salvar rascunho (tira do site)' : 'Salvar rascunho';
 
         $('formacaoId').value = f.id;
         SIMPLES.forEach(function (p) { $(p[0]).value = f[p[1]] || ''; });
@@ -414,6 +416,24 @@
 
     function salvar(status) {
       limparAviso();
+
+      /* Item publicado + "Salvar rascunho" = tira do site. Quem edita um
+         item publicado costuma querer só gravar a mudança; sem este aviso,
+         a página some e a pessoa não entende por quê. */
+      if (status === 'rascunho' && emEdicao && emEdicao.status === 'publicado') {
+        var publicadas = linhasBanco.filter(function (f) { return f.status === 'publicado'; });
+        if (publicadas.length <= 1) {
+          aviso('Esta é a última formação publicada. O site precisa de pelo menos uma: ' +
+                'sem nenhuma, o menu, o rodapé e o catálogo ficariam vazios.');
+          return;
+        }
+        if (!window.confirm('Esta formação está publicada no site.\n\n' +
+              'Salvar como rascunho TIRA ela do ar; as mudanças ficam guardadas só aqui no painel.\n' +
+              'Para mudar o texto e continuar no site, use "Publicar no site".\n\n' +
+              'Tirar do site mesmo assim?')) {
+          return;
+        }
+      }
 
       var titulo = $('titulo').value.trim();
       var resumo = $('resumo').value.trim();

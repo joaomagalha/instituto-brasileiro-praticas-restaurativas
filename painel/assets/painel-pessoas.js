@@ -79,7 +79,8 @@
     if (!db) return;
 
     var linhasBanco = [];   // pessoas carregadas do banco
-    var emEdicao = null;    // a que está aberta no formulário (null = nova)
+    var emEdicao = null;
+ $('btnRascunho').textContent = 'Salvar rascunho';    // a que está aberta no formulário (null = nova)
     var arquivoFoto = null; // File escolhido, ainda não enviado
     var medidaFoto = null;  // { largura, altura } da foto escolhida
 
@@ -236,6 +237,7 @@
         if (r.error) { aviso(traduzirErro(r.error)); return; }
         var p = r.data;
         emEdicao = p;
+        $('btnRascunho').textContent = (emEdicao.status === 'publicado') ? 'Salvar rascunho (tira do site)' : 'Salvar rascunho';
 
         $('pessoaId').value = p.id;
         $('nome').value = p.nome || '';
@@ -320,6 +322,23 @@
 
     function salvar(status) {
       limparAviso();
+
+      /* Item publicado + "Salvar rascunho" = tira do site. Quem edita um
+         item publicado costuma querer só gravar a mudança; sem este aviso,
+         a página some e a pessoa não entende por quê. */
+      if (status === 'rascunho' && emEdicao && emEdicao.status === 'publicado') {
+        if (ultimaDaDirecao(emEdicao)) {
+          aviso('Esta é a última pessoa publicada em "As pessoas por trás do propósito". ' +
+                'A seção não pode ficar sem ninguém.');
+          return;
+        }
+        if (!window.confirm('Esta pessoa está publicada no site.\n\n' +
+              'Salvar como rascunho TIRA ela do ar; as mudanças ficam guardadas só aqui no painel.\n' +
+              'Para mudar o texto e continuar no site, use "Publicar no site".\n\n' +
+              'Tirar do site mesmo assim?')) {
+          return;
+        }
+      }
 
       var nome = $('nome').value.trim();
       var bio = $('bio').value.trim();
