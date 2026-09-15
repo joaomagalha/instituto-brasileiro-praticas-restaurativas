@@ -2763,7 +2763,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   position: relative;
   overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(var(--white-rgb), 0.11) 0%, rgba(var(--white-rgb), 0.04) 38%, rgba(var(--white-rgb), 0.06) 100%);
+    linear-gradient(135deg, rgba(var(--white-rgb), 0.075) 0%, rgba(var(--white-rgb), 0.025) 38%, rgba(var(--white-rgb), 0.035) 100%);
   border: 1px solid rgba(var(--white-rgb), 0.12);
   border-radius: var(--radius-lg);
   box-shadow: 0 30px 80px rgba(var(--navy900-rgb), 0.45), inset 0 1px 0 rgba(var(--white-rgb), 0.10);
@@ -2779,8 +2779,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .footer__cartao {
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+    backdrop-filter: blur(12px) saturate(130%);
   }
 }
 .footer__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
@@ -2840,12 +2840,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .footer--vidro .footer__copy { color: rgba(var(--white-rgb), 0.7); font-size: 1.2rem; }
 .footer--vidro .footer__legal { color: rgba(var(--white-rgb), 0.55); font-size: 1.15rem; }
-.footer__legal-links { display: flex; gap: var(--space-md); list-style: none; margin: 0; padding: 0; }
-.footer__legal-links a { font-size: 1.2rem; color: rgba(var(--white-rgb), 0.74); border-bottom: 1px solid rgba(var(--white-rgb), 0.3); transition: color var(--transition-fast), border-color var(--transition-fast); }
+.footer__legal-links { display: flex; align-items: center; gap: var(--space-md); list-style: none; margin: 0; padding: 0; }
+.footer__legal-links a { display: inline-flex; align-items: center; gap: 0.6rem; line-height: 1.5; font-size: 1.2rem; color: rgba(var(--white-rgb), 0.74); border-bottom: 1px solid rgba(var(--white-rgb), 0.3); transition: color var(--transition-fast), border-color var(--transition-fast); }
 .footer__legal-links a:hover { color: var(--color-white); border-color: var(--color-gold); }
 
 /* Voltar ao topo, no canto direito da linha final. */
-.footer__topo { display: inline-flex; align-items: center; gap: 0.6rem; }
 .footer__topo i { font-size: 1.05rem; color: var(--color-gold); transition: transform var(--transition-fast); }
 .footer__topo:hover i { transform: translateY(-2px); }
 
