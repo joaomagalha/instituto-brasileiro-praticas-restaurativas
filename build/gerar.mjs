@@ -170,16 +170,26 @@ async function apagar(rel) {
 
 const IMAGEM_PADRAO = 'assets/images/ibpr-movimento-hero.jpg';
 
-/* Card de notícia — reaproveita o .service-card das Formações tal e qual.
-   `base` é '' nas páginas da raiz (todas, hoje); existe pro dia em que
-   alguma página gerada more numa subpasta. */
+/* Card de notícia — horizontal, na base do .info-card (branco, borda fina,
+   cantos grandes, sombra leve, sobe no hover): foto 16:9 à esquerda, texto à
+   direita, um card por linha na coluna de leitura. No celular a foto vai pra
+   cima. Um por linha fica bom com 1 notícia ou com 20; a grade de 3 colunas
+   do card de Formações deixava a notícia fina e alta quando havia poucas. */
 function cardNoticia(n) {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
+  const href = `noticia-${n.slug}.html`;
 
-  return `<article class="service-card">
-<div class="service-card__img-wrap"><img alt="${esc(n.imagem_alt || '')}" class="service-card__photo" decoding="async" loading="lazy" src="${esc(img)}"/></div>
-<div class="service-card__body"><p class="service-card__audience">${esc(n.categoria)}${data ? ' &middot; ' + data : ''}</p><h3 class="service-card__title">${esc(n.titulo)}</h3><p class="service-card__desc">${esc(n.resumo || '')}</p><a class="service-card__link" href="noticia-${esc(n.slug)}.html">Ler notícia <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+  return `<article class="noticia-card">
+<a class="noticia-card__link" href="${esc(href)}">
+<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/></div>
+<div class="noticia-card__body">
+<p class="noticia-card__meta">${esc(n.categoria)}${data ? ' &middot; ' + data : ''}</p>
+<h3 class="noticia-card__title">${esc(n.titulo)}</h3>
+<p class="noticia-card__resumo">${esc(n.resumo || '')}</p>
+<span class="noticia-card__cta">Ler notícia <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
+</a>
 </article>`;
 }
 
@@ -218,7 +228,7 @@ function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazi
 </div>`;
 
   const corpo = tem
-    ? `<div class="noticias__grid measure-narrow" data-aos="fade-up">\n${noticias.map(cardNoticia).join('\n')}\n</div>`
+    ? `<div class="noticias__lista measure-narrow" data-aos="fade-up">\n${noticias.map(cardNoticia).join('\n')}\n</div>`
     : TRES_FRENTES;
 
   // O aviso "em breve" só existe enquanto não há publicação.
