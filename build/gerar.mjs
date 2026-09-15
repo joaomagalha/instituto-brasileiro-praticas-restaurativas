@@ -184,7 +184,7 @@ function cardNoticia(n) {
 <a class="noticia-card__link" href="${esc(href)}">
 <div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/></div>
 <div class="noticia-card__body">
-<p class="noticia-card__meta">${esc(n.categoria)}${data ? ' &middot; ' + data : ''}</p>
+<p class="noticia-card__meta"><span class="noticia-card__frente">${esc(n.categoria)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
 <p class="noticia-card__resumo">${esc(n.resumo || '')}</p>
 <span class="noticia-card__cta">Ler notícia <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>

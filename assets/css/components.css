@@ -2272,8 +2272,9 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* --- Lista de notícias (Home e IBPR em Movimento), card horizontal ---
    Base do .info-card: branco, borda fina, cantos grandes, sombra leve e
-   sobe 5px no hover. Foto 16:9 à esquerda (40%), texto à direita. Um card
-   por linha na coluna de leitura (.measure-narrow). */
+   sobe 5px no hover. Foto 16:9 à esquerda (40%), texto à direita, centrado
+   na vertical. Um card por linha na coluna de leitura (.measure-narrow);
+   no celular a foto vai pra cima. */
 .noticias__lista { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
 .noticia-card {
   position: relative;
@@ -2284,54 +2285,123 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
-.noticia-card:hover { transform: translateY(-5px); border-color: rgba(var(--teal-rgb), 0.42); box-shadow: 0 20px 44px rgba(var(--navy900-rgb), 0.13); }
-.noticia-card__link { display: grid; grid-template-columns: 1fr; color: inherit; text-decoration: none; }
-.noticia-card__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-mist-bg); }
-.noticia-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
-.noticia-card:hover .noticia-card__media img { transform: scale(1.04); }
+.noticia-card:hover,
+.noticia-card:focus-within {
+  transform: translateY(-5px);
+  border-color: rgba(var(--teal-rgb), 0.42);
+  box-shadow: 0 20px 44px rgba(var(--navy900-rgb), 0.13);
+}
+.noticia-card__link {
+  display: grid;
+  grid-template-columns: 1fr;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+.noticia-card__link:focus-visible { box-shadow: inset 0 0 0 3px var(--color-teal); border-radius: var(--radius-lg); }
+
+/* Foto: enche a célula; véu escuro leve no hover, como nas fotos das
+   formações, pra foto clara não competir com o título. */
+.noticia-card__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-mist-bg);
+}
+.noticia-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.noticia-card__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(var(--navy900-rgb), 0);
+  transition: background 0.35s ease;
+}
+.noticia-card:hover .noticia-card__media img { transform: scale(1.05); }
+.noticia-card:hover .noticia-card__media::after { background: rgba(var(--navy900-rgb), 0.10); }
+
 .noticia-card__body {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  padding: var(--space-lg);
+  padding: var(--space-md) var(--space-md) var(--space-lg);
 }
+
+/* Etiqueta em duas cores: a frente em petróleo, a data em cinza. */
 .noticia-card__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
   font-size: 1.15rem;
   font-weight: var(--weight-semibold);
-  text-transform: uppercase;
   letter-spacing: var(--tracking-overline);
-  color: var(--color-teal);
+  text-transform: uppercase;
 }
+.noticia-card__frente { color: var(--color-teal); }
+.noticia-card__data { color: var(--color-mist); font-weight: var(--weight-medium); }
+.noticia-card__data::before { content: "\00b7"; margin-right: 0.6rem; color: var(--color-border-light); }
+
 .noticia-card__title {
   font-family: var(--font-display);
-  font-size: var(--text-h4);
+  font-size: 1.8rem;
   font-weight: var(--weight-semibold);
   color: var(--color-navy);
-  line-height: var(--leading-display);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-snug);
   text-wrap: balance;
+  transition: color 0.25s ease;
 }
+.noticia-card:hover .noticia-card__title { color: var(--color-teal); }
+
+/* Resumo em no máximo 3 linhas: notícias com resumos de tamanhos
+   diferentes ficam com cards da mesma altura. */
 .noticia-card__resumo {
   font-size: var(--text-sm);
   line-height: var(--leading-body);
   color: var(--color-navy-mid);
   text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
+
 .noticia-card__cta {
-  margin-top: auto;
-  padding-top: var(--space-xs);
-  font-size: 1.3rem;
-  font-weight: var(--weight-semibold);
-  color: var(--color-navy);
+  margin-top: var(--space-xs);
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  padding-bottom: 0.2rem;
+  background-image: linear-gradient(var(--color-teal), var(--color-teal));
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  background-position: left bottom;
+  transition: background-size 0.3s ease, color 0.25s ease;
 }
 .noticia-card__cta i { font-size: 1.1rem; transition: transform 0.3s ease; }
+.noticia-card:hover .noticia-card__cta { color: var(--color-teal); background-size: 100% 1px; }
 .noticia-card:hover .noticia-card__cta i { transform: translateX(4px); }
+
 @media (min-width: 768px) {
-  .noticia-card__link { grid-template-columns: minmax(0, 40%) minmax(0, 1fr); }
-  .noticia-card__media { aspect-ratio: auto; min-height: 100%; }
-  .noticia-card__body { padding: var(--space-lg) var(--space-xl); }
+  .noticia-card__link { grid-template-columns: minmax(0, 40%) minmax(0, 1fr); min-height: 24rem; }
+  .noticia-card__media { aspect-ratio: auto; height: 100%; }
+  .noticia-card__body { justify-content: center; padding: var(--space-lg) var(--space-xl); gap: var(--space-sm); }
+  .noticia-card__title { font-size: 2.1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .noticia-card, .noticia-card__media img, .noticia-card__media::after, .noticia-card__cta, .noticia-card__cta i, .noticia-card__title { transition: none; }
+  .noticia-card:hover { transform: none; }
+  .noticia-card:hover .noticia-card__media img { transform: none; }
 }
 
 /* NOTÍCIAS — estado vazio editorial (painel + ghost cards) removido em
