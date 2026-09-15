@@ -308,6 +308,12 @@ async function gerarNoticias(cfg) {
       .replaceAll('{{META}}', () => esc(n.categoria) + (n.publicado_em ? ' · ' + dataCurta(n.publicado_em) : ''))
       .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
       .replaceAll('{{IMAGEM}}', () => esc(absoluto(n.imagem_url || IMAGEM_PADRAO)))
+      // Alt da prévia: a descrição da foto da notícia; sem foto própria, o nome do Instituto.
+      .replaceAll('{{IMAGEM_ALT}}', () => esc((n.imagem_url && n.imagem_alt) || 'Instituto Brasileiro de Práticas Restaurativas (IBPR)'))
+      // Data de publicação pro Google e pras redes (ISO 8601), só quando existe.
+      .replaceAll('{{PUBLICADO_META}}', () => n.publicado_em
+        ? `<meta content="${esc(new Date(n.publicado_em).toISOString())}" property="article:published_time"/>`
+        : '')
       .replaceAll('{{FIGURA}}', () => figura)
       .replaceAll('{{FONTE}}', () => fonte)
       .replaceAll('{{CORPO}}', () => corpo);
