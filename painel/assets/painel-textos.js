@@ -85,6 +85,19 @@
        (coluna `ordem`), que é a ordem em que os blocos aparecem na página
        de verdade: quem está corrigindo um texto percorre a tela na mesma
        sequência em que leria o site. */
+    /* Ícone de cada página no sumário. Mesma família dos ícones do site. */
+    function iconePagina(nome) {
+      var n = String(nome || '').toLowerCase();
+      if (/inicial|home/.test(n))            return 'fa-house';
+      if (/instituto/.test(n))               return 'fa-building-columns';
+      if (/atuamos/.test(n))                 return 'fa-hands-holding-circle';
+      if (/pr[aá]ticas/.test(n))             return 'fa-scale-balanced';
+      if (/forma[cç]/.test(n))               return 'fa-graduation-cap';
+      if (/movimento|not[ií]cia/.test(n))    return 'fa-newspaper';
+      if (/aluno/.test(n))                   return 'fa-user-graduate';
+      return 'fa-file-lines';
+    }
+
     function desenhar() {
       var html = '';
       var paginaAtual = null;
@@ -95,8 +108,11 @@
           if (paginaAtual !== null) html += '</section>';
           paginaAtual = t.pagina;
           secaoAtual = null;
+          var n = linhas.filter(function (x) { return x.pagina === t.pagina; }).length;
           html += '<section class="painel-pagina">' +
-                  '<h2 class="painel-pagina__nome" data-sumario="' + util.escapar(t.pagina) + '">' +
+                  '<h2 class="painel-pagina__nome" data-sumario="' + util.escapar(t.pagina) + '"' +
+                  ' data-sumario-icone="' + iconePagina(t.pagina) + '"' +
+                  ' data-sumario-info="' + n + (n === 1 ? ' texto' : ' textos') + '">' +
                   util.escapar(t.pagina) + '</h2>';
         }
         if (t.secao !== secaoAtual) {

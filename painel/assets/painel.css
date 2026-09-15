@@ -532,43 +532,78 @@ body.painel {
    Abaixo de 960px vira uma linha de atalhos fixa logo abaixo da barra. */
 .painel-com-sumario {
   display: grid;
-  grid-template-columns: 19rem minmax(0, 1fr);
+  grid-template-columns: 22rem minmax(0, 1fr);
   gap: var(--space-xl);
   align-items: start;
 }
 .painel-sumario {
   position: sticky;
   top: 8.4rem;               /* barra de topo (6.4rem) + respiro */
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-sm) var(--space-xs);
+  box-shadow: var(--shadow-sm);
 }
 .painel-sumario__titulo {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-overline);
   text-transform: uppercase;
   color: var(--color-mist);
-  margin: 0 0 var(--space-xs) 1.4rem;
+  margin: 0.2rem 0 var(--space-xs) 1.2rem;
 }
-.painel-sumario ol { list-style: none; margin: 0; padding: 0; }
+.painel-sumario ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.2rem; }
 .painel-sumario a {
-  display: block;
-  padding: 0.7rem 1.2rem;
-  border-left: 2px solid var(--color-border-light);
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0.8rem;
+  padding: 0.75rem 1rem 0.75rem 0.9rem;
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
   font-size: 1.35rem;
   line-height: 1.3;
   color: var(--color-navy-mid);
-  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+  transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
 }
-.painel-sumario a:hover { color: var(--color-navy); background: rgba(var(--navy-rgb), 0.04); }
+.painel-sumario a:hover { color: var(--color-navy); background: var(--color-paper); }
 .painel-sumario a.is-ativo {
   color: var(--color-navy);
   font-weight: var(--weight-semibold);
+  background: rgba(var(--navy-rgb), 0.06);
   border-left-color: var(--color-gold);
 }
 .painel-sumario a:focus-visible { outline: 2px solid var(--color-teal); outline-offset: -2px; }
-.painel-sumario__num {
-  display: inline-block;
-  min-width: 1.6rem;
+.painel-sumario__icone {
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
   color: var(--color-mist);
+  font-size: 1.25rem;
+}
+.painel-sumario a.is-ativo .painel-sumario__icone { color: var(--color-teal); }
+.painel-sumario__num {              /* usado quando não há ícone */
+  display: inline-grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--color-mist-bg);
+  color: var(--color-mist);
+  font-size: 1.1rem;
+  font-weight: var(--weight-semibold);
+  font-variant-numeric: tabular-nums;
+}
+.painel-sumario a.is-ativo .painel-sumario__num { background: var(--color-navy); color: var(--color-white); }
+.painel-sumario__info {
+  font-size: 1.1rem;
+  font-weight: var(--weight-medium);
+  color: var(--color-mist);
+  background: var(--color-mist-bg);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.7rem;
   font-variant-numeric: tabular-nums;
 }
 /* Onde o clique do sumário para: abaixo da barra fixa, não atrás dela. */
@@ -588,17 +623,26 @@ body.painel {
   .painel-sumario__titulo { display: none; }
   .painel-sumario ol { display: flex; gap: var(--space-2xs); overflow-x: auto; scrollbar-width: none; }
   .painel-sumario ol::-webkit-scrollbar { display: none; }
+  .painel-sumario {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
   .painel-sumario a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     white-space: nowrap;
-    padding: 0.5rem 1rem;
-    border-left: 0;
+    padding: 0.5rem 1.1rem 0.5rem 0.8rem;
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-border-light);
     background: var(--color-white);
     font-size: 1.25rem;
   }
   .painel-sumario a.is-ativo { border-color: var(--color-navy); background: var(--color-navy); color: var(--color-white); }
-  .painel-sumario__num { display: none; }
+  .painel-sumario a.is-ativo .painel-sumario__icone { color: var(--color-gold); }
+  .painel-sumario__icone { width: auto; height: auto; font-size: 1.15rem; }
+  .painel-sumario__num, .painel-sumario__info { display: none; }
   [data-sumario] { scroll-margin-top: 11.5rem; }
 }
 

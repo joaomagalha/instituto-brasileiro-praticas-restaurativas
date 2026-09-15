@@ -156,10 +156,16 @@ window.IBPR.painel = (function () {
     html += '<ol>';
     secoes.forEach(function (sec, i) {
       if (!sec.id) sec.id = 'secao-' + (i + 1);
-      var nome = sec.getAttribute('data-sumario') || sec.textContent.trim();
+      var nome  = sec.getAttribute('data-sumario') || sec.textContent.trim();
+      var icone = sec.getAttribute('data-sumario-icone');   // classe Font Awesome, opcional
+      var info  = sec.getAttribute('data-sumario-info');    // contador ou nota curta, opcional
       html += '<li><a href="#' + sec.id + '" data-alvo="' + sec.id + '">' +
-              '<span class="painel-sumario__num">' + (i + 1) + '</span> ' +
-              util.escapar(nome) + '</a></li>';
+              (icone
+                ? '<span class="painel-sumario__icone"><i aria-hidden="true" class="fa-solid ' + util.escapar(icone) + '"></i></span>'
+                : '<span class="painel-sumario__num">' + (i + 1) + '</span>') +
+              '<span>' + util.escapar(nome) + '</span>' +
+              (info ? '<span class="painel-sumario__info">' + util.escapar(info) + '</span>' : '<span></span>') +
+              '</a></li>';
     });
     html += '</ol>';
     nav.innerHTML = html;
