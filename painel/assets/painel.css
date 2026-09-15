@@ -574,6 +574,22 @@ body.painel {
   background: rgba(var(--navy-rgb), 0.06);
 }
 .painel-sumario a:focus-visible { outline: 2px solid var(--color-teal); outline-offset: -2px; }
+/* O rótulo reserva desde o início a largura da versão em negrito (um
+   duplicado invisível na mesma célula), então ativar um item nunca faz o
+   texto quebrar de linha nem empurrar os vizinhos. */
+.painel-sumario__rotulo {
+  display: inline-grid;
+  white-space: nowrap;
+}
+.painel-sumario__rotulo::after {
+  content: attr(data-t);
+  grid-area: 1 / 1;
+  font-weight: var(--weight-semibold);
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
 .painel-sumario__icone {
   display: inline-grid;
   place-items: center;

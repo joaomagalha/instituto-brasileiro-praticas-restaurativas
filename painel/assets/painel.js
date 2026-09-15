@@ -163,7 +163,7 @@ window.IBPR.painel = (function () {
               (icone
                 ? '<span class="painel-sumario__icone"><i aria-hidden="true" class="fa-solid ' + util.escapar(icone) + '"></i></span>'
                 : '<span class="painel-sumario__num">' + (i + 1) + '</span>') +
-              '<span>' + util.escapar(nome) + '</span>' +
+              '<span class="painel-sumario__rotulo" data-t="' + util.escapar(nome) + '">' + util.escapar(nome) + '</span>' +
               (info ? '<span class="painel-sumario__info">' + util.escapar(info) + '</span>' : '<span></span>') +
               '</a></li>';
     });
