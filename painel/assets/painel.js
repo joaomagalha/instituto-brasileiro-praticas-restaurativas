@@ -214,6 +214,24 @@ window.IBPR.painel = (function () {
     window.addEventListener('scroll', aoRolar, { passive: true });
   }
 
+  /* Apaga do storage os arquivos que uma foto trocada ou um item apagado
+     deixariam órfãos. Só mexe em URL do nosso próprio bucket; foto que mora
+     no repo do site (assets/...) ou em outro domínio fica em paz. Falha
+     aqui não pode travar o fluxo: a linha do banco já foi resolvida, o
+     arquivo sobrando é só espaço, então o erro vai pro console e pronto. */
+  function apagarDoStorage(bucket, urls) {
+    if (!db) return Promise.resolve();
+    var marca = '/storage/v1/object/public/' + bucket + '/';
+    var caminhos = [].concat(urls).filter(Boolean).map(function (u) {
+      var i = String(u).indexOf(marca);
+      return i >= 0 ? decodeURIComponent(String(u).slice(i + marca.length).split('?')[0]) : null;
+    }).filter(Boolean);
+    if (!caminhos.length) return Promise.resolve();
+    return db.storage.from(bucket).remove(caminhos)
+      .then(function (r) { if (r.error) console.warn('[IBPR] storage:', r.error.message); })
+      .catch(function (e) { console.warn('[IBPR] storage:', e && e.message); });
+  }
+
   /* Preenche a barra de topo com quem está logado.
      Nome vem de user_metadata.nome (definido no convite ou no perfil);
      sem ele, usa a parte do e-mail antes do @, com inicial maiúscula.
@@ -757,6 +775,10 @@ window.IBPR.painel = (function () {
         })
         .then(function (r) {
           if (r.error) throw r.error;
+          // Foto trocada: a antiga vira órfã no storage. Limpa sem travar o fluxo.
+          if (dados.imagem_url && emEdicao && emEdicao.imagem_url && emEdicao.imagem_url !== dados.imagem_url) {
+            apagarDoStorage(BUCKET, emEdicao.imagem_url);
+          }
           limparForm();
           mostrarLista();
           carregarLista();
@@ -826,8 +848,10 @@ window.IBPR.painel = (function () {
       // apagar não tem volta, então tem que custar um clique consciente.
       if (!window.confirm('Apagar esta notícia? Não dá pra desfazer.')) return;
 
+      var alvo = linhas.filter(function (n) { return n.id === id; })[0];
       db.from('noticias').delete().eq('id', id).then(function (r) {
         if (r.error) { aviso(traduzirErro(r.error)); return; }
+        if (alvo && alvo.imagem_url) apagarDoStorage(BUCKET, alvo.imagem_url);
         carregarLista();
         aviso('Notícia apagada.', 'ok');
       }).catch(function (erro) { aviso(traduzirErro(erro)); });
@@ -837,6 +861,7 @@ window.IBPR.painel = (function () {
 
   return {
     montarConta: montarConta,
+    apagarDoStorage: apagarDoStorage,
     montarSumario: montarSumario,
     iniciarLogin: iniciarLogin,
     iniciarNoticias: iniciarNoticias,

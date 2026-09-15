@@ -483,6 +483,13 @@
         })
         .then(function (r) {
           if (r.error) throw r.error;
+          // Fotos trocadas: as antigas viram órfãs no storage. Limpa sem travar o fluxo.
+          if (emEdicao) {
+            var orfas = [];
+            if (dados.imagem_hero_url && emEdicao.imagem_hero_url && emEdicao.imagem_hero_url !== dados.imagem_hero_url) orfas.push(emEdicao.imagem_hero_url);
+            if (dados.imagem_card_url && emEdicao.imagem_card_url && emEdicao.imagem_card_url !== dados.imagem_card_url) orfas.push(emEdicao.imagem_card_url);
+            if (orfas.length) window.IBPR.painel.apagarDoStorage(BUCKET, orfas);
+          }
           limparForm();
           mostrarLista();
           carregarLista();
@@ -556,6 +563,7 @@
 
       db.from('formacoes').delete().eq('id', id).then(function (r) {
         if (r.error) { aviso(traduzirErro(r.error)); return; }
+        if (alvo) window.IBPR.painel.apagarDoStorage(BUCKET, [alvo.imagem_hero_url, alvo.imagem_card_url]);
         carregarLista();
         aviso('Formação apagada. Sai do site no próximo build.', 'ok');
       }).catch(function (erro) { aviso(traduzirErro(erro)); });

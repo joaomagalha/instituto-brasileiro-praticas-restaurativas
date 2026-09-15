@@ -397,6 +397,10 @@
         })
         .then(function (r) {
           if (r.error) throw r.error;
+          // Foto trocada: a antiga vira órfã no storage. Limpa sem travar o fluxo.
+          if (dados.foto_url && emEdicao && emEdicao.foto_url && emEdicao.foto_url !== dados.foto_url) {
+            window.IBPR.painel.apagarDoStorage(BUCKET, emEdicao.foto_url);
+          }
           limparForm();
           mostrarLista();
           carregarLista();
@@ -480,6 +484,7 @@
 
       db.from('pessoas').delete().eq('id', id).then(function (r) {
         if (r.error) { aviso(traduzirErro(r.error)); return; }
+        if (alvo) window.IBPR.painel.apagarDoStorage(BUCKET, alvo.foto_url);
         carregarLista();
         aviso('Pessoa apagada. Sai do site no próximo build.', 'ok');
       }).catch(function (erro) { aviso(traduzirErro(erro)); });
