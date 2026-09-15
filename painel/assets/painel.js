@@ -164,15 +164,30 @@ window.IBPR.painel = (function () {
        no passo 6 do SETUP). A política deixa cada um ler a própria linha.
        Se vier, substitui o fallback do e-mail; se não vier, fica como está. */
     if (db && u.id) {
-      db.from('editores').select('nome').eq('user_id', u.id).maybeSingle()
+      db.from('editores').select('nome, foto_url').eq('user_id', u.id).maybeSingle()
         .then(function (r) {
-          var n = r && r.data && r.data.nome ? String(r.data.nome).trim() : '';
-          if (!n) return;
-          var ps = n.split(/\s+/).filter(Boolean);
-          var ini = ps.length > 1 ? (ps[0][0] + ps[ps.length - 1][0]) : n.slice(0, 2);
-          aplicar(n, ps, ini, email);
+          var d = (r && r.data) || {};
+          var n = d.nome ? String(d.nome).trim() : '';
+          if (n) {
+            var ps = n.split(/\s+/).filter(Boolean);
+            var ini = ps.length > 1 ? (ps[0][0] + ps[ps.length - 1][0]) : n.slice(0, 2);
+            aplicar(n, ps, ini, email);
+          }
+          if (d.foto_url) mostrarFoto(String(d.foto_url), n || nome);
         })
         .catch(function () { /* sem nome cadastrado: fica o fallback */ });
+    }
+
+    /* Foto no lugar das iniciais. As iniciais continuam no DOM por trás:
+       se a imagem falhar (link quebrado, sem internet), elas reaparecem. */
+    function mostrarFoto(url, nomeCompleto) {
+      var elIni = $('contaIniciais');
+      if (!elIni || elIni.querySelector('img')) return;
+      var img = document.createElement('img');
+      img.alt = '';
+      img.src = url;
+      img.onerror = function () { img.remove(); };
+      elIni.appendChild(img);
     }
 
     function aplicar(nomeCompleto, ps, ini, mail) {
