@@ -79,8 +79,7 @@
     if (!db) return;
 
     var linhasBanco = [];   // pessoas carregadas do banco
-    var emEdicao = null;
- $('btnRascunho').textContent = 'Salvar rascunho';    // a que está aberta no formulário (null = nova)
+    var emEdicao = null;    // a que está aberta no formulário (null = nova)
     var arquivoFoto = null; // File escolhido, ainda não enviado
     var medidaFoto = null;  // { largura, altura } da foto escolhida
 
@@ -201,6 +200,7 @@
 
     function limparForm() {
       emEdicao = null;
+      $('btnRascunho').textContent = 'Salvar rascunho';
       $('pessoaId').value = '';
       $('nome').value = '';
       $('cargo').value = '';

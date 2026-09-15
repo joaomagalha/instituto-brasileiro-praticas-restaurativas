@@ -169,8 +169,7 @@
     if (!db) return;
 
     var linhasBanco = [];   // formações carregadas do banco
-    var emEdicao = null;
- $('btnRascunho').textContent = 'Salvar rascunho';    // a que está aberta no formulário (null = nova)
+    var emEdicao = null;    // a que está aberta no formulário (null = nova)
     var arquivos = { hero: null, card: null };
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
@@ -323,6 +322,7 @@
 
     function limparForm() {
       emEdicao = null;
+      $('btnRascunho').textContent = 'Salvar rascunho';
       $('formacaoId').value = '';
       SIMPLES.forEach(function (p) { $(p[0]).value = ''; });
       LISTAS.forEach(function (p) { $(p[0]).value = ''; });

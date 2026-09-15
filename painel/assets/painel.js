@@ -453,8 +453,7 @@ window.IBPR.painel = (function () {
 
     var arquivoEscolhido = null;   // File selecionado, ainda não enviado
     var linhas = [];               // últimas notícias carregadas do banco
-    var emEdicao = null;
- $('btnRascunho').textContent = 'Salvar rascunho';           // linha aberta no formulário (null = nova)
+    var emEdicao = null;           // linha aberta no formulário (null = nova)
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
     db.auth.getSession()
@@ -586,6 +585,7 @@ window.IBPR.painel = (function () {
 
     function limparForm() {
       emEdicao = null;
+      $('btnRascunho').textContent = 'Salvar rascunho';
       $('noticiaId').value = '';
       $('titulo').value = '';
       $('resumo').value = '';
