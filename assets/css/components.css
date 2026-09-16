@@ -2757,8 +2757,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.15) 100%);
   -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 55%, rgba(0,0,0,0.15) 100%);
 }
-/* Vidro: brilho diagonal no canto superior esquerdo (luz batendo) e um
-   filete dourado → petróleo no topo, o mesmo detalhe dos cards de formação. */
+/* Vidro: brilho diagonal no canto superior esquerdo (luz batendo). */
 .footer__cartao {
   position: relative;
   overflow: hidden;
@@ -2768,14 +2767,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   border-radius: var(--radius-lg);
   box-shadow: 0 30px 80px rgba(var(--navy900-rgb), 0.45), inset 0 1px 0 rgba(var(--white-rgb), 0.10);
   padding: clamp(2.4rem, 4vw, 4rem);
-}
-.footer__cartao::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-teal) 100%);
-  opacity: 0.9;
 }
 @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
   .footer__cartao {
