@@ -1609,6 +1609,52 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .quote-mark__cite span { font-size: 1.3rem; color: var(--color-mist); }
 
+/* Citação com foto (16/09/2026, pedido do Dr. Decildo): a foto dele com os
+   autores do livro entra ao lado da citação. No celular fica citação em
+   cima e foto embaixo; a partir de 1024 viram duas colunas, com a citação
+   alinhada à esquerda pra conversar com a foto. */
+.quote-mark--com-foto { max-width: 112rem; }
+.quote-mark--com-foto .quote-mark__text { font-size: clamp(2rem, 2.5vw, 2.7rem); }
+.quote-mark__foto { margin: var(--space-2xl) auto 0; max-width: 52rem; }
+.quote-mark__moldura {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(var(--navy900-rgb), 0.18), 0 2px 6px rgba(var(--navy900-rgb), 0.08);
+  background: var(--color-navy);
+}
+.quote-mark__moldura::after {
+  /* filete interno claro, mesmo detalhe das molduras dos retratos */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(var(--white-rgb), 0.35);
+  pointer-events: none;
+}
+.quote-mark__moldura img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.quote-mark__legenda {
+  margin-top: var(--space-md);
+  font-size: 1.3rem;
+  line-height: 1.5;
+  color: var(--color-mist);
+  text-align: center;
+}
+.quote-mark__legenda em { font-style: italic; }
+@media (min-width: 1024px) {
+  .quote-mark--com-foto {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: var(--space-4xl);
+    align-items: center;
+    text-align: left;
+  }
+  .quote-mark--com-foto .quote-mark__foto { margin: 0; max-width: none; order: -1; }
+  .quote-mark--com-foto .quote-mark__emblem { margin-inline: 0; }
+  .quote-mark--com-foto .quote-mark__footer { align-items: flex-start; }
+  .quote-mark--com-foto .quote-mark__legenda { text-align: left; }
+}
+
 /* ===================================
    SECTION HEADER — variante fundo escuro
 =================================== */
