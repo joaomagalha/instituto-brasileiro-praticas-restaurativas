@@ -182,7 +182,7 @@ function cardNoticia(n, extra = '') {
 
   return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
-<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/></div>
+<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${extra === 'noticia-card--destaque' ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(n.categoria)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
@@ -221,20 +221,21 @@ const TRES_FRENTES = `<div class="course-eixos measure-narrow" data-aos="fade-up
 function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazio, subVazio, botao, linkTopo }) {
   const tem = noticias.length > 0;
 
-  /* Home com notícia (16/09/2026): cabeçalho e link "Ver todas" na mesma
-     linha, card em destaque abaixo, sem botão pesado no fim. No celular o
-     link desce pra baixo do card (ordem via CSS em .movimento). */
+  /* Home com notícia (16/09/2026): mesmo desenho do cabeçalho de
+     Formações (texto à esquerda, botão à direita, largura do container) e
+     um card em destaque abaixo. Fora do measure-narrow de propósito, pra
+     alinhar com as outras seções da Home. */
   if (tem && linkTopo) {
-    return `<div class="movimento measure-narrow" data-aos="fade-up">
-<div class="section-header movimento__head">
+    return `<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
 <p class="overline">${esc(kicker)}</p>
 <h2>${esc(titulo)}</h2>
 <p class="section-header__sub">${esc(sub)}</p>
 </div>
-<a class="movimento__link" href="${esc(linkTopo.href)}">${esc(linkTopo.rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<div class="noticias__lista noticias__lista--home">
-${noticias.map(n => cardNoticia(n, 'noticia-card--home')).join('\n')}
+<a class="btn btn--dark" href="${esc(linkTopo.href)}">${esc(linkTopo.rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
+<div class="noticias__lista noticias__lista--destaque" data-aos="fade-up">
+${noticias.map(n => cardNoticia(n, 'noticia-card--destaque')).join('\n')}
 </div>`;
   }
 

@@ -3882,63 +3882,43 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 }
 .movimento-foot .overline { margin-bottom: 0; }
 
-/* IBPR em Movimento na Home com notícia (16/09/2026): cabeçalho e link
-   "Ver todas" dividem a primeira linha, o card em destaque vem abaixo.
-   Grid com áreas pra ordem mudar sem duplicar o link: no celular ele
-   desce pra depois do card. */
-.movimento {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "head" "lista" "link";
-  gap: var(--space-xl);
-}
-.movimento__head { grid-area: head; margin-bottom: 0; }
-.movimento__head h2 { text-wrap: balance; max-width: 30ch; }
-.movimento__head .section-header__sub { max-width: 52rem; }
-.movimento .noticias__lista { grid-area: lista; }
-.movimento__link {
-  grid-area: link;
-  justify-self: start;
+/* IBPR em Movimento na Home com notícia (16/09/2026): o cabeçalho reusa o
+   desenho de Formações (.formacoes__header). O card em destaque ocupa a
+   largura do container, a foto ganha um selo e cresce de leve no hover,
+   o título sobe de tamanho: é um convite pra ler, sem gritar. */
+.noticias__lista--destaque { max-width: none; }
+.noticia-card--destaque { border-color: rgba(var(--navy-rgb), 0.07); }
+.noticia-card--destaque .noticia-card__media { position: relative; overflow: hidden; }
+.noticia-card--destaque .noticia-card__media img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.noticia-card--destaque:hover .noticia-card__media img { transform: scale(1.04); }
+.noticia-card__selo {
+  position: absolute;
+  top: 1.6rem; left: 1.6rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 1.5rem;
+  gap: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--navy900-rgb), 0.72);
+  color: var(--color-white);
+  font-size: 1.1rem;
   font-weight: var(--weight-semibold);
-  color: var(--color-teal);
-  text-decoration: none;
-  padding-bottom: 0.3rem;
-  position: relative;
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
-.movimento__link::after {
+.noticia-card__selo::before {
   content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.35;
-  transition: opacity var(--transition-fast);
+  width: 0.6rem; height: 0.6rem;
+  border-radius: 50%;
+  background: var(--color-gold);
 }
-.movimento__link i { font-size: 1.2rem; transition: transform var(--transition-fast); }
-.movimento__link:hover { color: var(--color-navy); }
-.movimento__link:hover::after { opacity: 1; }
-.movimento__link:hover i { transform: translateX(3px); }
-
-/* card em destaque: mais ar dentro, título maior, borda quase invisível */
-.noticia-card--home { border-color: rgba(var(--navy-rgb), 0.07); }
-.noticia-card--home .noticia-card__body { padding: clamp(2.8rem, 3.6vw, 4.4rem); }
-.noticia-card--home .noticia-card__title { font-size: clamp(2rem, 2.2vw, 2.5rem); }
-.noticia-card--home .noticia-card__resumo { -webkit-line-clamp: 3; }
-
+.noticia-card--destaque .noticia-card__body { padding: clamp(2.8rem, 3.6vw, 4.8rem); }
+.noticia-card--destaque .noticia-card__title { font-size: clamp(2.1rem, 2.4vw, 2.8rem); }
+.noticia-card--destaque .noticia-card__resumo { font-size: 1.6rem; -webkit-line-clamp: 3; }
 @media (min-width: 768px) {
-  .movimento {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "head link" "lista lista";
-    align-items: end;
-    column-gap: var(--space-2xl);
-    row-gap: var(--space-xl);
-  }
-  .movimento__link { justify-self: end; margin-bottom: 0.6rem; }
-  .noticia-card--home .noticia-card__link { grid-template-columns: minmax(0, 44%) minmax(0, 1fr); min-height: 27rem; }
+  .noticia-card--destaque .noticia-card__link { grid-template-columns: minmax(0, 46%) minmax(0, 1fr); min-height: 30rem; }
 }
 
 /* --- pills de tema / público (contexto claro) --- */
