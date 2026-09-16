@@ -175,12 +175,12 @@ const IMAGEM_PADRAO = 'assets/images/ibpr-movimento-hero.jpg';
    direita, um card por linha na coluna de leitura. No celular a foto vai pra
    cima. Um por linha fica bom com 1 notícia ou com 20; a grade de 3 colunas
    do card de Formações deixava a notícia fina e alta quando havia poucas. */
-function cardNoticia(n) {
+function cardNoticia(n, extra = '') {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
   const href = `noticia-${n.slug}.html`;
 
-  return `<article class="noticia-card">
+  return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
 <div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/></div>
 <div class="noticia-card__body">
@@ -218,8 +218,25 @@ const TRES_FRENTES = `<div class="course-eixos measure-narrow" data-aos="fade-up
 </div>`;
 
 /* Miolo da seção IBPR em Movimento. Dois estados, um só lugar que decide. */
-function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazio, subVazio, botao }) {
+function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazio, subVazio, botao, linkTopo }) {
   const tem = noticias.length > 0;
+
+  /* Home com notícia (16/09/2026): cabeçalho e link "Ver todas" na mesma
+     linha, card em destaque abaixo, sem botão pesado no fim. No celular o
+     link desce pra baixo do card (ordem via CSS em .movimento). */
+  if (tem && linkTopo) {
+    return `<div class="movimento measure-narrow" data-aos="fade-up">
+<div class="section-header movimento__head">
+<p class="overline">${esc(kicker)}</p>
+<h2>${esc(titulo)}</h2>
+<p class="section-header__sub">${esc(sub)}</p>
+</div>
+<a class="movimento__link" href="${esc(linkTopo.href)}">${esc(linkTopo.rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<div class="noticias__lista noticias__lista--home">
+${noticias.map(n => cardNoticia(n, 'noticia-card--home')).join('\n')}
+</div>
+</div>`;
+  }
 
   const cabeca = `<div class="section-header section__head measure-narrow" data-aos="fade-up">
 <p class="overline">${esc(tem ? kicker : kickerVazio)}</p>
@@ -254,7 +271,8 @@ async function gerarNoticias(cfg) {
     kickerVazio: 'IBPR em Movimento',
     tituloVazio: 'Acompanhe a atuação do IBPR e da sua rede.',
     subVazio: 'Um espaço para acompanhar o que o Instituto e os profissionais da sua rede realizam, dentro e fora do IBPR.',
-    botao: '<a class="btn btn--dark" href="ibpr-em-movimento.html">Ir para o IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>'
+    botao: '<a class="btn btn--dark" href="ibpr-em-movimento.html">Ir para o IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>',
+    linkTopo: { href: 'ibpr-em-movimento.html', rotulo: 'Ver todas as publicações' }
   }));
   await salvar('index.html', home);
 
