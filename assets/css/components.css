@@ -805,6 +805,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   filter: drop-shadow(0 2px 20px rgba(6, 26, 48, 0.5));
   white-space: nowrap;
 }
+@media (max-width: 359px) { .hero__accent { white-space: normal; } }
 
 .hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-sm); }
 .hero__cta { flex-shrink: 0; border-color: transparent; }
@@ -1264,7 +1265,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 =================================== */
 .formacoes__beneficios {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-xl) var(--space-sm);
   margin-top: var(--space-2xl);
   padding-top: var(--space-xl);
@@ -1322,6 +1323,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 @media (min-width: 768px) { .formacoes__beneficio-label { text-align: left; } }
+/* Abaixo de 600px três colunas dão ~90px cada e "Personalizada" não cabe
+   nem quebrando: vira lista de uma coluna, ícone ao lado do rótulo. */
+@media (max-width: 599px) {
+  .formacoes__beneficios { grid-template-columns: 1fr; gap: var(--space-md); }
+  .formacoes__beneficio { flex-direction: row; align-items: center; gap: var(--space-md); }
+  .formacoes__beneficio-icon { flex-shrink: 0; }
+  .formacoes__beneficio-label { text-align: left; text-wrap: pretty; }
+}
 
 .formacoes__beneficio-label strong { font-weight: var(--weight-semibold); color: var(--color-navy); }
 
@@ -2874,7 +2883,15 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .footer--vidro .footer__social-link.is-pending,
 .footer--vidro .footer__social-link.is-pending:hover { background: rgba(var(--white-rgb), 0.04); border-color: rgba(var(--white-rgb), 0.10); color: rgba(var(--white-rgb), 0.55); transform: none; cursor: default; }
 
-.footer--vidro .footer__nav { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl) var(--space-lg); }
+.footer--vidro .footer__nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl) var(--space-lg); }
+.footer--vidro .footer__col { min-width: 0; }
+.footer--vidro .footer__link { min-width: 0; overflow-wrap: anywhere; }
+/* Em telas estreitas o e-mail do Contato (ibpr@ibpr.com.br) não cabe em
+   meia coluna e empurrava o grid pra fora do cartão: Contato ocupa a
+   linha inteira. */
+@media (max-width: 479px) {
+  .footer--vidro .footer__col:nth-child(3) { grid-column: 1 / -1; }
+}
 .footer--vidro .footer__col-title {
   font-family: var(--font-display);
   font-size: 1.35rem;
@@ -2901,7 +2918,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .footer--vidro .footer__link--todas i { color: var(--color-gold); font-size: 1.05rem; margin-left: 0.2rem; transition: transform var(--transition-fast); }
 .footer--vidro .footer__link--todas:hover i { transform: translateX(3px); }
 .footer--vidro .footer__link i { color: var(--color-gold); font-size: 1.2rem; }
-.footer--vidro .footer__link--todas { color: var(--color-gold); font-weight: var(--weight-medium); margin-top: 0.2rem; }
+.footer--vidro .footer__link--todas { color: var(--color-gold); font-weight: var(--weight-medium); margin-top: 0.2rem; display: inline; overflow-wrap: normal; }
+.footer--vidro .footer__link--todas i { display: inline; margin-left: 0.3rem; white-space: nowrap; }
 .footer--vidro .footer__link--todas:hover { color: #E3C35A; }
 .footer__endereco { display: flex; align-items: center; gap: var(--space-xs); font-size: 1.35rem; color: rgba(var(--white-rgb), 0.74); }
 .footer__endereco i { color: var(--color-gold); font-size: 1.2rem; width: 1.8rem; }
@@ -2916,7 +2934,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .footer--vidro .footer__copy { color: rgba(var(--white-rgb), 0.7); font-size: 1.2rem; }
 .footer--vidro .footer__legal { color: rgba(var(--white-rgb), 0.55); font-size: 1.15rem; }
-.footer__legal-links { display: flex; align-items: center; gap: var(--space-md); list-style: none; margin: 0; padding: 0; }
+.footer__legal-links { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); list-style: none; margin: 0; padding: 0; }
 .footer__legal-links a { display: inline-flex; align-items: center; gap: 0.6rem; line-height: 1.5; font-size: 1.2rem; color: rgba(var(--white-rgb), 0.74); border-bottom: 1px solid rgba(var(--white-rgb), 0.3); transition: color var(--transition-fast), border-color var(--transition-fast); }
 .footer__legal-links a:hover { color: var(--color-white); border-color: var(--color-gold); }
 
