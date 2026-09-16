@@ -2687,7 +2687,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   font-size: 1.3rem;
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  box-shadow: 0 1rem 2.8rem rgba(6, 26, 48, 0.20);
+  box-shadow: 0 0.8rem 2.4rem rgba(6, 26, 48, 0.14);
   backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
