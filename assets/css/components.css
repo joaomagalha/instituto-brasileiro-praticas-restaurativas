@@ -330,6 +330,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   position: relative;
   display: flex;
   align-items: center;
+  flex-shrink: 0; /* em 1180 o logo estava sendo espremido pelo menu */
   transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
@@ -462,7 +463,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .navbar.scrolled .navbar__mobile-btn { color: var(--color-navy); }
 .navbar__cta { display: none; }
 
-@media (min-width: 1300px) {
+/* 1180px (16/09/2026): o Dr. Decildo abriu num notebook com escala de
+   tela e viu só o ☰. Logo + 6 itens + "Área do Aluno" precisam de ~990px,
+   então em 1180 ainda sobra folga. */
+@media (min-width: 1180px) {
   .navbar__nav { display: block; }
   .navbar__cta { display: inline-flex; }
   .navbar__mobile-btn { display: none; }
