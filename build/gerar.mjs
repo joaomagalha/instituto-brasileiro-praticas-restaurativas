@@ -1003,7 +1003,7 @@ const FORA_DO_SITEMAP = new Set(['404.html']);
 
 async function gerarSitemap() {
   const paginas = (await readdir(RAIZ))
-    .filter(f => f.endsWith('.html') && !FORA_DO_SITEMAP.has(f))
+    .filter(f => f.endsWith('.html') && !f.startsWith('_') && !FORA_DO_SITEMAP.has(f))
     .sort();
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
