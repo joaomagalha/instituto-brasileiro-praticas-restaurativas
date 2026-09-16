@@ -891,8 +891,7 @@ async function gerarPessoas(cfg) {
      iria junto, em vez de sobrar sozinho em cima do vazio. */
   inst = trocarRegiao(inst, 'pessoas-rede', rede.length
     ? `<div class="section-header founders__header founders__subhead" data-aos="fade-up">
-<p class="overline overline--light">Quem já se juntou a este propósito</p>
-<h2>Quem constrói o IBPR.</h2>
+<h2 class="founders__titulo">Quem já se juntou a este propósito</h2>
 </div>
 <div class="founders__list">
 ${listaPessoas(rede, true)}

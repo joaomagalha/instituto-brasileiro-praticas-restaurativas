@@ -1976,6 +1976,34 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    que a citação institucional (.quote-mark__emblem) usa em fundo claro */
 .founders__emblem { display: block; height: 4rem; width: auto; margin: 0 auto var(--space-lg); }
 
+/* Título da seção de pessoas (16/09/2026, pedido do Dr. Decildo): saiu o
+   "Quem constrói o IBPR." e o kicker virou o próprio título. Fica no tom
+   do kicker (caixa alta, espaçado), mas maior, em navy, com um traço
+   dourado curto abaixo pra segurar a hierarquia sem virar manchete. */
+.founders__header h2.founders__titulo {
+  font-family: var(--font-body);
+  font-size: clamp(1.5rem, 1.8vw, 1.8rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  margin: 0 auto;
+  padding-bottom: 1.6rem;
+  position: relative;
+  max-width: 60rem;
+}
+.founders__header h2.founders__titulo::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 0;
+  width: 3.2rem;
+  height: 2px;
+  border-radius: 1px;
+  transform: translateX(-50%);
+  background: var(--color-accent);
+}
+
 .founders__list { position: relative; display: flex; flex-direction: column; gap: var(--space-2xl); }
 
 /* (havia aqui uma espinha vertical em left:50%. Removida ao ver renderizado:
