@@ -2201,6 +2201,27 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    .founders__header, sem o emblema (a árvore da marca abre a seção uma vez
    só) e com respiro grande acima pra separar do bloco principal */
 .founders__subhead { margin-top: var(--space-5xl); }
+/* O subtítulo da rede não tem o emblema, então ganha outro dispositivo:
+   o kicker centrado entre dois filetes finos, como um separador de
+   capítulo. Diz "aqui começa outro grupo" sem competir com o título. */
+.founders__subhead h2.founders__titulo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  white-space: nowrap;
+}
+.founders__subhead h2.founders__titulo::before,
+.founders__subhead h2.founders__titulo::after {
+  content: "";
+  flex: 0 1 18rem;
+  min-width: 1.6rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(var(--navy-rgb), 0) 0%, rgba(var(--navy-rgb), 0.26) 45%, rgba(var(--navy-rgb), 0.26) 100%);
+}
+.founders__subhead h2.founders__titulo::after {
+  background: linear-gradient(90deg, rgba(var(--navy-rgb), 0.26) 0%, rgba(var(--navy-rgb), 0.26) 55%, rgba(var(--navy-rgb), 0) 100%);
+}
 
 /* convite de fecho — filete superior separando das pessoas, texto centrado
    na mesma medida de leitura das bios e o botão no estado "a confirmar"
