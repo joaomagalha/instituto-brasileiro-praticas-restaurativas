@@ -504,7 +504,7 @@ ${capa}<div class="artigo-card__body">
 
 /* Estado vazio de artigos.html: fica escrito no build pelo mesmo motivo
    das TRES_FRENTES (o build precisa reconstruí-lo se o último artigo sair). */
-const ARTIGOS_VAZIO = `<div class="section-header section__head measure-narrow" data-aos="fade-up">
+const ARTIGOS_VAZIO = `<div class="section-header section__head" data-aos="fade-up">
 <p class="overline">Em preparação</p>
 <h2>Os primeiros artigos estão a caminho.</h2>
 <p class="section-header__sub">O Instituto está organizando a sua produção acadêmica para publicar aqui, com texto completo e referências.</p>
@@ -541,7 +541,7 @@ async function gerarArtigos(cfg) {
   // --- artigos.html: todos ---
   let pagina = await ler('artigos.html');
   const miolo = artigos.length
-    ? `<div class="section-header section__head measure-narrow" data-aos="fade-up">
+    ? `<div class="section-header section__head" data-aos="fade-up">
 <p class="overline">Artigos</p>
 <h2>Produção acadêmica do Instituto e da sua rede.</h2>
 <p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências, escritos pelos profissionais que integram o IBPR.</p>
