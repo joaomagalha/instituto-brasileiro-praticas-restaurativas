@@ -558,3 +558,25 @@ document.addEventListener('keydown', (e) => {
     fab.classList.toggle('is-visible', !entradas[0].isIntersecting);
   }, { rootMargin: '-100px 0px 0px 0px', threshold: 0 }).observe(noHero);
 })();
+
+// Página de artigo: data de acesso da citação ABNT (é a data de hoje, de quem
+// lê, por isso não pode ficar gravada no HTML) e botão de copiar.
+(() => {
+  const acesso = document.querySelector('[data-acesso-em]');
+  if (!acesso) return;
+  const meses = ['jan.', 'fev.', 'mar.', 'abr.', 'maio', 'jun.', 'jul.', 'ago.', 'set.', 'out.', 'nov.', 'dez.'];
+  const hoje = new Date();
+  acesso.textContent = `${hoje.getDate()} ${meses[hoje.getMonth()]} ${hoje.getFullYear()}`;
+
+  const botao = document.querySelector('[data-copiar-citacao]');
+  const texto = document.getElementById('citacao');
+  if (!botao || !texto || !navigator.clipboard) return;
+  const rotulo = botao.innerHTML;
+  botao.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(texto.textContent.trim());
+      botao.innerHTML = '<i aria-hidden="true" class="fa-solid fa-check"></i> Copiado';
+      setTimeout(() => { botao.innerHTML = rotulo; }, 2000);
+    } catch (e) { /* sem permissão de área de transferência: o texto continua selecionável */ }
+  });
+})();

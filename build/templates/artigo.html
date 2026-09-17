@@ -3,26 +3,26 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Plataforma que organiza os dados das práticas restaurativas passa a integrar a estratégia nacional de Justiça Restaurativa. A oficialização acontece em 24 de setembro, em Curitiba." name="description"/>
-<title>Sistema Restaura, criado no TJMT, será adotado em todo o país pelo CNJ | IBPR em Movimento</title>
+<meta content="{{DESCRICAO}}" name="description"/>
+<title>{{TITULO_COMPLETO}} | Artigos IBPR</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
      Preenchido pelo build com endereço ABSOLUTO: os robôs do WhatsApp e do
      LinkedIn não resolvem caminho relativo em og:image. A base vem da
      constante SITE em build/gerar.mjs. -->
-<meta content="https://www.ibpr.com.br/noticia-sistema-restaura-tjmt-nacionalizado-pelo-cnj.html" property="og:url"/>
-<link href="https://www.ibpr.com.br/noticia-sistema-restaura-tjmt-nacionalizado-pelo-cnj.html" rel="canonical"/>
-<meta content="Sistema Restaura, criado no TJMT, será adotado em todo o país pelo CNJ" property="og:title"/>
-<meta content="Plataforma que organiza os dados das práticas restaurativas passa a integrar a estratégia nacional de Justiça Restaurativa. A oficialização acontece em 24 de setembro, em Curitiba." property="og:description"/>
+<meta content="{{URL}}" property="og:url"/>
+<link href="{{URL}}" rel="canonical"/>
+<meta content="{{TITULO_COMPLETO}}" property="og:title"/>
+<meta content="{{DESCRICAO}}" property="og:description"/>
 <meta content="article" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="https://www.ibpr.com.br/assets/images/noticias/sistema-restaura-tjmt.jpg" property="og:image"/>
-<meta content="Homem apresenta o Sistema Restaura em frente a uma tela com a plataforma projetada" property="og:image:alt"/>
-<meta content="2026-09-14T17:00:00.000Z" property="article:published_time"/>
+<meta content="{{IMAGEM}}" property="og:image"/>
+<meta content="{{IMAGEM_ALT}}" property="og:image:alt"/>
+{{PUBLICADO_META}}
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Sistema Restaura, criado no TJMT, será adotado em todo o país pelo CNJ" name="twitter:title"/>
-<meta content="Plataforma que organiza os dados das práticas restaurativas passa a integrar a estratégia nacional de Justiça Restaurativa. A oficialização acontece em 24 de setembro, em Curitiba." name="twitter:description"/>
-<meta content="https://www.ibpr.com.br/assets/images/noticias/sistema-restaura-tjmt.jpg" name="twitter:image"/>
+<meta content="{{TITULO_COMPLETO}}" name="twitter:title"/>
+<meta content="{{DESCRICAO}}" name="twitter:description"/>
+<meta content="{{IMAGEM}}" name="twitter:image"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -154,44 +154,42 @@
 
 <main id="conteudo" tabindex="-1">
 
-<!-- MOLDE, não edite o resultado: este arquivo vira noticia-<slug>.html
+<!-- MOLDE, não edite o resultado: este arquivo vira artigo-<slug>.html
      gerado por build/gerar.mjs a partir do que está publicado no painel.
      Editar a página gerada é trabalho perdido, o próximo build sobrescreve. -->
 
-<a aria-label="Voltar para o IBPR em Movimento" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Notícia" class="page-hero page-hero--ibpr-movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
+<a aria-label="Voltar para os artigos" class="back-fab" data-voltar href="artigos.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
+<section aria-label="Artigo" class="page-hero page-hero--ibpr-movimento page-hero--artigo" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<p class="overline overline--light page-hero__eyebrow">Rede · 14 set 2026</p>
-<h1>Sistema Restaura, criado no TJMT, será adotado em todo o país pelo CNJ</h1>
-<p class="page-hero__sub">Plataforma que organiza os dados das práticas restaurativas passa a integrar a estratégia nacional de Justiça Restaurativa. A oficialização acontece em 24 de setembro, em Curitiba.</p>
+<a class="page-back" data-voltar href="artigos.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
+<p class="overline overline--light page-hero__eyebrow">{{META}}</p>
+<h1>{{TITULO}}</h1>
+{{SUBTITULO}}
 </div>
 </section>
 
-<section aria-label="Conteúdo da notícia" class="section section--paper">
+<section aria-label="Conteúdo do artigo" class="section section--paper">
 <div class="container">
 
-<article class="measure-narrow">
-<figure class="noticia-figura noticia-figura--com-legenda">
-<div class="noticia-figura__moldura"><img alt="Homem apresenta o Sistema Restaura em frente a uma tela com a plataforma projetada" decoding="async" src="assets/images/noticias/sistema-restaura-tjmt.jpg"/></div>
-<figcaption class="noticia-figura__legenda">Apresentação do Sistema Restaura no TJMT. Foto: TJMT</figcaption>
-</figure>
-<div class="prose">
-<p>O Sistema Restaura, desenvolvido pelo Tribunal de Justiça de Mato Grosso (TJMT), vai ganhar escala nacional. A plataforma, criada para transformar os registros das práticas restaurativas em informação de gestão, passa a integrar a estratégia nacional de Justiça Restaurativa do Conselho Nacional de Justiça (CNJ). A nacionalização será oficializada em 24 de setembro, em Curitiba, durante o VI Encontro Paranaense de Justiça Restaurativa.</p>
-<p>Com a mudança, tribunais de todo o país poderão usar o sistema para reunir, organizar e analisar dados sobre círculos de construção de paz e outras técnicas restaurativas. Informações que hoje ficam espalhadas em planilhas e controles locais passam a viver numa plataforma única, com acompanhamento em tempo real por comarca, por estado e em âmbito nacional.</p>
-<p>O Restaura foi idealizado pelo Núcleo Gestor da Justiça Restaurativa (NUGJUR) e desenvolvido com a Coordenadoria de Tecnologia da Informação do TJMT. Rauny Viana, assessor de Relações Institucionais do NUGJUR e idealizador do sistema, resume a origem do projeto: &quot;o Restaura também nasceu de uma pergunta&quot;, a de como apoiar a gestão com informações organizadas e confiáveis. Ao longo do caminho vieram perfis para instrutores acompanharem cursos, emissão de certificados, registro das técnicas e, principalmente, a possibilidade de o gestor local enxergar o que acontece na sua comarca.</p>
-<p>Um dos destaques é o módulo de inteligência de dados, que gera relatórios por faixa etária atendida, tipo de conflito, cumprimento de acordos e órgãos envolvidos. Para o CNJ, o caso é exemplo de tecnologia a serviço de uma Justiça mais humana: a incorporação ao Programa Conecta estimula o compartilhamento de soluções entre tribunais e dá escala a uma inovação nascida de quem está na ponta.</p>
-<p>Para o IBPR, a notícia importa por um motivo simples: dados organizados são o que permite mostrar resultados, planejar e aprimorar as práticas restaurativas, em vez de depender só da percepção de quem as conduz. É o mesmo princípio que orienta a linha de pesquisa do Instituto.</p>
+<article class="artigo measure-narrow">
+{{AUTORES}}
+{{RESUMO_BLOCO}}
+{{ACESSO}}
+<div class="prose prose--artigo">
+{{CORPO}}
 </div>
-<p class="noticia-fonte">Com informações de <a href="https://www.tjmt.jus.br/noticias/2026/9/tecnologia-tjmt-moderniza-gestao-justica-restaurativa-e-sera-nacionalizada-pelo-cnj" rel="noopener" target="_blank">Portal do TJMT<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>.</p>
+{{ACESSO_FIM}}
+{{CITAR}}
 <div class="noticia-fim">
-<a class="link-arrow" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-arrow" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </article>
 
 </div>
 </section>
+
+{{OUTROS}}
 
 </main>
 

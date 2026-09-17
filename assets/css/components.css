@@ -4361,3 +4361,159 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 @media (prefers-reduced-motion: reduce) {
   .aviso-cookies { transition: none; transform: none; }
 }
+
+/* ===================================================================
+   ARTIGOS (17/09/2026) — lista, card e página de leitura
+   -------------------------------------------------------------------
+   Pedido do Dr. Decildo: área de artigos dentro de IBPR em Movimento.
+   Card na base do .info-card, sem foto por padrão (artigo raramente tem);
+   página de leitura no .prose com seções, citação, notas e "como citar".
+   Espaçamento em múltiplos de 8; pares do curso: meta→título 16,
+   título→texto 8, texto→CTA 32.
+   =================================================================== */
+
+/* -- lista: 1 coluna no celular, 2 no tablet e na página artigos.html,
+      3 no hub e no "outros artigos" (≥1024) -- */
+.artigos__lista { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
+@media (min-width: 768px) { .artigos__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .artigos__lista--hub { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+.artigo-card {
+  position: relative;
+  display: flex;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.artigo-card:hover,
+.artigo-card:focus-within {
+  transform: translateY(-3px);
+  border-color: rgba(var(--teal-rgb), 0.42);
+  box-shadow: 0 8px 20px rgba(var(--navy900-rgb), 0.07), 0 2px 6px rgba(var(--navy900-rgb), 0.05);
+}
+.artigo-card__link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; outline: none; }
+.artigo-card__link:focus-visible { box-shadow: inset 0 0 0 3px var(--color-teal); border-radius: var(--radius-lg); }
+.artigo-card__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-mist-bg); }
+.artigo-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.artigo-card__body { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-lg) var(--space-lg) var(--space-xl); flex: 1; }
+.artigo-card__body .noticia-card__meta { margin-bottom: var(--space-xs); }
+.artigo-card__title {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-snug);
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.25s ease;
+}
+.artigo-card:hover .artigo-card__title { color: var(--color-teal); }
+.artigo-card__autores { font-size: 1.4rem; color: var(--color-mist); line-height: 1.4; }
+.artigo-card__body .noticia-card__resumo { margin-top: var(--space-2xs); }
+.artigo-card__body .noticia-card__cta { margin-top: auto; padding-top: var(--space-md); }
+.artigo-card:hover .noticia-card__cta { color: var(--color-teal); background-size: 100% 1px; }
+.artigo-card:hover .noticia-card__cta i { transform: translateX(4px); }
+
+/* -- hero do artigo: título acadêmico é longo, então o h1 fica menor
+      (teto 40px, 3 linhas no pior caso) e o subtítulo vira a parte depois
+      dos dois-pontos -- */
+.page-hero--artigo h1 { font-size: clamp(2.6rem, 3.2vw, 4rem); max-width: 84rem; }
+.page-hero--artigo .page-hero__sub { max-width: 72rem; font-size: clamp(1.6rem, 1.7vw, 1.9rem); }
+
+/* -- autores: nome + credenciais, 2 colunas a partir de 768 -- */
+.artigo-autores { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); margin-bottom: var(--space-2xl); }
+@media (min-width: 768px) { .artigo-autores { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl); } }
+.artigo-autor__nome { font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); margin-bottom: var(--space-2xs); }
+.artigo-autor__cred { font-size: 1.4rem; line-height: 1.5; color: var(--color-mist); }
+
+/* -- resumo em cartão claro + palavras-chave em pílulas -- */
+.artigo-resumo {
+  padding: var(--space-xl) var(--space-xl) var(--space-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--space-xl);
+}
+.artigo-resumo .overline { margin-bottom: var(--space-sm); }
+.artigo-resumo__texto { font-size: var(--text-body); line-height: var(--leading-body); color: var(--color-navy-mid); text-wrap: pretty; }
+.artigo-palavras { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-lg) 0 0; padding: 0; }
+.artigo-palavras .tag-pill { background: var(--color-paper); }
+
+/* -- acesso ao original: botão do PDF + link da revista/DOI -- */
+.artigo-acesso { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); margin-bottom: var(--space-2xl); }
+.artigo-acesso--fim { margin: var(--space-2xl) 0 0; padding-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
+.artigo-acesso__doi { flex-basis: 100%; font-size: 1.3rem; color: var(--color-mist); margin: 0; }
+.artigo-acesso__doi span { font-family: var(--font-mono); font-size: 1.2rem; color: var(--color-navy-mid); }
+
+/* -- prosa do artigo: seções, citação, listas, notas -- */
+.prose--artigo h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 2.4vw, 2.4rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: 1.25;
+  letter-spacing: var(--tracking-snug);
+  margin: var(--space-2xl) 0 var(--space-md);
+  text-wrap: pretty;
+}
+.prose--artigo h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2vw, 1.9rem);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: 1.3;
+  margin: var(--space-xl) 0 var(--space-sm);
+}
+.prose--artigo h2:first-child, .prose--artigo h3:first-child { margin-top: 0; }
+.prose--artigo p { color: var(--color-navy-mid); text-wrap: pretty; }
+.prose--artigo p + p, .prose--artigo ul + p, .prose--artigo ol + p, .prose--artigo blockquote + p { margin-top: var(--space-md); }
+.prose--artigo strong { color: var(--color-navy); font-weight: var(--weight-semibold); }
+.prose--artigo blockquote {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md) var(--space-lg);
+  border-left: 3px solid var(--color-gold);
+  background: var(--color-white);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.prose--artigo blockquote p { font-style: italic; color: var(--color-navy); }
+.prose--artigo ul, .prose--artigo ol { margin: var(--space-md) 0; padding-left: 2.4rem; color: var(--color-navy-mid); font-size: var(--text-body); line-height: var(--leading-body); }
+.prose--artigo li + li { margin-top: var(--space-xs); }
+.prose--artigo li::marker { color: var(--color-teal); font-weight: var(--weight-semibold); }
+.nota-ref { font-size: 0.7em; line-height: 0; vertical-align: super; margin-left: 0.1em; }
+.nota-ref a { color: var(--color-teal); font-weight: var(--weight-semibold); text-decoration: none; }
+.artigo-notas { font-size: 1.4rem !important; color: var(--color-mist) !important; }
+.artigo-notas li { scroll-margin-top: 12rem; }
+.nota-volta { color: var(--color-teal); text-decoration: none; margin-left: 0.4rem; }
+.prose--artigo h2#notas { font-size: 1.8rem; margin-top: var(--space-3xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
+
+/* -- como citar (ABNT) -- */
+.artigo-citar {
+  margin-top: var(--space-2xl);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-lg);
+  background: var(--color-mist-bg);
+}
+.artigo-citar .overline { margin-bottom: var(--space-sm); }
+.artigo-citar__texto { font-size: 1.4rem; line-height: 1.6; color: var(--color-navy-mid); user-select: all; }
+.artigo-citar__copiar {
+  margin-top: var(--space-md);
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-body); font-size: 1.3rem; font-weight: var(--weight-semibold);
+  color: var(--color-navy); background: var(--color-white);
+  border: 1px solid var(--color-border-light); border-radius: var(--radius-sm);
+  padding: 0.8rem 1.4rem; cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+.artigo-citar__copiar:hover { border-color: rgba(var(--teal-rgb), 0.5); color: var(--color-teal); }
+@media (max-width: 639px) {
+  .artigo-resumo { padding: var(--space-lg); }
+  .artigo-citar { padding: var(--space-lg); }
+}

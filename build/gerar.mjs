@@ -178,16 +178,18 @@ const IMAGEM_PADRAO = 'assets/images/ibpr-movimento-hero.jpg';
 function cardNoticia(n, extra = '') {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
-  const href = `noticia-${n.slug}.html`;
+  const href = n.href || `noticia-${n.slug}.html`;
+  const frente = n.frente || n.categoria;
+  const cta = n.cta || 'Ler notícia';
 
   return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
 <div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${extra === 'noticia-card--destaque' ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>
 <div class="noticia-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">${esc(n.categoria)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
+<p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
 <p class="noticia-card__resumo">${esc(n.resumo || '')}</p>
-<span class="noticia-card__cta">Ler notícia <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+<span class="noticia-card__cta">${esc(cta)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
 </div>
 </a>
 </article>`;
@@ -256,16 +258,26 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
   return [cabeca, corpo, rodape].join('\n');
 }
 
-async function gerarNoticias(cfg) {
+async function gerarNoticias(cfg, artigos = []) {
   const noticias = await consultar(cfg,
     'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em' +
     '&status=eq.publicado&order=publicado_em.desc.nullslast');
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
 
-  // --- Home: as 3 mais recentes ---
+  // --- Home: as 3 publicações mais recentes, notícias e artigos juntos
+  //     (17/09/2026). A etiqueta do card passa a dizer o tipo. ---
+  const recentes = [
+    ...noticias.map(n => ({ ...n, frente: 'Notícia', cta: 'Ler notícia' })),
+    ...artigos.map(a => ({
+      ...a, href: `artigo-${a.slug}.html`, frente: 'Artigo', cta: 'Ler artigo',
+      imagem_alt: a.imagem_url ? a.imagem_alt : 'Instituto Brasileiro de Práticas Restaurativas (IBPR)',
+      resumo: a.resumo, titulo: tituloCompleto(a)
+    }))
+  ].sort((x, y) => String(y.publicado_em || '').localeCompare(String(x.publicado_em || '')));
+
   let home = await ler('index.html');
-  home = trocarRegiao(home, 'movimento-home', secaoMovimento(noticias.slice(0, 3), {
+  home = trocarRegiao(home, 'movimento-home', secaoMovimento(recentes.slice(0, 3), {
     kicker: 'IBPR em Movimento',
     titulo: 'Acompanhe a atuação do IBPR e da sua rede.',
     sub: 'Um espaço para acompanhar o que o Instituto e os profissionais da sua rede realizam, dentro e fora do IBPR.',
@@ -344,6 +356,292 @@ async function gerarNoticias(cfg) {
   for (const f of await readdir(RAIZ)) {
     if (/^noticia-.+\.html$/.test(f) && !gerados.has(f)) await apagar(f);
   }
+}
+
+
+/* =====================================================================
+   ARTIGOS (17/09/2026)
+   =====================================================================
+   Pedido do Dr. Decildo: uma área para os artigos do Instituto, dentro
+   de IBPR em Movimento. Artigo tem autores com credenciais, resumo,
+   palavras-chave, texto longo com seções e, às vezes, PDF ou DOI.
+   ===================================================================== */
+
+function tituloCompleto(a) {
+  const sub = String(a.subtitulo || '').trim();
+  return sub ? `${a.titulo}: ${sub}` : a.titulo;
+}
+
+/* Marcação leve do corpo → HTML. Escapa TUDO primeiro; só depois reconhece
+   os poucos sinais aceitos (o painel explica os mesmos):
+     linha em branco = parágrafo novo · "## " seção · "### " subseção ·
+     "> " citação · "- " lista · "1. " lista numerada · *itálico* ·
+     **negrito** · [1] vira nota ligada ao item 1 da seção "## Notas". */
+function inlineRico(t) {
+  return t
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+?)\*/g, '$1<em>$2</em>')
+    .replace(/\[(\d{1,3})\]/g, '<sup class="nota-ref" id="ref-$1"><a href="#nota-$1">$1</a></sup>');
+}
+
+function corpoRico(texto) {
+  const blocos = esc(String(texto || '')).replace(/\r/g, '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
+  let emNotas = false;
+  const saida = [];
+
+  for (const b of blocos) {
+    const linhas = b.split('\n').map(l => l.trim());
+
+    if (/^###\s+/.test(b)) { saida.push(`<h3>${inlineRico(b.replace(/^###\s+/, ''))}</h3>`); continue; }
+    if (/^##\s+/.test(b)) {
+      const t = b.replace(/^##\s+/, '');
+      emNotas = /^notas?$/i.test(t.trim());
+      saida.push(`<h2${emNotas ? ' id="notas"' : ''}>${inlineRico(t)}</h2>`);
+      continue;
+    }
+    if (linhas.every(l => /^&gt;\s?/.test(l))) {
+      saida.push(`<blockquote><p>${linhas.map(l => inlineRico(l.replace(/^&gt;\s?/, ''))).join('<br/>')}</p></blockquote>`);
+      continue;
+    }
+    if (linhas.every(l => /^-\s+/.test(l))) {
+      saida.push(`<ul>${linhas.map(l => `<li>${inlineRico(l.replace(/^-\s+/, ''))}</li>`).join('')}</ul>`);
+      continue;
+    }
+    if (linhas.every(l => /^\d{1,3}\.\s+/.test(l))) {
+      const itens = linhas.map(l => {
+        const n = l.match(/^(\d{1,3})\.\s+/)[1];
+        const corpo = inlineRico(l.replace(/^\d{1,3}\.\s+/, ''));
+        return emNotas
+          ? `<li id="nota-${n}" value="${n}">${corpo} <a class="nota-volta" href="#ref-${n}" aria-label="Voltar ao texto">↩</a></li>`
+          : `<li value="${n}">${corpo}</li>`;
+      });
+      saida.push(`<ol${emNotas ? ' class="artigo-notas"' : ''}>${itens.join('')}</ol>`);
+      continue;
+    }
+    saida.push(`<p>${inlineRico(linhas.join('<br/>'))}</p>`);
+  }
+  return saida.join('\n');
+}
+
+/* Palavras por minuto de leitura em português: 200 é a régua comum. */
+function tempoLeitura(a) {
+  const palavras = `${a.resumo || ''} ${a.corpo || ''}`.trim().split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(palavras / 200));
+}
+
+function autoresLista(a) {
+  return lista(a.autores).map(x => (typeof x === 'string' ? { nome: x, credenciais: [] } : x))
+    .filter(x => x && x.nome);
+}
+
+function nomesAutores(a) {
+  const nomes = autoresLista(a).map(x => x.nome);
+  if (nomes.length <= 1) return nomes.join('');
+  return `${nomes.slice(0, -1).join(', ')} e ${nomes[nomes.length - 1]}`;
+}
+
+/* "Decildo Ferreira Lopes" → "LOPES, Decildo Ferreira" (ABNT NBR 6023).
+   Júnior/Filho/Neto/Sobrinho ficam junto do sobrenome. */
+function nomeABNT(nome) {
+  const partes = String(nome).trim().split(/\s+/);
+  if (partes.length < 2) return partes.join('').toUpperCase();
+  const sufixos = ['júnior', 'junior', 'filho', 'neto', 'sobrinho'];
+  let corte = partes.length - 1;
+  if (sufixos.includes(partes[corte].toLowerCase()) && partes.length > 2) corte -= 1;
+  return `${partes.slice(corte).join(' ').toUpperCase()}, ${partes.slice(0, corte).join(' ')}`;
+}
+
+function citacaoABNT(a, url) {
+  const autores = autoresLista(a).map(x => nomeABNT(x.nome)).join('; ');
+  const ano = a.publicado_em ? new Date(a.publicado_em).getUTCFullYear() : '';
+  const titulo = tituloCompleto(a);
+  const onde = a.publicacao_nome
+    ? `${a.publicacao_nome}${ano ? `, ${ano}` : ''}`
+    : `IBPR em Movimento, Instituto Brasileiro de Práticas Restaurativas${ano ? `, ${ano}` : ''}`;
+  return `${autores}. ${titulo}. ${onde}. Disponível em: ${url}. Acesso em: `;
+}
+
+function cardArtigo(a, extra = '') {
+  const data = dataCurta(a.publicado_em);
+  const href = `artigo-${a.slug}.html`;
+  const capa = a.imagem_url
+    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(a.imagem_url)}"/></div>`
+    : '';
+  return `<article class="artigo-card${extra ? ' ' + extra : ''}">
+<a class="artigo-card__link" href="${esc(href)}">
+${capa}<div class="artigo-card__body">
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}<span class="noticia-card__data">${tempoLeitura(a)} min de leitura</span></p>
+<h3 class="artigo-card__title">${esc(tituloCompleto(a))}</h3>
+<p class="artigo-card__autores">${esc(nomesAutores(a))}</p>
+<p class="noticia-card__resumo">${esc(a.resumo || '')}</p>
+<span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
+</a>
+</article>`;
+}
+
+/* Estado vazio de artigos.html: fica escrito no build pelo mesmo motivo
+   das TRES_FRENTES (o build precisa reconstruí-lo se o último artigo sair). */
+const ARTIGOS_VAZIO = `<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<p class="overline">Em preparação</p>
+<h2>Os primeiros artigos estão a caminho.</h2>
+<p class="section-header__sub">O Instituto está organizando a sua produção acadêmica para publicar aqui, com texto completo e referências.</p>
+</div>`;
+
+function blocoAcesso(a, classe = '') {
+  const partes = [];
+  if (a.pdf_url) {
+    partes.push(`<a class="btn btn--dark" href="${esc(a.pdf_url)}" rel="noopener" target="_blank">Baixar o PDF <i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i></a>`);
+  }
+  const doiUrl = a.doi ? `https://doi.org/${String(a.doi).replace(/^https?:\/\/doi\.org\//, '')}` : '';
+  const linkFora = a.publicacao_url || doiUrl;
+  if (linkFora) {
+    const rotulo = a.publicacao_nome ? `Ver em ${esc(a.publicacao_nome)}` : 'Ver no DOI';
+    partes.push(`<a class="link-arrow" href="${esc(linkFora)}" rel="noopener" target="_blank">${rotulo} <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>`);
+  }
+  if (!partes.length) return '';
+  return `<div class="artigo-acesso${classe ? ' ' + classe : ''}">${partes.join('\n')}${a.doi ? `<p class="artigo-acesso__doi">DOI: <span>${esc(a.doi)}</span></p>` : ''}</div>`;
+}
+
+async function gerarArtigos(cfg) {
+  const artigos = await consultar(cfg,
+    'artigos?select=titulo,subtitulo,slug,autores,resumo,palavras_chave,corpo,pdf_url,doi,publicacao_nome,publicacao_url,imagem_url,imagem_alt,publicado_em' +
+    '&status=eq.publicado&order=publicado_em.desc.nullslast', { toleraAusente: true });
+
+  if (artigos === null) {
+    console.log('\n== Artigos: a tabela ainda não existe no banco. Nada foi alterado.');
+    console.log('   (rode supabase/11-artigos.sql)');
+    return [];
+  }
+  console.log(`\n== Artigos publicados: ${artigos.length}`);
+
+  // --- artigos.html: todos ---
+  let pagina = await ler('artigos.html');
+  const miolo = artigos.length
+    ? `<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<p class="overline">Artigos</p>
+<h2>Produção acadêmica do Instituto e da sua rede.</h2>
+<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências, escritos pelos profissionais que integram o IBPR.</p>
+</div>
+<div class="artigos__lista" data-aos="fade-up">
+${artigos.map(a => cardArtigo(a)).join('\n')}
+</div>`
+    : ARTIGOS_VAZIO;
+  pagina = trocarRegiao(pagina, 'artigos-lista', miolo);
+  await salvar('artigos.html', pagina);
+
+  // --- Hub IBPR em Movimento: os 3 mais recentes; sem artigo, a seção some ---
+  let hub = await ler('ibpr-em-movimento.html');
+  const secaoHub = artigos.length
+    ? `<section aria-label="Artigos" class="section section--white" id="artigos">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
+<p class="overline">Artigos</p>
+<h2>Produção acadêmica do Instituto e da sua rede.</h2>
+<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências.</p>
+</div>
+<a class="btn btn--dark" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="artigos__lista artigos__lista--hub" data-aos="fade-up">
+${artigos.slice(0, 3).map(a => cardArtigo(a)).join('\n')}
+</div>
+</div>
+</section>`
+    : '';
+  hub = trocarRegiao(hub, 'artigos-hub', secaoHub);
+  await salvar('ibpr-em-movimento.html', hub);
+
+  // --- Uma página por artigo ---
+  const molde = await ler('build/templates/artigo.html');
+  const gerados = new Set();
+
+  for (const a of artigos) {
+    const arquivo = `artigo-${a.slug}.html`;
+    gerados.add(arquivo);
+    const url = `${SITE}/${arquivo}`;
+
+    // Título sem subtítulo explícito mas com dois-pontos: divide, pro h1 não virar 5 linhas.
+    let titulo = a.titulo, subtitulo = String(a.subtitulo || '').trim();
+    if (!subtitulo && /:\s+/.test(titulo)) {
+      const i = titulo.indexOf(': ');
+      subtitulo = titulo.slice(i + 2).trim(); titulo = titulo.slice(0, i).trim();
+    }
+    const completo = subtitulo ? `${titulo}: ${subtitulo}` : titulo;
+    const descricao = String(a.resumo || '').replace(/\s+/g, ' ').trim().slice(0, 157).replace(/\s+\S*$/, '') + (String(a.resumo || '').length > 157 ? '…' : '');
+
+    const autores = autoresLista(a);
+    const blocoAutores = autores.length
+      ? `<div class="artigo-autores">\n${autores.map(x => `<div class="artigo-autor">
+<p class="artigo-autor__nome">${esc(x.nome)}</p>
+${lista(x.credenciais).length ? `<p class="artigo-autor__cred">${lista(x.credenciais).map(esc).join('<br/>')}</p>` : ''}
+</div>`).join('\n')}\n</div>`
+      : '';
+
+    const palavras = lista(a.palavras_chave).filter(Boolean);
+    const blocoResumo = a.resumo
+      ? `<div class="artigo-resumo">
+<p class="overline">Resumo</p>
+<p class="artigo-resumo__texto">${esc(a.resumo)}</p>
+${palavras.length ? `<ul class="artigo-palavras" aria-label="Palavras-chave">${palavras.map(p => `<li class="tag-pill">${esc(p)}</li>`).join('')}</ul>` : ''}
+</div>`
+      : '';
+
+    const citar = `<div class="artigo-citar">
+<p class="overline">Como citar</p>
+<p class="artigo-citar__texto" id="citacao">${esc(citacaoABNT(a, url))}<span data-acesso-em></span>.</p>
+<button class="artigo-citar__copiar" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i> Copiar citação</button>
+</div>`;
+
+    const outros = artigos.filter(o => o.slug !== a.slug).slice(0, 3);
+    const blocoOutros = outros.length
+      ? `<section aria-label="Outros artigos" class="section section--white">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
+<p class="overline">Continue lendo</p>
+<h2>Outros artigos.</h2>
+</div>
+<a class="btn btn--dark" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="artigos__lista artigos__lista--hub" data-aos="fade-up">
+${outros.map(o => cardArtigo(o)).join('\n')}
+</div>
+</div>
+</section>`
+      : '';
+
+    const meta = ['Artigo', a.publicado_em ? dataCurta(a.publicado_em) : '', `${tempoLeitura(a)} min de leitura`].filter(Boolean).join(' · ');
+
+    const html = molde
+      .replaceAll('{{TITULO_COMPLETO}}', () => esc(completo))
+      .replaceAll('{{TITULO}}', () => esc(titulo))
+      .replaceAll('{{SUBTITULO}}', () => subtitulo ? `<p class="page-hero__sub">${esc(subtitulo)}</p>` : '')
+      .replaceAll('{{DESCRICAO}}', () => esc(descricao))
+      .replaceAll('{{META}}', () => esc(meta))
+      .replaceAll('{{URL}}', () => esc(url))
+      .replaceAll('{{IMAGEM}}', () => esc(absoluto(a.imagem_url || IMAGEM_PADRAO)))
+      .replaceAll('{{IMAGEM_ALT}}', () => esc((a.imagem_url && a.imagem_alt) || 'Instituto Brasileiro de Práticas Restaurativas (IBPR)'))
+      .replaceAll('{{PUBLICADO_META}}', () => a.publicado_em
+        ? `<meta content="${esc(new Date(a.publicado_em).toISOString())}" property="article:published_time"/>`
+        : '')
+      .replaceAll('{{AUTORES}}', () => blocoAutores)
+      .replaceAll('{{RESUMO_BLOCO}}', () => blocoResumo)
+      .replaceAll('{{ACESSO}}', () => blocoAcesso(a))
+      .replaceAll('{{ACESSO_FIM}}', () => (a.corpo && String(a.corpo).trim()) ? blocoAcesso(a, 'artigo-acesso--fim') : '')
+      .replaceAll('{{CORPO}}', () => corpoRico(a.corpo))
+      .replaceAll('{{CITAR}}', () => citar)
+      .replaceAll('{{OUTROS}}', () => blocoOutros);
+
+    await salvar(arquivo, html);
+  }
+
+  for (const f of await readdir(RAIZ)) {
+    if (/^artigo-.+\.html$/.test(f) && !gerados.has(f)) await apagar(f);
+  }
+  return artigos;
 }
 
 
@@ -1050,7 +1348,8 @@ try {
   await gerarFormacoes(cfg);
   await gerarPessoas(cfg);
   await gerarTextos(cfg);
-  await gerarNoticias(cfg);
+  const artigos = await gerarArtigos(cfg);
+  await gerarNoticias(cfg, artigos);
   await gerarSitemap();
 
   console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);
