@@ -27,29 +27,86 @@ NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
 W = '{%s}' % NS['w']
 
 
-def runs_de(par, notas_idx):
-    """Devolve lista de (texto, negrito, italico) por run, com [n] nas notas."""
+R = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}'
+
+
+def texto_de_run(run, notas_idx, neg, ita, saida):
+    for filho in run:
+        tag = filho.tag
+        if tag == W + 't':
+            saida.append((filho.text or '', neg, ita))
+        elif tag == W + 'tab':
+            saida.append((' ', neg, ita))
+        elif tag == W + 'br':
+            saida.append(('\n', neg, ita))
+        elif tag == W + 'footnoteReference':
+            fid = filho.get(W + 'id')
+            if fid not in notas_idx:
+                notas_idx[fid] = len(notas_idx) + 1
+            saida.append(('[%d]' % notas_idx[fid], False, False))
+
+
+def formato(run):
+    rpr = run.find(W + 'rPr')
+    neg = ita = False
+    if rpr is not None:
+        b = rpr.find(W + 'b'); i = rpr.find(W + 'i')
+        neg = b is not None and b.get(W + 'val') not in ('0', 'false')
+        ita = i is not None and i.get(W + 'val') not in ('0', 'false')
+    return neg, ita
+
+
+def runs_de(par, notas_idx, rels=None):
+    """Devolve lista de (texto, negrito, italico) por run, com [n] nas notas
+    e links como [texto](url). Trata <w:hyperlink> e campos HYPERLINK
+    complexos (fldChar begin / instrText / separate / end)."""
+    rels = rels or {}
     saida = []
-    for run in par.iter(W + 'r'):
-        rpr = run.find(W + 'rPr')
-        neg = ita = False
-        if rpr is not None:
-            b = rpr.find(W + 'b'); i = rpr.find(W + 'i')
-            neg = b is not None and b.get(W + 'val') not in ('0', 'false')
-            ita = i is not None and i.get(W + 'val') not in ('0', 'false')
-        for filho in run:
-            tag = filho.tag
-            if tag == W + 't':
-                saida.append((filho.text or '', neg, ita))
-            elif tag == W + 'tab':
-                saida.append((' ', neg, ita))
-            elif tag == W + 'br':
-                saida.append(('\n', neg, ita))
-            elif tag == W + 'footnoteReference':
-                fid = filho.get(W + 'id')
-                if fid not in notas_idx:
-                    notas_idx[fid] = len(notas_idx) + 1
-                saida.append(('[%d]' % notas_idx[fid], False, False))
+    campo = None          # None | 'instr' | 'result'
+    campo_url = None
+    campo_runs = []
+
+    def fecha_link(url, runs):
+        texto = montar(runs)
+        if not texto:
+            return
+        if url and texto.strip() != url.strip():
+            saida.append(('[%s](%s)' % (texto, url), False, False))
+        elif url:
+            saida.append((url, False, False))
+        else:
+            saida.extend(runs)
+
+    for el in par:
+        if el.tag == W + 'hyperlink':
+            url = rels.get(el.get(R + 'id'), '')
+            inner = []
+            for run in el.iter(W + 'r'):
+                neg, ita = formato(run); texto_de_run(run, notas_idx, neg, ita, inner)
+            fecha_link(url, inner)
+            continue
+        if el.tag != W + 'r':
+            continue
+        fc = el.find(W + 'fldChar')
+        if fc is not None:
+            tipo = fc.get(W + 'fldCharType')
+            if tipo == 'begin':
+                campo, campo_url, campo_runs = 'instr', None, []
+            elif tipo == 'separate':
+                campo = 'result'
+            elif tipo == 'end':
+                fecha_link(campo_url, campo_runs)
+                campo = None
+            continue
+        if campo == 'instr':
+            it = el.find(W + 'instrText')
+            if it is not None and it.text:
+                m = re.search(r'HYPERLINK\s+"([^"]+)"', it.text)
+                if m:
+                    campo_url = m.group(1)
+            continue
+        neg, ita = formato(el)
+        texto_de_run(el, notas_idx, neg, ita, campo_runs if campo == 'result' else saida)
     return saida
 
 
@@ -93,13 +150,22 @@ def texto_puro(runs):
 def converter(caminho):
     z = zipfile.ZipFile(caminho)
     doc = ET.fromstring(z.read('word/document.xml'))
+
+    def rels_de(nome):
+        try:
+            xml = z.read(nome).decode('utf8')
+        except KeyError:
+            return {}
+        return {m.group(1): m.group(2).replace('&amp;', '&') for m in re.finditer(r'Id="(rId\d+)"[^>]*Target="([^"]+)"', xml)}
+    rels_doc = rels_de('word/_rels/document.xml.rels')
+    rels_fn = rels_de('word/_rels/footnotes.xml.rels')
     notas_idx = {}
     blocos = []
     meta = {'cabecalho': [], 'resumo': None, 'palavras': None}
     corpo_comecou = False
 
     for par in doc.iter(W + 'p'):
-        runs = runs_de(par, notas_idx)
+        runs = runs_de(par, notas_idx, rels_doc)
         puro = texto_puro(runs)
         if not puro:
             continue
@@ -145,10 +211,10 @@ def converter(caminho):
                 continue
             partes = []
             for par in nota.iter(W + 'p'):
-                t = montar(runs_de(par, {}))
+                t = montar(runs_de(par, {}, rels_fn))
                 if t:
                     partes.append(t)
-            textos[notas_idx[fid]] = ' '.join(partes).strip()
+            textos[notas_idx[fid]] = ' '.join(partes).replace('\n', ' ').strip()
         if textos:
             blocos.append('## Notas')
             blocos.append('\n'.join('%d. %s' % (n, textos[n]) for n in sorted(textos)))

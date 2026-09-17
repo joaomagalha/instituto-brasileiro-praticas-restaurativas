@@ -4492,6 +4492,8 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 .artigo-notas { font-size: 1.4rem !important; color: var(--color-mist) !important; }
 .artigo-notas li { scroll-margin-top: 12rem; }
 .nota-volta { color: var(--color-teal); text-decoration: none; margin-left: 0.4rem; }
+/* URL longa nas notas (e no corpo) quebra dentro da coluna em tela estreita */
+.prose--artigo a { overflow-wrap: anywhere; }
 .prose--artigo h2#notas { font-size: 1.8rem; margin-top: var(--space-3xl); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
 
 /* -- como citar (ABNT) -- */
@@ -4516,4 +4518,25 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 @media (max-width: 639px) {
   .artigo-resumo { padding: var(--space-lg); }
   .artigo-citar { padding: var(--space-lg); }
+}
+
+/* capa tipográfica: artigo sem foto, no card com imagem da Home. Painel navy
+   com grão e a árvore da marca, pra não repetir a mesma foto de hero em
+   todos os artigos. */
+.noticia-card__media--artigo {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-sm);
+  background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.06) 1px, transparent 1px), linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
+  background-size: 14px 14px, 100% 100%;
+}
+.noticia-card__media--artigo img { width: auto; height: 5.6rem; object-fit: contain; opacity: 0.9; transform: none; }
+.noticia-card__media--artigo > span:not(.noticia-card__selo) {
+  font-size: 1.15rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: rgba(var(--white-rgb), 0.7);
 }

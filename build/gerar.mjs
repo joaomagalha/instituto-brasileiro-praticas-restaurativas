@@ -175,7 +175,7 @@ const IMAGEM_PADRAO = 'assets/images/ibpr-movimento-hero.jpg';
    direita, um card por linha na coluna de leitura. No celular a foto vai pra
    cima. Um por linha fica bom com 1 notícia ou com 20; a grade de 3 colunas
    do card de Formações deixava a notícia fina e alta quando havia poucas. */
-function cardNoticia(n, extra = '') {
+function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
   const href = n.href || `noticia-${n.slug}.html`;
@@ -184,7 +184,9 @@ function cardNoticia(n, extra = '') {
 
   return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
-<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${extra === 'noticia-card--destaque' ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>
+${n.capaTipografica && !n.imagem_url
+    ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.png"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>`
+    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${selo ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>`}
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
@@ -237,7 +239,7 @@ function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazi
 <a class="btn btn--dark" href="${esc(linkTopo.href)}">${esc(linkTopo.rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="noticias__lista noticias__lista--destaque" data-aos="fade-up">
-${noticias.map(n => cardNoticia(n, 'noticia-card--destaque')).join('\n')}
+${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join('\n')}
 </div>`;
   }
 
@@ -270,7 +272,7 @@ async function gerarNoticias(cfg, artigos = []) {
   const recentes = [
     ...noticias.map(n => ({ ...n, frente: 'Notícia', cta: 'Ler notícia' })),
     ...artigos.map(a => ({
-      ...a, href: `artigo-${a.slug}.html`, frente: 'Artigo', cta: 'Ler artigo',
+      ...a, href: `artigo-${a.slug}.html`, frente: 'Artigo', cta: 'Ler artigo', capaTipografica: true,
       imagem_alt: a.imagem_url ? a.imagem_alt : 'Instituto Brasileiro de Práticas Restaurativas (IBPR)',
       resumo: a.resumo, titulo: tituloCompleto(a)
     }))
@@ -378,10 +380,18 @@ function tituloCompleto(a) {
      "> " citação · "- " lista · "1. " lista numerada · *itálico* ·
      **negrito** · [1] vira nota ligada ao item 1 da seção "## Notas". */
 function inlineRico(t) {
+  const links = [];
+  const guardar = html => { links.push(html); return `\u0000${links.length - 1}\u0000`; };
+  const ancora = (url, texto) => `<a href="${url}" rel="noopener" target="_blank">${texto}</a>`;
   return t
+    // [texto](url) primeiro, depois URL solta; os dois viram marcador pra
+    // não serem relidos pelas regras de itálico/nota
+    .replace(/\[([^\]\n]+?)\]\((https?:\/\/[^)\s]+)\)/g, (_, texto, url) => guardar(ancora(url, texto)))
+    .replace(/(^|[\s(])(https?:\/\/[^\s<>]+?)([.,;:)]*)(?=\s|$)/g, (_, antes, url, fim) => antes + guardar(ancora(url, url)) + fim)
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/(^|[^*])\*([^*\n]+?)\*/g, '$1<em>$2</em>')
-    .replace(/\[(\d{1,3})\]/g, '<sup class="nota-ref" id="ref-$1"><a href="#nota-$1">$1</a></sup>');
+    .replace(/\[(\d{1,3})\]/g, '<sup class="nota-ref" id="ref-$1"><a href="#nota-$1">$1</a></sup>')
+    .replace(/\u0000(\d+)\u0000/g, (_, i) => links[Number(i)]);
 }
 
 function corpoRico(texto) {
@@ -407,8 +417,14 @@ function corpoRico(texto) {
       saida.push(`<ul>${linhas.map(l => `<li>${inlineRico(l.replace(/^-\s+/, ''))}</li>`).join('')}</ul>`);
       continue;
     }
-    if (linhas.every(l => /^\d{1,3}\.\s+/.test(l))) {
-      const itens = linhas.map(l => {
+    if (/^\d{1,3}\.\s+/.test(linhas[0]) && linhas.filter(l => /^\d{1,3}\.\s+/.test(l)).length >= Math.ceil(linhas.length / 2)) {
+      // linha sem número é continuação do item anterior
+      const agrupadas = [];
+      for (const l of linhas) {
+        if (/^\d{1,3}\.\s+/.test(l) || !agrupadas.length) agrupadas.push(l);
+        else agrupadas[agrupadas.length - 1] += ' ' + l;
+      }
+      const itens = agrupadas.map(l => {
         const n = l.match(/^(\d{1,3})\.\s+/)[1];
         const corpo = inlineRico(l.replace(/^\d{1,3}\.\s+/, ''));
         return emNotas
@@ -425,8 +441,13 @@ function corpoRico(texto) {
 
 /* Palavras por minuto de leitura em português: 200 é a régua comum. */
 function tempoLeitura(a) {
+  if (!String(a.corpo || '').trim()) return 0;   // só resumo + PDF: não faz sentido
   const palavras = `${a.resumo || ''} ${a.corpo || ''}`.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(palavras / 200));
+}
+function rotuloLeitura(a) {
+  const m = tempoLeitura(a);
+  return m ? `${m} min de leitura` : '';
 }
 
 function autoresLista(a) {
@@ -455,8 +476,9 @@ function citacaoABNT(a, url) {
   const autores = autoresLista(a).map(x => nomeABNT(x.nome)).join('; ');
   const ano = a.publicado_em ? new Date(a.publicado_em).getUTCFullYear() : '';
   const titulo = tituloCompleto(a);
+  // revista que já traz o ano no nome (ex: "..., jul./dez. 2021") não ganha o ano de novo
   const onde = a.publicacao_nome
-    ? `${a.publicacao_nome}${ano ? `, ${ano}` : ''}`
+    ? `${a.publicacao_nome}${ano && !String(a.publicacao_nome).includes(String(ano)) ? `, ${ano}` : ''}`
     : `IBPR em Movimento, Instituto Brasileiro de Práticas Restaurativas${ano ? `, ${ano}` : ''}`;
   return `${autores}. ${titulo}. ${onde}. Disponível em: ${url}. Acesso em: `;
 }
@@ -470,7 +492,7 @@ function cardArtigo(a, extra = '') {
   return `<article class="artigo-card${extra ? ' ' + extra : ''}">
 <a class="artigo-card__link" href="${esc(href)}">
 ${capa}<div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}<span class="noticia-card__data">${tempoLeitura(a)} min de leitura</span></p>
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}${rotuloLeitura(a) ? `<span class="noticia-card__data">${rotuloLeitura(a)}</span>` : ''}</p>
 <h3 class="artigo-card__title">${esc(tituloCompleto(a))}</h3>
 <p class="artigo-card__autores">${esc(nomesAutores(a))}</p>
 <p class="noticia-card__resumo">${esc(a.resumo || '')}</p>
@@ -496,7 +518,8 @@ function blocoAcesso(a, classe = '') {
   const doiUrl = a.doi ? `https://doi.org/${String(a.doi).replace(/^https?:\/\/doi\.org\//, '')}` : '';
   const linkFora = a.publicacao_url || doiUrl;
   if (linkFora) {
-    const rotulo = a.publicacao_nome ? `Ver em ${esc(a.publicacao_nome)}` : 'Ver no DOI';
+    // rótulo curto: só o nome da revista (antes da 1ª vírgula)
+    const rotulo = a.publicacao_nome ? `Ver em ${esc(String(a.publicacao_nome).split(',')[0].trim())}` : 'Ver no DOI';
     partes.push(`<a class="link-arrow" href="${esc(linkFora)}" rel="noopener" target="_blank">${rotulo} <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>`);
   }
   if (!partes.length) return '';
@@ -613,7 +636,7 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
 </section>`
       : '';
 
-    const meta = ['Artigo', a.publicado_em ? dataCurta(a.publicado_em) : '', `${tempoLeitura(a)} min de leitura`].filter(Boolean).join(' · ');
+    const meta = ['Artigo', a.publicado_em ? dataCurta(a.publicado_em) : '', rotuloLeitura(a)].filter(Boolean).join(' · ');
 
     const html = molde
       .replaceAll('{{TITULO_COMPLETO}}', () => esc(completo))
