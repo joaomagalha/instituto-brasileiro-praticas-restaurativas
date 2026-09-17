@@ -23,7 +23,7 @@ FOTOS = [
     'assets/images/formacoes/relacoes-trabalho.jpg',
     'assets/images/como-atuamos-hero.jpg',
     'assets/images/o-instituto-hero.jpg',
-    'assets/images/praticas-restaurativas-hero.jpg',
+    'assets/images/praticas-hero-video-poster.jpg',
     'assets/images/ibpr-movimento-hero.jpg',
 ]
 LARGURA = 32

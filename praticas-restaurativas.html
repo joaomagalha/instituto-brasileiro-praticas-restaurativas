@@ -38,9 +38,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260917m" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260917n" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/praticas-restaurativas-hero.jpg" rel="preload"/>
+<link as="image" fetchpriority="high" href="assets/images/praticas-hero-video-poster.jpg" rel="preload"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -162,7 +162,15 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#proposito"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Práticas Restaurativas" class="page-hero page-hero--praticas" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQFBgECA//EACcQAAICAgECBAcAAAAAAAAAAAECAAMRIQQSMQUGExQiQVFhscHh/8QAGAEAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAXEQEBAQEAAAAAAAAAAAAAAAAAASFx/9oADAMBAAIRAxEAPwBmrhkx+jgdsmQnhvilr0L6wUWjTDH9jV/JtuCAWBMNnRx+5zttSSLxV5xW2xTXXWXb4tTl6fHTzOjLhcIGVQdYAlYt4jOzqtwBALdOO++2Zt0c33x6iGcKAFyRnIBlRPUbTotj6R+onW4QgIy270zvY/MsKqp8ybUdh8vtCEcKv//Z')">
+<section aria-label="Práticas Restaurativas" class="page-hero page-hero--praticas" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gAPTGF2YzYzLjEuMTAxAP/bAEMADgoLDQsJDg0MDRAPDhEWJBcWFBQWLCAhGiQ0Ljc2My4yMjpBU0Y6PU4+MjJIYklOVlhdXl04RWZtZVpsU1tdWf/bAEMBDxAQFhMWKhcXKlk7MjtZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWf/AABEIABAAIAMBIgACEQEDEQH/xAAXAAEAAwAAAAAAAAAAAAAAAAAFBAYH/8QAJxAAAgEDAgUEAwAAAAAAAAAAAQIDAAQRBSEGEhMiQRUkQnGBkaH/xAAWAQEBAQAAAAAAAAAAAAAAAAABAAL/xAAZEQADAQEBAAAAAAAAAAAAAAAAAREhAhL/2gAMAwEAAhEDEQA/AF/VbW6mNrGzCZTkqwwaTgvba7klt0Y81oV6hPjtrLnlutO1Y4d+ZSQHPyB8/mmdbaJdNmuYX91Oqu7KSvaQNsfdYfG0fWD7cSRNbmdIhFD1zCru2zY80TqXEcySOhRMLjfJ3zVa4ejW6kuopGbZAyjJxzA7GoerOVujGkryHAy2f5+81NbBTip//9k=')">
+<!-- 17/09/2026: vídeo da roda (aula do Decildo) como pano de fundo, a pedido
+     dele: "a coisa sendo feita" atrás do texto que explica. Arquivo em
+     assets/videos/praticas-hero-loop.mp4 (11s, 16:9 recortado do vertical do
+     WhatsApp, desfocado; trocar pelo original quando o Rauny mandar). O poster
+     é o 1º quadro; quem pede "reduzir movimento" fica no poster. -->
+<video aria-hidden="true" autoplay="" class="page-hero__video" loop="" muted="" playsinline="" poster="assets/images/praticas-hero-video-poster.jpg" preload="metadata" webkit-playsinline="">
+<source src="assets/videos/praticas-hero-loop.mp4" type="video/mp4"/>
+</video>
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="index.html#proposito"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
@@ -487,6 +495,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260917d"></script>
+<script src="assets/js/site-interactions.js?v=20260917e"></script>
 </body>
 </html>
