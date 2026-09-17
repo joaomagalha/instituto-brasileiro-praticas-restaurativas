@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260917i" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260917m" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -223,77 +223,103 @@
 <p class="section-header__sub"><!-- CMS:texto:home-proposito-sub -->No IBPR, esses três caminhos andam juntos.<!-- /CMS:texto:home-proposito-sub --></p>
 </div>
 <div class="proposito__grid">
-
+<!-- 17/09/2026: ilustrações novas, com significado (Word do Dr. Decildo,
+     item 2: os gráficos antigos vinham de outra referência e não diziam nada
+     do Instituto). Pesquisa = evidências que se conectam num conhecimento;
+     Formação = o círculo restaurativo; Inovação = do centro aos 4 contextos
+     reais do site. Traço fino, animam ao entrar na tela (JS põe .is-visible)
+     e no hover. Versão só-texto (pedido literal dele): trocar a classe dos
+     3 cards por "proposito-card proposito-card--so-texto". -->
 <article class="proposito-card" data-aos="fade-up">
 <div aria-hidden="true" class="proposito-card__grain"></div>
-<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-magnifying-glass"></i></div>
-<h3 class="proposito-card__title">Pesquisa</h3>
-<p class="proposito-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
 <div class="proposito-card__illustration">
-<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-<rect class="svg-doc-base" fill="rgba(255,255,255,0.04)" height="128" rx="10" stroke="rgba(255,255,255,0.14)" stroke-width="1.2" width="120" x="40" y="16"/>
-<rect class="svg-doc-inner" fill="rgba(255,255,255,0.05)" height="104" rx="7" stroke="rgba(255,255,255,0.10)" stroke-width="1" width="96" x="52" y="28"/>
-<circle class="svg-accent-circle" cx="72" cy="52" fill="rgba(201,162,43,0.10)" r="12" stroke="rgba(201,162,43,0.32)" stroke-width="0.8"/>
-<circle class="svg-search-lens" cx="70" cy="50" fill="none" r="5" stroke="var(--color-gold)" stroke-width="1.5"/>
-<line class="svg-search-handle" stroke="var(--color-gold)" stroke-linecap="round" stroke-width="1.5" x1="74" x2="78" y1="54" y2="58"/>
-<line stroke="rgba(255,255,255,0.20)" stroke-linecap="round" stroke-width="4" x1="92" x2="136" y1="47" y2="47"/>
-<line stroke="rgba(255,255,255,0.10)" stroke-linecap="round" stroke-width="4" x1="92" x2="122" y1="57" y2="57"/>
-<line stroke="rgba(255,255,255,0.10)" stroke-width="0.8" x1="62" x2="138" y1="74" y2="74"/>
-<rect fill="rgba(255,255,255,0.14)" height="5" rx="2.5" width="76" x="62" y="84"/>
-<rect fill="rgba(255,255,255,0.10)" height="5" rx="2.5" width="56" x="62" y="95"/>
-<rect fill="rgba(255,255,255,0.07)" height="5" rx="2.5" width="66" x="62" y="106"/>
+<svg aria-hidden="true" class="il il--pesquisa" fill="none" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
+<g class="il-doc" style="--d:0s">
+<rect class="il-pagina" x="40" y="12" width="88" height="96" rx="6"/>
+<line class="il-line il-texto il-texto--titulo" style="--len:44;--d:0.35s" x1="54" y1="30" x2="98" y2="30"/>
+<line class="il-line il-texto" style="--len:60;--d:0.44s" x1="54" y1="44" x2="114" y2="44"/>
+<line class="il-line il-texto" style="--len:60;--d:0.53s" x1="54" y1="56" x2="114" y2="56"/>
+<line class="il-line il-texto" style="--len:50;--d:0.62s" x1="54" y1="68" x2="104" y2="68"/>
+<line class="il-line il-texto" style="--len:60;--d:0.71s" x1="54" y1="80" x2="114" y2="80"/>
+<line class="il-line il-texto" style="--len:36;--d:0.80s" x1="54" y1="92" x2="90" y2="92"/>
+</g>
+<g class="il-lupa" style="--d:0.9s">
+<circle class="il-lente-fundo" cx="156" cy="66" r="30"/>
+<rect class="il-barra" style="--d:1.25s" x="138" y="68" width="8" height="14" rx="2"/>
+<rect class="il-barra" style="--d:1.39s" x="152" y="58" width="8" height="24" rx="2"/>
+<rect class="il-barra" style="--d:1.53s" x="166" y="48" width="8" height="34" rx="2"/>
+<circle class="il-lente" cx="156" cy="66" r="30"/>
+<line class="il-cabo" x1="178" y1="88" x2="200" y2="110"/>
+</g>
 </svg>
 </div>
+<h3 class="proposito-card__title">Pesquisa</h3>
+<p class="proposito-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
 </article>
 
 <article class="proposito-card" data-aos="fade-up" data-aos-delay="100">
 <div aria-hidden="true" class="proposito-card__grain"></div>
-<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-graduation-cap"></i></div>
-<h3 class="proposito-card__title">Formação</h3>
-<p class="proposito-card__desc">Capacitar gestores, profissionais e equipes para desenvolver respostas mais qualificadas.</p>
 <div class="proposito-card__illustration">
-<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-<circle class="svg-ring svg-ring--outer" cx="100" cy="80" r="60" stroke="rgba(255,255,255,0.14)" stroke-dasharray="8,5" stroke-width="0.8"/>
-<circle class="svg-ring svg-ring--mid" cx="100" cy="80" r="46" stroke="rgba(255,255,255,0.20)" stroke-dasharray="5,5" stroke-width="1"/>
-<circle class="svg-ring svg-ring--inner" cx="100" cy="80" r="32" stroke="rgba(255,255,255,0.12)" stroke-dasharray="3,4" stroke-width="0.8"/>
-<g class="svg-compass">
-<circle cx="100" cy="80" fill="rgba(255,255,255,0.06)" r="22" stroke="rgba(255,255,255,0.25)" stroke-width="1.2"/>
-<circle cx="100" cy="80" fill="rgba(255,255,255,0.05)" r="18"/>
-<path class="svg-needle" d="M93 76L100 70L107 76" fill="none" stroke="var(--color-gold)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
-<line stroke="var(--color-gold)" stroke-linecap="round" stroke-width="1.8" x1="100" x2="100" y1="70" y2="86"/>
-<path d="M107 84L100 90L93 84" fill="none" stroke="rgba(255,255,255,0.55)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+<svg aria-hidden="true" class="il il--formacao" fill="none" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
+<circle class="il-ring--externo" style="--d:0s" cx="120" cy="62" r="56"/>
+<g class="il-pessoa" style="--d:0.45s">
+<circle class="il-cabeca" cx="120.0" cy="16.0" r="5"/>
+<path class="il-ombros" d="M110.5 32.0 a9.5 8 0 0 1 19 0"/>
 </g>
-<circle class="svg-node svg-node--1" cx="100" cy="20" fill="var(--color-gold)" r="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-<circle class="svg-node svg-node--2" cx="100" cy="140" fill="var(--color-gold)" r="4" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
-<circle class="svg-node svg-node--3" cx="40" cy="80" fill="rgba(255,255,255,0.4)" opacity="0.5" r="2.5"/>
-<circle class="svg-node svg-node--4" cx="160" cy="80" fill="rgba(255,255,255,0.4)" opacity="0.5" r="2.5"/>
+<g class="il-pessoa" style="--d:0.61s">
+<circle class="il-cabeca" cx="154.6" cy="36.0" r="5"/>
+<path class="il-ombros" d="M145.1 52.0 a9.5 8 0 0 1 19 0"/>
+</g>
+<g class="il-pessoa" style="--d:0.77s">
+<circle class="il-cabeca" cx="154.6" cy="76.0" r="5"/>
+<path class="il-ombros" d="M145.1 92.0 a9.5 8 0 0 1 19 0"/>
+</g>
+<g class="il-pessoa" style="--d:0.93s">
+<circle class="il-cabeca" cx="120.0" cy="96.0" r="5"/>
+<path class="il-ombros" d="M110.5 112.0 a9.5 8 0 0 1 19 0"/>
+</g>
+<g class="il-pessoa" style="--d:1.09s">
+<circle class="il-cabeca" cx="85.4" cy="76.0" r="5"/>
+<path class="il-ombros" d="M75.9 92.0 a9.5 8 0 0 1 19 0"/>
+</g>
+<g class="il-pessoa" style="--d:1.25s">
+<circle class="il-cabeca" cx="85.4" cy="36.0" r="5"/>
+<path class="il-ombros" d="M75.9 52.0 a9.5 8 0 0 1 19 0"/>
+</g>
+<g class="il-livro">
+<path class="il-livro__pag il-livro__pag--esq" style="--d:1.5s" d="M100 52 Q110 47 120 54 V76 Q110 69 100 73 Z"/>
+<path class="il-livro__pag il-livro__pag--dir" style="--d:1.5s" d="M140 52 Q130 47 120 54 V76 Q130 69 140 73 Z"/>
+<line class="il-livro__lombada" style="--d:1.45s" x1="120" y1="54" x2="120" y2="76"/>
+</g>
 </svg>
 </div>
+<h3 class="proposito-card__title">Formação</h3>
+<p class="proposito-card__desc">Capacitar gestores, profissionais e equipes para desenvolver respostas mais qualificadas.</p>
 </article>
 
 <article class="proposito-card" data-aos="fade-up" data-aos-delay="200">
 <div aria-hidden="true" class="proposito-card__grain"></div>
-<div aria-hidden="true" class="proposito-card__badge"><i class="fa-solid fa-lightbulb"></i></div>
-<h3 class="proposito-card__title">Inovação</h3>
-<p class="proposito-card__desc">Explorar novas possibilidades de levar o olhar restaurativo a situações concretas.</p>
 <div class="proposito-card__illustration">
-<svg aria-hidden="true" fill="none" viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
-<line stroke="rgba(255,255,255,0.12)" stroke-width="0.8" x1="24" x2="176" y1="130" y2="130"/>
-<line stroke="rgba(255,255,255,0.09)" stroke-width="0.8" x1="24" x2="176" y1="100" y2="100"/>
-<line stroke="rgba(255,255,255,0.06)" stroke-width="0.8" x1="24" x2="176" y1="70" y2="70"/>
-<path class="svg-chart-curve" d="M24 128C50 118 80 96 110 74C140 54 158 42 176 38" stroke="var(--color-gold)" stroke-linecap="round" stroke-width="2.5"/>
-<path d="M24 128C50 118 80 96 110 74C140 54 158 42 176 38L176 130L24 130Z" fill="url(#chartGradientHome)" opacity="0.6"/>
-<defs>
-<linearGradient gradientUnits="userSpaceOnUse" id="chartGradientHome" x1="100" x2="100" y1="38" y2="130">
-<stop offset="0%" stop-color="var(--color-gold)" stop-opacity="0.22"/>
-<stop offset="100%" stop-color="var(--color-gold)" stop-opacity="0"/>
-</linearGradient>
-</defs>
-<circle class="svg-chart-point" cx="176" cy="38" fill="var(--color-gold)" r="5" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+<svg aria-hidden="true" class="il il--inovacao" fill="none" viewBox="0 0 240 120" xmlns="http://www.w3.org/2000/svg">
+<path class="il-line il-caminho" style="--len:79;--d:0.45s" d="M120 60 C 100 60, 82 24, 62 24"/>
+<path class="il-line il-caminho" style="--len:79;--d:0.65s" d="M120 60 C 140 60, 158 24, 178 24"/>
+<path class="il-line il-caminho" style="--len:79;--d:0.85s" d="M120 60 C 100 60, 82 96, 62 96"/>
+<path class="il-line il-caminho" style="--len:79;--d:1.05s" d="M120 60 C 140 60, 158 96, 178 96"/>
+<circle class="il-dot--contexto" style="--d:1.20s" cx="62" cy="24" r="4"/>
+<circle class="il-dot--contexto" style="--d:1.40s" cx="178" cy="24" r="4"/>
+<circle class="il-dot--contexto" style="--d:1.60s" cx="62" cy="96" r="4"/>
+<circle class="il-dot--contexto" style="--d:1.80s" cx="178" cy="96" r="4"/>
+<text class="il-rotulo" style="--d:1.40s" x="62" y="12" text-anchor="middle">Escolas</text>
+<text class="il-rotulo" style="--d:1.60s" x="178" y="12" text-anchor="middle">Empresas</text>
+<text class="il-rotulo" style="--d:1.80s" x="62" y="112" text-anchor="middle">Órgãos públicos</text>
+<text class="il-rotulo" style="--d:2.00s" x="178" y="112" text-anchor="middle">Justiça</text>
+<circle class="il-halo" style="--d:0s" cx="120" cy="60" r="11"/>
+<circle class="il-node il-node--centro" style="--d:0s" cx="120" cy="60" r="5"/>
 </svg>
 </div>
+<h3 class="proposito-card__title">Inovação</h3>
+<p class="proposito-card__desc">Explorar novas possibilidades de levar o olhar restaurativo a situações concretas.</p>
 </article>
-
 </div>
 </div>
 </section>
@@ -694,6 +720,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260917c"></script>
+<script src="assets/js/site-interactions.js?v=20260917d"></script>
 </body>
 </html>

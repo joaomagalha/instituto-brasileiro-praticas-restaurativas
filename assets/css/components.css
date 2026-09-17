@@ -1454,79 +1454,6 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .proj-card:hover .proj-card__arrow { opacity: 1; transform: translateY(0) rotate(0); }
 
 /* ===================================
-   PROCESSO — Pesquisa · Formação · Inovação (SVG inline, currentColor/var(--color-*))
-=================================== */
-.process-card {
-  background: transparent; border: none; padding: var(--space-xl) var(--space-md); box-shadow: none;
-  transition: transform var(--transition-base);
-  display: flex; flex-direction: column; align-items: center; text-align: center; position: relative;
-}
-
-.process-card:hover { transform: translateY(-4px); }
-
-.process-card__vector-wrapper {
-  width: 100%; max-width: 220px; height: 160px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: var(--space-xl);
-  position: relative;
-  transition: transform var(--transition-base);
-}
-
-.process-card:hover .process-card__vector-wrapper { transform: scale(1.03); }
-.proposito-card:hover .process-card__vector-wrapper { transform: scale(1.03); }
-
-.process-card__title { font-family: var(--font-display); font-size: clamp(1.8rem, 2.2vw, 2.1rem); font-weight: var(--weight-semibold); color: var(--color-navy); margin-bottom: var(--space-sm); line-height: var(--leading-display); }
-.process-card__desc { font-family: var(--font-body); font-size: clamp(1.4rem, 1.5vw, 1.5rem); color: var(--color-mist); line-height: var(--leading-body); max-width: 30rem; margin: 0; }
-
-.process-card__vector { overflow: visible; width: 100%; height: 100%; transition: filter var(--transition-base); }
-.process-card:hover .process-card__vector { filter: drop-shadow(0 2px 8px rgba(var(--teal-rgb), 0.18)); }
-.proposito-card:hover .process-card__vector { filter: drop-shadow(0 2px 8px rgba(var(--teal-rgb), 0.18)); }
-
-/* Card 1: Pesquisa — scan & pulse */
-.process-card:hover .svg-scan-line { animation: scanSweep 2s infinite linear; }
-.proposito-card:hover .svg-scan-line { animation: scanSweep 2s infinite linear; }
-.process-card:hover .svg-accent-circle { animation: pulseScale 2s infinite ease-in-out; }
-.proposito-card:hover .svg-accent-circle { animation: pulseScale 2s infinite ease-in-out; }
-.svg-search-lens, .svg-search-handle { transition: opacity var(--transition-base), transform var(--transition-base); }
-.process-card:hover .svg-search-lens { transform: scale(1.1); transform-origin: 70px 50px; }
-.proposito-card:hover .svg-search-lens { transform: scale(1.1); transform-origin: 70px 50px; }
-.svg-doc-inner { transition: stroke var(--transition-base); }
-.process-card:hover .svg-doc-inner { stroke: rgba(var(--teal-rgb), 0.3); }
-.proposito-card:hover .svg-doc-inner { stroke: rgba(var(--teal-rgb), 0.3); }
-
-@keyframes scanSweep { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.6; } 100% { transform: translateY(100px); opacity: 0; } }
-@keyframes pulseScale { 0%, 100% { transform: scale(1); transform-origin: 72px 52px; fill: rgba(var(--teal-rgb), 0.10); } 50% { transform: scale(1.12); transform-origin: 72px 52px; fill: rgba(var(--teal-rgb), 0.18); } }
-
-/* Card 2: Formação — rotate & glow */
-.process-card:hover .svg-ring--mid { animation: rotateClockwise 15s infinite linear; }
-.proposito-card:hover .svg-ring--mid { animation: rotateClockwise 15s infinite linear; }
-.process-card:hover .svg-ring--outer { animation: rotateCounterClockwise 20s infinite linear; }
-.proposito-card:hover .svg-ring--outer { animation: rotateCounterClockwise 20s infinite linear; }
-.svg-compass { transition: transform var(--transition-base); }
-.process-card:hover .svg-compass { transform: scale(1.06); transform-origin: 100px 80px; }
-.proposito-card:hover .svg-compass { transform: scale(1.06); transform-origin: 100px 80px; }
-.process-card:hover .svg-needle { animation: compassWiggle 1.5s ease-in-out infinite; }
-.proposito-card:hover .svg-needle { animation: compassWiggle 1.5s ease-in-out infinite; }
-
-@keyframes rotateClockwise { from { transform: rotate(0deg); transform-origin: 100px 80px; } to { transform: rotate(360deg); transform-origin: 100px 80px; } }
-@keyframes rotateCounterClockwise { from { transform: rotate(0deg); transform-origin: 100px 80px; } to { transform: rotate(-360deg); transform-origin: 100px 80px; } }
-@keyframes compassWiggle { 0%, 100% { transform: rotate(0deg); transform-origin: 100px 80px; } 30% { transform: rotate(12deg); transform-origin: 100px 80px; } 70% { transform: rotate(-12deg); transform-origin: 100px 80px; } }
-
-.process-card:hover .svg-node--1 { animation: pulseNodeTop 2s infinite ease-in-out; }
-.proposito-card:hover .svg-node--1 { animation: pulseNodeTop 2s infinite ease-in-out; }
-.process-card:hover .svg-node--2 { animation: pulseNodeBottom 2s infinite ease-in-out 1s; }
-.proposito-card:hover .svg-node--2 { animation: pulseNodeBottom 2s infinite ease-in-out 1s; }
-
-@keyframes pulseNodeTop { 0%, 100% { transform: scale(1); transform-origin: 100px 20px; opacity: 0.8; } 50% { transform: scale(1.3); transform-origin: 100px 20px; opacity: 1; filter: drop-shadow(0 0 4px var(--color-teal)); } }
-@keyframes pulseNodeBottom { 0%, 100% { transform: scale(1); transform-origin: 100px 140px; opacity: 0.8; } 50% { transform: scale(1.3); transform-origin: 100px 140px; opacity: 1; filter: drop-shadow(0 0 4px var(--color-teal)); } }
-
-/* Card 3: Inovação — draw curve & floating badge */
-.svg-chart-curve { stroke-dasharray: 250; stroke-dashoffset: 0; transition: stroke-dashoffset 1.5s ease-in-out; }
-.process-card:hover .svg-chart-curve { animation: drawLine 1.5s ease-out forwards; }
-.proposito-card:hover .svg-chart-curve { animation: drawLine 1.5s ease-out forwards; }
-@keyframes drawLine { from { stroke-dashoffset: 250; } to { stroke-dashoffset: 0; } }
-
-/* ===================================
    CITAÇÃO INSTITUCIONAL — placa/manifesto em fundo claro
    (era "testimonial" na referência — sem depoimento fabricado: usa a
    citação real do manual de marca. Tratada como declaração institucional,
@@ -1780,6 +1707,116 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 @media (min-width: 1024px) { .encontro__moldura img { aspect-ratio: 16 / 9; } }
 
 /* ===================================
+   ILUSTRAÇÕES DO PROPÓSITO (17/09/2026)
+   -----------------------------------
+   Traço fino branco a 55%, dourado como único acento. Estado inicial:
+   linhas "recolhidas" (stroke-dashoffset = comprimento, vindo do --len
+   inline) e pontos apagados. Quando o card entra na tela o JS põe
+   .is-visible e cada elemento desenha/acende com o atraso --d inline.
+   Hover: o nó central pulsa, os raios do círculo aparecem, os caminhos
+   ganham um brilho dourado. prefers-reduced-motion: estado final direto.
+=================================== */
+.il { overflow: visible; }
+.il-line, .il-ring, .il-caminho, .il-spoke {
+  stroke: rgba(var(--white-rgb), 0.55);
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  fill: none;
+}
+.il-line, .il-ring, .il-caminho {
+  stroke-dasharray: var(--len, 300);
+  stroke-dashoffset: var(--len, 300);
+}
+.il-ring--externo { stroke: rgba(var(--white-rgb), 0.22); stroke-width: 1.25; stroke-dasharray: 4 6; fill: none; opacity: 0; transform: scale(0.85); transform-box: fill-box; transform-origin: center; }
+.il-spoke { stroke: rgba(var(--gold-rgb), 0.55); stroke-width: 1; opacity: 0; transition: opacity 0.45s ease; transition-delay: var(--d, 0s); }
+.il-dot { fill: rgba(var(--white-rgb), 0.85); opacity: 0; }
+.il-dot--contexto { fill: rgba(var(--white-rgb), 0.9); opacity: 0; transform: scale(0.3); transform-box: fill-box; transform-origin: center; transition: fill 0.45s ease; }
+.proposito-card.is-visible .il-dot--contexto { animation: ilNasce 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.il-node--centro { fill: var(--color-gold); opacity: 0; transform-box: fill-box; transform-origin: center; }
+.il-halo { fill: rgba(var(--gold-rgb), 0.14); stroke: rgba(var(--gold-rgb), 0.45); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.il-rotulo { font-family: var(--font-body); font-size: 10px; font-weight: 500; fill: rgba(var(--white-rgb), 0.8); opacity: 0; letter-spacing: 0.02em; }
+.il-line--saida { stroke: rgba(var(--gold-rgb), 0.7); }
+
+/* Pesquisa: página + lupa; Formação: pessoas + livro (17/09, 2ª versão:
+   a rede de pontos e o círculo de pontos não se liam como pesquisa/formação).
+   Coreografia da Pesquisa (3ª versão, "a animação estava quebrada"): a
+   página SURGE (fade + sobe 6px), as linhas de texto VARREM da esquerda
+   pra direita, a lupa NASCE inteira do centro (escala) e as barras
+   CRESCEM por último. Nada se desenha por contorno. */
+.il-doc { opacity: 0; transform: translateY(6px); transform-box: fill-box; }
+.il-pagina { stroke: rgba(var(--white-rgb), 0.5); stroke-width: 1.25; fill: rgba(var(--white-rgb), 0.03); }
+.il-texto { stroke: rgba(var(--white-rgb), 0.35); stroke-width: 2; }
+.il-texto--titulo { stroke: rgba(var(--white-rgb), 0.7); stroke-width: 3; }
+.il-lupa { opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: 40% 40%; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.il-lente-fundo { fill: var(--color-navy-900); fill-opacity: 0.88; }
+.il-lente { stroke: var(--color-gold); stroke-width: 2; }
+.il-cabo { stroke: var(--color-gold); stroke-width: 3.5; stroke-linecap: round; }
+.il-barra { fill: rgba(var(--gold-rgb), 0.8); transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); }
+.il-cabeca { fill: rgba(var(--white-rgb), 0.9); }
+.il-ombros { stroke: rgba(var(--white-rgb), 0.75); stroke-width: 1.6; stroke-linecap: round; }
+.il-pessoa { opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: center; }
+.il-livro__pag { transform-box: fill-box; opacity: 0; transform: scaleX(0.05); }
+.il-livro__pag--esq { transform-origin: right center; }
+.il-livro__pag--dir { transform-origin: left center; }
+.il-livro__lombada { stroke: var(--color-gold); stroke-width: 1.6; stroke-linecap: round; opacity: 0; transform: scaleY(0); transform-box: fill-box; transform-origin: center; }
+.il-livro__pag { stroke: var(--color-gold); stroke-width: 1.6; fill: rgba(var(--gold-rgb), 0.12); }
+.proposito-card.is-visible .il-doc { animation: ilSurge 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-lupa { animation: ilNasce 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-barra { animation: ilCresce 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-pessoa { animation: ilNasce 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-livro__pag { animation: ilAbre 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-livro__lombada { animation: ilLombada 0.4s ease forwards; animation-delay: var(--d, 0s); }
+@keyframes ilAbre { to { opacity: 1; transform: scaleX(1); } }
+@keyframes ilLombada { to { opacity: 1; transform: scaleY(1); } }
+@keyframes ilSurge { to { opacity: 1; transform: translateY(0); } }
+@keyframes ilCresce { to { transform: scaleY(1); } }
+/* hover: a lupa desliza um pouco sobre o texto (como quem lê) */
+.proposito-card.is-visible:hover .il-lupa { animation: ilNasce 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards, ilLupaLe 2.4s ease-in-out 0.2s infinite; }
+@keyframes ilLupaLe { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10px, 8px); } }
+.proposito-card.is-visible:hover .il-livro__pag { fill: rgba(var(--gold-rgb), 0.3); }
+.proposito-card.is-visible:hover .il-ring--externo { animation: ilNasce 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards, ilGira 24s linear 0.8s infinite; }
+@keyframes ilGira { to { transform: scale(1) rotate(360deg); } }
+.proposito-card.is-visible:hover .il-cabeca { fill: var(--color-gold); }
+.il-cabeca, .il-livro__pag { transition: fill 0.45s ease; }
+
+/* entrada */
+.proposito-card.is-visible .il-line,
+.proposito-card.is-visible .il-ring,
+.proposito-card.is-visible .il-caminho { animation: ilDesenha 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-ring--externo { animation: ilNasce 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-dot,
+.proposito-card.is-visible .il-rotulo { animation: ilAcende 0.5s ease forwards; animation-delay: var(--d, 0s); }
+.proposito-card.is-visible .il-node--centro,
+.proposito-card.is-visible .il-halo { animation: ilNasce 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards; animation-delay: var(--d, 0.9s); }
+@keyframes ilDesenha { to { stroke-dashoffset: 0; } }
+@keyframes ilAcende { to { opacity: 1; } }
+@keyframes ilNasce { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+
+/* hover (só depois de visível) */
+.proposito-card.is-visible:hover .il-halo { animation: ilPulsa 1.6s ease-in-out infinite; }
+.proposito-card.is-visible:hover .il-spoke { opacity: 1; }
+.proposito-card.is-visible:hover .il-line--gold { stroke: var(--color-gold); }
+.proposito-card.is-visible:hover .il-caminho { stroke: rgba(var(--gold-rgb), 0.85); }
+.proposito-card.is-visible:hover .il-dot--contexto { fill: var(--color-gold); }
+.il-line, .il-caminho, .il-dot { transition: stroke 0.45s ease, fill 0.45s ease; }
+@keyframes ilPulsa { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.35); opacity: 0.55; } }
+
+/* sem movimento: tudo no estado final, sem animação */
+@media (prefers-reduced-motion: reduce) {
+  .il-line, .il-ring, .il-caminho { stroke-dashoffset: 0; }
+  .il-ring--externo, .il-dot, .il-node--centro, .il-halo, .il-rotulo, .il-pessoa { opacity: 1; }
+  .il-barra { transform: none; }
+  .il-doc, .il-lupa, .il-pessoa, .il-livro__pag, .il-livro__lombada, .il-dot--contexto, .il-ring--externo { opacity: 1; transform: none; }
+  .proposito-card.is-visible .il-line, .proposito-card.is-visible .il-ring, .proposito-card.is-visible .il-caminho,
+  .proposito-card.is-visible .il-ring--externo, .proposito-card.is-visible .il-dot, .proposito-card.is-visible .il-rotulo,
+  .proposito-card.is-visible .il-node--centro, .proposito-card.is-visible .il-halo,
+  .proposito-card.is-visible:hover .il-halo, .proposito-card.is-visible .il-barra, .proposito-card.is-visible .il-pessoa,
+  .proposito-card.is-visible .il-doc, .proposito-card.is-visible .il-lupa, .proposito-card.is-visible:hover .il-lupa,
+  .proposito-card.is-visible .il-livro__pag, .proposito-card.is-visible .il-livro__lombada, .proposito-card.is-visible .il-dot--contexto,
+  .proposito-card.is-visible:hover .il-ring--externo { animation: none; }
+}
+
+/* ===================================
    SECTION HEADER — variante fundo escuro
 =================================== */
 .section-header--dark .overline { color: var(--color-accent); }
@@ -1810,7 +1847,18 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .proposito .container { position: relative; z-index: 1; }
 
 .proposito__grid { display: grid; grid-template-columns: 1fr; gap: var(--space-lg); }
-@media (min-width: 768px) { .proposito__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); } }
+/* 17/09/2026: 3 colunas só a partir de 1024. Entre 640 e 1023 as 3 colunas
+   deixavam a ilustração com 160px e o rótulo do card Inovação em 9px; o card
+   vira uma linha: ilustração à esquerda, texto à direita. */
+@media (min-width: 1024px) { .proposito__grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); } }
+@media (min-width: 640px) and (max-width: 1023px) {
+  .proposito__grid { gap: var(--space-md); }
+  .proposito-card { display: grid; grid-template-columns: 24rem minmax(0, 1fr); column-gap: var(--space-xl); align-items: center; padding: var(--space-lg) var(--space-xl); }
+  .proposito-card__grain { grid-column: 1 / -1; grid-row: 1 / -1; }
+  .proposito-card__illustration { grid-column: 1; grid-row: 1 / span 2; margin: 0; }
+  .proposito-card__title { grid-column: 2; align-self: end; }
+  .proposito-card__desc { grid-column: 2; align-self: start; }
+}
 
 /* Card de vidro — borda translúcida, textura de grão sutil, badge com
    ícone e um painel de ilustração próprio pra cada SVG existente */
@@ -1863,17 +1911,21 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .proposito-card__title { position: relative; z-index: 1; font-family: var(--font-display); font-size: var(--text-h4); font-weight: var(--weight-semibold); color: var(--color-white); margin-bottom: var(--space-xs); }
 .proposito-card__desc { position: relative; z-index: 1; font-size: 1.4rem; color: rgba(var(--white-rgb), 0.68); line-height: var(--leading-body); }
 
+/* 17/09/2026: a ilustração vai pra CIMA do texto e perde a caixa com borda
+   (era um painel de 2 linhas de altura). Só o traço sobre o vidro: o card
+   fica com ~metade da altura, que é o "caixas menores" do Dr. Decildo. */
 .proposito-card__illustration {
-  position: relative;
-  z-index: 1;
-  margin-top: var(--space-lg);
-  padding: var(--space-md);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(var(--white-rgb), 0.10);
-  background: linear-gradient(180deg, rgba(var(--white-rgb), 0.035) 0%, transparent 100%);
+  margin: 0 0 var(--space-md);
+  padding: 0;
+  border: 0;
+  background: none;
 }
+.proposito-card__illustration svg { display: block; width: 100%; height: auto; max-height: 15rem; margin-inline: auto; }
 
-.proposito-card__illustration svg { display: block; width: 100%; height: auto; }
+/* Versão literal do pedido ("só os textos"): esconde a ilustração e devolve o
+   ícone do badge. Ativar trocando a classe nos 3 cards do index.html. */
+.proposito-card--so-texto .proposito-card__illustration { display: none; }
+.proposito-card--so-texto { padding: var(--space-lg) var(--space-lg) var(--space-xl); }
 
 .formacoes { padding: var(--space-5xl) 0; background: var(--color-mist-bg); position: relative; }
 .formacoes .container { position: relative; z-index: 1; }

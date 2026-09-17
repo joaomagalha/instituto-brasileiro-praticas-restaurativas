@@ -621,3 +621,15 @@ document.addEventListener('keydown', (e) => {
     if (alvos.length) marcar(alvos[0].id);
   }
 })();
+
+// Home, "Nosso Propósito": as ilustrações desenham quando o card entra na
+// tela (uma vez). O CSS faz a animação; aqui só entra a classe.
+(() => {
+  const cards = document.querySelectorAll('.proposito-card');
+  if (!cards.length) return;
+  if (!('IntersectionObserver' in window)) { cards.forEach(c => c.classList.add('is-visible')); return; }
+  const obs = new IntersectionObserver((entradas) => {
+    entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.35 });
+  cards.forEach(c => obs.observe(c));
+})();
