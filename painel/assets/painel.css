@@ -238,6 +238,13 @@ body.painel {
   .painel-topbar__nav::-webkit-scrollbar { display: none; }
   .painel-topbar__aba { padding: 0.9rem 1rem; white-space: nowrap; }
 }
+/* 17/09/2026: com a 5ª aba (Artigos), "Textos" ficava fora da tela a 390px,
+   escondida numa rolagem sem barra. Abas menores no celular (as 5 cabem
+   em 390) e, em tela menor ainda, quebram de linha em vez de sumir. */
+@media (max-width: 480px) {
+  .painel-topbar__nav { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
+  .painel-topbar__aba { padding: 0.8rem 0.7rem; font-size: 1.3rem; letter-spacing: 0; }
+}
 
 /* ---------------------------------------------------------------------
    Casca da página
@@ -627,7 +634,9 @@ body.painel {
     border-bottom: 1px solid var(--color-border-light);
   }
   .painel-sumario__titulo { display: none; }
-  .painel-sumario ol { display: flex; gap: var(--space-2xs); overflow-x: auto; scrollbar-width: none; }
+  /* 17/09/2026: as pílulas quebram de linha (antes rolavam sem barra e o
+     último bloco, ex. "Google" em Formações, ficava fora da tela no celular) */
+  .painel-sumario ol { display: flex; flex-wrap: wrap; gap: var(--space-2xs); }
   .painel-sumario ol::-webkit-scrollbar { display: none; }
   .painel-sumario {
     border: 0;
