@@ -139,13 +139,28 @@ Se um dia virar incômodo, a gente resolve com um ping automático gratuito.
 | Cadastro público | **desligado** |
 | Sign-in anônimo | desligado |
 | RLS automático em tabelas novas | ligado |
-| Editores cadastrados | João Victor (`magalhaesjoaovictor81@gmail.com`) |
+| Editores cadastrados | João Victor, Decildo, Fernanda, Rauny (convites de 15/09; Rauny já logou) |
 | Site URL | `https://www.ibpr.com.br/painel/nova-senha.html` (trocada em 14/09/2026; é onde convite e "esqueci a senha" caem) |
 | Redirect URLs | Pages, localhost:8765, ibpr.com.br (com e sem www) |
 | SMTP próprio | **ligado em 14/09/2026**: Resend, domínio `envios.ibpr.com.br` verificado, remetente `painel@envios.ibpr.com.br`, host `smtp.resend.com`:465, usuário `resend`, senha = chave de API do Resend (não está no repo nem no vault) |
 
 > A biblioteca `supabase-js` teve que subir de 2.45.4 para **2.116.0**: a versão
 > antiga não reconhece o formato novo de chave (`sb_publishable_`).
+
+## Arquivos SQL, em ordem (17/09/2026)
+
+| Arquivo | O que faz | Rodado? |
+|---|---|---|
+| `01-noticias.sql` | editores, e_editor(), tabela `noticias`, RLS, bucket | sim |
+| `02-formacoes.sql` + `02b-seed-formacoes.sql` | tabela `formacoes` + as 4 formações | sim |
+| `03-gatilho-github.sql` | função `avisar_github()` + gatilho em notícias (token no Vault) | sim |
+| `04-pessoas.sql` + `04b-seed-pessoas.sql` | tabela `pessoas` + as 5 pessoas | sim |
+| `05-textos.sql` + `05b-seed-textos.sql` | tabela `textos` + 33 blocos editáveis | sim |
+| `06` a `10` | correções pontuais (Word 13/09, avatares, legenda/fonte de notícia, citação de Práticas, editores) | sim |
+| `11-artigos.sql` | tabela `artigos`, RLS, bucket `artigos` (PDF + imagem, 20 MB), gatilho, 2 textos do hero de artigos.html | sim, 17/09 |
+| `11b-artigos-seed.sql` | os 3 primeiros artigos do Dr. Decildo (gerado por `build/dev/seed-artigos-2026-09-17.py`) | sim, 17/09 |
+
+Todos são idempotentes (rodar de novo não duplica). Módulo novo = SQL novo numerado + aba no painel + função `gerarX` no build + marcadores `CMS:` na página; o de artigos é o molde mais recente.
 
 ## 🚧 Bloqueante pra entregar o painel ao IBPR: SMTP próprio
 
