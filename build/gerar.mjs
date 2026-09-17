@@ -724,7 +724,7 @@ ${acaoPdf}
      2. a lista de Formações do menu do celular, em todas as páginas
      3. a coluna "Formações" do rodapé, em todas as páginas
      4. o carrossel da Home (e a quantidade de bolinhas dele)
-     5. o catálogo de formacoes.html (e o título "As quatro formações")
+     5. o catálogo de formacoes.html (e o título fixo do catálogo)
      6. os dados estruturados de formacoes.html (o ItemList do Google)
      7. a página própria do curso, formacao-<slug>.html
         + o bloco "Outras formações" no fim de cada uma delas
@@ -1068,10 +1068,10 @@ async function gerarFormacoes(cfg) {
 
   // --- 5 e 6: catálogo e dados estruturados de formacoes.html ---
   let cat = aplicarMenus(await ler('formacoes.html'), formacoes, 'formacoes.html');
-  const n = formacoes.length;
-  const titulo = n === 1
-    ? 'A formação do Instituto'
-    : `As ${EXTENSO[n] || n} formações do Instituto`;
+  // 17/09/2026, Word do Dr. Decildo: o título deixou de contar as formações
+  // ("As quatro formações do Instituto") e virou fixo. A região continua
+  // gerada pra manter o marcador; EXTENSO fica pra outros usos.
+  const titulo = 'Formações para diferentes contextos';
   cat = trocarRegiao(cat, 'formacoes-catalogo-titulo', `<h2>${esc(titulo)}</h2>`);
   cat = trocarRegiao(cat, 'formacoes-catalogo',
     formacoes.map((f, i) => cardFormacao(f, comAos(i))).join('\n'));
