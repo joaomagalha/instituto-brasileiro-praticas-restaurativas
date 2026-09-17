@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260917e" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260917f" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
 <link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.jpg" rel="preload"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
@@ -74,7 +74,7 @@
 <ul class="navbar__links">
 <li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
 <li class="navbar__item navbar__item--dropdown">
-<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="praticas-restaurativas.html">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
 <ul class="navbar__dropdown" role="menu">
 <li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas" role="menuitem">Justiça Restaurativa e Práticas Restaurativas</a></li>
 <li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao" role="menuitem">Práticas Restaurativas na Educação</a></li>
@@ -85,7 +85,7 @@
 <li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
-<button aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></button>
+<a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="formacoes.html">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
 <ul class="navbar__dropdown" role="menu">
 <!-- CMS:formacoes-navbar -->
 <li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem">Justiça Restaurativa aplicada à Execução Penal</a></li>
@@ -96,7 +96,13 @@
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
-<li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
+<li class="navbar__item navbar__item--dropdown">
+<a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active" aria-current="page" href="ibpr-em-movimento.html">IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
+<ul class="navbar__dropdown" role="menu">
+<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias" role="menuitem">Notícias</a></li>
+<li><a class="navbar__dropdown-link" href="artigos.html" role="menuitem">Artigos</a></li>
+</ul>
+</li>
 </ul>
 </nav>
 <div class="navbar__actions">
@@ -140,6 +146,12 @@
 <li><a class="mobile-menu__service-link" href="formacao-relacoes-trabalho.html">Práticas Restaurativas nas Relações de Trabalho</a></li>
 <!-- /CMS:formacoes-mobile -->
 </ul>
+<div class="mobile-menu__divider"></div>
+<p class="mobile-menu__section-label">IBPR em Movimento</p>
+<ul class="mobile-menu__service-list">
+<li><a class="mobile-menu__service-link" href="ibpr-em-movimento.html#noticias">Notícias</a></li>
+<li><a class="mobile-menu__service-link" href="artigos.html">Artigos</a></li>
+</ul>
 </nav>
 <div class="mobile-menu__footer">
 <a class="btn btn--primary mobile-menu__cta" href="area-do-aluno.html">Área do Aluno</a>
@@ -157,6 +169,10 @@
 <a class="page-back" data-voltar href="index.html#ibpr-movimento-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
 <h1 data-aos="fade-up"><!-- CMS:texto:movimento-hero-titulo -->A atuação do IBPR e da sua rede, dentro e fora do Instituto.<!-- /CMS:texto:movimento-hero-titulo --></h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:movimento-hero-sub -->Um espaço para acompanhar o que o IBPR e os profissionais da sua rede realizam.<!-- /CMS:texto:movimento-hero-sub --></p>
+<nav aria-label="Seções desta página" class="anchor-nav" data-aos="fade-up" data-aos-delay="200">
+<a class="anchor-nav__link" href="#noticias"><i aria-hidden="true" class="fa-solid fa-newspaper"></i>Notícias</a>
+<a class="anchor-nav__link" href="artigos.html"><i aria-hidden="true" class="fa-solid fa-book-open"></i>Artigos</a>
+</nav>
 </div>
 </section>
 
@@ -172,7 +188,7 @@
      O estado vazio é assim de propósito: notícia inventada foi o erro do
      protótipo do Rauny (ver analise-prototipo.md), então em vez de anunciar o
      vazio com cards fantasmas, a seção descreve as frentes reais. -->
-<section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="ibpr-movimento-lista">
+<section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="noticias">
 <div class="container">
 <!-- CMS:movimento-lista -->
 <div class="section-header section__head measure-narrow" data-aos="fade-up">
@@ -241,6 +257,7 @@
 <li><a class="footer__link" href="o-instituto.html">O Instituto</a></li>
 <li><a class="footer__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li><a class="footer__link" href="ibpr-em-movimento.html">IBPR em Movimento</a></li>
+<li><a class="footer__link" href="artigos.html">Artigos</a></li>
 </ul>
 </div>
 <div class="footer__col">
@@ -288,6 +305,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260916a"></script>
+<script src="assets/js/site-interactions.js?v=20260917a"></script>
 </body>
 </html>

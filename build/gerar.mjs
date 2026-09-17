@@ -367,7 +367,7 @@ async function gerarNoticias(cfg) {
    porque são geradas (e recebem as regiões no momento em que nascem). */
 const PAGINAS_FIXAS = [
   'index.html', 'formacoes.html', 'o-instituto.html', 'como-atuamos.html',
-  'praticas-restaurativas.html', 'ibpr-em-movimento.html', 'area-do-aluno.html',
+  'praticas-restaurativas.html', 'ibpr-em-movimento.html', 'artigos.html', 'area-do-aluno.html',
   'politica-de-privacidade.html',
   'build/templates/noticia.html', 'build/templates/formacao.html'
 ];

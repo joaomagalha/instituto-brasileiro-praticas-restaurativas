@@ -3812,7 +3812,8 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    desaparece sobre imagem, então aqui elas ganham corpo próprio de navy. Só o
    fundo e a borda mudam: forma, tamanho e o hover dourado seguem idênticos aos
    das outras páginas. */
-.page-hero--praticas .anchor-nav__link {
+.page-hero--praticas .anchor-nav__link,
+.page-hero--ibpr-movimento .anchor-nav__link {
   background: rgba(var(--navy900-rgb), 0.58);
   border-color: rgba(var(--white-rgb), 0.30);
   backdrop-filter: blur(2px);

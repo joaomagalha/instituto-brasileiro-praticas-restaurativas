@@ -24,24 +24,43 @@ function updateNavbar() {
 window.addEventListener('scroll', updateNavbar, { passive: true });
 updateNavbar();
 
-// Dropdown desktop — suporta múltiplos itens de dropdown na mesma página
+// Dropdown desktop — suporta múltiplos itens de dropdown na mesma página.
+// (17/09/2026) O gatilho voltou a ser <a href>: o Dr. Decildo reclamou que
+// clicar em "Práticas Restaurativas" não ia a lugar nenhum. Agora o mouse
+// abre no hover (CSS) e o clique navega pra página; em tela de toque o 1º
+// toque abre e o 2º navega; no teclado, seta pra baixo/espaço abre e Enter
+// navega. Escape e clique fora fecham.
+const toque = window.matchMedia('(pointer: coarse)');
 document.querySelectorAll('.navbar__item--dropdown').forEach((dropdownItem) => {
   const dropdownBtn = dropdownItem.querySelector('.navbar__link--dropdown');
   if (!dropdownBtn) return;
-  dropdownBtn.addEventListener('click', () => {
-    const isOpen = dropdownItem.classList.toggle('open');
-    dropdownBtn.setAttribute('aria-expanded', String(isOpen));
+  const abrir = (foco) => {
+    dropdownItem.classList.add('open');
+    dropdownBtn.setAttribute('aria-expanded', 'true');
+    if (foco) { const primeiro = dropdownItem.querySelector('.navbar__dropdown-link'); if (primeiro) primeiro.focus(); }
+  };
+  const fechar = () => {
+    dropdownItem.classList.remove('open');
+    dropdownBtn.setAttribute('aria-expanded', 'false');
+  };
+  dropdownBtn.addEventListener('click', (e) => {
+    if (toque.matches && !dropdownItem.classList.contains('open')) {
+      e.preventDefault();
+      abrir(false);
+    }
+  });
+  dropdownBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); abrir(true); }
+  });
+  dropdownItem.addEventListener('focusout', (e) => {
+    if (!dropdownItem.contains(e.relatedTarget)) fechar();
   });
   document.addEventListener('click', (e) => {
-    if (!dropdownItem.contains(e.target)) {
-      dropdownItem.classList.remove('open');
-      dropdownBtn.setAttribute('aria-expanded', 'false');
-    }
+    if (!dropdownItem.contains(e.target)) fechar();
   });
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && dropdownItem.classList.contains('open')) {
-      dropdownItem.classList.remove('open');
-      dropdownBtn.setAttribute('aria-expanded', 'false');
+      fechar();
       dropdownBtn.focus();
     }
   });
