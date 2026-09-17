@@ -25,6 +25,7 @@ meta_c, cam = conv.converter(f'{R}/decildo-maxuel-caminhos-praticos-jr-sistema-p
 dial = re.search(r'(- Antigamente.*?uma vez por minuto!)\n', acend, flags=re.S).group(1)
 linhas = [l.strip() for l in dial.split('\n') if l.strip()]
 acend = acend.replace(dial, '\n'.join('> ' + l for l in linhas))
+assert acend.count('## O Acendedor de Lampiões como Metáfora do Descompasso Normativo') == 1, 'título da seção 1 sumiu na conversão'
 acend = acend.replace('## O Acendedor de Lampiões como Metáfora do Descompasso Normativo',
                       '## 1. O Acendedor de Lampiões como Metáfora do Descompasso Normativo')
 assert acend.count('> - Antigamente') == 1

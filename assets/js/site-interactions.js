@@ -568,15 +568,56 @@ document.addEventListener('keydown', (e) => {
   const hoje = new Date();
   acesso.textContent = `${hoje.getDate()} ${meses[hoje.getMonth()]} ${hoje.getFullYear()}`;
 
-  const botao = document.querySelector('[data-copiar-citacao]');
+  // copiar (citação e link): vários botões podem existir (lateral + rodapé)
+  const copiar = (botao, pegarTexto) => {
+    if (!navigator.clipboard) return;
+    const rotulo = botao.innerHTML;
+    botao.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(pegarTexto());
+        botao.innerHTML = '<i aria-hidden="true" class="fa-solid fa-check"></i><span>Copiado</span>';
+        setTimeout(() => { botao.innerHTML = rotulo; }, 2000);
+      } catch (e) { /* sem permissão: o texto continua selecionável */ }
+    });
+  };
   const texto = document.getElementById('citacao');
-  if (!botao || !texto || !navigator.clipboard) return;
-  const rotulo = botao.innerHTML;
-  botao.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(texto.textContent.trim());
-      botao.innerHTML = '<i aria-hidden="true" class="fa-solid fa-check"></i> Copiado';
-      setTimeout(() => { botao.innerHTML = rotulo; }, 2000);
-    } catch (e) { /* sem permissão de área de transferência: o texto continua selecionável */ }
-  });
+  document.querySelectorAll('[data-copiar-citacao]').forEach(b => copiar(b, () => texto ? texto.textContent.trim() : location.href));
+  document.querySelectorAll('[data-copiar-link]').forEach(b => copiar(b, () => location.href.split('#')[0]));
+
+  // "Baixar em PDF" sem arquivo: imprime a página (folha de estilo de impressão)
+  document.querySelectorAll('[data-imprimir]').forEach(b => b.addEventListener('click', () => window.print()));
+
+  // barra de progresso de leitura
+  const barra = document.querySelector('[data-progresso]');
+  const corpo = document.querySelector('.artigo-corpo');
+  if (barra && corpo) {
+    const medir = () => {
+      const r = corpo.getBoundingClientRect();
+      const total = r.height - window.innerHeight * 0.6;
+      const lido = Math.min(Math.max(-r.top + window.innerHeight * 0.4, 0), Math.max(total, 1));
+      barra.style.width = `${Math.round((lido / Math.max(total, 1)) * 100)}%`;
+    };
+    window.addEventListener('scroll', medir, { passive: true });
+    window.addEventListener('resize', medir);
+    medir();
+  }
+
+  // scrollspy do "Neste artigo"
+  const toc = document.querySelector('[data-toc]');
+  if (toc && 'IntersectionObserver' in window) {
+    const links = [...toc.querySelectorAll('a[href^="#"]')];
+    const alvos = links.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    let ativo = null;
+    const marcar = (id) => {
+      if (ativo === id) return;
+      ativo = id;
+      links.forEach(a => a.classList.toggle('is-ativo', a.getAttribute('href') === '#' + id));
+    };
+    const obs = new IntersectionObserver((entradas) => {
+      const visiveis = entradas.filter(e => e.isIntersecting).sort((x, y) => x.boundingClientRect.top - y.boundingClientRect.top);
+      if (visiveis.length) marcar(visiveis[0].target.id);
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    alvos.forEach(h => obs.observe(h));
+    if (alvos.length) marcar(alvos[0].id);
+  }
 })();

@@ -183,7 +183,12 @@ def converter(caminho):
         # Cabeçalho (título, autores, credenciais): tudo antes do 1º parágrafo
         # longo (> 200 caracteres) que não é título.
         if not corpo_comecou:
-            if len(puro) > 200 and not re.search(r'Mestre|Doutor|Universidade|Juiz|Defensor|Especialista|Coautor|Pesquisador|Researcher', puro):
+            # o corpo começa no 1º parágrafo depois das palavras-chave (quando
+            # existem) ou no 1º parágrafo longo que não é credencial. Sem isto
+            # um título de seção curto antes do texto ia parar no cabeçalho.
+            depois_das_palavras = meta['palavras'] is not None or meta['resumo'] is not None
+            longo_de_corpo = len(puro) > 200 and not re.search(r'Mestre|Doutor|Universidade|Juiz|Defensor|Especialista|Coautor|Pesquisador|Researcher', puro)
+            if depois_das_palavras or longo_de_corpo:
                 corpo_comecou = True
             else:
                 meta['cabecalho'].append(puro); continue

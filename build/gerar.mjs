@@ -394,10 +394,19 @@ function inlineRico(t) {
     .replace(/\u0000(\d+)\u0000/g, (_, i) => links[Number(i)]);
 }
 
+function slugSecao(t) {
+  return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/&[a-z]+;|&#\d+;/g, ' ').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'secao';
+}
+
+/* Devolve { html, sumario: [{id, titulo}] }. Cada "## " ganha um id, que o
+   sumário lateral ("Neste artigo") e o scrollspy usam. */
 function corpoRico(texto) {
   const blocos = esc(String(texto || '')).replace(/\r/g, '').split(/\n\s*\n/).map(b => b.trim()).filter(Boolean);
   let emNotas = false;
   const saida = [];
+  const sumario = [];
+  const usados = new Set();
 
   for (const b of blocos) {
     const linhas = b.split('\n').map(l => l.trim());
@@ -406,7 +415,11 @@ function corpoRico(texto) {
     if (/^##\s+/.test(b)) {
       const t = b.replace(/^##\s+/, '');
       emNotas = /^notas?$/i.test(t.trim());
-      saida.push(`<h2${emNotas ? ' id="notas"' : ''}>${inlineRico(t)}</h2>`);
+      let id = emNotas ? 'notas' : slugSecao(t.replace(/^\d+(\.\d+)*\.?\s*/, ''));
+      while (usados.has(id)) id += '-2';
+      usados.add(id);
+      sumario.push({ id, titulo: t.replace(/\*\*?/g, '') });
+      saida.push(`<h2 id="${id}">${inlineRico(t)}</h2>`);
       continue;
     }
     if (linhas.every(l => /^&gt;\s?/.test(l))) {
@@ -436,7 +449,22 @@ function corpoRico(texto) {
     }
     saida.push(`<p>${inlineRico(linhas.join('<br/>'))}</p>`);
   }
-  return saida.join('\n');
+  return { html: saida.join('\n'), sumario };
+}
+
+function blocoSumario(sumario, classe) {
+  if (!sumario.length) return '';
+  const itens = sumario.map(x => `<li><a href="#${x.id}">${x.titulo}</a></li>`).join('');
+  if (classe === 'mobile') {
+    return `<details class="artigo-toc artigo-toc--mobile">
+<summary><i aria-hidden="true" class="fa-solid fa-list-ul"></i> Neste artigo</summary>
+<ol>${itens}</ol>
+</details>`;
+  }
+  return `<nav aria-label="Seções deste artigo" class="artigo-toc" data-toc>
+<p class="artigo-toc__titulo">Neste artigo</p>
+<ol>${itens}</ol>
+</nav>`;
 }
 
 /* Palavras por minuto de leitura em português: 200 é a régua comum. */
@@ -637,6 +665,15 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
       : '';
 
     const meta = ['Artigo', a.publicado_em ? dataCurta(a.publicado_em) : '', rotuloLeitura(a)].filter(Boolean).join(' · ');
+    const corpo = corpoRico(a.corpo);
+    const autoresHero = autores.length
+      ? `<p class="artigo-hero__autores">${autores.map(x => `<span class="artigo-hero__autor"><i aria-hidden="true" class="fa-regular fa-user"></i>${esc(x.nome)}</span>`).join('')}</p>`
+      : '';
+    // Baixar: PDF de verdade quando existe; senão a impressão da própria página
+    // (folha de estilo de impressão), que a pessoa salva como PDF.
+    const acaoPdf = a.pdf_url
+      ? `<a class="artigo-acao artigo-acao--destaque" href="${esc(a.pdf_url)}" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar o PDF</span></a>`
+      : `<button class="artigo-acao artigo-acao--destaque" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>`;
 
     const html = molde
       .replaceAll('{{TITULO_COMPLETO}}', () => esc(completo))
@@ -654,7 +691,16 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
       .replaceAll('{{RESUMO_BLOCO}}', () => blocoResumo)
       .replaceAll('{{ACESSO}}', () => blocoAcesso(a))
       .replaceAll('{{ACESSO_FIM}}', () => (a.corpo && String(a.corpo).trim()) ? blocoAcesso(a, 'artigo-acesso--fim') : '')
-      .replaceAll('{{CORPO}}', () => corpoRico(a.corpo))
+      .replaceAll('{{CORPO}}', () => corpo.html)
+      .replaceAll('{{SUMARIO}}', () => blocoSumario(corpo.sumario, 'lateral'))
+      .replaceAll('{{SUMARIO_MOBILE}}', () => blocoSumario(corpo.sumario, 'mobile'))
+      .replaceAll('{{AUTORES_HERO}}', () => autoresHero)
+      .replaceAll('{{ACAO_PDF}}', () => acaoPdf)
+      .replaceAll('{{ACOES_MOBILE}}', () => `<div class="artigo-acoes artigo-acoes--mobile">
+${acaoPdf}
+<button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
+<button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>
+</div>`)
       .replaceAll('{{CITAR}}', () => citar)
       .replaceAll('{{OUTROS}}', () => blocoOutros);
 

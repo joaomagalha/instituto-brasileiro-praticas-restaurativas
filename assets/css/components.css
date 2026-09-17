@@ -4540,3 +4540,154 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   text-transform: uppercase;
   color: rgba(var(--white-rgb), 0.7);
 }
+
+/* ===================================================================
+   PÁGINA DE LEITURA DO ARTIGO, v2 (17/09/2026)
+   -------------------------------------------------------------------
+   Pedido do João: "mais bonita, atrativa e fácil de ler". Layout de
+   revista científica: coluna lateral fixa (sumário "Neste artigo" com
+   scrollspy + ações) e a coluna de leitura ao lado. Corpo em 17px com
+   entrelinha 1,75 e medida de ~66 caracteres [02-03][02-04]; parágrafo
+   de abertura maior; barra de progresso dourada (a única accent da
+   página fora dos links). No celular a lateral some: sumário vira um
+   bloco dobrável depois do resumo e as ações ficam no "Como citar".
+   =================================================================== */
+
+/* -- barra de progresso, logo abaixo do navbar fixo -- */
+.artigo-progresso {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 101;
+  pointer-events: none;
+  background: transparent;
+}
+.artigo-progresso span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-gold), #E6C45E);
+  transition: width 0.15s linear;
+}
+
+/* -- autores no hero, como chips -- */
+.artigo-hero__autores { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
+.artigo-hero__autor {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--navy900-rgb), 0.55);
+  border: 1px solid rgba(var(--white-rgb), 0.22);
+  backdrop-filter: blur(4px);
+  color: var(--color-white);
+  font-size: 1.4rem; font-weight: var(--weight-medium);
+}
+.artigo-hero__autor i { color: var(--color-gold); font-size: 1.2rem; }
+
+/* -- layout: lateral 26rem + leitura -- */
+.artigo-secao { padding-top: var(--space-3xl); }
+.artigo-layout { display: grid; grid-template-columns: 1fr; gap: var(--space-2xl); }
+.artigo-corpo { max-width: 72rem; margin-inline: auto; width: 100%; }
+.artigo-lateral { display: none; }
+@media (min-width: 1024px) {
+  .artigo-layout { grid-template-columns: 26rem minmax(0, 72rem); gap: var(--space-3xl); justify-content: center; align-items: start; }
+  .artigo-lateral { display: block; }
+  .artigo-lateral__fixo { position: sticky; top: 10rem; display: flex; flex-direction: column; gap: var(--space-lg); }
+  .artigo-corpo { margin-inline: 0; }
+}
+
+/* -- sumário "Neste artigo" -- */
+.artigo-toc { padding: var(--space-lg); border-radius: var(--radius-lg); background: var(--color-white); border: 1px solid var(--color-border-light); }
+.artigo-toc__titulo, .artigo-acoes__titulo {
+  font-size: 1.15rem; font-weight: var(--weight-semibold); letter-spacing: var(--tracking-overline);
+  text-transform: uppercase; color: var(--color-teal); margin: 0 0 var(--space-sm);
+}
+.artigo-toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.artigo-toc a {
+  display: block;
+  padding: 0.7rem 1rem 0.7rem 1.2rem;
+  border-left: 2px solid var(--color-border-light);
+  font-size: 1.35rem; line-height: 1.4;
+  color: var(--color-mist);
+  text-decoration: none;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+.artigo-toc a:hover { color: var(--color-navy); background: var(--color-paper); }
+.artigo-toc a.is-ativo { color: var(--color-navy); border-left-color: var(--color-gold); font-weight: var(--weight-semibold); }
+.artigo-toc--mobile { margin-bottom: var(--space-xl); }
+.artigo-toc--mobile summary {
+  cursor: pointer; list-style: none;
+  display: flex; align-items: center; gap: 0.8rem;
+  font-size: 1.4rem; font-weight: var(--weight-semibold); color: var(--color-navy);
+}
+.artigo-toc--mobile summary::-webkit-details-marker { display: none; }
+.artigo-toc--mobile summary i { color: var(--color-teal); }
+.artigo-toc--mobile summary::after { content: "+"; margin-left: auto; color: var(--color-mist); font-size: 1.8rem; line-height: 1; }
+.artigo-toc--mobile[open] summary::after { content: "−"; }
+.artigo-toc--mobile ol { margin-top: var(--space-sm); }
+@media (min-width: 1024px) { .artigo-toc--mobile { display: none; } }
+/* ações no celular: fileira compacta depois do sumário dobrável */
+.artigo-acoes.artigo-acoes--mobile { flex-direction: row; flex-wrap: wrap; padding: 0; border: 0; background: none; margin-bottom: var(--space-xl); }
+.artigo-acoes.artigo-acoes--mobile .artigo-acao { width: auto; flex: 1 1 14rem; justify-content: center; text-align: center; }
+@media (min-width: 1024px) { .artigo-acoes.artigo-acoes--mobile { display: none; } }
+
+/* -- ações da lateral -- */
+.artigo-acoes { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-lg); border-radius: var(--radius-lg); background: var(--color-white); border: 1px solid var(--color-border-light); }
+.artigo-acao {
+  display: flex; align-items: center; gap: 1rem;
+  width: 100%; padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-paper);
+  color: var(--color-navy);
+  font-family: var(--font-body); font-size: 1.35rem; font-weight: var(--weight-semibold);
+  text-decoration: none; text-align: left; cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+.artigo-acao i { width: 1.6rem; text-align: center; color: var(--color-teal); font-size: 1.3rem; }
+.artigo-acao:hover { border-color: rgba(var(--teal-rgb), 0.5); background: var(--color-white); }
+.artigo-acao--destaque { background: var(--color-navy); border-color: var(--color-navy); color: var(--color-white); }
+.artigo-acao--destaque i { color: var(--color-gold); }
+.artigo-acao--destaque:hover { background: var(--color-navy-700); border-color: var(--color-navy-700); color: var(--color-white); }
+
+/* -- leitura: corpo 17/1.75, medida ~66ch, abertura maior -- */
+.artigo-corpo .prose--artigo { max-width: 66ch; }
+.artigo-corpo .prose--artigo p { font-size: 1.7rem; line-height: 1.75; color: #2B3D52; }
+.artigo-corpo .prose--artigo > p:first-child { font-size: 1.9rem; line-height: 1.65; color: var(--color-navy); }
+.artigo-corpo .prose--artigo p + p { margin-top: var(--space-lg); }
+.artigo-corpo .prose--artigo h2 { font-size: clamp(2.1rem, 2.4vw, 2.5rem); margin: var(--space-3xl) 0 var(--space-md); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
+.artigo-corpo .prose--artigo h2:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.artigo-corpo .prose--artigo h3 { margin-top: var(--space-2xl); }
+.artigo-corpo .prose--artigo blockquote { margin: var(--space-xl) 0; padding: var(--space-lg) var(--space-xl); }
+.artigo-corpo .prose--artigo blockquote p { font-size: 1.65rem; line-height: 1.65; }
+.artigo-corpo .prose--artigo ul, .artigo-corpo .prose--artigo ol { font-size: 1.7rem; line-height: 1.7; }
+.artigo-corpo .prose--artigo .artigo-notas { font-size: 1.4rem !important; line-height: 1.6; padding-left: 2.8rem; }
+.artigo-corpo .prose--artigo .artigo-notas li { color: var(--color-mist); }
+.artigo-corpo .prose--artigo .artigo-notas li::marker { color: var(--color-teal); }
+.artigo-corpo .artigo-autores { margin-bottom: var(--space-xl); }
+.artigo-corpo .artigo-resumo { margin-bottom: var(--space-xl); }
+[id^="sec"], #notas { scroll-margin-top: 11rem; }
+.prose--artigo h2[id] { scroll-margin-top: 11rem; }
+
+/* -- impressão: só o artigo, limpo, pra "Baixar em PDF" -- */
+@media print {
+  .navbar, .mobile-menu, .overlay, .footer, .back-fab, .page-back, .artigo-progresso,
+  .artigo-lateral, .artigo-toc--mobile, .artigo-acoes, .artigo-acesso, .noticia-fim, .aviso-cookies, .skip-link, .pular-conteudo,
+  .artigo-citar__copiar, [data-aos], .grid-overlay, .page-hero__glow, section[aria-label="Outros artigos"] { display: none !important; }
+  [data-aos] { display: revert !important; opacity: 1 !important; transform: none !important; }
+  .page-hero { background: none !important; padding: 0 0 1.2rem !important; color: #000; min-height: 0 !important; }
+  .page-hero::before, .page-hero::after { display: none !important; }
+  .page-hero h1, .page-hero .page-hero__sub, .page-hero .page-hero__eyebrow, .artigo-hero__autor { color: #000 !important; text-shadow: none !important; background: none !important; border-color: #999 !important; }
+  .page-hero h1 { font-size: 22pt !important; }
+  .section--paper, body { background: #fff !important; }
+  .artigo-secao { padding: 0 !important; }
+  .artigo-layout { display: block !important; }
+  .artigo-corpo, .prose--artigo { max-width: none !important; }
+  .prose--artigo p, .prose--artigo li { font-size: 11pt !important; line-height: 1.5 !important; color: #000 !important; }
+  .prose--artigo h2 { font-size: 14pt !important; page-break-after: avoid; }
+  .artigo-resumo, .artigo-citar, .artigo-toc { border: 1px solid #bbb !important; box-shadow: none !important; background: #fff !important; }
+  .artigo-citar__texto::after { content: " " attr(data-url); }
+  a { color: #000 !important; text-decoration: none !important; }
+  .nota-ref a::after, .nota-volta { display: none !important; }
+  @page { margin: 2cm; }
+}

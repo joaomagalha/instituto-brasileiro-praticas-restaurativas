@@ -33,7 +33,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260917g" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260917h" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -166,15 +166,33 @@
 <p class="overline overline--light page-hero__eyebrow">{{META}}</p>
 <h1>{{TITULO}}</h1>
 {{SUBTITULO}}
+{{AUTORES_HERO}}
 </div>
 </section>
 
-<section aria-label="Conteúdo do artigo" class="section section--paper">
-<div class="container">
+<div aria-hidden="true" class="artigo-progresso"><span data-progresso></span></div>
 
-<article class="artigo measure-narrow">
+<section aria-label="Conteúdo do artigo" class="section section--paper artigo-secao">
+<div class="container">
+<div class="artigo-layout">
+
+<aside class="artigo-lateral">
+<div class="artigo-lateral__fixo">
+{{SUMARIO}}
+<div class="artigo-acoes">
+<p class="artigo-acoes__titulo">Ações</p>
+{{ACAO_PDF}}
+<button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
+<button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>
+</div>
+</div>
+</aside>
+
+<article class="artigo artigo-corpo">
 {{AUTORES}}
 {{RESUMO_BLOCO}}
+{{SUMARIO_MOBILE}}
+{{ACOES_MOBILE}}
 {{ACESSO}}
 <div class="prose prose--artigo">
 {{CORPO}}
@@ -186,6 +204,7 @@
 </div>
 </article>
 
+</div>
 </div>
 </section>
 
@@ -266,6 +285,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260917b"></script>
+<script src="assets/js/site-interactions.js?v=20260917c"></script>
 </body>
 </html>
