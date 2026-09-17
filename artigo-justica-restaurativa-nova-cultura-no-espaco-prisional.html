@@ -3,31 +3,26 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Artigos do IBPR: produção acadêmica do Instituto e da sua rede sobre Justiça Restaurativa e práticas restaurativas, com texto completo, resumo e referências." name="description"/>
-<title>Artigos | Instituto Brasileiro de Práticas Restaurativas (IBPR)</title>
+<meta content="O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de…" name="description"/>
+<title>Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais | Artigos IBPR</title>
 <!-- Compartilhamento (Open Graph / Twitter Card).
-     og:image, og:url e canonical são ABSOLUTOS de propósito: os robôs do
-     WhatsApp e do LinkedIn não resolvem caminho relativo, e com caminho
-     relativo o link compartilhado sai sem imagem nenhuma.
-
-     Domínio www.ibpr.com.br apontado em 14/09/2026; o endereço antigo
-     (joaomagalha.github.io/...) foi trocado em todo o repositório nesse dia.
-     A constante SITE do build/gerar.mjs é quem gera as páginas de curso e de notícia.
-
-     TODO: imagem dedicada de 1200x630 renderiza melhor que o poster 1600x900. -->
-<meta content="Artigos | Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:title"/>
-<meta content="Artigos do IBPR: produção acadêmica do Instituto e da sua rede sobre Justiça Restaurativa e práticas restaurativas, com texto completo, resumo e referências." property="og:description"/>
-<meta content="website" property="og:type"/>
+     Preenchido pelo build com endereço ABSOLUTO: os robôs do WhatsApp e do
+     LinkedIn não resolvem caminho relativo em og:image. A base vem da
+     constante SITE em build/gerar.mjs. -->
+<meta content="https://www.ibpr.com.br/artigo-justica-restaurativa-nova-cultura-no-espaco-prisional.html" property="og:url"/>
+<link href="https://www.ibpr.com.br/artigo-justica-restaurativa-nova-cultura-no-espaco-prisional.html" rel="canonical"/>
+<meta content="Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais" property="og:title"/>
+<meta content="O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de…" property="og:description"/>
+<meta content="article" property="og:type"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
-<meta content="https://www.ibpr.com.br/artigos.html" property="og:url"/>
 <meta content="https://www.ibpr.com.br/assets/images/ibpr-movimento-hero.jpg" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
+<meta content="2021-12-01T12:00:00.000Z" property="article:published_time"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="Artigos | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
-<meta content="Artigos do IBPR: produção acadêmica do Instituto e da sua rede sobre Justiça Restaurativa e práticas restaurativas, com texto completo, resumo e referências." name="twitter:description"/>
+<meta content="Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais" name="twitter:title"/>
+<meta content="O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de…" name="twitter:description"/>
 <meta content="https://www.ibpr.com.br/assets/images/ibpr-movimento-hero.jpg" name="twitter:image"/>
-<link href="https://www.ibpr.com.br/artigos.html" rel="canonical"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
@@ -39,8 +34,6 @@
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
 <link href="assets/css/components.css?v=20260917g" rel="stylesheet"/>
-<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.jpg" rel="preload"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -161,30 +154,66 @@
 
 <main id="conteudo" tabindex="-1">
 
-<!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Artigos" class="page-hero page-hero--ibpr-movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
+<!-- MOLDE, não edite o resultado: este arquivo vira artigo-<slug>.html
+     gerado por build/gerar.mjs a partir do que está publicado no painel.
+     Editar a página gerada é trabalho perdido, o próximo build sobrescreve. -->
+
+<a aria-label="Voltar para os artigos" class="back-fab" data-voltar href="artigos.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
+<section aria-label="Artigo" class="page-hero page-hero--ibpr-movimento page-hero--artigo" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<p class="overline overline--light page-hero__eyebrow" data-aos="fade-up">IBPR em Movimento</p>
-<h1 data-aos="fade-up"><!-- CMS:texto:artigos-hero-titulo -->Artigos.<!-- /CMS:texto:artigos-hero-titulo --></h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:artigos-hero-sub -->A produção acadêmica do Instituto e dos profissionais da sua rede: textos completos, com resumo, palavras-chave e referências.<!-- /CMS:texto:artigos-hero-sub --></p>
+<a class="page-back" data-voltar href="artigos.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
+<p class="overline overline--light page-hero__eyebrow">Artigo · 01 dez 2021</p>
+<h1>Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional</h1>
+<p class="page-hero__sub">Estudo da aplicação de círculos de construção de paz em unidades prisionais</p>
 </div>
 </section>
 
-<!-- Lista de artigos: o miolo entre CMS:artigos-lista é gerado pelo build
-     (build/gerar.mjs, gerarArtigos) a partir da tabela public.artigos.
-     NÃO EDITAR À MÃO. Enquanto não há artigo publicado, fica o estado vazio. -->
-<section aria-label="Artigos publicados" class="section section--paper" id="lista">
+<section aria-label="Conteúdo do artigo" class="section section--paper">
 <div class="container">
-<!-- CMS:artigos-lista -->
-<div class="section-header section__head measure-narrow" data-aos="fade-up">
-<p class="overline">Artigos</p>
-<h2>Produção acadêmica do Instituto e da sua rede.</h2>
-<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências, escritos pelos profissionais que integram o IBPR.</p>
+
+<article class="artigo measure-narrow">
+<div class="artigo-autores">
+<div class="artigo-autor">
+<p class="artigo-autor__nome">Decildo Ferreira Lopes</p>
+<p class="artigo-autor__cred">Mestre em Direito e Políticas Públicas pela Universidade Federal de Goiás (2019).<br/>Especialista em Direito Penal Contemporâneo e Sistema Prisional pela Escola Nacional da Magistratura (2022).<br/>Doutorando em Direito pelo Instituto Brasileiro de Ensino, Desenvolvimento e Pesquisa (IDP).<br/>Juiz de Direito e Coordenador do Núcleo de Justiça Restaurativa no Tribunal de Justiça do Estado de Goiás.</p>
 </div>
-<div class="artigos__lista" data-aos="fade-up">
+</div>
+<div class="artigo-resumo">
+<p class="overline">Resumo</p>
+<p class="artigo-resumo__texto">O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de Goiás. A pesquisa parte da contextualização da política criminal brasileira, com foco nas expressões do paradigma punitivo na forma como o sistema prisional tem exercido o seu papel no sistema de justiça penal. Registra críticas ao ideal ressocializador, como forma de compreender o cenário específico em que a prática restaurativa investigada é aplicada. Por meio de pesquisa bibliográfica, revisa a expansão da Justiça Restaurativa no Brasil, suas características, em especial as tensões decorrentes de sua aproximação ao sistema de justiça criminal, suscitando preocupações quanto ao risco de cooptação pela lógica do sistema punitivo. Apresenta os resultados de pesquisa de campo realizada nas citadas unidades prisionais, com o fim de aferir, junto às pessoas que tiveram contato direto com as metodologias da Justiça Restaurativa, suas impressões a respeito, tanto no que concerne ao cumprimento dos objetivos enunciados, quanto aos efetivos efeitos que as práticas surtem no público destinatário, de modo a subsidiar uma avaliação sobre a pergunta principal orientadora da pesquisa: se os círculos de construção de paz podem servir como instrumento para a construção de uma nova cultura no sistema prisional. Por meio de entrevistas semiestruturadas, foram ouvidas 29 pessoas provadas privadas de liberdade (20 homens e 9 mulheres). Os três diretores das unidades prisionais responderam ao questionário encaminhado via e-mail. Os achados da pesquisa sugerem que a aplicação de programas restaurativos no sistema prisional pode, sim, contribuir para esse propósito, mas não unicamente por meio da aplicação de círculos de construção de paz, conforme realizado na prática examinada. Os relatos colhidos revelaram um contraste entre a descrição dos valores compreendidos como típicos da prisão e aqueles que passaram a cultivar após a participação nos círculos. A melhoria no relacionamento interno, o estímulo ao exercício da empatia e o potencial para diminuição dos conflitos se destacam como pontos positivos. Por outro lado, os achados revelam também algumas deficiências que, embora não desconstituam as conclusões anteriores, podem representar empecilho ao avanço de programas da mesma natureza no sistema prisional ou mesmo inseri-lo nas hipóteses de risco de afastamento dos princípios da Justiça Restaurativa. A partir dessas observações, propõe-se sugestões para o caso de manutenção e/ou a eventual expansão do programa: a) qualificação da apresentação do programa e dos objetivos da Justiça Restaurativa para a execução penal; b) inclusão de programas destinados aos integrantes da administração prisional; c) estabelecimento de recursos de avaliação constante dos resultados do programa; d) estabelecimento de meios que permitam, para além do ciclo de círculos de paz, oportunidades para reverberação dos valores e propósitos estabelecidos nos círculos; e) formação continuada dos facilitadores e ampliação de seu quantitativo; f) inclusão de módulo 294 ReJuB - Rev. Jud. Bras., Brasília, Ano 1, sup. esp., p. 293 - 329, jul./dez. 2021 JUSTIÇA RESTAURATIVA COMO INSTRUMENTO PARA CONSTRUÇÃO DE UMA NOVA CULTURA NO ESPAÇO PRISIONAL: ESTUDO DA APLICAÇÃO DE CÍRCULOS DE CONSTRUÇÃO DE PAZ EM UNIDADES PRISIONAIS sobre justiça restaurativa no curso de formação dos policiais penais; g) aprimoramento do material orientador do programa, de modo que os danos causados às vítimas e às comunidades, assim como aos meios de restauração, sejam mais bem trabalhados.</p>
+<ul class="artigo-palavras" aria-label="Palavras-chave"><li class="tag-pill">justiça restaurativa</li><li class="tag-pill">sistema prisional</li><li class="tag-pill">círculos de construção de paz</li><li class="tag-pill">estudo de caso</li></ul>
+</div>
+<div class="artigo-acesso"><a class="btn btn--dark" href="assets/docs/lopes-2021-justica-restaurativa-espaco-prisional-rejub.pdf" rel="noopener" target="_blank">Baixar o PDF <i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i></a>
+<a class="link-arrow" href="https://doi.org/10.54795/RejuBespecial.SisPri.202" rel="noopener" target="_blank">Ver em ReJuB <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a><p class="artigo-acesso__doi">DOI: <span>10.54795/RejuBespecial.SisPri.202</span></p></div>
+<div class="prose prose--artigo">
+
+</div>
+
+<div class="artigo-citar">
+<p class="overline">Como citar</p>
+<p class="artigo-citar__texto" id="citacao">LOPES, Decildo Ferreira. Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais. ReJuB, Revista Judicial Brasileira, ano 1, sup. esp., p. 293-329, jul./dez. 2021. Disponível em: https://www.ibpr.com.br/artigo-justica-restaurativa-nova-cultura-no-espaco-prisional.html. Acesso em: <span data-acesso-em></span>.</p>
+<button class="artigo-citar__copiar" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i> Copiar citação</button>
+</div>
+<div class="noticia-fim">
+<a class="link-arrow" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</article>
+
+</div>
+</section>
+
+<section aria-label="Outros artigos" class="section section--white">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
+<p class="overline">Continue lendo</p>
+<h2>Outros artigos.</h2>
+</div>
+<a class="btn btn--dark" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="artigos__lista artigos__lista--hub" data-aos="fade-up">
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-acendedor-de-lampioes-e-o-legislador-penal.html">
 <div class="artigo-card__body">
@@ -207,33 +236,6 @@
 </div>
 </a>
 </article>
-<article class="artigo-card">
-<a class="artigo-card__link" href="artigo-justica-restaurativa-nova-cultura-no-espaco-prisional.html">
-<div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">01 dez 2021</span></p>
-<h3 class="artigo-card__title">Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais</h3>
-<p class="artigo-card__autores">Decildo Ferreira Lopes</p>
-<p class="noticia-card__resumo">O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de Goiás. A pesquisa parte da contextualização da política criminal brasileira, com foco nas expressões do paradigma punitivo na forma como o sistema prisional tem exercido o seu papel no sistema de justiça penal. Registra críticas ao ideal ressocializador, como forma de compreender o cenário específico em que a prática restaurativa investigada é aplicada. Por meio de pesquisa bibliográfica, revisa a expansão da Justiça Restaurativa no Brasil, suas características, em especial as tensões decorrentes de sua aproximação ao sistema de justiça criminal, suscitando preocupações quanto ao risco de cooptação pela lógica do sistema punitivo. Apresenta os resultados de pesquisa de campo realizada nas citadas unidades prisionais, com o fim de aferir, junto às pessoas que tiveram contato direto com as metodologias da Justiça Restaurativa, suas impressões a respeito, tanto no que concerne ao cumprimento dos objetivos enunciados, quanto aos efetivos efeitos que as práticas surtem no público destinatário, de modo a subsidiar uma avaliação sobre a pergunta principal orientadora da pesquisa: se os círculos de construção de paz podem servir como instrumento para a construção de uma nova cultura no sistema prisional. Por meio de entrevistas semiestruturadas, foram ouvidas 29 pessoas provadas privadas de liberdade (20 homens e 9 mulheres). Os três diretores das unidades prisionais responderam ao questionário encaminhado via e-mail. Os achados da pesquisa sugerem que a aplicação de programas restaurativos no sistema prisional pode, sim, contribuir para esse propósito, mas não unicamente por meio da aplicação de círculos de construção de paz, conforme realizado na prática examinada. Os relatos colhidos revelaram um contraste entre a descrição dos valores compreendidos como típicos da prisão e aqueles que passaram a cultivar após a participação nos círculos. A melhoria no relacionamento interno, o estímulo ao exercício da empatia e o potencial para diminuição dos conflitos se destacam como pontos positivos. Por outro lado, os achados revelam também algumas deficiências que, embora não desconstituam as conclusões anteriores, podem representar empecilho ao avanço de programas da mesma natureza no sistema prisional ou mesmo inseri-lo nas hipóteses de risco de afastamento dos princípios da Justiça Restaurativa. A partir dessas observações, propõe-se sugestões para o caso de manutenção e/ou a eventual expansão do programa: a) qualificação da apresentação do programa e dos objetivos da Justiça Restaurativa para a execução penal; b) inclusão de programas destinados aos integrantes da administração prisional; c) estabelecimento de recursos de avaliação constante dos resultados do programa; d) estabelecimento de meios que permitam, para além do ciclo de círculos de paz, oportunidades para reverberação dos valores e propósitos estabelecidos nos círculos; e) formação continuada dos facilitadores e ampliação de seu quantitativo; f) inclusão de módulo 294 ReJuB - Rev. Jud. Bras., Brasília, Ano 1, sup. esp., p. 293 - 329, jul./dez. 2021 JUSTIÇA RESTAURATIVA COMO INSTRUMENTO PARA CONSTRUÇÃO DE UMA NOVA CULTURA NO ESPAÇO PRISIONAL: ESTUDO DA APLICAÇÃO DE CÍRCULOS DE CONSTRUÇÃO DE PAZ EM UNIDADES PRISIONAIS sobre justiça restaurativa no curso de formação dos policiais penais; g) aprimoramento do material orientador do programa, de modo que os danos causados às vítimas e às comunidades, assim como aos meios de restauração, sejam mais bem trabalhados.</p>
-<span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
-</div>
-</a>
-</article>
-</div>
-<!-- /CMS:artigos-lista -->
-</div>
-</section>
-
-<!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="cta-final__glow"></div>
-<div class="container">
-<p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
-<h2 class="cta-final__title" data-aos="fade-up">As formações são a porta de entrada do movimento.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Cursos on-line, no seu ritmo, para compreender e aplicar práticas restaurativas.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
 </section>
