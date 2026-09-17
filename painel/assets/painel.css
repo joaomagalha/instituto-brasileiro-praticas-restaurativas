@@ -978,3 +978,9 @@ body.painel {
 .painel-vazio--convite .painel-vazio__acao { margin-top: var(--space-md); }
 
 [hidden] { display: none !important; }
+
+/* Artigos (17/09/2026): item sem capa mostra um ícone no lugar da foto;
+   linha "PDF atual" embaixo do campo de arquivo */
+.painel-item__icone { display: grid; place-items: center; width: 100%; height: 100%; color: var(--color-navy-mid); font-size: 2.2rem; background: linear-gradient(150deg, var(--color-mist-bg), var(--color-paper)); }
+.campo__arquivo { margin-top: var(--space-xs); font-size: 1.3rem; color: var(--color-navy-mid); }
+.campo__arquivo a { color: var(--color-teal); }

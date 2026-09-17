@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="noindex, nofollow" name="robots"/>
+<title>Artigos | Painel IBPR</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
+<link href="../assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
+<link href="../assets/css/components.css?v=20260916q" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260917a" rel="stylesheet"/>
+<link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
+</head>
+<body class="painel">
+
+<header class="painel-topbar">
+  <a class="painel-topbar__marca" href="noticias.html"><img alt="IBPR" class="painel-topbar__logo" src="../assets/images/ibpr-logo-icone.png"/><span class="painel-topbar__nome">Painel</span></a>
+  <nav aria-label="Seções do painel" class="painel-topbar__nav">
+    <a class="painel-topbar__aba" href="noticias.html">Notícias</a>
+    <a aria-current="page" class="painel-topbar__aba is-ativa" href="artigos.html">Artigos</a>
+    <a class="painel-topbar__aba" href="formacoes.html">Formações</a>
+    <a class="painel-topbar__aba" href="pessoas.html">Pessoas</a>
+    <a class="painel-topbar__aba" href="textos.html">Textos</a>
+  </nav>
+  <div class="painel-topbar__dir">
+    <a class="painel-topbar__site" href="../index.html" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> <span>Ver o site</span></a>
+    <div class="painel-conta" id="conta">
+      <button aria-controls="menuConta" aria-expanded="false" aria-haspopup="menu" class="painel-conta__botao" id="btnConta" type="button">
+        <span aria-hidden="true" class="painel-conta__avatar" id="contaIniciais"></span>
+        <span class="painel-conta__nome" id="usuarioAtual"></span>
+        <i aria-hidden="true" class="fa-solid fa-chevron-down painel-conta__seta"></i>
+      </button>
+      <div class="painel-conta__menu" hidden id="menuConta" role="menu">
+        <p class="painel-conta__email" id="contaEmail"></p>
+        <a href="ajuda.html" role="menuitem"><i aria-hidden="true" class="fa-regular fa-circle-question"></i> Ajuda</a>
+        <a href="../index.html" rel="noopener" role="menuitem" target="_blank"><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> Ver o site</a>
+        <div class="painel-conta__divisor" role="separator"></div>
+        <a class="painel-conta__sair" href="#" id="btnSair" role="menuitem"><i aria-hidden="true" class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="painel-shell">
+
+  <div class="painel-msg" id="msg" hidden></div>
+
+  <!-- ==============================================================
+       TELA 1 — LISTA
+       ============================================================== -->
+  <section id="telaLista">
+    <div class="painel-cabeca">
+      <div>
+        <p class="overline">IBPR em Movimento</p>
+        <h1>Artigos</h1>
+        <p>Textos acadêmicos do Instituto e da rede. O que estiver <strong>publicado</strong> aparece em <em>Artigos</em> (menu IBPR em Movimento), no hub e na página inicial. Rascunho fica só aqui.</p>
+      </div>
+      <button class="btn btn--dark btn--sm" id="btnNova" type="button">
+        <i aria-hidden="true" class="fa-solid fa-plus"></i> Novo artigo
+      </button>
+    </div>
+
+  <details class="painel-guia">
+    <summary class="painel-guia__titulo">Se bater dúvida</summary>
+    <dl>
+      <dt>Artigo ou notícia?</dt>
+      <dd>Artigo é texto de autoria (com autores, resumo, seções, às vezes PDF ou DOI). Notícia é o registro de um fato. Os dois moram no IBPR em Movimento.</dd>
+      <dt>Como faço seções, itálico e notas no texto?</dt>
+      <dd>Linha em branco separa parágrafos. Uma linha começando com <strong>## </strong> vira título de seção e <strong>### </strong> vira subseção. <strong>*assim*</strong> fica em itálico, <strong>**assim**</strong> em negrito, <strong>&gt; </strong> no começo da linha vira citação. Nota de rodapé: escreva <strong>[1]</strong> no texto e, no fim, uma seção <strong>## Notas</strong> com as linhas <strong>1. texto da nota</strong>.</dd>
+      <dt>O artigo já saiu numa revista?</dt>
+      <dd>Preencha o DOI e/ou a revista no bloco "Arquivo e origem", e suba o PDF se tiver. Aí dá pra deixar o texto em branco: a página mostra resumo, palavras-chave e os links.</dd>
+      <dt>Quando aparece no site?</dt>
+      <dd>Cerca de dois minutos depois de publicar. Se não vir, aperte <strong>Ctrl + Shift + R</strong> na página do site.</dd>
+    </dl>
+  </details>
+
+    <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
+
+    <div class="painel-vazio" id="listaVazia" hidden>
+      <strong>Nenhum artigo ainda</strong>
+      Crie o primeiro em "Novo artigo". Enquanto não houver nenhum publicado, a página de artigos do site
+      mostra "Os primeiros artigos estão a caminho".
+    </div>
+
+    <div class="painel-lista" id="lista"></div>
+  </section>
+
+  <!-- ==============================================================
+       TELA 2 — FORMULÁRIO
+       ============================================================== -->
+  <section id="telaForm" hidden>
+    <div class="painel-cabeca">
+      <div>
+        <p class="overline">IBPR em Movimento</p>
+        <h1 id="formTitulo">Novo artigo</h1>
+        <p>Quatro blocos: o conteúdo, os autores, o arquivo de origem e a capa. No fim, guarde como
+           rascunho (fica só aqui) ou publique (entra no site em cerca de 2 minutos).</p>
+      </div>
+    </div>
+
+    <div class="painel-com-sumario">
+    <nav aria-label="Blocos do formulário" class="painel-sumario" id="sumarioArtigo"></nav>
+    <form class="painel-form" id="formArtigo" novalidate>
+      <input id="artigoId" type="hidden"/>
+
+      <!-- ---------- 1. conteúdo ---------- -->
+      <section class="painel-card painel-bloco" data-sumario="Conteúdo" data-sumario-icone="fa-align-left" id="bloco-conteudo">
+        <h2 class="painel-bloco__titulo">Conteúdo</h2>
+        <p class="painel-bloco__desc">Título, resumo e o texto. Título e resumo são obrigatórios.</p>
+
+        <div class="campo">
+          <label for="titulo">Título *</label>
+          <input id="titulo" maxlength="200" required type="text"/>
+          <span class="campo__dica">Só a parte principal. Se o título tem dois-pontos ("Título: subtítulo"), a parte de depois vai no campo abaixo.</span>
+        </div>
+
+        <div class="campo">
+          <label for="subtitulo">Subtítulo</label>
+          <input id="subtitulo" maxlength="240" type="text"/>
+          <span class="campo__dica">Opcional. Ex: "Uma análise crítica da Justiça Restaurativa no PL 3.890/2024".</span>
+        </div>
+
+        <div class="campo">
+          <label for="publicadoEm">Data</label>
+          <input id="publicadoEm" type="date"/>
+          <span class="campo__dica">Data que aparece no site e entra na citação. Em branco = data de hoje ao publicar. Artigo já publicado em revista: use a data da revista.</span>
+        </div>
+
+        <div class="campo">
+          <label for="resumo">Resumo *</label>
+          <textarea id="resumo" maxlength="3000" required></textarea>
+          <span class="campo__dica">O resumo acadêmico. Aparece em destaque no topo do artigo e, cortado, no card.</span>
+        </div>
+
+        <div class="campo">
+          <label for="palavrasChave">Palavras-chave</label>
+          <input id="palavrasChave" maxlength="400" placeholder="Justiça Restaurativa; sistema prisional; círculos de construção de paz" type="text"/>
+          <span class="campo__dica">Separadas por ponto e vírgula.</span>
+        </div>
+
+        <div class="campo">
+          <label for="corpo">Texto do artigo</label>
+          <textarea id="corpo"></textarea>
+          <span class="campo__dica">Linha em branco entre parágrafos. <strong>## </strong>no começo da linha = seção, <strong>### </strong>= subseção, <strong>*itálico*</strong>, <strong>**negrito**</strong>, <strong>&gt; </strong>= citação, <strong>[1]</strong> = nota (e uma seção <strong>## Notas</strong> no fim com "1. texto"). Pode deixar em branco quando o artigo é só resumo + PDF.</span>
+        </div>
+      </section>
+
+      <!-- ---------- 2. autores ---------- -->
+      <section class="painel-card painel-bloco" data-sumario="Autores" data-sumario-icone="fa-user-pen" id="bloco-autores">
+        <h2 class="painel-bloco__titulo">Autores</h2>
+        <p class="painel-bloco__desc">Um autor por bloco: a primeira linha é o nome, as linhas seguintes são as credenciais (uma por linha). Deixe uma linha em branco entre um autor e outro.</p>
+
+        <div class="campo">
+          <label for="autores">Autores *</label>
+          <textarea id="autores" placeholder="Decildo Ferreira Lopes
+Juiz de Direito do Tribunal de Justiça do Estado de Goiás.
+Doutorando em Direito pelo IDP.
+
+Maxuel Pereira Dias
+Defensor Público do Estado de Mato Grosso."></textarea>
+          <span class="campo__dica">O site mostra assim mesmo: nome em destaque e as credenciais embaixo. A citação ABNT é montada a partir dos nomes.</span>
+        </div>
+        <div class="campo__previa-texto" id="autoresPrevia" hidden></div>
+      </section>
+
+      <!-- ---------- 3. arquivo e origem ---------- -->
+      <section class="painel-card painel-bloco" data-sumario="Arquivo e origem" data-sumario-icone="fa-file-pdf" data-sumario-info="opcional" id="bloco-origem">
+        <h2 class="painel-bloco__titulo">Arquivo e origem <span class="painel-bloco__etiqueta">opcional</span></h2>
+        <p class="painel-bloco__desc">Para artigo que já saiu em revista ou que tem versão em PDF. O site mostra o botão "Baixar o PDF" e o link "Ver em (revista)".</p>
+
+        <div class="campo">
+          <label for="pdf">PDF do artigo</label>
+          <input accept="application/pdf" id="pdf" type="file"/>
+          <span class="campo__dica">Até 20 MB.</span>
+          <p class="campo__arquivo" id="pdfAtual" hidden></p>
+        </div>
+
+        <div class="campo-duplo">
+          <div class="campo">
+            <label for="doi">DOI</label>
+            <input id="doi" maxlength="120" placeholder="10.54795/RejuBespecial.SisPri.202" type="text"/>
+            <span class="campo__dica">Só o código, sem "https://doi.org/".</span>
+          </div>
+          <div class="campo">
+            <label for="publicacaoNome">Revista ou livro</label>
+            <input id="publicacaoNome" maxlength="240" placeholder="ReJuB, Revista Judicial Brasileira, ano 1, p. 293-329, jul./dez. 2021" type="text"/>
+            <span class="campo__dica">Como deve sair na citação. O nome antes da 1ª vírgula vira o rótulo do link.</span>
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="publicacaoUrl">Link da publicação original</label>
+          <input id="publicacaoUrl" maxlength="500" placeholder="https://..." type="url"/>
+          <span class="campo__dica">Em branco com DOI preenchido = o site usa o link do DOI.</span>
+        </div>
+      </section>
+
+      <!-- ---------- 4. capa ---------- -->
+      <section class="painel-card painel-bloco" data-sumario="Capa" data-sumario-icone="fa-image" data-sumario-info="opcional" id="bloco-imagem">
+        <h2 class="painel-bloco__titulo">Capa <span class="painel-bloco__etiqueta">opcional</span></h2>
+        <p class="painel-bloco__desc">A maioria dos artigos não tem. Sem capa, o card usa um painel com a marca do Instituto.</p>
+
+        <div class="campo">
+          <label for="imagem">Imagem</label>
+          <input accept="image/*" id="imagem" type="file"/>
+          <span class="campo__dica">Horizontal, de preferência 1600&times;900. Até 5 MB.</span>
+          <div class="campo__previa" id="previa" hidden><img alt="" id="previaImg"/></div>
+        </div>
+
+        <div class="campo">
+          <label for="imagemAlt">Descrição da imagem</label>
+          <input id="imagemAlt" maxlength="180" type="text"/>
+          <span class="campo__dica">O que se vê nela, em uma frase.</span>
+        </div>
+      </section>
+
+      <div class="painel-acoes painel-acoes--fixa">
+        <button class="btn btn--dark btn--sm" id="btnPublicar" type="button">
+          <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> Publicar no site
+        </button>
+        <button class="btn btn--outline btn--sm" id="btnRascunho" type="button">Salvar rascunho</button>
+        <button class="btn btn--fantasma btn--sm" id="btnCancelar" type="button">Cancelar</button>
+      </div>
+    </form>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.js"></script>
+<script src="../assets/js/supabase-config.js?v=20260909m"></script>
+<script src="../assets/js/supabase-client.js?v=20260909m"></script>
+<script src="assets/painel.js?v=20260915l"></script>
+<script src="assets/painel-artigos.js?v=20260917a"></script>
+<script>
+  IBPR.painel.iniciarArtigos();
+</script>
+
+</body>
+</html>

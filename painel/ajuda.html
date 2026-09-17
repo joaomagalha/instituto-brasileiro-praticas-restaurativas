@@ -11,7 +11,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
 <link href="../assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
 <link href="../assets/css/components.css?v=20260916q" rel="stylesheet"/>
-<link href="assets/painel.css?v=20260915l" rel="stylesheet"/>
+<link href="assets/painel.css?v=20260917a" rel="stylesheet"/>
 <link href="../assets/images/ibpr-logo-icone.png" rel="icon" type="image/png"/>
 <!-- Única página do painel que NÃO exige sessão, de propósito: ela precisa
      poder ser lida antes do primeiro acesso e por quem esqueceu a senha.
@@ -23,6 +23,7 @@
   <a class="painel-topbar__marca" href="noticias.html"><img alt="IBPR" class="painel-topbar__logo" src="../assets/images/ibpr-logo-icone.png"/><span class="painel-topbar__nome">Painel</span></a>
   <nav aria-label="Seções do painel" class="painel-topbar__nav">
     <a class="painel-topbar__aba" href="noticias.html">Notícias</a>
+    <a class="painel-topbar__aba" href="artigos.html">Artigos</a>
     <a class="painel-topbar__aba" href="formacoes.html">Formações</a>
     <a class="painel-topbar__aba" href="pessoas.html">Pessoas</a>
     <a class="painel-topbar__aba" href="textos.html">Textos</a>
@@ -96,6 +97,41 @@
       <p class="ajuda-p"><strong>Notícia de outro site:</strong> não copie o texto inteiro. Escreva
         a versão do IBPR (o que aconteceu, por que importa, uma citação curta) e aponte a fonte.
         Copiar na íntegra uma matéria que é "todos os direitos reservados" expõe o Instituto.</p>
+    </div>
+  </section>
+
+  <section class="painel-pagina">
+    <h2 class="painel-pagina__nome">Artigos</h2>
+    <div class="painel-card">
+      <p class="ajuda-p">Também mora no <strong>IBPR em Movimento</strong> (menu: IBPR em Movimento
+        › Artigos). Artigo é texto de autoria: tem autores com credenciais, resumo, palavras-chave,
+        seções e, às vezes, PDF ou DOI de revista. Cada artigo publicado vira uma página própria,
+        entra em <em>artigos.html</em>, nos "artigos recentes" do IBPR em Movimento e na página inicial,
+        misturado com as notícias por data.</p>
+      <ul class="ajuda-lista">
+        <li><strong>Título e subtítulo:</strong> se o título tem dois-pontos ("Título: subtítulo"),
+          separe nos dois campos. O site mostra o título grande e o subtítulo embaixo.</li>
+        <li><strong>Resumo</strong> é obrigatório: é o resumo acadêmico, aparece em destaque no topo
+          da página e, cortado em três linhas, no card.</li>
+        <li><strong>Palavras-chave:</strong> separadas por ponto e vírgula.</li>
+        <li><strong>Texto:</strong> linha em branco separa parágrafos. Uma linha começando com
+          <code>## </code> vira título de seção e <code>### </code> subseção. <code>*assim*</code> fica em
+          itálico, <code>**assim**</code> em negrito e <code>&gt; </code> no começo da linha vira citação.
+          Listas: linhas começando com <code>- </code> ou <code>1. </code>.</li>
+        <li><strong>Notas de rodapé:</strong> escreva <code>[1]</code> no ponto do texto e, no fim, uma
+          seção <code>## Notas</code> com as linhas <code>1. texto da nota</code>. O site liga uma coisa
+          à outra. Links dentro das notas: cole o endereço completo (https://...) ou escreva
+          <code>[texto do link](https://...)</code>.</li>
+        <li><strong>Autores:</strong> um por bloco. A primeira linha é o nome, as seguintes são as
+          credenciais (uma por linha). A citação ABNT do fim da página é montada a partir dos nomes
+          ("Decildo Ferreira Lopes" vira "LOPES, Decildo Ferreira").</li>
+        <li><strong>Artigo que já saiu em revista:</strong> preencha o DOI (só o código) e a revista
+          como deve sair na citação. Pode subir o PDF (até 20 MB) e deixar o texto em branco: a página
+          mostra resumo, palavras-chave, o botão do PDF e o link da revista.</li>
+        <li><strong>Data:</strong> é a que aparece no site e entra na citação. Artigo de revista: use
+          a data da revista, não a de hoje.</li>
+        <li><strong>Capa</strong> é opcional. Sem capa, o card usa um painel com a marca do Instituto.</li>
+      </ul>
     </div>
   </section>
 
