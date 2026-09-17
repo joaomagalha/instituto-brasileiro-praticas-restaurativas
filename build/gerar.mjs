@@ -976,7 +976,7 @@ function jsonldCurso(f) {
   dados.hasCourseInstance = {
     '@type': 'CourseInstance',
     courseMode: 'online',
-    description: 'Curso on-line com aulas gravadas e acesso vitalício ao conteúdo.'
+    description: 'Curso on-line com aulas gravadas.'
   };
   return comoScript(dados);
 }
