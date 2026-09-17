@@ -1618,22 +1618,32 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 .quote-mark__cite span { font-size: 1.3rem; color: var(--color-mist); }
 
-/* Citação com foto (16/09/2026, pedido do Dr. Decildo): a foto dele com os
-   autores do livro entra ao lado da citação. No celular fica citação em
-   cima e foto embaixo; a partir de 1024 viram duas colunas, com a citação
-   alinhada à esquerda pra conversar com a foto. */
-.quote-mark--com-foto { max-width: 112rem; }
-.quote-mark--com-foto .quote-mark__text { font-size: clamp(2rem, 2.5vw, 2.7rem); }
-.quote-mark__foto { margin: var(--space-2xl) auto 0; max-width: 52rem; }
-.quote-mark__moldura {
+/* ENCONTRO COM OS AUTORES (17/09/2026, pedido do Rauny via Dr. Decildo:
+   "dar uma inovada" na citação com foto de praticas-restaurativas.html).
+   Composição editorial: uma placa navy (mesma linguagem dos cards escuros
+   da Home: grão, borda de vidro, accent dourado) ocupa a direita e a foto
+   do encontro em Melbourne fica por cima dela, sobrepondo a borda
+   esquerda da placa. A árvore da marca entra como marca d'água no canto
+   da placa, igual ao rodapé. No celular e no tablet não há sobreposição:
+   foto em cima, placa embaixo.
+   Espaçamento em múltiplos de 8; texto sobre navy em branco a 78%
+   (corpo secundário) e 100% (citação); kicker dourado, que é o accent
+   dos contêineres escuros (7.25:1 sobre navy-900). */
+.encontro {
+  position: relative;
+  max-width: 112rem;
+  margin-inline: auto;
+}
+
+.encontro__foto { position: relative; z-index: 2; margin: 0; }
+.encontro__moldura {
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(var(--navy900-rgb), 0.10), 0 2px 6px rgba(var(--navy900-rgb), 0.04);
   background: var(--color-navy);
+  box-shadow: 0 24px 48px rgba(var(--navy900-rgb), 0.18), 0 4px 12px rgba(var(--navy900-rgb), 0.08);
 }
-.quote-mark__moldura::after {
-  /* filete interno claro, mesmo detalhe das molduras dos retratos */
+.encontro__moldura::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -1641,27 +1651,158 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   box-shadow: inset 0 0 0 1px rgba(var(--white-rgb), 0.35);
   pointer-events: none;
 }
-.quote-mark__moldura img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
-.quote-mark__legenda {
+.encontro__moldura img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+
+/* legenda como etiqueta de museu: nomes em navy, local em versalete miúdo */
+.encontro__legenda {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
   margin-top: var(--space-md);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: 1.5;
-  color: var(--color-mist);
-  text-align: center;
 }
-.quote-mark__legenda em { font-style: italic; }
-@media (min-width: 1024px) {
-  .quote-mark--com-foto {
+.encontro__nomes { color: var(--color-navy); font-weight: var(--weight-medium); }
+.encontro__local {
+  font-size: 1.2rem;
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-mist);
+}
+
+.encontro__placa {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 2.4rem;
+  border: 1px solid rgba(var(--white-rgb), 0.14);
+  /* azul médio, dois tons acima do navy oficial (o navy-900 foi rejeitado
+     pelo João em 17/09: "muito escuro"). O dourado do kicker sobe pra
+     #E6C45E porque o --color-gold cai pra 3,7:1 neste fundo (reprova AA
+     em texto pequeno); o claro fecha em 5,3:1. Branco a 9:1. */
+  background: linear-gradient(135deg, #1F5283 0%, var(--color-navy-700) 100%);
+  color: var(--color-white);
+  padding: var(--space-xl) var(--space-lg) var(--space-xl);
+  margin-top: var(--space-lg);
+  --color-accent: #E6C45E;
+  --accent-rgb: 230, 196, 94;
+}
+/* brilho petróleo suave no canto superior direito, dá profundidade sem
+   escurecer a placa */
+.encontro__placa::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 60% 70% at 100% 0%, rgba(var(--teal-rgb), 0.35), transparent 70%);
+}
+.encontro__placa .quote-mark__seeds i:nth-child(3) { background: var(--color-accent); }
+.encontro__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.9) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+/* marca d'água da árvore, mesmo tratamento do rodapé (7%, desvanecendo) */
+.encontro__marca {
+  position: absolute;
+  right: -2.4rem;
+  bottom: -3.2rem;
+  z-index: 0;
+  width: 22rem;
+  height: auto;
+  opacity: 0.07;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to top, transparent 0%, black 70%);
+  mask-image: linear-gradient(to top, transparent 0%, black 70%);
+}
+.encontro__kicker {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-overline);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.encontro__texto {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: clamp(2rem, 1.2rem + 1vw, 2.6rem);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-snug);
+  color: var(--color-white);
+  text-wrap: pretty;
+}
+.encontro__credito {
+  position: relative;
+  z-index: 1;
+  margin-top: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+.encontro__cite { font-style: normal; display: flex; flex-direction: column; gap: 0.2rem; }
+.encontro__cite strong {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: var(--weight-semibold);
+  color: var(--color-white);
+}
+.encontro__cite span { font-size: 1.4rem; line-height: 1.5; color: rgba(var(--white-rgb), 0.78); }
+.encontro__cite em { font-style: italic; }
+
+/* tablet (e iPad na horizontal): foto centrada, mais estreita, placa embaixo */
+@media (min-width: 640px) and (max-width: 1079px) {
+  .encontro__foto { max-width: 56rem; margin-inline: auto; }
+  .encontro__placa { padding: var(--space-2xl) var(--space-xl); }
+}
+
+/* desktop: placa à direita, foto sobrepondo a borda esquerda dela.
+   Proporção 40/60 e sobreposição de 64px: com a foto maior a coluna de
+   texto ficava com ~400px e a citação (179 caracteres, fiel ao livro)
+   ia a 8 linhas e quebrava em "compreendê-/la".
+   A medida da citação é fixa (480px a 22px; 440px a 20px entre 1080 e
+   1279) porque foi o único jeito medido de fechar em 5 linhas sem viúva
+   e sem quebrar nos hifens; abaixo de 1080 a coluna fica estreita demais
+   pra isso e a página volta ao empilhado. */
+@media (min-width: 1080px) {
+  .encontro {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: var(--space-4xl);
+    grid-template-columns: 40fr 60fr;
     align-items: center;
-    text-align: left;
   }
-  .quote-mark--com-foto .quote-mark__foto { margin: 0; max-width: none; order: -1; }
-  .quote-mark--com-foto .quote-mark__emblem { margin-inline: 0; }
-  .quote-mark--com-foto .quote-mark__footer { align-items: flex-start; }
-  .quote-mark--com-foto .quote-mark__legenda { text-align: left; }
+  .encontro__foto {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    margin-right: -6.4rem; /* sobreposição sobre a placa */
+  }
+  .encontro__placa {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    margin-top: 0;
+    padding: var(--space-3xl) var(--space-2xl) var(--space-3xl) calc(6.4rem + var(--space-2xl));
+    min-height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .encontro__texto { font-size: 2.2rem; line-height: 1.45; max-width: 48rem; }
+}
+@media (min-width: 1080px) and (max-width: 1279px) {
+  .encontro__foto { margin-right: -4.8rem; }
+  .encontro__placa { padding-left: calc(4.8rem + var(--space-xl)); padding-right: var(--space-2xl); }
+  .encontro__texto { font-size: 2rem; max-width: 44rem; }
 }
 
 /* ===================================
