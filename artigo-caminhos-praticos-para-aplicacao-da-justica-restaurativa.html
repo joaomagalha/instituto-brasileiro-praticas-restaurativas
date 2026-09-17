@@ -33,7 +33,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260917g" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260917h" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -166,13 +166,29 @@
 <p class="overline overline--light page-hero__eyebrow">Artigo · 16 set 2026 · 14 min de leitura</p>
 <h1>Caminhos práticos para aplicação da Justiça Restaurativa</h1>
 <p class="page-hero__sub">Possibilidades reais no sistema penal brasileiro</p>
+<p class="artigo-hero__autores"><span class="artigo-hero__autor"><i aria-hidden="true" class="fa-regular fa-user"></i>Decildo Ferreira Lopes</span><span class="artigo-hero__autor"><i aria-hidden="true" class="fa-regular fa-user"></i>Maxuel Pereira Dias</span></p>
 </div>
 </section>
 
-<section aria-label="Conteúdo do artigo" class="section section--paper">
-<div class="container">
+<div aria-hidden="true" class="artigo-progresso"><span data-progresso></span></div>
 
-<article class="artigo measure-narrow">
+<section aria-label="Conteúdo do artigo" class="section section--paper artigo-secao">
+<div class="container">
+<div class="artigo-layout">
+
+<aside class="artigo-lateral">
+<div class="artigo-lateral__fixo">
+
+<div class="artigo-acoes">
+<p class="artigo-acoes__titulo">Ações</p>
+<button class="artigo-acao artigo-acao--destaque" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>
+<button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
+<button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>
+</div>
+</div>
+</aside>
+
+<article class="artigo artigo-corpo">
 <div class="artigo-autores">
 <div class="artigo-autor">
 <p class="artigo-autor__nome">Decildo Ferreira Lopes</p>
@@ -187,6 +203,12 @@
 <p class="overline">Resumo</p>
 <p class="artigo-resumo__texto">Imagine um hospital público em que um médico, diante da mais ampla variedade de doenças, prescrevesse sempre o mesmo medicamento. Não importasse a causa — bacteriana, viral ou acidental — a resposta seria invariavelmente a mesma. É fácil prever o resultado: indignação, ineficácia e abandono do tratamento.</p>
 
+</div>
+
+<div class="artigo-acoes artigo-acoes--mobile">
+<button class="artigo-acao artigo-acao--destaque" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>
+<button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
+<button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>
 </div>
 
 <div class="prose prose--artigo">
@@ -249,6 +271,7 @@
 </div>
 </article>
 
+</div>
 </div>
 </section>
 
@@ -364,6 +387,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260917b"></script>
+<script src="assets/js/site-interactions.js?v=20260917c"></script>
 </body>
 </html>
