@@ -243,7 +243,7 @@ body.painel {
    em 390) e, em tela menor ainda, quebram de linha em vez de sumir. */
 @media (max-width: 480px) {
   .painel-topbar__nav { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
-  .painel-topbar__aba { padding: 0.8rem 0.7rem; font-size: 1.3rem; letter-spacing: 0; }
+  .painel-topbar__aba { padding: 0.8rem 0.5rem; font-size: 1.25rem; letter-spacing: 0; }
 }
 
 /* ---------------------------------------------------------------------
