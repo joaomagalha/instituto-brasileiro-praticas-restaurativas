@@ -3842,7 +3842,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    aula do Decildo), no lugar da foto gerada. O poster é o 1º quadro do
    vídeo; o scrim (::before) ficou igual, só sem a foto, e sobe pra z 1 pra
    cobrir o vídeo. Quem pede "reduzir movimento" vê o poster parado. */
-.page-hero--praticas { --como-hero: url("../images/praticas-hero-video-poster.jpg"); isolation: isolate; }
+.page-hero--praticas { --como-hero: url("../images/praticas-restaurativas-hero.jpg"); isolation: isolate; }
 .page-hero--praticas .page-hero__glow { display: none; }
 .page-hero__video {
   position: absolute; inset: 0; z-index: 0;
@@ -3859,7 +3859,10 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
       rgba(var(--navy900-rgb), 0.90) 0%,
       rgba(var(--navy900-rgb), 0.70) 40%,
       rgba(var(--navy900-rgb), 0.40) 68%,
-      rgba(var(--navy900-rgb), 0.18) 100%);
+      rgba(var(--navy900-rgb), 0.18) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 52%;
 }
 .page-hero--praticas .container { z-index: 2; }
 @media (prefers-reduced-motion: reduce) { .page-hero__video { display: none; } }
