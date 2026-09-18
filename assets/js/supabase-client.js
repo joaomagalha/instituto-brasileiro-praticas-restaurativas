@@ -66,6 +66,47 @@ window.IBPR.util = {
      pesada. Arquivo pequeno e já dentro da medida passa como está. Se algo
      falhar, devolve o original: o painel nunca trava por causa disto. Só
      JPEG/PNG/WebP; GIF e SVG seguem intocados. */
+  /* Mede uma moldura de cor chapada nas bordas da imagem (branca ou
+     qualquer cor). Devolve o recorte {x, y, w, h, aparou}. Regras, pra
+     nunca estragar foto de verdade: só conta como moldura a linha ou
+     coluna INTEIRA em que todo pixel está a menos de 18/255 da cor do
+     canto; no máximo 12% por lado; e se o miolo ficar com menos de 70% da
+     área, não apara nada. Mede numa cópia de até 400 px, por velocidade. */
+  medirMoldura: function (img) {
+    var W = img.naturalWidth, H = img.naturalHeight;
+    var nada = { x: 0, y: 0, w: W, h: H, aparou: false };
+    try {
+      var esc = Math.min(1, 400 / Math.max(W, H));
+      var w = Math.max(2, Math.round(W * esc)), h = Math.max(2, Math.round(H * esc));
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      var ctx = c.getContext('2d', { willReadFrequently: true });
+      ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      var d = ctx.getImageData(0, 0, w, h).data;
+      var px = function (x, y) { var i = (y * w + x) * 4; return [d[i], d[i + 1], d[i + 2]]; };
+      // Cor de referência: mediana dos 4 cantos (evita ruído de compressão).
+      var cantos = [px(0, 0), px(w - 1, 0), px(0, h - 1), px(w - 1, h - 1)];
+      var ref = [0, 1, 2].map(function (k) { return cantos.map(function (c) { return c[k]; }).sort(function (a, b) { return a - b; })[1]; });
+      var TOL = 18;
+      var perto = function (x, y) { var p = px(x, y); return Math.abs(p[0] - ref[0]) <= TOL && Math.abs(p[1] - ref[1]) <= TOL && Math.abs(p[2] - ref[2]) <= TOL; };
+      var linhaLisa = function (y) { for (var x = 0; x < w; x++) if (!perto(x, y)) return false; return true; };
+      var colunaLisa = function (x) { for (var y = 0; y < h; y++) if (!perto(x, y)) return false; return true; };
+      var maxY = Math.floor(h * 0.12), maxX = Math.floor(w * 0.12);
+      var topo = 0, base = 0, esq = 0, dir = 0;
+      while (topo < maxY && linhaLisa(topo)) topo++;
+      while (base < maxY && linhaLisa(h - 1 - base)) base++;
+      while (esq < maxX && colunaLisa(esq)) esq++;
+      while (dir < maxX && colunaLisa(w - 1 - dir)) dir++;
+      // Moldura de verdade tem pelo menos 2 lados; 1 lado só é conteúdo (céu, parede).
+      var lados = [topo, base, esq, dir].filter(function (v) { return v >= 3; }).length;
+      if (lados < 2) return nada;
+      var x0 = Math.round(esq / esc), y0 = Math.round(topo / esc);
+      var x1 = W - Math.round(dir / esc), y1 = H - Math.round(base / esc);
+      if ((x1 - x0) * (y1 - y0) < 0.7 * W * H) return nada;
+      return { x: x0, y: y0, w: x1 - x0, h: y1 - y0, aparou: true };
+    } catch (e) { return nada; }
+  },
+
   comprimirImagem: function (arquivo, opcoes) {
     var maxLado = (opcoes && opcoes.maxLado) || 1800;
     var alvoBytes = (opcoes && opcoes.alvoBytes) || 500 * 1024;
@@ -80,9 +121,13 @@ window.IBPR.util = {
       var img = new Image();
       var devolver = function (f) { URL.revokeObjectURL(endereco); resolve(f); };
       img.onload = function () {
-        var w = img.naturalWidth, h = img.naturalHeight;
+        // Moldura chapada embutida (colagem exportada com borda branca,
+        // 18/09/2026): apara antes de tudo, senão a borda vira parte da
+        // foto e o card/pílula do site ficam "flutuando" nela.
+        var corte = window.IBPR.util.medirMoldura(img);
+        var w = corte.w, h = corte.h;
         var escalaBase = Math.min(1, maxLado / Math.max(w, h));
-        if (escalaBase === 1 && arquivo.size <= LEVE) return devolver(arquivo);
+        if (escalaBase === 1 && arquivo.size <= LEVE && !corte.aparou) return devolver(arquivo);
 
         var nome = arquivo.name.replace(/\.[^.]+$/, '') + '.jpg';
         var melhor = null;
@@ -97,14 +142,14 @@ window.IBPR.util = {
             var ctx = c.getContext('2d');
             ctx.fillStyle = '#ffffff';
             ctx.fillRect(0, 0, c.width, c.height);
-            ctx.drawImage(img, 0, 0, c.width, c.height);
+            ctx.drawImage(img, corte.x, corte.y, w, h, 0, 0, c.width, c.height);
             c.toBlob(function (blob) {
               if (!blob) return devolver(melhor || arquivo);
               var f = new File([blob], nome, { type: 'image/jpeg', lastModified: Date.now() });
               if (!melhor || f.size < melhor.size) melhor = f;
               // Dentro do alvo: pronto. Se não encolheu nada (JPEG já bem
               // comprimido e na medida), fica o original.
-              if (f.size <= alvoBytes) return devolver(escala === 1 && f.size >= arquivo.size ? arquivo : f);
+              if (f.size <= alvoBytes) return devolver(escala === 1 && !corte.aparou && f.size >= arquivo.size ? arquivo : f);
               tentar(i + 1);
             }, 'image/jpeg', DEGRAUS[i][1]);
           } catch (e) { devolver(melhor || arquivo); }
