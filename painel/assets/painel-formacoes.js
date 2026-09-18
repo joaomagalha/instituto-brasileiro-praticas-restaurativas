@@ -381,19 +381,22 @@
     /* --- fotos ------------------------------------------------------- */
     [['imagemHero', 'hero', 'Hero'], ['imagemCard', 'card', 'Card']].forEach(function (t) {
       $(t[0]).addEventListener('change', function (e) {
-        var f = e.target.files && e.target.files[0];
-        if (!f) { arquivos[t[1]] = null; return; }
+        var original = e.target.files && e.target.files[0];
+        if (!original) { arquivos[t[1]] = null; return; }
 
-        if (f.size > TAMANHO_MAX) {
-          aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB. O limite é 5 MB.');
-          e.target.value = '';
-          arquivos[t[1]] = null;
-          return;
-        }
-        limparAviso();
-        arquivos[t[1]] = f;
-        $('previa' + t[2] + 'Img').src = URL.createObjectURL(f);
-        $('previa' + t[2]).hidden = false;
+        // Reduzida no navegador (até 1800 px, JPEG) antes de subir.
+        util.comprimirImagem(original).then(function (f) {
+          if (f.size > TAMANHO_MAX) {
+            aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB mesmo depois de reduzida. O limite é 5 MB.');
+            e.target.value = '';
+            arquivos[t[1]] = null;
+            return;
+          }
+          limparAviso();
+          arquivos[t[1]] = f;
+          $('previa' + t[2] + 'Img').src = URL.createObjectURL(f);
+          $('previa' + t[2]).hidden = false;
+        });
       });
     });
 

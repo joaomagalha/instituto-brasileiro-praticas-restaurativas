@@ -672,20 +672,24 @@ window.IBPR.painel = (function () {
 
     /* --- prévia da imagem escolhida --------------------------------- */
     $('imagem').addEventListener('change', function (e) {
-      var f = e.target.files && e.target.files[0];
-      if (!f) { arquivoEscolhido = null; return; }
+      var original = e.target.files && e.target.files[0];
+      if (!original) { arquivoEscolhido = null; return; }
 
-      if (f.size > TAMANHO_MAX) {
-        aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB. O limite é 5 MB.');
-        e.target.value = '';
-        arquivoEscolhido = null;
-        return;
-      }
+      // A foto é reduzida aqui no navegador (até 1800 px, JPEG) antes de
+      // subir; o limite de 5 MB vale pro resultado, não pro arquivo bruto.
+      util.comprimirImagem(original).then(function (f) {
+        if (f.size > TAMANHO_MAX) {
+          aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB mesmo depois de reduzida. O limite é 5 MB.');
+          e.target.value = '';
+          arquivoEscolhido = null;
+          return;
+        }
 
-      limparAviso();
-      arquivoEscolhido = f;
-      $('previaImg').src = URL.createObjectURL(f);
-      $('previa').hidden = false;
+        limparAviso();
+        arquivoEscolhido = f;
+        $('previaImg').src = URL.createObjectURL(f);
+        $('previa').hidden = false;
+      });
     });
 
     /* Envia a imagem pro storage e devolve o endereço público dela. */

@@ -4027,11 +4027,13 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .noticia-figura__moldura {
   border-radius: var(--radius-lg);
   overflow: hidden;
-  aspect-ratio: 16 / 9;
   background: var(--color-mist-bg);
   box-shadow: var(--shadow-sm);
 }
-.noticia-figura img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* A foto segue a proporção dela (o Decildo manda colagem 5:4, foto 16:9,
+   print 2:1); o 16/9 fixo cortava 30% da colagem (17/09/2026). Teto de
+   altura só pra retrato não virar um paredão. */
+.noticia-figura img { width: 100%; height: auto; max-height: min(70vh, 64rem); object-fit: cover; display: block; }
 .noticia-figura__legenda {
   display: flex;
   align-items: flex-start;

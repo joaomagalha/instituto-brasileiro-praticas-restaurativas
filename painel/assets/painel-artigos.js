@@ -270,16 +270,19 @@
 
     /* --- arquivos escolhidos ---------------------------------------- */
     $('imagem').addEventListener('change', function (e) {
-      var f = e.target.files && e.target.files[0];
-      if (!f) { imagemEscolhida = null; return; }
-      if (f.size > IMAGEM_MAX) {
-        aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB. O limite é 5 MB.');
-        e.target.value = ''; imagemEscolhida = null; return;
-      }
-      limparAviso();
-      imagemEscolhida = f;
-      $('previaImg').src = URL.createObjectURL(f);
-      $('previa').hidden = false;
+      var original = e.target.files && e.target.files[0];
+      if (!original) { imagemEscolhida = null; return; }
+      // Reduzida no navegador (até 1800 px, JPEG) antes de subir.
+      util.comprimirImagem(original).then(function (f) {
+        if (f.size > IMAGEM_MAX) {
+          aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB mesmo depois de reduzida. O limite é 5 MB.');
+          e.target.value = ''; imagemEscolhida = null; return;
+        }
+        limparAviso();
+        imagemEscolhida = f;
+        $('previaImg').src = URL.createObjectURL(f);
+        $('previa').hidden = false;
+      });
     });
 
     $('pdf').addEventListener('change', function (e) {

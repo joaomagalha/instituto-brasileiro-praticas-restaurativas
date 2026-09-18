@@ -175,6 +175,20 @@ const IMAGEM_PADRAO = 'assets/images/ibpr-movimento-hero.jpg';
    direita, um card por linha na coluna de leitura. No celular a foto vai pra
    cima. Um por linha fica bom com 1 notícia ou com 20; a grade de 3 colunas
    do card de Formações deixava a notícia fina e alta quando havia poucas. */
+/* URL de fonte como o painel manda: tira utm_* e afins (o Decildo colou
+   um link com ?utm_source=chatgpt.com), e descarta o que não é http(s). */
+function limparUrlFonte(bruta) {
+  const t = String(bruta || '').trim();
+  if (!/^https?:\/\//i.test(t)) return '';
+  try {
+    const u = new URL(t);
+    for (const k of [...u.searchParams.keys()]) {
+      if (/^(utm_|fbclid|gclid|mc_)/i.test(k)) u.searchParams.delete(k);
+    }
+    return u.toString().replace(/\?$/, '');
+  } catch { return ''; }
+}
+
 function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
@@ -249,8 +263,12 @@ ${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join
 <p class="section-header__sub">${esc(tem ? sub : subVazio)}</p>
 </div>`;
 
+  // O selo "Publicação mais recente" vai na que ENTROU no site por último
+  // (criado_em), igual à Home; a ordem da lista continua pela data do evento.
+  const maisNova = noticias.reduce((m, n) =>
+    String(n.criado_em || n.publicado_em || '') > String((m && (m.criado_em || m.publicado_em)) || '') ? n : m, null);
   const corpo = tem
-    ? `<div class="noticias__lista measure-narrow" data-aos="fade-up">\n${noticias.map(cardNoticia).join('\n')}\n</div>`
+    ? `<div class="noticias__lista measure-narrow" data-aos="fade-up">\n${noticias.map(n => cardNoticia(n, '', n === maisNova)).join('\n')}\n</div>`
     : TRES_FRENTES;
 
   // O aviso "em breve" só existe enquanto não há publicação.
@@ -262,13 +280,17 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
 
 async function gerarNoticias(cfg, artigos = []) {
   const noticias = await consultar(cfg,
-    'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em' +
+    'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em,criado_em' +
     '&status=eq.publicado&order=publicado_em.desc.nullslast');
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
 
-  // --- Home: as 3 publicações mais recentes, notícias e artigos juntos
-  //     (17/09/2026). A etiqueta do card passa a dizer o tipo. ---
+  // --- Home: as 3 publicações que ENTRARAM NO SITE por último, notícias e
+  //     artigos juntos (17/09/2026). Ordena por criado_em, não por
+  //     publicado_em: o Decildo data a notícia com o dia do evento (março,
+  //     maio...), e por data de publicação as novidades nunca chegavam à
+  //     Home (decisão do João, 17/09 à noite). O card continua mostrando a
+  //     data do evento; a lista completa segue por essa data. ---
   const recentes = [
     ...noticias.map(n => ({ ...n, frente: 'Notícia', cta: 'Ler notícia' })),
     ...artigos.map(a => ({
@@ -276,7 +298,7 @@ async function gerarNoticias(cfg, artigos = []) {
       imagem_alt: a.imagem_url ? a.imagem_alt : 'Instituto Brasileiro de Práticas Restaurativas (IBPR)',
       resumo: a.resumo, titulo: tituloCompleto(a)
     }))
-  ].sort((x, y) => String(y.publicado_em || '').localeCompare(String(x.publicado_em || '')));
+  ].sort((x, y) => String(y.criado_em || y.publicado_em || '').localeCompare(String(x.criado_em || x.publicado_em || '')));
 
   let home = await ler('index.html');
   home = trocarRegiao(home, 'movimento-home', secaoMovimento(recentes.slice(0, 3), {
@@ -327,9 +349,13 @@ async function gerarNoticias(cfg, artigos = []) {
 
     // "Com informações de X": só quando a notícia veio de fora. Link em aba
     // nova, com rel de segurança; se só houver o nome, sai sem link.
-    const fonteNome = String(n.fonte_nome || '').trim();
-    const fonteUrl  = String(n.fonte_url  || '').trim();
-    const fonte = fonteNome
+    // Tolerâncias ao que chega do painel (17/09/2026, primeiras notícias do
+    // Decildo): "Fonte: X." vira "X"; a URL perde utm_*; e fonte apontando
+    // pro próprio site (www.ibpr.com.br) é conteúdo próprio, sem linha.
+    const fonteNome = String(n.fonte_nome || '').trim().replace(/^fonte\s*:\s*/i, '').replace(/[.\s]+$/, '');
+    const fonteUrl  = limparUrlFonte(n.fonte_url);
+    const fonteEhOProprioSite = /(^|\.|\/)ibpr\.com\.br(\/|$)/i.test(fonteNome) && !fonteUrl;
+    const fonte = fonteNome && !fonteEhOProprioSite
       ? `<p class="noticia-fonte">Com informações ${fonteUrl
           ? `de <a href="${esc(fonteUrl)}" rel="noopener" target="_blank">${esc(fonteNome)}<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>`
           : `de ${esc(fonteNome)}`}.</p>`
@@ -556,7 +582,7 @@ function blocoAcesso(a, classe = '') {
 
 async function gerarArtigos(cfg) {
   const artigos = await consultar(cfg,
-    'artigos?select=titulo,subtitulo,slug,autores,resumo,palavras_chave,corpo,pdf_url,doi,publicacao_nome,publicacao_url,imagem_url,imagem_alt,publicado_em' +
+    'artigos?select=titulo,subtitulo,slug,autores,resumo,palavras_chave,corpo,pdf_url,doi,publicacao_nome,publicacao_url,imagem_url,imagem_alt,publicado_em,criado_em' +
     '&status=eq.publicado&order=publicado_em.desc.nullslast', { toleraAusente: true });
 
   if (artigos === null) {

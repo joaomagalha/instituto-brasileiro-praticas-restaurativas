@@ -268,11 +268,13 @@
 
     /* --- foto -------------------------------------------------------- */
     $('foto').addEventListener('change', function (e) {
-      var f = e.target.files && e.target.files[0];
-      if (!f) { arquivoFoto = null; medidaFoto = null; return; }
+      var original = e.target.files && e.target.files[0];
+      if (!original) { arquivoFoto = null; medidaFoto = null; return; }
 
+      // Retrato reduzido no navegador (até 1400 px, JPEG) antes de subir.
+      util.comprimirImagem(original, { maxLado: 1400 }).then(function (f) {
       if (f.size > TAMANHO_MAX) {
-        aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB. O limite é 5 MB.');
+        aviso('A imagem tem ' + (f.size / 1048576).toFixed(1) + ' MB mesmo depois de reduzida. O limite é 5 MB.');
         e.target.value = '';
         arquivoFoto = null;
         medidaFoto = null;
@@ -301,6 +303,7 @@
       };
       medidor.onerror = function () { medidaFoto = null; };
       medidor.src = endereco;
+      });
     });
 
     function enviarFoto(arquivo, slug) {

@@ -55,6 +55,49 @@ window.IBPR = window.IBPR || {};
    --------------------------------------------------------------------- */
 window.IBPR.util = {
 
+  /* Reduz a foto no próprio navegador antes de subir pro storage. Quem
+     publica manda o que tem na mão (o Decildo subiu um PNG de 4,7 MB em
+     17/09/2026, e a página da notícia pesava isso pra quem abre no
+     celular). Regra: lado maior até `maxLado` (1800 px), sempre JPEG
+     (PNG com transparência ganha fundo branco). Arquivo pequeno e já
+     dentro da medida passa como está. Se algo falhar, devolve o original:
+     o painel nunca trava por causa disto. Só JPEG/PNG/WebP; GIF e SVG
+     seguem intocados. */
+  comprimirImagem: function (arquivo, opcoes) {
+    var maxLado = (opcoes && opcoes.maxLado) || 1800;
+    var qualidade = (opcoes && opcoes.qualidade) || 0.85;
+    var LEVE = 400 * 1024;
+    if (!arquivo || !/^image\/(jpeg|png|webp)$/i.test(arquivo.type)) return Promise.resolve(arquivo);
+
+    return new Promise(function (resolve) {
+      var endereco = URL.createObjectURL(arquivo);
+      var img = new Image();
+      var devolver = function (f) { URL.revokeObjectURL(endereco); resolve(f); };
+      img.onload = function () {
+        var w = img.naturalWidth, h = img.naturalHeight;
+        var escala = Math.min(1, maxLado / Math.max(w, h));
+        if (escala === 1 && arquivo.size <= LEVE) return devolver(arquivo);
+        try {
+          var c = document.createElement('canvas');
+          c.width = Math.max(1, Math.round(w * escala));
+          c.height = Math.max(1, Math.round(h * escala));
+          var ctx = c.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, c.width, c.height);
+          ctx.drawImage(img, 0, 0, c.width, c.height);
+          c.toBlob(function (blob) {
+            // Se não encolheu nada (JPEG já bem comprimido), fica o original.
+            if (!blob || (escala === 1 && blob.size >= arquivo.size)) return devolver(arquivo);
+            var nome = arquivo.name.replace(/\.[^.]+$/, '') + '.jpg';
+            devolver(new File([blob], nome, { type: 'image/jpeg', lastModified: Date.now() }));
+          }, 'image/jpeg', qualidade);
+        } catch (e) { devolver(arquivo); }
+      };
+      img.onerror = function () { devolver(arquivo); };
+      img.src = endereco;
+    });
+  },
+
   /* Transforma um título em endereço de URL.
      "Parceria com o TJMT é firmada!" → "parceria-com-o-tjmt-e-firmada"
      Usado pelo build pra montar o arquivo noticia-<slug>.html */
@@ -65,7 +108,10 @@ window.IBPR.util = {
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')        // tudo que não é letra/número vira hífen
       .replace(/^-+|-+$/g, '')            // tira hífen sobrando nas pontas
-      .slice(0, 80);
+      .slice(0, 80)
+      .replace(/-[^-]*$/, function (fim, i, todo) {   // se cortou aos 80, termina na palavra inteira anterior
+        return todo.length < 80 ? fim : '';
+      });
   },
 
   /* Data no formato que o site usa nos cards: "08 set 2026" */
