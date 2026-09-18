@@ -59,15 +59,21 @@ window.IBPR.util = {
      publica manda o que tem na mão (o Decildo subiu um PNG de 4,7 MB em
      17/09/2026, e a página da notícia pesava isso pra quem abre no
      celular). Regra: lado maior até `maxLado` (1800 px), sempre JPEG
-     (PNG com transparência ganha fundo branco). Arquivo pequeno e já
-     dentro da medida passa como está. Se algo falhar, devolve o original:
-     o painel nunca trava por causa disto. Só JPEG/PNG/WebP; GIF e SVG
-     seguem intocados. */
+     (PNG com transparência ganha fundo branco), e o resultado mira
+     `alvoBytes` (500 KB): se passar, baixa a qualidade e depois a medida,
+     em degraus. O teto de bytes existe por causa do WhatsApp: a mesma foto
+     vira og:image da página, e o WhatsApp não mostra prévia de imagem
+     pesada. Arquivo pequeno e já dentro da medida passa como está. Se algo
+     falhar, devolve o original: o painel nunca trava por causa disto. Só
+     JPEG/PNG/WebP; GIF e SVG seguem intocados. */
   comprimirImagem: function (arquivo, opcoes) {
     var maxLado = (opcoes && opcoes.maxLado) || 1800;
-    var qualidade = (opcoes && opcoes.qualidade) || 0.85;
+    var alvoBytes = (opcoes && opcoes.alvoBytes) || 500 * 1024;
     var LEVE = 400 * 1024;
     if (!arquivo || !/^image\/(jpeg|png|webp)$/i.test(arquivo.type)) return Promise.resolve(arquivo);
+
+    // Degraus de tentativa: [fração do maxLado, qualidade JPEG].
+    var DEGRAUS = [[1, 0.85], [1, 0.78], [0.8, 0.78], [0.66, 0.74]];
 
     return new Promise(function (resolve) {
       var endereco = URL.createObjectURL(arquivo);
@@ -75,23 +81,35 @@ window.IBPR.util = {
       var devolver = function (f) { URL.revokeObjectURL(endereco); resolve(f); };
       img.onload = function () {
         var w = img.naturalWidth, h = img.naturalHeight;
-        var escala = Math.min(1, maxLado / Math.max(w, h));
-        if (escala === 1 && arquivo.size <= LEVE) return devolver(arquivo);
-        try {
-          var c = document.createElement('canvas');
-          c.width = Math.max(1, Math.round(w * escala));
-          c.height = Math.max(1, Math.round(h * escala));
-          var ctx = c.getContext('2d');
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, c.width, c.height);
-          ctx.drawImage(img, 0, 0, c.width, c.height);
-          c.toBlob(function (blob) {
-            // Se não encolheu nada (JPEG já bem comprimido), fica o original.
-            if (!blob || (escala === 1 && blob.size >= arquivo.size)) return devolver(arquivo);
-            var nome = arquivo.name.replace(/\.[^.]+$/, '') + '.jpg';
-            devolver(new File([blob], nome, { type: 'image/jpeg', lastModified: Date.now() }));
-          }, 'image/jpeg', qualidade);
-        } catch (e) { devolver(arquivo); }
+        var escalaBase = Math.min(1, maxLado / Math.max(w, h));
+        if (escalaBase === 1 && arquivo.size <= LEVE) return devolver(arquivo);
+
+        var nome = arquivo.name.replace(/\.[^.]+$/, '') + '.jpg';
+        var melhor = null;
+
+        var tentar = function (i) {
+          if (i >= DEGRAUS.length) return devolver(melhor || arquivo);
+          var escala = escalaBase * DEGRAUS[i][0];
+          try {
+            var c = document.createElement('canvas');
+            c.width = Math.max(1, Math.round(w * escala));
+            c.height = Math.max(1, Math.round(h * escala));
+            var ctx = c.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, c.width, c.height);
+            ctx.drawImage(img, 0, 0, c.width, c.height);
+            c.toBlob(function (blob) {
+              if (!blob) return devolver(melhor || arquivo);
+              var f = new File([blob], nome, { type: 'image/jpeg', lastModified: Date.now() });
+              if (!melhor || f.size < melhor.size) melhor = f;
+              // Dentro do alvo: pronto. Se não encolheu nada (JPEG já bem
+              // comprimido e na medida), fica o original.
+              if (f.size <= alvoBytes) return devolver(escala === 1 && f.size >= arquivo.size ? arquivo : f);
+              tentar(i + 1);
+            }, 'image/jpeg', DEGRAUS[i][1]);
+          } catch (e) { devolver(melhor || arquivo); }
+        };
+        tentar(0);
       };
       img.onerror = function () { devolver(arquivo); };
       img.src = endereco;
