@@ -762,7 +762,7 @@ const PAGINAS_FIXAS = [
   'index.html', 'formacoes.html', 'o-instituto.html', 'como-atuamos.html',
   'praticas-restaurativas.html', 'ibpr-em-movimento.html', 'artigos.html', 'area-do-aluno.html',
   'politica-de-privacidade.html',
-  'build/templates/noticia.html', 'build/templates/formacao.html'
+  'build/templates/noticia.html', 'build/templates/formacao.html', 'build/templates/artigo.html'
 ];
 
 /* Lista vinda do JSONB. Tolera null e valor que não é lista. */
