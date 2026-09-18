@@ -400,52 +400,158 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .navbar__item--dropdown:hover .navbar__chevron { transform: rotate(180deg); }
 
 .navbar__dropdown {
+  /* Painel do menu (refeito 18/09/2026): ícone em pastilha + título curto +
+     uma linha de descrição por item, seta apontando pro gatilho, entrada
+     com leve escala e itens em cascata. A ponte invisível (::before) cobre
+     o vão entre o link e o painel, senão o menu fecha no caminho do mouse. */
   position: absolute;
-  top: 100%; left: 50%;
-  transform: translateX(-50%) translateY(0.8rem);
+  top: calc(100% + 1.4rem); left: 50%;
+  transform: translateX(-50%) translateY(0.6rem) scale(0.98);
+  transform-origin: 50% 0;
   background: var(--color-white);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg);
-  min-width: 26rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 48px rgba(var(--navy900-rgb), 0.14), 0 2px 6px rgba(var(--navy900-rgb), 0.06);
+  border: 1px solid var(--color-border-light);
+  min-width: 34rem;
+  padding: 0.8rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-base), transform var(--transition-base);
-  overflow: hidden;
-  border: 1px solid var(--color-border-light);
-  padding-top: 1.6rem;
+  transition: opacity 220ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.navbar__dropdown::before {           /* ponte invisível até o link */
+  content: ""; position: absolute; left: 0; right: 0; top: -1.6rem; height: 1.6rem;
+}
+.navbar__dropdown::after {            /* a seta */
+  content: ""; position: absolute; top: -0.7rem; left: 50%;
+  width: 1.2rem; height: 1.2rem;
+  background: var(--color-white);
+  border-left: 1px solid var(--color-border-light);
+  border-top: 1px solid var(--color-border-light);
+  transform: translateX(-50%) rotate(45deg);
+  border-top-left-radius: 0.2rem;
 }
 
 .navbar__item--dropdown:hover .navbar__dropdown,
-.navbar__item--dropdown.open .navbar__dropdown { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.navbar__item--dropdown.open .navbar__dropdown { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0) scale(1); }
+
+/* Itens entram em cascata, 35ms um depois do outro. */
+.navbar__dropdown > li {
+  opacity: 0; transform: translateY(0.4rem);
+  transition: opacity 260ms ease, transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.navbar__item--dropdown:hover .navbar__dropdown > li,
+.navbar__item--dropdown.open .navbar__dropdown > li { opacity: 1; transform: none; }
+.navbar__dropdown > li:nth-child(2) { transition-delay: 35ms; }
+.navbar__dropdown > li:nth-child(3) { transition-delay: 70ms; }
+.navbar__dropdown > li:nth-child(4) { transition-delay: 105ms; }
+.navbar__dropdown > li:nth-child(5) { transition-delay: 140ms; }
+.navbar__dropdown > li:nth-child(6) { transition-delay: 175ms; }
 
 .navbar__dropdown-link {
-  display: block;
-  padding: 1.2rem 2rem;
-  font-size: 1.4rem;
-  font-weight: var(--weight-medium);
-  color: var(--color-ink);
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-.navbar__dropdown-link:hover { background: var(--color-mist-bg); color: var(--color-navy); }
-.navbar__dropdown li + li .navbar__dropdown-link { border-top: 1px solid var(--color-border-light); }
-
-/* Último item do dropdown de Formações: leva pra página completa, já que
-   o gatilho virou <button> (abre o menu) e deixou de ser link direto.
-   Tratado como fecho do menu, não como mais uma formação da lista. */
-.navbar__dropdown-link--all {
+  position: relative;
+  isolation: isolate;
   display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 1.2rem;
+  border-radius: 1rem;
+  color: var(--color-ink);
+  --ease-liso: cubic-bezier(0.22, 1, 0.36, 1);   /* ease-out quinto grau: começa e termina sem degrau */
+}
+/* Hover liso (pedido do João, 18/09): o fundo é uma camada própria que
+   só muda de opacidade (a propriedade mais barata de animar, nunca
+   trava), a pastilha do ícone escurece num degradê navy e sobe 1px, o
+   texto desliza 2px e uma seta entra pela esquerda. Tudo em 520 a 600ms,
+   na mesma curva, ida e volta. */
+.navbar__dropdown-link::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  border-radius: 1rem;
+  background: var(--color-mist-bg);
+  opacity: 0;
+  transition: opacity 520ms var(--ease-liso);
+}
+.navbar__dropdown-link:hover::before, .navbar__dropdown-link:focus-visible::before { opacity: 1; }
+
+.navbar__dropdown-icon {
+  flex: 0 0 3.6rem;
+  width: 3.6rem; height: 3.6rem;
+  display: grid; place-items: center;
+  border-radius: 1rem;
+  background: var(--color-paper);
+  color: var(--color-navy);
+  font-size: 1.5rem;
+  position: relative; overflow: hidden;
+  transition: color 560ms var(--ease-liso), transform 560ms var(--ease-liso), box-shadow 560ms var(--ease-liso);
+}
+.navbar__dropdown-icon::before {          /* degradê navy que aparece por baixo do ícone */
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: linear-gradient(135deg, var(--color-navy) 0%, var(--color-navy-700) 100%);
+  opacity: 0;
+  transition: opacity 560ms var(--ease-liso);
+}
+.navbar__dropdown-icon i { position: relative; z-index: 1; transition: transform 600ms var(--ease-liso); }
+.navbar__dropdown-link:hover .navbar__dropdown-icon,
+.navbar__dropdown-link:focus-visible .navbar__dropdown-icon {
+  color: var(--color-white);
+  transform: translateY(-1px) scale(1.06);
+  box-shadow: 0 8px 18px rgba(var(--navy900-rgb), 0.18);
+}
+.navbar__dropdown-link:hover .navbar__dropdown-icon::before,
+.navbar__dropdown-link:focus-visible .navbar__dropdown-icon::before { opacity: 1; }
+.navbar__dropdown-link:hover .navbar__dropdown-icon i { transform: scale(1.08); }
+.navbar__dropdown-link[aria-current="page"] .navbar__dropdown-icon { color: var(--color-white); }
+.navbar__dropdown-link[aria-current="page"] .navbar__dropdown-icon::before { opacity: 1; }
+
+.navbar__dropdown-text {
+  display: flex; flex-direction: column; gap: 0.2rem; min-width: 0;
+  transition: transform 520ms var(--ease-liso);
+}
+.navbar__dropdown-link:hover .navbar__dropdown-text { transform: translateX(0.2rem); }
+.navbar__dropdown-title { font-size: 1.4rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: 1.3; white-space: nowrap; }
+.navbar__dropdown-desc { font-size: 1.2rem; line-height: 1.4; color: var(--color-navy-mid); white-space: normal; max-width: 30rem; }
+
+.navbar__dropdown-seta {                  /* seta que entra pela esquerda no hover */
+  margin-left: auto;
+  padding-left: 1.2rem;
+  font-size: 1.1rem;
+  color: var(--color-navy);
+  opacity: 0;
+  transform: translateX(-0.6rem);
+  transition: opacity 520ms var(--ease-liso), transform 520ms var(--ease-liso);
+}
+.navbar__dropdown-link:hover .navbar__dropdown-seta,
+.navbar__dropdown-link:focus-visible .navbar__dropdown-seta { opacity: 1; transform: translateX(0); }
+
+/* Fecho do menu de Formações: leva pra página completa. */
+.navbar__dropdown-link--all {
+  margin-top: 0.4rem;
+  padding: 1.2rem 1.4rem;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
+  font-size: 1.3rem;
   font-weight: var(--weight-semibold);
   color: var(--color-teal);
-  background: var(--color-paper);
+  border-top: 1px solid var(--color-border-light);
+  border-radius: 0 0 1rem 1rem;
 }
-
-.navbar__dropdown-link--all i { font-size: 1.1rem; transition: transform var(--transition-base); }
+.navbar__dropdown-link--all { transition: color 520ms var(--ease-liso); }
+.navbar__dropdown-link--all::before { background: var(--color-paper); border-radius: 0 0 1rem 1rem; }
+.navbar__dropdown-link--all i { font-size: 1.1rem; transition: transform 520ms var(--ease-liso); }
 .navbar__dropdown-link--all:hover { color: var(--color-navy); }
-.navbar__dropdown-link--all:hover i { transform: translateX(3px); }
+.navbar__dropdown-link--all:hover i { transform: translateX(4px); }
+
+/* O último menu (IBPR em Movimento) fica perto do CTA: ancora pela direita. */
+.navbar__item--dropdown:last-child .navbar__dropdown { left: auto; right: 0; transform: translateY(0.6rem) scale(0.98); transform-origin: 85% 0; }
+.navbar__item--dropdown:last-child:hover .navbar__dropdown,
+.navbar__item--dropdown:last-child.open .navbar__dropdown { transform: translateY(0) scale(1); }
+.navbar__item--dropdown:last-child .navbar__dropdown::after { left: auto; right: 6.9rem; transform: rotate(45deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__dropdown, .navbar__dropdown > li, .navbar__dropdown-icon, .navbar__dropdown-icon::before, .navbar__dropdown-link::before, .navbar__dropdown-text, .navbar__dropdown-seta { transition: none; transition-delay: 0ms; }
+  .navbar__dropdown { transform: translateX(-50%); }
+  .navbar__item--dropdown:last-child .navbar__dropdown { transform: none; }
+}
 
 .navbar__actions { display: flex; align-items: center; gap: var(--space-md); }
 

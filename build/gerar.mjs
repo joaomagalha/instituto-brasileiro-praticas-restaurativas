@@ -923,9 +923,16 @@ function comAos(i) {
 function regiaoNavbar(formacoes, atual) {
   const marca = arq => (arq === atual ? 'aria-current="page" ' : '');
 
+  // Item do menu (18/09/2026): ícone da área + título + público em uma
+  // linha, tudo do banco (area_icone, publico_curto). Sem publico_curto, a
+  // linha de baixo cai fora e o item fica só com o título.
   const itens = formacoes.map(f => {
     const arq = arquivoFormacao(f);
-    return `<li><a ${marca(arq)}class="navbar__dropdown-link" href="${esc(arq)}" role="menuitem">${esc(tituloCurto(f))}</a></li>`;
+    const desc = f.publico_curto ? `<span class="navbar__dropdown-desc">${esc(f.publico_curto)}</span>` : '';
+    return `<li><a ${marca(arq)}class="navbar__dropdown-link" href="${esc(arq)}" role="menuitem">` +
+      `<span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid ${esc(f.area_icone || 'fa-graduation-cap')}"></i></span>` +
+      `<span class="navbar__dropdown-text"><span class="navbar__dropdown-title">${esc(tituloCurto(f))}</span>${desc}</span>` +
+      `<span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>`;
   });
   itens.push(`<li><a ${marca('formacoes.html')}class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>`);
   return itens.join('\n');
