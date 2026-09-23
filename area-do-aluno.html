@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260923c" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260923h" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -160,11 +160,10 @@
 
 <!-- hero interno -->
 <a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Área do Aluno" class="page-hero">
+<section aria-label="Área do Aluno" class="page-hero page-hero--aluno" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFBgP/xAArEAABAwIEBAUFAAAAAAAAAAABAgMEABEFEiEiEyMxUQYVMnGxJWFygqH/xAAVAQEBAAAAAAAAAAAAAAAAAAADAv/EABoRAAIDAQEAAAAAAAAAAAAAAAABAiExEUH/2gAMAwEAAhEDEQA/AOjGJteTyWyoAqZUkC3UkVMS40fDcAZznQmxubAa9PvUmGVusOb7WQT/ACmY0F6ThEZ4PNIbSCSkn1a9u9FK9FS5ht8Nkxo0F5CSkF17YUp0IzDoaRakh3HpSnlISlDeRvduUL3NwamzIL7GDBbUvi8JKlWCcqRa1yB7GoOHvvtzVTXUIfytKAyKudR6rVSVWS9F8PPLX+J+KchH6XF9j80UVE8EhpqBuwRYVryXuv61mEElxYJJAiaDttoopvAnp//Z')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
 <a class="page-back" data-voltar href="index.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<p class="overline overline--light page-hero__eyebrow">Área do Aluno</p>
 <h1 data-aos="fade-up"><!-- CMS:texto:aluno-hero-titulo -->Continue sua formação de onde parou.<!-- /CMS:texto:aluno-hero-titulo --></h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:aluno-hero-sub -->As formações do IBPR ficam no ambiente virtual de aprendizagem. O acesso é liberado para quem já está matriculado.<!-- /CMS:texto:aluno-hero-sub --></p>
 </div>
@@ -175,8 +174,29 @@
 <div class="container">
 <div class="aluno-panel" data-aos="fade-up">
 <div class="aluno-panel__icon"><i aria-hidden="true" class="fa-solid fa-right-to-bracket"></i></div>
+<p class="overline overline--light aluno-panel__kicker">Área do Aluno</p>
 <h2 class="aluno-panel__title">Acessar o ambiente virtual de aprendizagem</h2>
 <p class="aluno-panel__desc">Entre com os dados que você recebeu no e-mail de confirmação da matrícula para assistir às aulas, baixar o material e acompanhar seu progresso na formação.</p>
+<!-- as 3 vantagens repetem o que o parágrafo acima já promete (aulas,
+     material, progresso): nada de "acesso vitalício", que o Dr. Decildo
+     pediu pra tirar do site em 17/09 -->
+<div class="aluno-perks">
+<div class="aluno-perk">
+<span class="aluno-perk__icon"><i aria-hidden="true" class="fa-solid fa-circle-play"></i></span>
+<span class="aluno-perk__title">Aulas gravadas</span>
+<p class="aluno-perk__desc">Assista às aulas no seu ritmo.</p>
+</div>
+<div class="aluno-perk">
+<span class="aluno-perk__icon"><i aria-hidden="true" class="fa-solid fa-folder-open"></i></span>
+<span class="aluno-perk__title">Material da formação</span>
+<p class="aluno-perk__desc">Baixe o material de apoio de cada formação.</p>
+</div>
+<div class="aluno-perk">
+<span class="aluno-perk__icon"><i aria-hidden="true" class="fa-solid fa-chart-line"></i></span>
+<span class="aluno-perk__title">Seu progresso</span>
+<p class="aluno-perk__desc">Continue de onde parou.</p>
+</div>
+</div>
 <!-- TODO: o IBPR ainda não criou os produtos na Hotmart, então o endereço do
      Hotmart Club não existe. Enquanto isso o botão fica visível e desativado,
      em vez de href="#" (que parece link e não leva a lugar nenhum).
@@ -185,6 +205,39 @@
 <button class="btn btn--dark is-pending" disabled type="button">Entrar na plataforma <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></button>
 <div class="aluno-panel__foot">
 <p class="pending-note"><i aria-hidden="true" class="fa-solid fa-circle-info"></i> O acesso à plataforma será liberado junto com a abertura das primeiras turmas.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Como funciona o acesso (23/09/2026): mesmo material numerado 01/02/03
+     de Formações e IBPR em Movimento. Só afirma o que o site já diz: matrícula
+     na página do curso, dados no e-mail de confirmação, acesso no computador
+     e no celular (template da formação). -->
+<section aria-label="Como funciona o acesso" class="section section--white">
+<div class="container">
+<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<p class="overline">Como funciona</p>
+<h2>Do momento da matrícula até a primeira aula.</h2>
+</div>
+<div class="course-eixos measure-narrow" data-aos="fade-up">
+<div class="course-eixo">
+<span class="course-eixo__num">01</span>
+<span class="course-eixo__key">Matrícula</span>
+<span class="course-eixo__phrase">Escolha sua formação</span>
+<p class="course-eixo__desc">Conclua a matrícula na página do curso, em <a href="formacoes.html">Formações</a>.</p>
+</div>
+<div class="course-eixo">
+<span class="course-eixo__num">02</span>
+<span class="course-eixo__key">Acesso</span>
+<span class="course-eixo__phrase">Receba seus dados</span>
+<p class="course-eixo__desc">Os dados de acesso chegam no <span class="sem-quebra">e-mail</span> de confirmação da matrícula.</p>
+</div>
+<div class="course-eixo">
+<span class="course-eixo__num">03</span>
+<span class="course-eixo__key">Estudo</span>
+<span class="course-eixo__phrase">Estude onde estiver</span>
+<p class="course-eixo__desc">No computador e no celular, no seu ritmo.</p>
 </div>
 </div>
 </div>

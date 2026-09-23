@@ -25,6 +25,7 @@ FOTOS = [
     'assets/images/o-instituto-hero.jpg',
     'assets/images/praticas-restaurativas-hero.jpg',
     'assets/images/ibpr-movimento-hero.jpg',
+    'assets/images/area-do-aluno-hero.jpg',
 ]
 LARGURA = 32
 

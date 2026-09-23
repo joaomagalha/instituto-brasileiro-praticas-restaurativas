@@ -2877,7 +2877,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    gradiente de sempre. */
 .page-hero { --hero-lqip: none; }
 .page-hero--course, .page-hero--formacoes, .page-hero--como-atuamos,
-.page-hero--o-instituto, .page-hero--praticas, .page-hero--ibpr-movimento {
+.page-hero--o-instituto, .page-hero--praticas, .page-hero--ibpr-movimento, .page-hero--aluno {
   background-image: var(--hero-lqip), linear-gradient(165deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
   background-size: cover;
   background-position: center;
@@ -3829,6 +3829,62 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .page-hero--como-atuamos .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
 .page-hero--como-atuamos .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
 
+/* --- Variante do hero da Área do Aluno (23/09/2026) ---
+   Foto gerada no Flow pelo João: home office de padrão alto, pessoa de costas
+   estudando no notebook à direita, batente de porta escuro à esquerda e a
+   parede clara da estante no meio. Mesma receita da --como-atuamos; o scrim
+   da esquerda segura o texto sobre a porta e a estante. Valores medidos na
+   build/dev/medir-hero.html. Original em clientes/…/midia/Biblioteca/Cenários/
+   area-do-aluno-hero-original.jpeg (2752×1536). */
+.page-hero--aluno { --como-hero: url("../images/area-do-aluno-hero.jpg"); }
+.page-hero--aluno .page-hero__glow { display: none; }
+.page-hero--aluno::before {
+  content: "";
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.48) 0%, rgba(var(--navy900-rgb), 0) 18%),
+    linear-gradient(to right,
+      rgba(var(--navy900-rgb), 0.80) 0%,
+      rgba(var(--navy900-rgb), 0.66) 45%,
+      rgba(var(--navy900-rgb), 0.30) 72%,
+      rgba(var(--navy900-rgb), 0.08) 100%),
+    var(--como-hero);
+  background-size: cover;
+  background-position: center 0%;   /* ancorada no topo: centralizada, a cabeça de quem estuda (18–30% da altura da foto) ficava atrás da navbar */
+}
+.page-hero--aluno h1,
+.page-hero--aluno .page-hero__sub,
+.page-hero--aluno .page-back { text-shadow: 0 1px 16px rgba(0, 0, 0, 0.5); }
+.page-hero--aluno .page-hero__sub { color: rgba(var(--white-rgb), 0.9); text-wrap: balance; }
+/* Celular e tablet: o corte "cover" mostra o meio da foto (estante creme,
+   mesa e janela), bem mais claro que a porta, e o texto ocupa a largura toda.
+   Com o scrim do desktop: título 1,84:1 e subtítulo 1,59:1 em 390 px, 2,5:1
+   no subtítulo em 1024 px. Mesma receita de O Instituto: rampa cheia e, no
+   celular, a foto desliza pra mostrar quem estuda. */
+@media (max-width: 768px) {
+  .page-hero--aluno::before {
+    background-image:
+      linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.56) 0%, rgba(var(--navy900-rgb), 0) 20%),
+      linear-gradient(to right,
+        rgba(var(--navy900-rgb), 0.88) 0%,
+        rgba(var(--navy900-rgb), 0.80) 50%,
+        rgba(var(--navy900-rgb), 0.70) 100%),
+      var(--como-hero);
+    background-position: 78% 50%;
+  }
+}
+@media (min-width: 769px) and (max-width: 1279px) {
+  .page-hero--aluno::before {
+    background-image:
+      linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.52) 0%, rgba(var(--navy900-rgb), 0) 18%),
+      linear-gradient(to right,
+        rgba(var(--navy900-rgb), 0.88) 0%,
+        rgba(var(--navy900-rgb), 0.72) 45%,
+        rgba(var(--navy900-rgb), 0.44) 100%),
+      var(--como-hero);
+  }
+}
+
 /* --- Variante do hero de O Instituto ---
    Mesma técnica das outras (foto + scrim navy, __glow desligado). A foto é o
    mesmo "prédio" do IBPR do hero em vídeo da Home (parede de concreto com o
@@ -4120,6 +4176,11 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .course-eixo__key { display: block; font-size: 1.15rem; font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: var(--tracking-overline); color: var(--color-teal); margin-bottom: var(--space-xs); }
 .course-eixo__phrase { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: var(--weight-semibold); color: var(--color-navy); line-height: var(--leading-display); margin-bottom: var(--space-xs); text-wrap: balance; }
 .course-eixo__desc { font-size: 1.4rem; color: var(--color-navy-mid); line-height: var(--leading-body); text-wrap: pretty; }
+/* link dentro do eixo (Área do Aluno, passo 01): sem isso herdava a cor do texto e não parecia clicável */
+.course-eixo__desc a { color: var(--color-teal); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: 0.2em; }
+.course-eixo__desc a:hover { color: var(--color-navy); }
+/* palavra com hífen que não pode quebrar no meio ("e-mail" virava "e-" / "mail") */
+.sem-quebra { white-space: nowrap; }
 
 /* --- Página de leitura de uma notícia (noticia.html) ---
    Conteúdo vem do CMS. Só duas peças de encaixe: a foto de abertura e o
