@@ -4867,14 +4867,18 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 }
 
 /* ===================================================================
-   A PRÁTICA ACONTECENDO (Home, 17/09/2026)
+   A PRÁTICA ACONTECENDO (Home, 17/09/2026; refeita em 23/09/2026)
    -------------------------------------------------------------------
    Pedido do Dr. Decildo: vídeo real das pessoas atuando + chamada pras
    notícias, na lógica de quem rola a página. Os vídeos dele são verticais
-   (gravados pra reels), então entram numa moldura de celular, inteiros,
-   ao lado do texto. Seção navy escura, mesmo material do Propósito
-   (grão + brilho petróleo/dourado), entre Fundadores (branco) e IBPR em
-   Movimento (papel). No celular o texto vem antes e a moldura embaixo.
+   (gravados pra reels). Até 23/09 entravam numa moldura de celular; em
+   23/09, por sugestão dele (imagem de referência no grupo) e escolha do
+   João, o vídeo passou a ocupar a altura da seção num recorte de papel
+   rasgado (borda creme irregular), e o texto ganhou os 3 cards "Onde
+   acontece" (Educação, Justiça, Empresas → âncoras de Práticas). Seção
+   navy escura, mesmo material do Propósito (grão + brilho petróleo/dourado),
+   entre Fundadores (branco) e IBPR em Movimento (papel). No celular o texto
+   vem antes e o vídeo embaixo.
    =================================================================== */
 .pratica-viva {
   position: relative; overflow: hidden;
@@ -4903,37 +4907,52 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 .pratica-viva__sub { font-size: var(--text-body); line-height: var(--leading-body); color: rgba(var(--white-rgb), 0.78); max-width: 52rem; text-wrap: pretty; }
 .pratica-viva__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); margin-top: var(--space-xl); }
 
-/* moldura de celular: proporção 9:19.5, borda escura, filete claro, brilho
-   diagonal de vidro; o vídeo cobre a "tela" */
-.pratica-viva__midia { display: flex; justify-content: center; align-items: flex-start; }
-.celular {
-  position: relative;
-  width: min(30rem, 80vw);
-  height: calc(min(30rem, 80vw) * 19.5 / 9); /* altura explícita: aspect-ratio + stretch do flex colapsava */
-  padding: 1rem;
-  border-radius: 4.2rem;
-  background: linear-gradient(160deg, #1B2C42 0%, #0B1B2E 100%);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(var(--white-rgb), 0.16);
+/* "Onde acontece": 3 cards compactos (naipe dos cards do site), nomes de uma
+   palavra pra ficarem na mesma linha; o nome completo vai no aria-label/title */
+.pv-extra { margin-top: var(--space-xl); max-width: 52rem; }
+.pv-extra__rotulo {
+  font-size: 1.2rem; font-weight: var(--weight-semibold); letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(var(--white-rgb), .55); margin: 0 0 1.2rem;
 }
-.celular::before {
-  /* entalhe (a "ilha") no topo */
-  content: ""; position: absolute; top: 2rem; left: 50%; transform: translateX(-50%);
-  width: 7.2rem; height: 1.8rem; border-radius: 1rem; background: #071523; z-index: 2;
-  box-shadow: inset 0 0 0 1px rgba(var(--white-rgb), 0.08);
+.pv-ctx-lista { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.2rem; }
+.pv-ctx {
+  display: flex; flex-direction: column; gap: 1rem; padding: 1.6rem; border-radius: 1.2rem;
+  background: rgba(var(--white-rgb), .05); border: 1px solid rgba(var(--white-rgb), .12);
+  color: var(--color-white); text-decoration: none;
+  transition: background .25s, border-color .25s, transform .25s;
 }
-.celular::after {
-  /* brilho de vidro, bem discreto */
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
-  background: linear-gradient(115deg, rgba(var(--white-rgb), 0.10) 0%, rgba(var(--white-rgb), 0.02) 30%, transparent 55%);
+.pv-ctx:hover, .pv-ctx:focus-visible { background: rgba(var(--white-rgb), .09); border-color: rgba(var(--white-rgb), .24); transform: translateY(-2px); }
+.pv-ctx__icone {
+  width: 3.6rem; height: 3.6rem; border-radius: 1rem; display: grid; place-items: center;
+  background: rgba(var(--white-rgb), .10); color: var(--color-white); font-size: 1.5rem;
 }
-.celular__tela { position: absolute; inset: 1rem; border-radius: 3.3rem; overflow: hidden; background: var(--color-navy-900); }
-.celular__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pv-ctx__titulo { font-size: 1.45rem; font-weight: var(--weight-semibold); line-height: 1.3; }
+.pv-ctx > .fa-arrow-right { font-size: 1.2rem; opacity: .6; margin-top: auto; }
 
-@media (min-width: 900px) {
-  .pratica-viva__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: var(--space-3xl); }
-  .pratica-viva__midia { justify-content: flex-end; padding-right: var(--space-2xl); }
+/* vídeo em recorte de papel rasgado: .rasgo__papel é a borda creme (clip-path
+   irregular) e envolve .rasgo__recorte, que corta o vídeo com outro contorno
+   mais fundo; a diferença entre os dois é a fibra do papel. No desktop o vídeo
+   encosta no topo e na base da seção, como na referência do Dr. Decildo. */
+.pratica-viva__midia { display: flex; justify-content: center; align-items: flex-start; }
+.rasgo__papel { position: relative; padding: 0 0.9rem; background: #EFE9DD; clip-path: polygon(1.18% 0.00%, 2.40% 2.94%, 1.32% 5.88%, 0.48% 8.82%, 1.64% 11.76%, 0.24% 14.71%, 0.24% 17.65%, 3.36% 20.59%, 2.55% 23.53%, 1.70% 26.47%, 1.97% 29.41%, 2.93% 32.35%, 2.05% 35.29%, 0.08% 38.24%, 1.15% 41.18%, 1.35% 44.12%, 1.30% 47.06%, 1.19% 50.00%, 2.59% 52.94%, 2.18% 55.88%, 2.38% 58.82%, 2.31% 61.76%, 1.99% 64.71%, 2.20% 67.65%, 2.49% 70.59%, 1.56% 73.53%, 2.37% 76.47%, 2.55% 79.41%, 0.19% 82.35%, 2.02% 85.29%, 0.23% 88.24%, 2.51% 91.18%, 1.87% 94.12%, 1.82% 97.06%, 3.63% 100.00%, 98.55% 100.00%, 99.50% 97.06%, 99.66% 94.12%, 99.70% 91.18%, 99.45% 88.24%, 97.48% 85.29%, 99.21% 82.35%, 99.45% 79.41%, 97.78% 76.47%, 99.74% 73.53%, 99.45% 70.59%, 97.99% 67.65%, 97.67% 64.71%, 99.77% 61.76%, 99.37% 58.82%, 99.03% 55.88%, 97.51% 52.94%, 98.51% 50.00%, 97.96% 47.06%, 97.64% 44.12%, 97.79% 41.18%, 98.08% 38.24%, 99.49% 35.29%, 97.71% 32.35%, 97.34% 29.41%, 99.90% 26.47%, 99.38% 23.53%, 99.33% 20.59%, 98.45% 17.65%, 99.54% 14.71%, 98.26% 11.76%, 98.55% 8.82%, 98.40% 5.88%, 96.05% 2.94%, 99.96% 0.00%); }
+.rasgo__recorte { position: relative; width: min(34rem, 84vw); aspect-ratio: 9 / 16; clip-path: polygon(1.90% 0.00%, 3.88% 2.94%, 2.13% 5.88%, 0.78% 8.82%, 2.65% 11.76%, 0.40% 14.71%, 0.38% 17.65%, 5.43% 20.59%, 4.13% 23.53%, 2.75% 26.47%, 3.18% 29.41%, 4.74% 32.35%, 3.32% 35.29%, 0.13% 38.24%, 1.85% 41.18%, 2.18% 44.12%, 2.10% 47.06%, 1.92% 50.00%, 4.19% 52.94%, 3.53% 55.88%, 3.84% 58.82%, 3.73% 61.76%, 3.22% 64.71%, 3.56% 67.65%, 4.02% 70.59%, 2.52% 73.53%, 3.82% 76.47%, 4.12% 79.41%, 0.31% 82.35%, 3.27% 85.29%, 0.37% 88.24%, 4.05% 91.18%, 3.02% 94.12%, 2.94% 97.06%, 5.87% 100.00%, 97.65% 100.00%, 99.20% 97.06%, 99.45% 94.12%, 99.51% 91.18%, 99.11% 88.24%, 95.92% 85.29%, 98.72% 82.35%, 99.12% 79.41%, 96.41% 76.47%, 99.58% 73.53%, 99.10% 70.59%, 96.75% 67.65%, 96.24% 64.71%, 99.62% 61.76%, 98.98% 58.82%, 98.44% 55.88%, 95.97% 52.94%, 97.59% 50.00%, 96.71% 47.06%, 96.18% 44.12%, 96.43% 41.18%, 96.89% 38.24%, 99.17% 35.29%, 96.29% 32.35%, 95.71% 29.41%, 99.84% 26.47%, 99.00% 23.53%, 98.92% 20.59%, 97.49% 17.65%, 99.26% 14.71%, 97.19% 11.76%, 97.65% 8.82%, 97.42% 5.88%, 93.63% 2.94%, 99.93% 0.00%); }
+.rasgo__video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+@media (max-width: 599px) {
+  .pv-ctx-lista { grid-template-columns: 1fr; }
+  .pv-ctx { flex-direction: row; align-items: center; }
+  .pv-ctx > .fa-arrow-right { margin: 0 0 0 auto; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .celular__video { display: none; }
-  .celular__tela { background: url("../images/home-pratica-tjgo-poster.jpg") center / cover no-repeat; }
+/* lado a lado só a partir de 1100 px: abaixo disso a coluna de texto ficava com menos de 400 px ao lado
+   de um vídeo com a altura da seção; tablet segue o arranjo do celular (texto em cima, vídeo embaixo) */
+@media (min-width: 1100px) {
+  .pratica-viva { padding: 0; }
+  /* coluna do vídeo = largura do vídeo (auto): com fração fixa, em 1024 px o vídeo (que segue a altura da
+     seção) ficava mais largo que a coluna e invadia o texto */
+  .pratica-viva__grid { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-3xl); align-items: stretch; }
+  .pratica-viva__texto { padding: var(--space-4xl) 0; align-self: center; }
+  .pratica-viva__midia { justify-content: flex-end; align-items: stretch; padding-right: var(--space-2xl); }
+  .rasgo__papel { height: 100%; }
+  .rasgo__recorte { width: auto; height: 100%; min-height: 60rem; max-height: 72rem; }
 }
+

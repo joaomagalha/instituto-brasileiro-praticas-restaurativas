@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260918c" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260923c" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -581,15 +581,23 @@
 <p class="overline overline--light">Na prática</p>
 <h2>A Justiça Restaurativa acontecendo.</h2>
 <p class="pratica-viva__sub">Rodas de conversa, círculos e formações conduzidos pelo Instituto e pela sua rede, em escolas, órgãos públicos e no sistema de Justiça. O que fazemos, registrado onde acontece.</p>
+<div class="pv-extra">
+<p class="pv-extra__rotulo">Onde acontece</p>
+<div class="pv-ctx-lista">
+<a aria-label="Na Educação" class="pv-ctx" href="praticas-restaurativas.html#educacao" title="Na Educação"><span class="pv-ctx__icone"><i aria-hidden="true" class="fa-solid fa-graduation-cap"></i></span><span class="pv-ctx__titulo">Educação</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a aria-label="Justiça e Sistema Prisional" class="pv-ctx" href="praticas-restaurativas.html#justica-prisional" title="Justiça e Sistema Prisional"><span class="pv-ctx__icone"><i aria-hidden="true" class="fa-solid fa-scale-balanced"></i></span><span class="pv-ctx__titulo">Justiça</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a aria-label="Nas Empresas" class="pv-ctx" href="praticas-restaurativas.html#empresas" title="Nas Empresas"><span class="pv-ctx__icone"><i aria-hidden="true" class="fa-solid fa-briefcase"></i></span><span class="pv-ctx__titulo">Empresas</span><i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+</div>
 <div class="pratica-viva__acoes">
 <a class="btn btn--white" href="ibpr-em-movimento.html#noticias">Acompanhar as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <a class="link-arrow link-arrow--light" href="como-atuamos.html">Como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
 <div class="pratica-viva__midia" data-aos="fade-up" data-aos-delay="100">
-<div class="celular">
-<div class="celular__tela">
-<video aria-label="Roda de conversa conduzida pelo IBPR" autoplay="" class="celular__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-tjgo-poster.jpg" preload="metadata" webkit-playsinline="">
+<div class="rasgo__papel">
+<div class="rasgo__recorte">
+<video aria-label="Roda de conversa conduzida pelo IBPR" autoplay="" class="rasgo__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-tjgo-poster.jpg" preload="metadata" webkit-playsinline="">
 <source src="assets/videos/home-pratica-tjgo.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -751,6 +759,6 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20260917f"></script>
+<script src="assets/js/site-interactions.js?v=20260923a"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
 // Vídeo do hero — autoplay em todos os dispositivos (mesmo padrão da Gaia),
 // exceto pra quem pede "reduzir movimento" no sistema: fica parado no poster.
-document.querySelectorAll('.hero__video, .page-hero__video, .celular__video').forEach((heroVideo) => {
+document.querySelectorAll('.hero__video, .page-hero__video, .rasgo__video').forEach((heroVideo) => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   heroVideo.muted = true;
   if (prefersReducedMotion) {
