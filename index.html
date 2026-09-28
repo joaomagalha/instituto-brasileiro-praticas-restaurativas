@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260923h" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20260928a" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -494,25 +494,23 @@
 </section>
 
 <!-- vídeo institucional -->
-<!-- TODO: vídeo real de um dos fundadores (Decildo ou Fernanda, a
-     definir com o cliente) apresentando brevemente o Instituto. Até lá,
-     .about-video__media fica como placeholder (mesmo material visual do
-     retrato dos fundadores) — quando o vídeo existir, troca por
-     <video class="about-video__file" poster="..." controls><source src="..."/></video>
-     no lugar da div, mantendo .about-video__media como wrapper. -->
+<!-- Vídeo: trecho de entrevista do Dr. Decildo à EJUG (TJGO), mandado por ele
+     no Drive em 28/09/2026. Cortados o gancho repetido do início (reels) e o
+     cartão final "link na bio". Legenda vem gravada na imagem. Original em
+     clientes/instituto-brasileiro-praticas-restaurativas/midia/Biblioteca/Vídeos Originais/. -->
 <section aria-label="Conheça o Instituto" class="about-video" id="video-institucional">
 <div class="container">
 <div class="about-video__grid">
-<div class="about-video__media" data-aos="fade-up">
-<span class="about-video__label">Vídeo em breve</span>
-<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="about-video__watermark" src="assets/images/ibpr-logo-icone.png"/>
-<div class="about-video__play"><span aria-hidden="true" class="about-video__play-icon"><i class="fa-solid fa-play"></i></span></div>
+<div class="about-video__media about-video__media--video" data-aos="fade-up">
+<video aria-label="Dr. Decildo Lopes fala sobre ouvir a vítima e a Justiça Restaurativa" class="about-video__file" controls="" playsinline="" poster="assets/images/home-decildo-ouvir-a-vitima-poster.jpg" preload="none" webkit-playsinline="">
+<source src="assets/videos/home-decildo-ouvir-a-vitima.mp4" type="video/mp4"/>
+</video>
 </div>
 <div class="about-video__content" data-aos="fade-up" data-aos-delay="100">
 <div class="section-header">
 <p class="overline overline--light">Conheça o Instituto</p>
 <h2>Ouça diretamente de quem constrói o IBPR.</h2>
-<p class="section-header__sub">Em poucos minutos, um dos fundadores apresenta a missão do Instituto e o que move a <span class="text-accent">pesquisa, a formação e a inovação</span> em Justiça Restaurativa: a ciência e a prática por trás do trabalho do IBPR.</p>
+<p class="section-header__sub">Em menos de dois minutos, o Dr. Decildo Lopes, coordenador acadêmico do IBPR, conta como aprendeu a <span class="text-accent">ouvir a vítima</span> e por que a Justiça Restaurativa é o espaço em que ela ganha voz.</p>
 </div>
 </div>
 </div>
