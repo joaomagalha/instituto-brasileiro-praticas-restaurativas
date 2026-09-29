@@ -86,6 +86,26 @@ async function lerConfig() {
   return { url, chave };
 }
 
+/* Trava contra apagar o site em massa (28/09/2026).
+   Formações e pessoas já se recusavam a gerar lista vazia; notícias e
+   artigos não. Se o banco devolver a lista vazia ou muito menor do que o
+   que está no ar (regra de acesso alterada, tabela recriada, despublicação
+   em massa por engano), a limpeza de órfãos apagaria as páginas e o build
+   commitaria. Aqui o build ABORTA: nada é publicado, o Action fica vermelho
+   e o GitHub avisa o João por e-mail. Queda legítima (o Instituto apagou
+   mesmo): rodar o workflow à mão marcando "permitir_queda". */
+async function conferirQueda(tipo, prefixo, publicados) {
+  if (process.env.IBPR_PERMITIR_QUEDA === '1') return;
+  const noAr = (await readdir(RAIZ)).filter(f => f.startsWith(prefixo) && f.endsWith('.html')).length;
+  const sumiram = noAr - publicados;
+  if (noAr >= 2 && (publicados === 0 || (sumiram >= 3 && publicados < noAr / 2))) {
+    throw new Error(
+      `${tipo}: o banco devolveu ${publicados} publicado(s), mas há ${noAr} página(s) no ar. ` +
+      `Parece falha no banco, não decisão de apagar; nada foi publicado. ` +
+      `Se foi de propósito, rode o workflow à mão com "permitir_queda".`);
+  }
+}
+
 /* Consulta a API REST do Supabase. Sem biblioteca: o Node 24 já tem fetch,
    e uma dependência a menos é uma coisa a menos pra quebrar no Action. */
 async function consultar({ url, chave }, caminho, { toleraAusente = false } = {}) {
@@ -189,6 +209,24 @@ function limparUrlFonte(bruta) {
   } catch { return ''; }
 }
 
+/* Todo link que um editor digita no painel (link do curso, da publicação,
+   PDF, temas relacionados) passa por aqui antes de virar href (28/09/2026).
+   - "javascript:", "data:" e qualquer outro esquema viram '' (o esc() só
+     impede fechar a aspa; não impede um link que roda código no site, que
+     é o mesmo domínio do painel).
+   - Endereço colado sem "https://" ("www.tjmt.jus.br/...", "tjmt.jus.br/...")
+     ganha o https; sem isso o navegador lia como caminho do próprio site e
+     o link dava 404.
+   - Caminho do próprio site ("formacao-x.html", "assets/docs/y.pdf") passa. */
+function urlSegura(bruta) {
+  const t = String(bruta || '').trim();
+  if (!t || t.startsWith('//')) return '';
+  if (/^(https?:\/\/|mailto:)/i.test(t)) return t;
+  if (/^[a-z][a-z0-9+.-]*:/i.test(t)) return '';
+  if (/^www\./i.test(t) || /^[a-z0-9-]+(\.[a-z0-9-]+)*\.(br|com|org|net|gov|jus|edu|int|info|io)(\/|$)/i.test(t)) return 'https://' + t;
+  return t;
+}
+
 function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
   const data = dataCurta(n.publicado_em);
   const img = n.imagem_url || IMAGEM_PADRAO;
@@ -285,6 +323,7 @@ async function gerarNoticias(cfg, artigos = []) {
     '&status=eq.publicado&order=publicado_em.desc.nullslast');
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
+  await conferirQueda('Notícias', 'noticia-', noticias.length);
 
   // --- Home: as 3 publicações que ENTRARAM NO SITE por último, notícias e
   //     artigos juntos (17/09/2026). Ordena por criado_em, não por
@@ -567,11 +606,11 @@ const ARTIGOS_VAZIO = `<div class="section-header section__head" data-aos="fade-
 
 function blocoAcesso(a, classe = '') {
   const partes = [];
-  if (a.pdf_url) {
-    partes.push(`<a class="btn btn--dark" href="${esc(a.pdf_url)}" rel="noopener" target="_blank">Baixar o PDF <i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i></a>`);
+  if (urlSegura(a.pdf_url)) {
+    partes.push(`<a class="btn btn--dark" href="${esc(urlSegura(a.pdf_url))}" rel="noopener" target="_blank">Baixar o PDF <i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i></a>`);
   }
   const doiUrl = a.doi ? `https://doi.org/${String(a.doi).replace(/^https?:\/\/doi\.org\//, '')}` : '';
-  const linkFora = a.publicacao_url || doiUrl;
+  const linkFora = urlSegura(a.publicacao_url) || doiUrl;
   if (linkFora) {
     // rótulo curto: só o nome da revista (antes da 1ª vírgula)
     const rotulo = a.publicacao_nome ? `Ver em ${esc(String(a.publicacao_nome).split(',')[0].trim())}` : 'Ver no DOI';
@@ -591,6 +630,7 @@ async function gerarArtigos(cfg) {
     console.log('   (rode supabase/11-artigos.sql)');
     return [];
   }
+  await conferirQueda('Artigos', 'artigo-', artigos.length);
   console.log(`\n== Artigos publicados: ${artigos.length}`);
 
   // --- artigos.html: todos ---
@@ -698,8 +738,8 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
       : '';
     // Baixar: PDF de verdade quando existe; senão a impressão da própria página
     // (folha de estilo de impressão), que a pessoa salva como PDF.
-    const acaoPdf = a.pdf_url
-      ? `<a class="artigo-acao artigo-acao--destaque" href="${esc(a.pdf_url)}" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar o PDF</span></a>`
+    const acaoPdf = urlSegura(a.pdf_url)
+      ? `<a class="artigo-acao artigo-acao--destaque" href="${esc(urlSegura(a.pdf_url))}" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar o PDF</span></a>`
       : `<button class="artigo-acao artigo-acao--destaque" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>`;
 
     const html = molde
@@ -807,8 +847,8 @@ function blocoTemas(f) {
   return `<section aria-label="Temas relacionados" id="temas" data-aos="fade-up">
 <h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-hashtag"></i>Temas relacionados</h2>
 <div class="course-pills">
-${itens.map(t => t.href
-    ? `<a class="tag-pill" href="${esc(t.href)}">${esc(t.texto)}</a>`
+${itens.map(t => urlSegura(t.href)
+    ? `<a class="tag-pill" href="${esc(urlSegura(t.href))}">${esc(t.texto)}</a>`
     : `<span class="tag-pill">${esc(t.texto)}</span>`).join('\n')}
 </div>
 </section>`;
@@ -1146,8 +1186,8 @@ async function gerarFormacoes(cfg) {
          não acontecer nada é pior do que ver que ainda não está disponível,
          ainda mais no botão que fecha a venda. Mesmo tratamento que a Área
          do Aluno já dava ao "Entrar na plataforma". */
-      .replaceAll('{{BOTAO_CURSO}}', () => f.link_curso
-        ? `<a class="btn btn--dark" href="${esc(f.link_curso)}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
+      .replaceAll('{{BOTAO_CURSO}}', () => urlSegura(f.link_curso)
+        ? `<a class="btn btn--dark" href="${esc(urlSegura(f.link_curso))}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
         : '<button class="btn btn--dark is-pending" disabled type="button" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>')
       .replaceAll('{{JSONLD}}', () => jsonldCurso(f))
       .replaceAll('{{BLOCOS}}', () => blocosDoCurso(f))

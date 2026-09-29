@@ -96,6 +96,9 @@ window.IBPR.painel = (function () {
      pra quem vai usar o painel (Fernanda, Decildo, Rauny). */
   function traduzirErro(erro) {
     var m = String((erro && erro.message) || erro || '');
+    if (/NADA_GRAVADO/.test(m))
+      return 'Não foi salvo: sua sessão caiu (por exemplo, se você saiu do painel em outro aparelho). ' +
+             'Seu texto continua aqui. Abra o painel em outra aba, entre de novo e volte aqui pra salvar.';
     if (/Invalid login credentials/i.test(m)) return 'E-mail ou senha incorretos.';
     if (/Email not confirmed/i.test(m))       return 'Este e-mail ainda não foi confirmado. Avise o João.';
     if (/duplicate key|already exists/i.test(m)) return 'Já existe um item com esse título. Mude o título um pouco.';
@@ -113,6 +116,20 @@ window.IBPR.painel = (function () {
     if (/Failed to fetch|NetworkError/i.test(m)) return 'Sem conexão com o servidor. Verifique a internet e tente de novo.';
     if (/exceeded the maximum allowed size/i.test(m)) return 'A imagem é grande demais. Use uma de até 5 MB.';
     return 'Não deu certo: ' + m;
+  }
+
+  /* Confere se uma gravação no banco (insert, update ou delete, sempre
+     com .select('id')) mexeu de fato numa linha. Quando a sessão cai (o
+     editor clicou "Sair" em outro aparelho, o login expirou) ou o usuário
+     deixa de ser editor, o banco NÃO devolve erro: devolve sucesso com zero
+     linhas. Antes de 28/09/2026 o painel dizia "Publicado", limpava o
+     formulário e o texto se perdia. Agora isso vira erro e o formulário
+     continua preenchido. Devolve o erro, ou null se gravou. */
+  function falhaDeGravacao(r) {
+    if (!r) return new Error('NADA_GRAVADO');
+    if (r.error) return r.error;
+    if (Array.isArray(r.data) && r.data.length === 0) return new Error('NADA_GRAVADO');
+    return null;
   }
 
   /* Endereço de foto pra usar DENTRO do painel.
@@ -493,7 +510,7 @@ window.IBPR.painel = (function () {
 
     $('btnSair').addEventListener('click', function (e) {
       e.preventDefault();
-      db.auth.signOut().then(function () { location.replace('index.html'); });
+      db.auth.signOut({ scope: 'local' }).then(function () { location.replace('index.html'); });
     });
 
 
@@ -774,11 +791,11 @@ window.IBPR.painel = (function () {
         .then(function (url) {
           if (url) dados.imagem_url = url;
           return id
-            ? db.from('noticias').update(dados).eq('id', id)
-            : db.from('noticias').insert(dados);
+            ? db.from('noticias').update(dados).eq('id', id).select('id')
+            : db.from('noticias').insert(dados).select('id');
         })
         .then(function (r) {
-          if (r.error) throw r.error;
+          var falha = falhaDeGravacao(r); if (falha) throw falha;
           // Foto trocada: a antiga vira órfã no storage. Limpa sem travar o fluxo.
           if (dados.imagem_url && emEdicao && emEdicao.imagem_url && emEdicao.imagem_url !== dados.imagem_url) {
             apagarDoStorage(BUCKET, emEdicao.imagem_url);
@@ -836,8 +853,8 @@ window.IBPR.painel = (function () {
         }
       }
 
-      db.from('noticias').update(mudanca).eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('noticias').update(mudanca).eq('id', id).select('id').then(function (r) {
+        var falha = falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         carregarLista();
         aviso(status === 'publicado'
           ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
@@ -853,8 +870,8 @@ window.IBPR.painel = (function () {
       if (!window.confirm('Apagar esta notícia? Não dá pra desfazer.')) return;
 
       var alvo = linhas.filter(function (n) { return n.id === id; })[0];
-      db.from('noticias').delete().eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('noticias').delete().eq('id', id).select('id').then(function (r) {
+        var falha = falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         if (alvo && alvo.imagem_url) apagarDoStorage(BUCKET, alvo.imagem_url);
         carregarLista();
         aviso('Notícia apagada.', 'ok');
@@ -879,6 +896,7 @@ window.IBPR.painel = (function () {
       aviso: aviso,
       limparAviso: limparAviso,
       traduzirErro: traduzirErro,
+      falhaDeGravacao: falhaDeGravacao,
       fotoNoPainel: fotoNoPainel,
       /* Devolve o cliente do banco, ou null se o painel ainda não foi
          conectado (e nesse caso já explicou isso na tela). */

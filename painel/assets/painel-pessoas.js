@@ -98,7 +98,7 @@
 
     $('btnSair').addEventListener('click', function (e) {
       e.preventDefault();
-      db.auth.signOut().then(function () { location.replace('index.html'); })
+      db.auth.signOut({ scope: 'local' }).then(function () { location.replace('index.html'); })
         .catch(function () { location.replace('index.html'); });
     });
 
@@ -395,11 +395,11 @@
             dados.foto_altura  = medidaFoto ? medidaFoto.altura  : null;
           }
           return id
-            ? db.from('pessoas').update(dados).eq('id', id)
-            : db.from('pessoas').insert(dados);
+            ? db.from('pessoas').update(dados).eq('id', id).select('id')
+            : db.from('pessoas').insert(dados).select('id');
         })
         .then(function (r) {
-          if (r.error) throw r.error;
+          var falha = interno.falhaDeGravacao(r); if (falha) throw falha;
           // Foto trocada: a antiga vira órfã no storage. Limpa sem travar o fluxo.
           if (dados.foto_url && emEdicao && emEdicao.foto_url && emEdicao.foto_url !== dados.foto_url) {
             window.IBPR.painel.apagarDoStorage(BUCKET, emEdicao.foto_url);
@@ -462,8 +462,8 @@
         return;
       }
 
-      db.from('pessoas').update({ status: status }).eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('pessoas').update({ status: status }).eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         carregarLista();
         aviso(status === 'publicado'
           ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
@@ -485,8 +485,8 @@
       if (!window.confirm('Apagar "' + (alvo ? alvo.nome : 'esta pessoa') + '"?\n\n' +
                           'Ela sai da página do Instituto. Não dá pra desfazer.')) return;
 
-      db.from('pessoas').delete().eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('pessoas').delete().eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         if (alvo) window.IBPR.painel.apagarDoStorage(BUCKET, alvo.foto_url);
         carregarLista();
         aviso('Pessoa apagada. Sai do site no próximo build.', 'ok');

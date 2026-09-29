@@ -89,7 +89,7 @@
 
     $('btnSair').addEventListener('click', function (e) {
       e.preventDefault();
-      db.auth.signOut().then(function () { location.replace('index.html'); });
+      db.auth.signOut({ scope: 'local' }).then(function () { location.replace('index.html'); });
     });
 
 
@@ -372,11 +372,11 @@
           if (urls[0]) dados.imagem_url = urls[0];
           if (urls[1]) dados.pdf_url = urls[1];
           return id
-            ? db.from('artigos').update(dados).eq('id', id)
-            : db.from('artigos').insert(dados);
+            ? db.from('artigos').update(dados).eq('id', id).select('id')
+            : db.from('artigos').insert(dados).select('id');
         })
         .then(function (r) {
-          if (r.error) throw r.error;
+          var falha = interno.falhaDeGravacao(r); if (falha) throw falha;
           // arquivo trocado: o antigo vira órfão no storage
           if (emEdicao) {
             if (dados.imagem_url && emEdicao.imagem_url && emEdicao.imagem_url !== dados.imagem_url) painel.apagarDoStorage(BUCKET, emEdicao.imagem_url);
@@ -417,8 +417,8 @@
         var atual = linhas.filter(function (n) { return n.id === id; })[0];
         if (!atual || !atual.publicado_em) mudanca.publicado_em = new Date().toISOString();
       }
-      db.from('artigos').update(mudanca).eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('artigos').update(mudanca).eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         carregarLista();
         aviso(status === 'publicado'
           ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
@@ -431,8 +431,8 @@
     function apagar(id) {
       if (!window.confirm('Apagar este artigo? Não dá pra desfazer.')) return;
       var alvo = linhas.filter(function (n) { return n.id === id; })[0];
-      db.from('artigos').delete().eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('artigos').delete().eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         if (alvo) painel.apagarDoStorage(BUCKET, [alvo.imagem_url, alvo.pdf_url]);
         carregarLista();
         aviso('Artigo apagado.', 'ok');

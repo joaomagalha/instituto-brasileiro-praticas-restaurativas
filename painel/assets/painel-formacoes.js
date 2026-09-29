@@ -187,7 +187,7 @@
 
     $('btnSair').addEventListener('click', function (e) {
       e.preventDefault();
-      db.auth.signOut().then(function () { location.replace('index.html'); })
+      db.auth.signOut({ scope: 'local' }).then(function () { location.replace('index.html'); })
         .catch(function () { location.replace('index.html'); });
     });
 
@@ -481,11 +481,11 @@
           if (urls[1]) dados.imagem_card_url = urls[1];
 
           return id
-            ? db.from('formacoes').update(dados).eq('id', id)
-            : db.from('formacoes').insert(dados);
+            ? db.from('formacoes').update(dados).eq('id', id).select('id')
+            : db.from('formacoes').insert(dados).select('id');
         })
         .then(function (r) {
-          if (r.error) throw r.error;
+          var falha = interno.falhaDeGravacao(r); if (falha) throw falha;
           // Fotos trocadas: as antigas viram órfãs no storage. Limpa sem travar o fluxo.
           if (emEdicao) {
             var orfas = [];
@@ -541,8 +541,8 @@
         }
       }
 
-      db.from('formacoes').update({ status: status }).eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('formacoes').update({ status: status }).eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         carregarLista();
         aviso(status === 'publicado'
           ? 'Publicado. O site é atualizado automaticamente em cerca de 2 minutos.'
@@ -564,8 +564,8 @@
       if (!window.confirm('Apagar "' + (alvo ? alvo.titulo : 'esta formação') + '"?\n\n' +
                           'A página dela sai do ar e o link deixa de funcionar. Não dá pra desfazer.')) return;
 
-      db.from('formacoes').delete().eq('id', id).then(function (r) {
-        if (r.error) { aviso(traduzirErro(r.error)); return; }
+      db.from('formacoes').delete().eq('id', id).select('id').then(function (r) {
+        var falha = interno.falhaDeGravacao(r); if (falha) { aviso(traduzirErro(falha)); return; }
         if (alvo) window.IBPR.painel.apagarDoStorage(BUCKET, [alvo.imagem_hero_url, alvo.imagem_card_url]);
         carregarLista();
         aviso('Formação apagada. Sai do site no próximo build.', 'ok');

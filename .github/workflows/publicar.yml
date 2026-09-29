@@ -23,6 +23,11 @@ on:
 
   # 3. Botão manual na aba Actions
   workflow_dispatch:
+    inputs:
+      permitir_queda:
+        description: 'Deixar sair do ar muitas notícias ou artigos de uma vez (só se o Instituto apagou de propósito)'
+        type: boolean
+        default: false
 
 # Só uma execução por vez. Duas publicações seguidas não podem gerar dois
 # builds concorrentes commitando por cima um do outro.
@@ -46,6 +51,8 @@ jobs:
       # Sem `npm install`: o gerador é Node puro, sem dependências.
       - name: Gerar HTML a partir do CMS
         run: node build/gerar.mjs
+        env:
+          IBPR_PERMITIR_QUEDA: ${{ inputs.permitir_queda && '1' || '' }}
 
       - name: Commitar se algo mudou
         run: |

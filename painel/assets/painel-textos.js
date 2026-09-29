@@ -55,7 +55,7 @@
 
     $('btnSair').addEventListener('click', function (e) {
       e.preventDefault();
-      db.auth.signOut().then(function () { location.replace('index.html'); })
+      db.auth.signOut({ scope: 'local' }).then(function () { location.replace('index.html'); })
         .catch(function () { location.replace('index.html'); });
     });
 
@@ -175,6 +175,31 @@
       }
     });
 
+    function atualizarCartao(cartaoEl, t) {
+      var editado = t.valor !== t.valor_original;
+      var cabeca = cartaoEl.querySelector('.painel-texto__cabeca');
+      var selo = cabeca.querySelector('.selo--editado');
+      if (editado && !selo) {
+        selo = document.createElement('span');
+        selo.className = 'selo selo--editado';
+        selo.textContent = 'Editado';
+        cabeca.appendChild(selo);
+      }
+      if (!editado && selo) selo.remove();
+
+      var acoes = cartaoEl.querySelector('.painel-texto__acoes');
+      var restaurar = acoes.querySelector('[data-acao="restaurar"]');
+      if (editado && !restaurar) {
+        restaurar = document.createElement('button');
+        restaurar.className = 'btn btn--fantasma btn--sm';
+        restaurar.type = 'button';
+        restaurar.dataset.acao = 'restaurar';
+        restaurar.textContent = 'Restaurar o texto original';
+        acoes.insertBefore(restaurar, acoes.querySelector('[data-papel="estado"]'));
+      }
+      if (!editado && restaurar) restaurar.remove();
+    }
+
     function gravar(t, valor, cartaoEl, botao) {
       limparAviso();
       valor = String(valor).trim();
@@ -193,15 +218,16 @@
       botao.disabled = true;
       estado.textContent = 'Salvando…';
 
-      db.from('textos').update({ valor: valor }).eq('id', t.id)
+      db.from('textos').update({ valor: valor }).eq('id', t.id).select('id')
         .then(function (r) {
-          if (r.error) throw r.error;
+          var falha = interno.falhaDeGravacao(r); if (falha) throw falha;
           t.valor = valor;
           estado.textContent = 'Salvo. O site é atualizado em cerca de 2 minutos.';
-          /* Redesenha só depois de um tempo, pra pessoa ler o aviso antes
-             de a lista se refazer (o selo "Editado" e o botão de restaurar
-             aparecem ou somem conforme o texto). */
-          setTimeout(desenhar, 2500);
+          /* Atualiza só o selo "Editado" e o botão de restaurar DESTE
+             cartão. Até 28/09/2026 a lista inteira era redesenhada 2,5 s
+             depois, e o que a pessoa tinha mudado e ainda não salvo nos
+             outros cartões (ou estava digitando) voltava ao texto antigo. */
+          atualizarCartao(cartaoEl, t);
         })
         .catch(function (erro) {
           estado.textContent = '';
