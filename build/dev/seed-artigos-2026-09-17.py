@@ -73,9 +73,9 @@ artigos = [
          resumo=resumo_rejub,
          palavras_chave=['justiça restaurativa', 'sistema prisional', 'círculos de construção de paz', 'estudo de caso'],
          corpo='', pdf_url='assets/docs/lopes-2021-justica-restaurativa-espaco-prisional-rejub.pdf',
-         doi='10.54795/RejuBespecial.SisPri.202',
+         doi='10.54795/rejubespecial.sispris.202',
          publicacao_nome='ReJuB, Revista Judicial Brasileira, ano 1, sup. esp., p. 293-329, jul./dez. 2021',
-         publicacao_url='https://doi.org/10.54795/RejuBespecial.SisPri.202',
+         publicacao_url='https://doi.org/10.54795/rejubespecial.sispris.202',
          imagem_url=None, imagem_alt=None, status='publicado', publicado_em='2021-12-01T12:00:00+00:00'),
 ]
 os.makedirs('build/dev/dados', exist_ok=True)

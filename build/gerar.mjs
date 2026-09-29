@@ -199,8 +199,8 @@ function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
   return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
 ${n.capaTipografica && !n.imagem_url
-    ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.png"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>`
-    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${selo ? '<span class="noticia-card__selo">Publicação mais recente</span>' : ''}</div>`}
+    ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.png"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`
+    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
@@ -263,7 +263,8 @@ ${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join
 <p class="section-header__sub">${esc(tem ? sub : subVazio)}</p>
 </div>`;
 
-  // O selo "Publicação mais recente" vai na que ENTROU no site por último
+  // O selo "Adicionada recentemente" (28/09/2026, era "Publicação mais recente",
+  // que confundia: a de maio aparecia com o selo abaixo de notícias de setembro) vai na que ENTROU no site por último
   // (criado_em), igual à Home; a ordem da lista continua pela data do evento.
   const maisNova = noticias.reduce((m, n) =>
     String(n.criado_em || n.publicado_em || '') > String((m && (m.criado_em || m.publicado_em)) || '') ? n : m, null);
