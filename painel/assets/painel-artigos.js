@@ -73,6 +73,7 @@
     var pdfEscolhido = null;
     var linhas = [];
     var emEdicao = null;
+    var guarda = interno.protegerFormulario();
 
     /* --- porteiro ---------------------------------------------------- */
     db.auth.getSession()
@@ -102,6 +103,7 @@
     }
 
     function mostrarForm(titulo) {
+      guarda.limpar();
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
@@ -183,10 +185,12 @@
 
     /* --- formulário --------------------------------------------------- */
     $('btnNova').addEventListener('click', function () { limparForm(); mostrarForm('Novo artigo'); });
-    $('btnCancelar').addEventListener('click', function () { limparForm(); mostrarLista(); });
+    $('btnCancelar').addEventListener('click', function () {
+      if (!guarda.podeDescartar()) return; limparForm(); mostrarLista(); });
 
     function limparForm() {
       emEdicao = null;
+      guarda.limpar();
       $('btnRascunho').textContent = 'Salvar rascunho';
       ['artigoId', 'titulo', 'subtitulo', 'resumo', 'palavrasChave', 'corpo', 'autores',
        'doi', 'publicacaoNome', 'publicacaoUrl', 'imagemAlt', 'publicadoEm', 'imagem', 'pdf']
@@ -358,9 +362,7 @@
         ? (doCampoData($('publicadoEm').value) || (emEdicao && emEdicao.publicado_em) || new Date().toISOString())
         : doCampoData($('publicadoEm').value);
 
-      var slugCongelado = (emEdicao && emEdicao.status === 'publicado' && emEdicao.slug) ? emEdicao.slug : null;
-
-      (slugCongelado ? Promise.resolve(slugCongelado) : gerarSlugUnico(titulo, id))
+      interno.conferirVersao(db, 'artigos', emEdicao).then(function () { return interno.manterEndereco(emEdicao, function (s) { return 'artigo-' + s + '.html'; }, function () { return gerarSlugUnico(titulo, id); }); })
         .then(function (slug) {
           dados.slug = slug;
           return Promise.all([

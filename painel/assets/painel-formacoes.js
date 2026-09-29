@@ -170,6 +170,7 @@
 
     var linhasBanco = [];   // formações carregadas do banco
     var emEdicao = null;    // a que está aberta no formulário (null = nova)
+    var guarda = interno.protegerFormulario();
     var arquivos = { hero: null, card: null };
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
@@ -209,6 +210,7 @@
     }
 
     function mostrarForm(titulo) {
+      guarda.limpar();
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
@@ -294,6 +296,7 @@
     });
 
     $('btnCancelar').addEventListener('click', function () {
+      if (!guarda.podeDescartar()) return;
       limparForm();
       mostrarLista();
     });
@@ -322,6 +325,7 @@
 
     function limparForm() {
       emEdicao = null;
+      guarda.limpar();
       $('btnRascunho').textContent = 'Salvar rascunho';
       $('formacaoId').value = '';
       SIMPLES.forEach(function (p) { $(p[0]).value = ''; });
@@ -462,11 +466,7 @@
          mude. Ele é o endereço da página: mexer nele quebraria todo link
          já compartilhado, e ainda faria o build apagar a página antiga e
          criar outra do zero, perdendo a posição dela no Google. */
-      var slugCongelado = (emEdicao && emEdicao.status === 'publicado' && emEdicao.slug)
-        ? emEdicao.slug
-        : null;
-
-      (slugCongelado ? Promise.resolve(slugCongelado) : gerarSlugUnico(titulo, id))
+      interno.conferirVersao(db, 'formacoes', emEdicao).then(function () { return interno.manterEndereco(emEdicao, function (s) { return s + '.html'; }, function () { return gerarSlugUnico(titulo, id); }); })
         .then(function (slug) {
           dados.slug = slug;
 

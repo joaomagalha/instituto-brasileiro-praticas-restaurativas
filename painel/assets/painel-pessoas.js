@@ -80,6 +80,7 @@
 
     var linhasBanco = [];   // pessoas carregadas do banco
     var emEdicao = null;    // a que está aberta no formulário (null = nova)
+    var guarda = interno.protegerFormulario();
     var arquivoFoto = null; // File escolhido, ainda não enviado
     var medidaFoto = null;  // { largura, altura } da foto escolhida
 
@@ -114,6 +115,7 @@
     }
 
     function mostrarForm(titulo) {
+      guarda.limpar();
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
@@ -194,12 +196,14 @@
     });
 
     $('btnCancelar').addEventListener('click', function () {
+      if (!guarda.podeDescartar()) return;
       limparForm();
       mostrarLista();
     });
 
     function limparForm() {
       emEdicao = null;
+      guarda.limpar();
       $('btnRascunho').textContent = 'Salvar rascunho';
       $('pessoaId').value = '';
       $('nome').value = '';
@@ -379,7 +383,7 @@
          com um nome e as novas com outro. */
       var slugCongelado = (emEdicao && emEdicao.slug) ? emEdicao.slug : null;
 
-      (slugCongelado ? Promise.resolve(slugCongelado) : gerarSlugUnico(nome, id))
+      interno.conferirVersao(db, 'pessoas', emEdicao).then(function () { return slugCongelado ? slugCongelado : gerarSlugUnico(nome, id); })
         .then(function (slug) {
           dados.slug = slug;
           if (!arquivoFoto) return null;

@@ -38,11 +38,19 @@ concurrency:
 jobs:
   publicar:
     runs-on: ubuntu-latest
+    # Um build normal leva menos de 1 minuto. Sem limite, uma consulta
+    # travada seguraria a fila de publicações por até 6 horas.
+    timeout-minutes: 10
     permissions:
       contents: write   # o GITHUB_TOKEN nativo já basta pra commitar
 
     steps:
+      # ref: main (28/09/2026). Sem isso, uma execução que ficou na fila
+      # montava o site sobre a versão do main de quando foi DISPARADA, não
+      # a de agora.
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-node@v4
         with:
@@ -55,27 +63,32 @@ jobs:
           IBPR_PERMITIR_QUEDA: ${{ inputs.permitir_queda && '1' || '' }}
 
       - name: Commitar se algo mudou
+        env:
+          IBPR_PERMITIR_QUEDA: ${{ inputs.permitir_queda && '1' || '' }}
         run: |
-          if git diff --quiet && git diff --staged --quiet; then
-            echo "Nada mudou. Nenhum commit."
-            exit 0
-          fi
           git config user.name  "IBPR CMS"
           git config user.email "actions@github.com"
-          git add -A
-          git commit -m "CMS: atualiza o site com o conteúdo publicado
+          # Se alguém deu push no main entre o checkout e agora (aconteceu
+          # em 15/09/2026: "rejected, fetch first"), pega o main novo e GERA
+          # DE NOVO em cima dele, até 3 vezes. O build é determinístico, então
+          # gerar de novo é mais seguro que mesclar: até 28/09/2026 era um
+          # rebase -X theirs, que falhava em "editado de um lado, apagado do
+          # outro" e podia descartar uma edição manual perto de um marcador.
+          for tentativa in 1 2 3; do
+            git add -A
+            if git diff --staged --quiet; then
+              echo "Nada mudou. Nenhum commit."
+              exit 0
+            fi
+            git commit -q -m "CMS: atualiza o site com o conteúdo publicado
 
           Commit automático de build/gerar.mjs. Não editar à mão os
           arquivos gerados: o próximo build sobrescreve."
-          # Se alguém deu push no main entre o checkout e agora (aconteceu
-          # em 15/09/2026: "rejected, fetch first"), sincroniza e tenta de
-          # novo, até 3 vezes. Nos arquivos gerados vale a versão deste
-          # build (-X theirs); o resto vem do main.
-          for tentativa in 1 2 3; do
             if git push; then exit 0; fi
-            echo "Push rejeitado (tentativa $tentativa): sincronizando com o main."
+            echo "Push rejeitado (tentativa $tentativa): pegando o main novo e gerando de novo."
             git fetch origin main
-            git rebase -X theirs origin/main || { git rebase --abort; exit 1; }
+            git reset --hard origin/main
+            node build/gerar.mjs
           done
           echo "Não consegui publicar depois de 3 tentativas."
           exit 1

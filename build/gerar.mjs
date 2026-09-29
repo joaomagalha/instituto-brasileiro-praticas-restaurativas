@@ -110,7 +110,8 @@ async function conferirQueda(tipo, prefixo, publicados) {
    e uma dependência a menos é uma coisa a menos pra quebrar no Action. */
 async function consultar({ url, chave }, caminho, { toleraAusente = false } = {}) {
   const resp = await fetch(`${url}/rest/v1/${caminho}`, {
-    headers: { apikey: chave, Authorization: `Bearer ${chave}` }
+    headers: { apikey: chave, Authorization: `Bearer ${chave}` },
+    signal: AbortSignal.timeout(30000)   // banco travado: aborta em 30 s em vez de segurar a fila
   });
 
   /* Tabela que ainda não foi criada devolve 404. Para uma etapa que ainda
@@ -140,11 +141,23 @@ function esc(t) {
 
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
+/* Dia, mês e ano no fuso do Instituto (28/09/2026). Antes era UTC: uma
+   notícia publicada às 21h em Cuiabá (01h do dia seguinte em UTC) saía no
+   site com a data de amanhã, enquanto o painel mostrava a de hoje. */
+const FUSO = 'America/Cuiaba';
+function partesDaData(d) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone: FUSO, year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(d).map(x => [x.type, x.value]));
+  return { dia: p.day, mes: Number(p.month), ano: p.year };
+}
+
 function dataCurta(iso) {
   if (!iso) return '';
   const d = new Date(iso);
   if (isNaN(d)) return '';
-  return `${String(d.getUTCDate()).padStart(2,'0')} ${MESES[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+  const p = partesDaData(d);
+  return `${p.dia} ${MESES[p.mes - 1]} ${p.ano}`;
 }
 
 /* Troca o miolo de uma região marcada. Devolve o texto novo, ou lança se
@@ -320,7 +333,7 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
 async function gerarNoticias(cfg, artigos = []) {
   const noticias = await consultar(cfg,
     'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em,criado_em' +
-    '&status=eq.publicado&order=publicado_em.desc.nullslast');
+    '&status=eq.publicado&order=publicado_em.desc.nullslast,criado_em.desc,slug.asc');
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
   await conferirQueda('Notícias', 'noticia-', noticias.length);
@@ -472,7 +485,10 @@ function corpoRico(texto) {
   let emNotas = false;
   const saida = [];
   const sumario = [];
-  const usados = new Set();
+  /* Ids que a página do artigo já usa (molde e blocos do build): uma seção
+     "## Citação" ou "## Conteúdo" não pode repetir, senão "Copiar citação"
+     e "Pular para o conteúdo" apontam pro lugar errado (28/09/2026). */
+  const usados = new Set(['conteudo', 'citacao', 'navbar', 'overlay', 'artigos']);
 
   for (const b of blocos) {
     const linhas = b.split('\n').map(l => l.trim());
@@ -568,7 +584,7 @@ function nomeABNT(nome) {
 
 function citacaoABNT(a, url) {
   const autores = autoresLista(a).map(x => nomeABNT(x.nome)).join('; ');
-  const ano = a.publicado_em ? new Date(a.publicado_em).getUTCFullYear() : '';
+  const ano = a.publicado_em ? partesDaData(new Date(a.publicado_em)).ano : '';
   const titulo = tituloCompleto(a);
   // revista que já traz o ano no nome (ex: "..., jul./dez. 2021") não ganha o ano de novo
   const onde = a.publicacao_nome
@@ -623,7 +639,7 @@ function blocoAcesso(a, classe = '') {
 async function gerarArtigos(cfg) {
   const artigos = await consultar(cfg,
     'artigos?select=titulo,subtitulo,slug,autores,resumo,palavras_chave,corpo,pdf_url,doi,publicacao_nome,publicacao_url,imagem_url,imagem_alt,publicado_em,criado_em' +
-    '&status=eq.publicado&order=publicado_em.desc.nullslast', { toleraAusente: true });
+    '&status=eq.publicado&order=publicado_em.desc.nullslast,criado_em.desc,slug.asc', { toleraAusente: true });
 
   if (artigos === null) {
     console.log('\n== Artigos: a tabela ainda não existe no banco. Nada foi alterado.');
@@ -687,7 +703,12 @@ ${artigos.slice(0, 3).map(a => cardArtigo(a)).join('\n')}
       subtitulo = titulo.slice(i + 2).trim(); titulo = titulo.slice(0, i).trim();
     }
     const completo = subtitulo ? `${titulo}: ${subtitulo}` : titulo;
-    const descricao = String(a.resumo || '').replace(/\s+/g, ' ').trim().slice(0, 157).replace(/\s+\S*$/, '') + (String(a.resumo || '').length > 157 ? '…' : '');
+    const resumoLimpo = String(a.resumo || '').replace(/\s+/g, ' ').trim();
+    // Só corta a última palavra (pela metade) quando o resumo passa de 157
+    // caracteres; antes cortava sempre e o resumo curto perdia a palavra final.
+    const descricao = resumoLimpo.length > 157
+      ? resumoLimpo.slice(0, 157).replace(/\s+\S*$/, '') + '…'
+      : resumoLimpo;
 
     const autores = autoresLista(a);
     const blocoAutores = autores.length

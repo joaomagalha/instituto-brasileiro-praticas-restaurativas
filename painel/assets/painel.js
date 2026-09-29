@@ -96,6 +96,9 @@ window.IBPR.painel = (function () {
      pra quem vai usar o painel (Fernanda, Decildo, Rauny). */
   function traduzirErro(erro) {
     var m = String((erro && erro.message) || erro || '');
+    if (/EDITADO_POR_OUTRO/.test(m))
+      return 'Outra pessoa salvou este item depois que você o abriu. Pra não apagar a mudança dela, nada foi salvo. ' +
+             'Copie o que você escreveu, clique em Cancelar, abra o item de novo e aplique a sua alteração.';
     if (/NADA_GRAVADO/.test(m))
       return 'Não foi salvo: sua sessão caiu (por exemplo, se você saiu do painel em outro aparelho). ' +
              'Seu texto continua aqui. Abra o painel em outra aba, entre de novo e volte aqui pra salvar.';
@@ -130,6 +133,54 @@ window.IBPR.painel = (function () {
     if (r.error) return r.error;
     if (Array.isArray(r.data) && r.data.length === 0) return new Error('NADA_GRAVADO');
     return null;
+  }
+
+  /* Decide o slug (o endereço da página) ao salvar (28/09/2026).
+     Endereço que JÁ ESTEVE NO AR não muda, mesmo que o título mude: todo
+     link compartilhado (WhatsApp, e-mail, Google) passaria a dar "não
+     encontrada". Antes a regra olhava só o status atual, então despublicar,
+     corrigir o título e publicar de novo trocava o endereço. Agora, se o
+     item não está publicado, o painel pergunta ao próprio site se a página
+     existe; na dúvida (sem internet), mantém o endereço. */
+  function manterEndereco(emEdicao, arquivoDaPagina, gerarNovo) {
+    if (!emEdicao || !emEdicao.slug) return gerarNovo();
+    if (emEdicao.status === 'publicado') return Promise.resolve(emEdicao.slug);
+    return fetch('../' + arquivoDaPagina(emEdicao.slug), { method: 'HEAD', cache: 'no-store' })
+      .then(function (r) { return r.ok ? emEdicao.slug : gerarNovo(); })
+      .catch(function () { return emEdicao.slug; });
+  }
+
+  /* Dois editores no mesmo item (28/09/2026). Antes de gravar, confere se
+     alguém salvou este item depois que ele foi aberto aqui. Sem isso, quem
+     salvasse por último apagava a mudança do outro sem aviso nenhum. */
+  function conferirVersao(db, tabela, emEdicao) {
+    if (!emEdicao || !emEdicao.id || !emEdicao.atualizado_em) return Promise.resolve();
+    return db.from(tabela).select('atualizado_em').eq('id', emEdicao.id).maybeSingle()
+      .then(function (r) {
+        if (r.error) throw r.error;
+        if (r.data && r.data.atualizado_em !== emEdicao.atualizado_em) throw new Error('EDITADO_POR_OUTRO');
+      });
+  }
+
+  /* Texto digitado e não salvo (28/09/2026): fechar a aba, trocar de tela
+     pelo menu ou clicar em "Cancelar" pergunta antes de descartar. */
+  function protegerFormulario() {
+    var tela = $('telaForm');
+    var sujo = false;
+    if (tela) {
+      tela.addEventListener('input', function () { sujo = true; });
+      tela.addEventListener('change', function () { sujo = true; });
+      window.addEventListener('beforeunload', function (e) {
+        if (sujo && !tela.hidden) { e.preventDefault(); e.returnValue = ''; }
+      });
+    }
+    return {
+      limpar: function () { sujo = false; },
+      podeDescartar: function () {
+        if (!sujo || !tela || tela.hidden) return true;
+        return window.confirm('Você escreveu coisas que ainda não foram salvas.\n\nDescartar e sair do formulário?');
+      }
+    };
   }
 
   /* Endereço de foto pra usar DENTRO do painel.
@@ -489,6 +540,7 @@ window.IBPR.painel = (function () {
     var arquivoEscolhido = null;   // File selecionado, ainda não enviado
     var linhas = [];               // últimas notícias carregadas do banco
     var emEdicao = null;           // linha aberta no formulário (null = nova)
+    var guarda = protegerFormulario();
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
     db.auth.getSession()
@@ -523,6 +575,7 @@ window.IBPR.painel = (function () {
     }
 
     function mostrarForm(titulo) {
+      guarda.limpar();
       $('formTitulo').textContent = titulo;
       $('telaLista').hidden = true;
       $('telaForm').hidden = false;
@@ -614,12 +667,14 @@ window.IBPR.painel = (function () {
     });
 
     $('btnCancelar').addEventListener('click', function () {
+      if (!guarda.podeDescartar()) return;
       limparForm();
       mostrarLista();
     });
 
     function limparForm() {
       emEdicao = null;
+      guarda.limpar();
       $('btnRascunho').textContent = 'Salvar rascunho';
       $('noticiaId').value = '';
       $('titulo').value = '';
@@ -778,11 +833,7 @@ window.IBPR.painel = (function () {
       // mude. Ele é o endereço dela: se mudar, todo link já compartilhado
       // (WhatsApp, e-mail, outro site) passa a dar "não encontrada".
       // Corrigir uma vírgula no título não pode quebrar o que já circulou.
-      var slugCongelado = (emEdicao && emEdicao.status === 'publicado' && emEdicao.slug)
-        ? emEdicao.slug
-        : null;
-
-      (slugCongelado ? Promise.resolve(slugCongelado) : gerarSlugUnico(titulo, id))
+      conferirVersao(db, 'noticias', emEdicao).then(function () { return manterEndereco(emEdicao, function (s) { return 'noticia-' + s + '.html'; }, function () { return gerarSlugUnico(titulo, id); }); })
         .then(function (slug) {
           dados.slug = slug;
           if (!arquivoEscolhido) return null;
@@ -897,6 +948,9 @@ window.IBPR.painel = (function () {
       limparAviso: limparAviso,
       traduzirErro: traduzirErro,
       falhaDeGravacao: falhaDeGravacao,
+      manterEndereco: manterEndereco,
+      conferirVersao: conferirVersao,
+      protegerFormulario: protegerFormulario,
       fotoNoPainel: fotoNoPainel,
       /* Devolve o cliente do banco, ou null se o painel ainda não foi
          conectado (e nesse caso já explicou isso na tela). */
