@@ -183,6 +183,29 @@ window.IBPR.painel = (function () {
     };
   }
 
+  /* Porteiro das telas (29/09/2026). `getSession()` só lê o que ficou
+     guardado no navegador: uma sessão vencida (o login de 15/09, por
+     exemplo) passava, a tela abria com o nome da pessoa no topo, a lista
+     vinha vazia e aparecia "Sua sessão expirou", sem caminho óbvio pra
+     entrar de novo. Aqui o servidor confirma a sessão (`getUser()`); se
+     ela não vale mais, limpa e devolve "sem sessão", e a tela manda pro
+     login, que explica o motivo. Sem internet, não expulsa ninguém. */
+  function sessaoValida(db) {
+    return db.auth.getSession().then(function (r) {
+      var sessao = r.data && r.data.session;
+      if (!sessao) return r;
+      return db.auth.getUser().then(function (u) {
+        if (u.error && !/fetch|network/i.test(String(u.error.message))) {
+          return db.auth.signOut({ scope: 'local' }).catch(function () {}).then(function () {
+            try { sessionStorage.setItem('ibpr-sessao-expirada', '1'); } catch (e) {}
+            return { data: { session: null } };
+          });
+        }
+        return r;
+      });
+    });
+  }
+
   /* Endereço de foto pra usar DENTRO do painel.
      O caminho guardado no banco pode ser relativo à raiz do site
      ("assets/images/fundadores/fulano.jpg"), que é onde as páginas moram.
@@ -374,6 +397,13 @@ window.IBPR.painel = (function () {
       if (r.data && r.data.session) location.replace('noticias.html');
     });
 
+    try {
+      if (sessionStorage.getItem('ibpr-sessao-expirada')) {
+        sessionStorage.removeItem('ibpr-sessao-expirada');
+        aviso('Sua sessão expirou. Entre de novo com seu e-mail e senha.');
+      }
+    } catch (e) {}
+
     var form = $('formLogin');
     var botao = $('btnEntrar');
 
@@ -543,7 +573,7 @@ window.IBPR.painel = (function () {
     var guarda = protegerFormulario();
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
-    db.auth.getSession()
+    sessaoValida(db)
       .then(function (r) {
         var sessao = r.data && r.data.session;
         if (!sessao) {
@@ -950,6 +980,7 @@ window.IBPR.painel = (function () {
       falhaDeGravacao: falhaDeGravacao,
       manterEndereco: manterEndereco,
       conferirVersao: conferirVersao,
+      sessaoValida: sessaoValida,
       protegerFormulario: protegerFormulario,
       fotoNoPainel: fotoNoPainel,
       /* Devolve o cliente do banco, ou null se o painel ainda não foi

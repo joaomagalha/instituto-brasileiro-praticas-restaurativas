@@ -85,7 +85,7 @@
     var medidaFoto = null;  // { largura, altura } da foto escolhida
 
     /* --- porteiro: sem sessão, volta pro login ---------------------- */
-    db.auth.getSession()
+    interno.sessaoValida(db)
       .then(function (r) {
         var sessao = r.data && r.data.session;
         if (!sessao) { location.replace('index.html'); return; }

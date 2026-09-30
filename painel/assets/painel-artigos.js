@@ -76,7 +76,7 @@
     var guarda = interno.protegerFormulario();
 
     /* --- porteiro ---------------------------------------------------- */
-    db.auth.getSession()
+    interno.sessaoValida(db)
       .then(function (r) {
         var sessao = r.data && r.data.session;
         if (!sessao) { location.replace('index.html'); return; }
