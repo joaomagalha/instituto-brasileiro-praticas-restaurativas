@@ -33,7 +33,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260928a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20261006o" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -181,6 +181,7 @@
 {{SUMARIO}}
 <div class="artigo-acoes">
 <p class="artigo-acoes__titulo">Ações</p>
+<button class="artigo-acao artigo-acao--destaque" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i><span>Receber publicações</span></button>
 {{ACAO_PDF}}
 <button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
 <button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>
@@ -285,6 +286,8 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
+<script src="assets/js/supabase-config.js?v=20260909m"></script>
+<script src="assets/js/inscricao.js?v=20261006c"></script>
 <script src="assets/js/site-interactions.js?v=20260923a"></script>
 </body>
 </html>

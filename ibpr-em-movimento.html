@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260928a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20261006o" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
 <link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.jpg" rel="preload"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
@@ -191,12 +191,13 @@
 <section aria-label="Frentes do IBPR em Movimento" class="section section--paper" id="noticias">
 <div class="container">
 <!-- CMS:movimento-lista -->
-<div class="section-header section__head measure-narrow" data-aos="fade-up">
+<div class="section-header section__head" data-aos="fade-up">
 <p class="overline">IBPR em Movimento</p>
-<h2>Publicações do Instituto e da sua rede.</h2>
-<p class="section-header__sub">A produção científica, as formações e a atuação de campo do IBPR e dos profissionais que integram a sua rede.</p>
+<h2>Notícias.</h2>
+<p class="section-header__meta">5 notícias · mais recente em 14 set 2026</p>
+<button class="btn btn--dark section-header__acao" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>
 </div>
-<div class="noticias__lista measure-narrow" data-aos="fade-up">
+<div class="noticias__lista" data-aos="fade-up">
 <article class="noticia-card">
 <a class="noticia-card__link" href="noticia-sistema-restaura-tjmt-nacionalizado-pelo-cnj.html">
 <div class="noticia-card__media"><img alt="Homem apresenta o Sistema Restaura em frente a uma tela com a plataforma projetada" decoding="async" loading="lazy" src="assets/images/noticias/sistema-restaura-tjmt.jpg"/></div>
@@ -253,7 +254,7 @@
 </a>
 </article>
 </div>
-<div class="movimento-foot measure-narrow" data-aos="fade-up">
+<div class="movimento-foot" data-aos="fade-up">
 </div>
 <!-- /CMS:movimento-lista -->
 </div>
@@ -267,43 +268,51 @@
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header formacoes__header" data-aos="fade-up">
 <div class="formacoes__header-text">
-<p class="overline">Artigos</p>
-<h2>Produção acadêmica do Instituto e da sua rede.</h2>
-<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências.</p>
+<p class="overline">IBPR em Movimento</p>
+<h2>Artigos.</h2>
 </div>
 <a class="btn btn--dark" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="artigos__lista artigos__lista--hub" data-aos="fade-up">
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-quando-restaurar-e-tambem-saber-terminar.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/quando-restaurar-e-tambem-saber-terminar-capa-1790962273965.jpg"/></div><div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">02 out 2026</span><span class="noticia-card__data">22 min de leitura</span></p>
+<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/quando-restaurar-e-tambem-saber-terminar-capa-1790962273965.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 22 min de leitura</span></div><div class="artigo-card__body">
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">02 out 2026</span></p>
 <h3 class="artigo-card__title">Quando restaurar é também saber terminar: O fim da relação como resultado restaurativo legítimo</h3>
-<p class="artigo-card__autores">Decildo Ferreira Lopes e Érica Fernanda Teixeira Santos</p>
-<p class="noticia-card__resumo">Este artigo apresenta a trajetória de um casal encaminhado a um programa de Justiça Restaurativa em razão de um episódio de violência doméstica. O texto articula a narrativa da experiência vivenciada pelas facilitadoras a uma leitura teórica dos processos observados ao longo da intervenção. O percurso começou com a participação do homem em círculos de diálogo, nos quais passou a compreender de outra maneira o dano causado, suas consequências e sua própria responsabilidade. Posteriormente, a mulher participou de encontros individuais, nos quais emergiram necessidades relacionadas à autonomia, à segurança e à independência financeira, culminando na decisão de encerrar a relação. A experiência permite discutir processos interacionais produzidos pelas práticas restaurativas, o protagonismo da vítima e os limites de intervenções construídas exclusivamente a partir da perspectiva do ofensor. Também questiona a ideia de que práticas restaurativas devam necessariamente resultar em reconciliação, recomposição de vínculos, encontros entre vítimas e ofensores ou acordos formais. Por fim, o caso conduz à reflexão sobre os desafios da inserção da Justiça Restaurativa no sistema formal de justiça e sobre a capacidade institucional de reconhecer e valorar resultados construídos segundo uma lógica distinta daquela que tradicionalmente orienta o sistema de justiça criminal.</p>
+<p class="artigo-card__resumo">Este artigo apresenta a trajetória de um casal encaminhado a um programa de Justiça Restaurativa em razão de um episódio de violência doméstica. O texto articula a narrativa da experiência vivenciada pelas facilitadoras a uma leitura teórica dos processos observados ao longo da intervenção. O percurso começou com a participação do homem em círculos de diálogo, nos quais passou a compreender de outra maneira o dano causado, suas consequências e sua própria responsabilidade. Posteriormente, a mulher participou de encontros individuais, nos quais emergiram necessidades relacionadas à autonomia, à segurança e à independência financeira, culminando na decisão de encerrar a relação. A experiência permite discutir processos interacionais produzidos pelas práticas restaurativas, o protagonismo da vítima e os limites de intervenções construídas exclusivamente a partir da perspectiva do ofensor. Também questiona a ideia de que práticas restaurativas devam necessariamente resultar em reconciliação, recomposição de vínculos, encontros entre vítimas e ofensores ou acordos formais. Por fim, o caso conduz à reflexão sobre os desafios da inserção da Justiça Restaurativa no sistema formal de justiça e sobre a capacidade institucional de reconhecer e valorar resultados construídos segundo uma lógica distinta daquela que tradicionalmente orienta o sistema de justiça criminal.</p>
+<ul class="artigo-card__palavras" aria-label="Palavras-chave"><li class="tag-pill">Práticas restaurativas</li><li class="tag-pill">Violência doméstica</li><li class="tag-pill">Empoderamento da vítima</li></ul>
+<div class="artigo-card__rodape">
+<div class="artigo-card__avatares"><span class="artigo-card__avatar" aria-hidden="true">D</span><span class="artigo-card__avatar" aria-hidden="true">É</span></div><p class="artigo-card__autores">Decildo Ferreira Lopes e Érica Fernanda Teixeira Santos</p>
 <span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
 </div>
 </a>
 </article>
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-acendedor-de-lampioes-e-o-legislador-penal.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/acendedor-de-lampioes-e-o-legislador-penal-capa-1790962857880.jpg"/></div><div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">17 set 2026</span><span class="noticia-card__data">18 min de leitura</span></p>
+<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/acendedor-de-lampioes-e-o-legislador-penal-capa-1790962857880.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 18 min de leitura</span></div><div class="artigo-card__body">
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">17 set 2026</span></p>
 <h3 class="artigo-card__title">O Acendedor de Lampiões e o Legislador Penal: Uma Análise Crítica da Justiça Restaurativa no PL nº 3.890/2024 (Estatuto da Vítima)</h3>
-<p class="artigo-card__autores">Decildo Ferreira Lopes e Maxuel Pereira Dias</p>
-<p class="noticia-card__resumo">Este artigo analisa criticamente a forma como o Projeto de Lei do Estatuto da Vítima (PL nº 3.890/2024) incorpora a Justiça Restaurativa, identificando reduções conceituais, inconsistências normativas e riscos de distorção institucional. A partir da metáfora do acendedor de lampiões, evidencia-se como o legislador penal, mesmo ao tentar inovar, mantém estruturas rígidas que não dialogam com os marcos nacionais e internacionais da JR. Argumenta-se que o PL, ao se deixar influenciar pela lógica retributiva, reduz a amplitude da abordagem restaurativa, limitando seu potencial transformador e sua capacidade de responder às necessidades das vítimas não atendidas pelo modelo tradicional.</p>
+<p class="artigo-card__resumo">Este artigo analisa criticamente a forma como o Projeto de Lei do Estatuto da Vítima (PL nº 3.890/2024) incorpora a Justiça Restaurativa, identificando reduções conceituais, inconsistências normativas e riscos de distorção institucional. A partir da metáfora do acendedor de lampiões, evidencia-se como o legislador penal, mesmo ao tentar inovar, mantém estruturas rígidas que não dialogam com os marcos nacionais e internacionais da JR. Argumenta-se que o PL, ao se deixar influenciar pela lógica retributiva, reduz a amplitude da abordagem restaurativa, limitando seu potencial transformador e sua capacidade de responder às necessidades das vítimas não atendidas pelo modelo tradicional.</p>
+<ul class="artigo-card__palavras" aria-label="Palavras-chave"><li class="tag-pill">Justiça Restaurativa</li><li class="tag-pill">Projeto de Lei 3.890/2024</li><li class="tag-pill">Estatuto da Vítima</li></ul>
+<div class="artigo-card__rodape">
+<div class="artigo-card__avatares"><span class="artigo-card__avatar" aria-hidden="true">D</span><span class="artigo-card__avatar" aria-hidden="true">M</span></div><p class="artigo-card__autores">Decildo Ferreira Lopes e Maxuel Pereira Dias</p>
 <span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
 </div>
 </a>
 </article>
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-caminhos-praticos-para-aplicacao-da-justica-restaurativa.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/caminhos-praticos-para-aplicacao-da-justica-restaurativa-capa-1790963852407.jpg"/></div><div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">16 set 2026</span><span class="noticia-card__data">14 min de leitura</span></p>
+<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/caminhos-praticos-para-aplicacao-da-justica-restaurativa-capa-1790963852407.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 14 min de leitura</span></div><div class="artigo-card__body">
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">16 set 2026</span></p>
 <h3 class="artigo-card__title">Caminhos práticos para aplicação da Justiça Restaurativa: Possibilidades reais no sistema penal brasileiro</h3>
-<p class="artigo-card__autores">Decildo Ferreira Lopes e Maxuel Pereira Dias</p>
-<p class="noticia-card__resumo">Imagine um hospital público em que um médico, diante da mais ampla variedade de doenças, prescrevesse sempre o mesmo medicamento. Não importasse a causa — bacteriana, viral ou acidental — a resposta seria invariavelmente a mesma. É fácil prever o resultado: indignação, ineficácia e abandono do tratamento.</p>
+<p class="artigo-card__resumo">Imagine um hospital público em que um médico, diante da mais ampla variedade de doenças, prescrevesse sempre o mesmo medicamento. Não importasse a causa — bacteriana, viral ou acidental — a resposta seria invariavelmente a mesma. É fácil prever o resultado: indignação, ineficácia e abandono do tratamento.</p>
+
+<div class="artigo-card__rodape">
+<div class="artigo-card__avatares"><span class="artigo-card__avatar" aria-hidden="true">D</span><span class="artigo-card__avatar" aria-hidden="true">M</span></div><p class="artigo-card__autores">Decildo Ferreira Lopes e Maxuel Pereira Dias</p>
 <span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
 </div>
 </a>
 </article>
@@ -318,11 +327,12 @@
 <div aria-hidden="true" class="cta-final__glow"></div>
 <div class="container">
 <p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
-<h2 class="cta-final__title" data-aos="fade-up">As formações são a porta de entrada do movimento.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Cursos on-line, no seu ritmo, para compreender e aplicar práticas restaurativas.</p>
+<!-- 06/10/2026: texto do Decildo (04/10) no lugar de "As formações são a porta
+     de entrada do movimento", dividido em título + subtítulo; um link só, pro e-mail -->
+<h2 class="cta-final__title" data-aos="fade-up">Tem uma experiência, ideia ou reflexão que pode contribuir para esse debate?</h2>
+<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Compartilhe conosco.</p>
 <div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="btn btn--dark" href="mailto:ibpr@ibpr.com.br"><i aria-hidden="true" class="fa-regular fa-envelope"></i> ibpr@ibpr.com.br</a>
 </div>
 </div>
 </section>
@@ -402,6 +412,8 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
+<script src="assets/js/supabase-config.js?v=20260909m"></script>
+<script src="assets/js/inscricao.js?v=20261006c"></script>
 <script src="assets/js/site-interactions.js?v=20260923a"></script>
 </body>
 </html>

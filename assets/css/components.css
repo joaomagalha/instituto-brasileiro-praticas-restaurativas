@@ -2800,6 +2800,8 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .noticia-card__frente { color: var(--color-teal); }
 .noticia-card__data { color: var(--color-mist); font-weight: var(--weight-medium); }
 .noticia-card__data::before { content: "\00b7"; margin-right: 0.6rem; color: var(--color-border-light); }
+/* linha de dado embaixo do título "Notícias." (IBPR em Movimento, 06/10/2026): mesmo visual do meta dos cards */
+.section-header__meta { margin-top: var(--space-sm); font-size: 1.2rem; font-weight: var(--weight-semibold); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--color-teal); }
 
 .noticia-card__title {
   font-family: var(--font-display);
@@ -2849,6 +2851,11 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 @media (min-width: 768px) {
   .noticia-card__link { grid-template-columns: minmax(0, 40%) minmax(0, 1fr); min-height: 24rem; }
   .noticia-card__media { aspect-ratio: auto; height: 100%; }
+  /* 06/10/2026: a foto não dita mais a altura do card (foto em pé esticava
+     "Há espaço para práticas..." pra 373 px contra 261 dos outros); ela só
+     preenche a célula, e a lista deixa todos os cards com a altura do maior. */
+  .noticia-card__media img { position: absolute; inset: 0; }
+  .noticias__lista { grid-auto-rows: 1fr; }
   .noticia-card__body { justify-content: center; padding: var(--space-lg) var(--space-xl); gap: var(--space-sm); }
   .noticia-card__title { font-size: 2.1rem; }
 }
@@ -4239,6 +4246,31 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   padding-top: var(--space-lg);
   border-top: 1px solid var(--color-border-light);
 }
+/* 06/10/2026: "Receber publicações" + "Ver todas as publicações" lado a lado */
+.noticia-fim { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); }
+
+/* botão "Receber publicações" embaixo do título "Notícias." */
+.section-header__acao { margin-top: var(--space-md); }
+
+/* janela "Receber publicações" (assets/js/inscricao.js) */
+.inscricao { margin: auto; width: min(46rem, calc(100vw - 3.2rem)); max-height: calc(100vh - 3.2rem); max-height: calc(100dvh - 3.2rem); padding: 0; border: 0; border-radius: var(--radius-lg); background: var(--color-white); color: var(--color-navy); box-shadow: var(--shadow-lg); overflow: auto; }
+.inscricao::backdrop { background: rgba(var(--navy900-rgb), 0.45); backdrop-filter: blur(3px); }
+.inscricao__form { position: relative; display: flex; flex-direction: column; gap: var(--space-sm); padding: var(--space-xl); }
+.inscricao__fechar { position: absolute; top: var(--space-sm); right: var(--space-sm); width: 3.6rem; height: 3.6rem; border: 0; border-radius: 50%; background: transparent; color: var(--color-mist); font-size: 1.6rem; cursor: pointer; }
+.inscricao__fechar:hover { background: var(--color-mist-bg); color: var(--color-navy); }
+.inscricao__titulo { font-family: var(--font-display); font-size: 2.4rem; font-weight: var(--weight-semibold); line-height: 1.2; }
+.inscricao__texto { font-size: 1.5rem; line-height: 1.55; color: var(--color-mist); margin-bottom: var(--space-xs); }
+.inscricao__campo { display: flex; flex-direction: column; gap: 0.4rem; font-size: 1.3rem; font-weight: var(--weight-medium); }
+.inscricao__campo input { font: inherit; font-size: 1.6rem; font-weight: 400; padding: 1.1rem 1.3rem; border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); color: var(--color-navy); background: var(--color-white); }
+.inscricao__campo input:focus { outline: 2px solid var(--color-teal); outline-offset: 1px; border-color: var(--color-teal); }
+.inscricao__isca { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.inscricao__aceite { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 1.3rem; line-height: 1.5; color: var(--color-mist); margin-top: var(--space-xs); }
+.inscricao__aceite input { margin-top: 0.3rem; width: 1.6rem; height: 1.6rem; accent-color: var(--color-teal); flex-shrink: 0; }
+.inscricao__aceite a { color: var(--color-teal); text-decoration: underline; }
+.inscricao__msg { min-height: 2rem; font-size: 1.35rem; line-height: 1.5; color: var(--color-mist); }
+.inscricao__msg--ok { color: var(--color-success); font-weight: var(--weight-medium); }
+.inscricao__msg--erro { color: var(--color-danger); font-weight: var(--weight-medium); }
+.inscricao__enviar { align-self: flex-start; }
 @media (max-width: 767px) {
   .noticia-figura__moldura { border-radius: var(--radius-md); }
 }
@@ -4264,28 +4296,23 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .noticia-card--destaque .noticia-card__media { position: relative; overflow: hidden; }
 .noticia-card--destaque .noticia-card__media img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
 .noticia-card--destaque:hover .noticia-card__media img { transform: scale(1.04); }
+/* selo "Adicionada recentemente": mais simples e discreto desde 06/10/2026
+   (o João achou o anterior grande): sem caixa alta nem bolinha dourada,
+   menor e mais transparente, com blur pra continuar legível sobre foto clara. */
 .noticia-card__selo {
   position: absolute;
-  top: 1.6rem; left: 1.6rem;
+  top: 1.2rem; left: 1.2rem;
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.5rem 1.1rem;
-  border-radius: var(--radius-pill);
-  background: rgba(var(--navy900-rgb), 0.72);
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: rgba(var(--navy900-rgb), 0.5);
   color: var(--color-white);
   font-size: 1.1rem;
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-overline);
-  text-transform: uppercase;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-.noticia-card__selo::before {
-  content: "";
-  width: 0.6rem; height: 0.6rem;
-  border-radius: 50%;
-  background: var(--color-gold);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .noticia-card--destaque .noticia-card__body { padding: clamp(2.8rem, 3.6vw, 4.8rem); }
 .noticia-card--destaque .noticia-card__title { font-size: clamp(2.1rem, 2.4vw, 2.8rem); }
@@ -4635,8 +4662,10 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 }
 .artigo-card__link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; outline: none; }
 .artigo-card__link:focus-visible { box-shadow: inset 0 0 0 3px var(--color-teal); border-radius: var(--radius-lg); }
-.artigo-card__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-mist-bg); }
+.artigo-card__media { position: relative; aspect-ratio: 2 / 1; overflow: hidden; background: var(--color-mist-bg); }
 .artigo-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.artigo-card__media img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.artigo-card:hover .artigo-card__media img { transform: scale(1.04); }
 .artigo-card__body { display: flex; flex-direction: column; gap: var(--space-xs); padding: var(--space-lg) var(--space-lg) var(--space-xl); flex: 1; }
 .artigo-card__body .noticia-card__meta { margin-bottom: var(--space-xs); }
 .artigo-card__title {
@@ -4659,6 +4688,29 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 .artigo-card__body .noticia-card__cta { margin-top: auto; padding-top: var(--space-md); }
 .artigo-card:hover .noticia-card__cta { color: var(--color-teal); background-size: 100% 1px; }
 .artigo-card:hover .noticia-card__cta i { transform: translateX(4px); }
+
+/* só pra leitor de tela (06/10/2026: título "Artigos" da página Artigos, que visualmente ficou só com o rótulo) */
+.so-leitor { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* card editorial (06/10/2026): selo de leitura na imagem, resumo em 2 linhas,
+   palavras-chave e rodapé com autores. Sem degradê nem bloco escuro. */
+/* min-width 0: sem isso o nome dos autores (nowrap) empurrava o card pra fora da tela no celular */
+.artigo-card, .artigo-card__link, .artigo-card__body { min-width: 0; }
+.artigo-card__selo { position: absolute; left: var(--space-md); bottom: var(--space-md); display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.5rem 1.1rem; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.94); color: var(--color-navy); font-size: 1.2rem; font-weight: var(--weight-semibold); line-height: 1.3; box-shadow: 0 2px 8px rgba(var(--navy900-rgb), 0.12); }
+.artigo-card__selo i { color: var(--color-teal); font-size: 1.1rem; }
+.artigo-card__resumo { font-size: 1.45rem; line-height: 1.55; color: var(--color-mist); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: var(--space-2xs); }
+.artigo-card__palavras { list-style: none; margin: var(--space-sm) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.artigo-card__palavras .tag-pill { font-size: 1.15rem; padding: 0.35rem 0.9rem; color: var(--color-teal); background: rgba(var(--teal-rgb), 0.07); border-color: rgba(var(--teal-rgb), 0.18); }
+.artigo-card__rodape { margin-top: auto; padding-top: var(--space-md); border-top: 1px solid var(--color-border-light); display: flex; align-items: center; gap: var(--space-sm); }
+.artigo-card__avatares { display: flex; flex-shrink: 0; }
+.artigo-card__avatar { width: 2.8rem; height: 2.8rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: var(--weight-semibold); color: #fff; background: var(--color-navy); border: 2px solid var(--color-white); }
+.artigo-card__avatar:nth-child(2n) { background: var(--color-teal); }
+.artigo-card__avatar + .artigo-card__avatar { margin-left: -0.8rem; }
+.artigo-card__rodape .artigo-card__autores { flex: 1; min-width: 0; font-size: 1.3rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.artigo-card__rodape .noticia-card__cta { margin-top: 0; padding-top: 0; flex-shrink: 0; margin-left: auto; }
+/* celular: 2 palavras-chave, a 3ª empilhava numa linha só dela */
+@media (max-width: 599px) { .artigo-card__palavras li:nth-child(n+3) { display: none; } }
+@media (prefers-reduced-motion: reduce) { .artigo-card__media img { transition: none; } .artigo-card:hover .artigo-card__media img { transform: none; } }
 
 /* -- hero do artigo: título acadêmico é longo, então o h1 fica menor
       (teto 40px, 3 linhas no pior caso) e o subtítulo vira a parte depois
@@ -4771,7 +4823,7 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   background-image: radial-gradient(circle at 1px 1px, rgba(var(--white-rgb), 0.06) 1px, transparent 1px), linear-gradient(150deg, var(--color-navy) 0%, var(--color-navy-900) 100%);
   background-size: 14px 14px, 100% 100%;
 }
-.noticia-card__media--artigo img { width: auto; height: 5.6rem; object-fit: contain; opacity: 0.9; transform: none; }
+.noticia-card__media--artigo img { position: static; inset: auto; width: auto; height: 5.6rem; object-fit: contain; opacity: 0.9; transform: none; } /* static: a regra de 06/10 que estica a foto do card (absolute) não vale pro logo da capa tipográfica */
 .noticia-card__media--artigo > span:not(.noticia-card__selo) {
   font-size: 1.15rem;
   font-weight: var(--weight-semibold);
@@ -4914,7 +4966,7 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 @media print {
   .navbar, .mobile-menu, .overlay, .footer, .back-fab, .page-back, .artigo-progresso,
   .artigo-lateral, .artigo-toc--mobile, .artigo-acoes, .artigo-acesso, .noticia-fim, .aviso-cookies, .skip-link, .pular-conteudo,
-  .artigo-citar__copiar, [data-aos], .grid-overlay, .page-hero__glow, section[aria-label="Outros artigos"] { display: none !important; }
+  .artigo-citar__copiar, [data-aos], .grid-overlay, .page-hero__glow, section[aria-label="Outros artigos"], dialog.inscricao, .section-header__acao { display: none !important; }
   [data-aos] { display: revert !important; opacity: 1 !important; transform: none !important; }
   .page-hero { background: none !important; padding: 0 0 1.2rem !important; color: #000; min-height: 0 !important; }
   .page-hero::before, .page-hero::after { display: none !important; }
@@ -4996,13 +5048,14 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 .pv-ctx__titulo { font-size: 1.45rem; font-weight: var(--weight-semibold); line-height: 1.3; }
 .pv-ctx > .fa-arrow-right { font-size: 1.2rem; opacity: .6; margin-top: auto; }
 
-/* vídeo em recorte de papel rasgado: .rasgo__papel é a borda creme (clip-path
-   irregular) e envolve .rasgo__recorte, que corta o vídeo com outro contorno
-   mais fundo; a diferença entre os dois é a fibra do papel. No desktop o vídeo
+/* vídeo em recorte de papel rasgado: .rasgo__recorte corta o vídeo com contorno
+   irregular. A borda creme do .rasgo__papel saiu em 06/10/2026 (Decildo pediu
+   bordas mais finas; a referência dele não tem borda): o papel virou só
+   embrulho, sem fundo, padding nem clip-path. No desktop o vídeo
    encosta no topo e na base da seção, como na referência do Dr. Decildo. */
 .pratica-viva__midia { display: flex; justify-content: center; align-items: flex-start; }
-.rasgo__papel { position: relative; padding: 0 0.9rem; background: #EFE9DD; clip-path: polygon(1.18% 0.00%, 2.40% 2.94%, 1.32% 5.88%, 0.48% 8.82%, 1.64% 11.76%, 0.24% 14.71%, 0.24% 17.65%, 3.36% 20.59%, 2.55% 23.53%, 1.70% 26.47%, 1.97% 29.41%, 2.93% 32.35%, 2.05% 35.29%, 0.08% 38.24%, 1.15% 41.18%, 1.35% 44.12%, 1.30% 47.06%, 1.19% 50.00%, 2.59% 52.94%, 2.18% 55.88%, 2.38% 58.82%, 2.31% 61.76%, 1.99% 64.71%, 2.20% 67.65%, 2.49% 70.59%, 1.56% 73.53%, 2.37% 76.47%, 2.55% 79.41%, 0.19% 82.35%, 2.02% 85.29%, 0.23% 88.24%, 2.51% 91.18%, 1.87% 94.12%, 1.82% 97.06%, 3.63% 100.00%, 98.55% 100.00%, 99.50% 97.06%, 99.66% 94.12%, 99.70% 91.18%, 99.45% 88.24%, 97.48% 85.29%, 99.21% 82.35%, 99.45% 79.41%, 97.78% 76.47%, 99.74% 73.53%, 99.45% 70.59%, 97.99% 67.65%, 97.67% 64.71%, 99.77% 61.76%, 99.37% 58.82%, 99.03% 55.88%, 97.51% 52.94%, 98.51% 50.00%, 97.96% 47.06%, 97.64% 44.12%, 97.79% 41.18%, 98.08% 38.24%, 99.49% 35.29%, 97.71% 32.35%, 97.34% 29.41%, 99.90% 26.47%, 99.38% 23.53%, 99.33% 20.59%, 98.45% 17.65%, 99.54% 14.71%, 98.26% 11.76%, 98.55% 8.82%, 98.40% 5.88%, 96.05% 2.94%, 99.96% 0.00%); }
-.rasgo__recorte { position: relative; width: min(34rem, 84vw); aspect-ratio: 9 / 16; clip-path: polygon(1.90% 0.00%, 3.88% 2.94%, 2.13% 5.88%, 0.78% 8.82%, 2.65% 11.76%, 0.40% 14.71%, 0.38% 17.65%, 5.43% 20.59%, 4.13% 23.53%, 2.75% 26.47%, 3.18% 29.41%, 4.74% 32.35%, 3.32% 35.29%, 0.13% 38.24%, 1.85% 41.18%, 2.18% 44.12%, 2.10% 47.06%, 1.92% 50.00%, 4.19% 52.94%, 3.53% 55.88%, 3.84% 58.82%, 3.73% 61.76%, 3.22% 64.71%, 3.56% 67.65%, 4.02% 70.59%, 2.52% 73.53%, 3.82% 76.47%, 4.12% 79.41%, 0.31% 82.35%, 3.27% 85.29%, 0.37% 88.24%, 4.05% 91.18%, 3.02% 94.12%, 2.94% 97.06%, 5.87% 100.00%, 97.65% 100.00%, 99.20% 97.06%, 99.45% 94.12%, 99.51% 91.18%, 99.11% 88.24%, 95.92% 85.29%, 98.72% 82.35%, 99.12% 79.41%, 96.41% 76.47%, 99.58% 73.53%, 99.10% 70.59%, 96.75% 67.65%, 96.24% 64.71%, 99.62% 61.76%, 98.98% 58.82%, 98.44% 55.88%, 95.97% 52.94%, 97.59% 50.00%, 96.71% 47.06%, 96.18% 44.12%, 96.43% 41.18%, 96.89% 38.24%, 99.17% 35.29%, 96.29% 32.35%, 95.71% 29.41%, 99.84% 26.47%, 99.00% 23.53%, 98.92% 20.59%, 97.49% 17.65%, 99.26% 14.71%, 97.19% 11.76%, 97.65% 8.82%, 97.42% 5.88%, 93.63% 2.94%, 99.93% 0.00%); }
+.rasgo__papel { position: relative; }
+.rasgo__recorte { position: relative; width: min(34rem, 84vw); aspect-ratio: 2 / 3; clip-path: polygon(1.50% 0.00%, 2.16% 1.39%, 2.22% 2.78%, 2.05% 4.17%, 2.01% 5.56%, 1.05% 6.94%, 0.65% 8.33%, 0.77% 9.72%, 0.92% 11.11%, 0.47% 12.50%, 1.16% 13.89%, 1.49% 15.28%, 1.45% 16.67%, 1.85% 18.06%, 2.33% 19.44%, 1.85% 20.83%, 1.63% 22.22%, 1.68% 23.61%, 1.16% 25.00%, 0.85% 26.39%, 0.26% 27.78%, 0.92% 29.17%, 0.88% 30.56%, 1.87% 31.94%, 1.61% 33.33%, 1.72% 34.72%, 1.95% 36.11%, 1.36% 37.50%, 1.29% 38.89%, 1.72% 40.28%, 0.88% 41.67%, 0.68% 43.06%, 0.70% 44.44%, 1.38% 45.83%, 1.09% 47.22%, 2.40% 48.61%, 1.58% 50.00%, 1.95% 51.39%, 2.40% 52.78%, 1.20% 54.17%, 0.87% 55.56%, 0.70% 56.94%, 0.64% 58.33%, 0.54% 59.72%, 0.72% 61.11%, 1.59% 62.50%, 2.40% 63.89%, 2.12% 65.28%, 2.29% 66.67%, 1.85% 68.06%, 1.23% 69.44%, 1.21% 70.83%, 0.83% 72.22%, 0.33% 73.61%, 0.45% 75.00%, 0.40% 76.39%, 0.90% 77.78%, 1.51% 79.17%, 1.59% 80.56%, 2.03% 81.94%, 1.68% 83.33%, 1.95% 84.72%, 1.15% 86.11%, 1.41% 87.50%, 0.50% 88.89%, 0.83% 90.28%, 1.01% 91.67%, 0.98% 93.06%, 1.03% 94.44%, 1.77% 95.83%, 2.11% 97.22%, 1.78% 98.61%, 1.67% 100.00%, 98.91% 100.00%, 98.67% 98.61%, 98.58% 97.22%, 98.30% 95.83%, 97.95% 94.44%, 98.06% 93.06%, 98.20% 91.67%, 99.03% 90.28%, 99.12% 88.89%, 99.51% 87.50%, 98.98% 86.11%, 99.35% 84.72%, 98.94% 83.33%, 98.47% 81.94%, 98.34% 80.56%, 97.80% 79.17%, 97.90% 77.78%, 98.31% 76.39%, 99.06% 75.00%, 99.20% 73.61%, 99.37% 72.22%, 98.79% 70.83%, 99.09% 69.44%, 98.65% 68.06%, 98.23% 66.67%, 97.94% 65.28%, 98.02% 63.89%, 98.34% 62.50%, 98.30% 61.11%, 98.24% 59.72%, 98.87% 58.33%, 99.42% 56.94%, 99.57% 55.56%, 99.67% 54.17%, 98.77% 52.78%, 98.47% 51.39%, 98.46% 50.00%, 98.41% 48.61%, 97.73% 47.22%, 97.60% 45.83%, 98.21% 44.44%, 98.99% 43.06%, 99.05% 41.67%, 99.59% 40.28%, 98.71% 38.89%, 99.05% 37.50%, 98.66% 36.11%, 98.15% 34.72%, 98.00% 33.33%, 97.91% 31.94%, 98.00% 30.56%, 98.55% 29.17%, 98.58% 27.78%, 98.89% 26.39%, 98.99% 25.00%, 99.80% 23.61%, 99.03% 22.22%, 98.92% 20.83%, 98.33% 19.44%, 98.00% 18.06%, 98.22% 16.67%, 98.28% 15.28%, 98.02% 13.89%, 98.67% 12.50%, 98.47% 11.11%, 99.36% 9.72%, 99.10% 8.33%, 98.99% 6.94%, 99.47% 5.56%, 99.12% 4.17%, 98.84% 2.78%, 98.49% 1.39%, 97.69% 0.00%); }
 .rasgo__video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 @media (max-width: 599px) {

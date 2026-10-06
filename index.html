@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20260928a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=20261006o" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -206,10 +206,10 @@
 <p class="hero__subtitle"><!-- CMS:texto:home-hero-sub -->Problemas, conflitos e danos são inevitáveis em qualquer sociedade. A forma como respondemos a eles é uma escolha.<!-- /CMS:texto:home-hero-sub --></p>
 <div class="hero__actions">
 <a class="btn btn--white hero__cta" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-arrow link-arrow--light" href="como-atuamos.html">Sou uma instituição <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
-<!-- TODO: número provisório — confirmar com o cliente após reunião e trocar por dado real (profissionais formados, instituições atendidas ou anos de atuação) -->
-<p class="hero__trust"><i aria-hidden="true" class="fa-solid fa-circle-check"></i> +500 profissionais formados em Justiça Restaurativa</p>
+<!-- 06/10/2026: saíram o link "Sou uma instituição" e o "+500 profissionais formados"
+     (número que ainda não era real); a frase é do Decildo (05/10) -->
+<p class="hero__trust"><i aria-hidden="true" class="fa-solid fa-circle-check"></i> Construindo caminhos para que o ideal restaurativo se traduza em prática</p>
 </div>
 </section>
 
@@ -498,6 +498,10 @@
      no Drive em 28/09/2026. Cortados o gancho repetido do início (reels) e o
      cartão final "link na bio". Legenda vem gravada na imagem. Original em
      clientes/instituto-brasileiro-praticas-restaurativas/midia/Biblioteca/Vídeos Originais/. -->
+<!-- seção do vídeo fora do ar desde 06/10/2026: o Decildo vai gravar um vídeo
+     específico pra este lugar. Guardada num <template> (o navegador não mostra
+     nem baixa nada de dentro); pra voltar, é só tirar o <template> (e trocar o vídeo). -->
+<template data-guardado="video-institucional">
 <section aria-label="Conheça o Instituto" class="about-video" id="video-institucional">
 <div class="container">
 <div class="about-video__grid">
@@ -516,6 +520,7 @@
 </div>
 </div>
 </section>
+</template>
 
 <!-- as pessoas por trás do propósito (prévia) -->
 <section aria-label="As pessoas por trás do propósito" class="founders" id="fundadores-preview">
@@ -569,8 +574,9 @@
 <!-- a prática acontecendo (17/09/2026): pedido do Dr. Decildo, vídeo real de
      uma roda de conversa numa moldura de celular (os vídeos dele são
      verticais, gravados pra reels) + chamada pras notícias. Arquivo em
-     assets/videos/home-pratica-tjgo.mp4 (24s, sem áudio, loop); trocar pelo
-     original quando o Rauny mandar. -->
+     assets/videos/home-pratica-contextos.mp4 (55s, sem áudio, loop). Trocado
+     em 06/10/2026 a pedido do Decildo (04/10): montagem com vários contextos
+     no lugar do vídeo da ouvidoria. -->
 <section aria-label="A prática acontecendo" class="pratica-viva" id="pratica-viva">
 <div aria-hidden="true" class="pratica-viva__glow"></div>
 <div class="container">
@@ -595,8 +601,8 @@
 <div class="pratica-viva__midia" data-aos="fade-up" data-aos-delay="100">
 <div class="rasgo__papel">
 <div class="rasgo__recorte">
-<video aria-label="Roda de conversa conduzida pelo IBPR" autoplay="" class="rasgo__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-tjgo-poster.jpg" preload="metadata" webkit-playsinline="">
-<source src="assets/videos/home-pratica-tjgo.mp4" type="video/mp4"/>
+<video aria-label="Encontros e formações conduzidos pelo IBPR em diferentes contextos" autoplay="" class="rasgo__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-contextos-poster.jpg" preload="metadata" webkit-playsinline="">
+<source src="assets/videos/home-pratica-contextos.mp4" type="video/mp4"/>
 </video>
 </div>
 </div>

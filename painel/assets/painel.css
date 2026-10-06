@@ -484,6 +484,9 @@ body.painel {
   margin-bottom: var(--space-sm);
 }
 .painel-item__acoes { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+/* Inscritos (06/10/2026): sem foto, ações à direita */
+.painel-item--sem-foto { grid-template-columns: 1fr auto; align-items: center; }
+.painel-item--sem-foto .painel-item__meta { margin-bottom: 0; }
 
 @media (max-width: 559px) {
   .painel-item { grid-template-columns: 1fr; }

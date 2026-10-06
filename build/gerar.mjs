@@ -287,7 +287,7 @@ const TRES_FRENTES = `<div class="course-eixos measure-narrow" data-aos="fade-up
 </div>`;
 
 /* Miolo da seção IBPR em Movimento. Dois estados, um só lugar que decide. */
-function secaoMovimento(noticias, { kicker, titulo, sub, kickerVazio, tituloVazio, subVazio, botao, linkTopo }) {
+function secaoMovimento(noticias, { kicker, titulo, sub, meta, kickerVazio, tituloVazio, subVazio, botao, linkTopo }) {
   const tem = noticias.length > 0;
 
   /* Home com notícia (16/09/2026): mesmo desenho do cabeçalho de
@@ -308,10 +308,14 @@ ${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join
 </div>`;
   }
 
-  const cabeca = `<div class="section-header section__head measure-narrow" data-aos="fade-up">
+  // Com notícia, a lista ocupa o container inteiro, alinhada com Artigos e o
+  // rodapé (06/10/2026); o estado vazio continua no measure-narrow.
+  const estreito = tem ? '' : ' measure-narrow';
+  const cabeca = `<div class="section-header section__head${estreito}" data-aos="fade-up">
 <p class="overline">${esc(tem ? kicker : kickerVazio)}</p>
 <h2>${esc(tem ? titulo : tituloVazio)}</h2>
-<p class="section-header__sub">${esc(tem ? sub : subVazio)}</p>
+${tem && meta ? `<p class="section-header__meta">${esc(meta)}</p>` : `<p class="section-header__sub">${esc(tem ? sub : subVazio)}</p>`}
+${tem && meta ? `<button class="btn btn--dark section-header__acao" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>` : ''}
 </div>`;
 
   // O selo "Adicionada recentemente" (28/09/2026, era "Publicação mais recente",
@@ -320,11 +324,11 @@ ${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join
   const maisNova = noticias.reduce((m, n) =>
     String(n.criado_em || n.publicado_em || '') > String((m && (m.criado_em || m.publicado_em)) || '') ? n : m, null);
   const corpo = tem
-    ? `<div class="noticias__lista measure-narrow" data-aos="fade-up">\n${noticias.map(n => cardNoticia(n, '', n === maisNova)).join('\n')}\n</div>`
+    ? `<div class="noticias__lista" data-aos="fade-up">\n${noticias.map(n => cardNoticia(n, '', n === maisNova)).join('\n')}\n</div>`
     : TRES_FRENTES;
 
   // O aviso "em breve" só existe enquanto não há publicação.
-  const rodape = `<div class="movimento-foot measure-narrow" data-aos="fade-up">
+  const rodape = `<div class="movimento-foot${estreito}" data-aos="fade-up">
 ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${botao || ''}</div>`;
 
   return [cabeca, corpo, rodape].join('\n');
@@ -369,9 +373,15 @@ async function gerarNoticias(cfg, artigos = []) {
   // --- Página IBPR em Movimento: todas ---
   let lista = await ler('ibpr-em-movimento.html');
   lista = trocarRegiao(lista, 'movimento-lista', secaoMovimento(noticias, {
+    /* 06/10/2026: o Decildo pediu só "Notícias." no lugar de "Publicações do
+       Instituto e da sua rede."; embaixo, uma linha só com dado do próprio site
+       (quantas e a data da mais recente, que é a 1ª da lista), sem texto
+       opinativo (decisão do João). O link pros artigos no pé saiu no mesmo
+       dia: o bloco de Artigos logo abaixo já tem "Ver todos os artigos". */
     kicker: 'IBPR em Movimento',
-    titulo: 'Publicações do Instituto e da sua rede.',
-    sub: 'A produção científica, as formações e a atuação de campo do IBPR e dos profissionais que integram a sua rede.',
+    titulo: 'Notícias.',
+    meta: `${noticias.length} ${noticias.length === 1 ? 'notícia' : 'notícias'}` +
+      (dataCurta(noticias[0] && noticias[0].publicado_em) ? ` · mais recente em ${dataCurta(noticias[0].publicado_em)}` : ''),
     kickerVazio: 'O que vem aqui',
     tituloVazio: 'Três frentes, um mesmo movimento.',
     subVazio: 'Enquanto as primeiras publicações são preparadas, estas são as frentes que o IBPR em Movimento vai reunir.',
@@ -593,20 +603,33 @@ function citacaoABNT(a, url) {
   return `${autores}. ${titulo}. ${onde}. Disponível em: ${url}. Acesso em: `;
 }
 
+/* Card de artigo editorial (06/10/2026, o João achou o anterior sem graça):
+   imagem 2:1 com o tempo de leitura em selo, data, título, resumo em 2 linhas,
+   até 3 palavras-chave e um rodapé com as iniciais e os nomes dos autores +
+   "Ler artigo". Serve artigos.html, o bloco do IBPR em Movimento e o
+   "Outros artigos" de cada artigo; a Home usa cardNoticia. */
 function cardArtigo(a, extra = '') {
   const data = dataCurta(a.publicado_em);
   const href = `artigo-${a.slug}.html`;
+  const leitura = rotuloLeitura(a);
   const capa = a.imagem_url
-    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(a.imagem_url)}"/></div>`
+    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(a.imagem_url)}"/>${leitura ? `<span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> ${esc(leitura)}</span>` : ''}</div>`
     : '';
+  const palavras = lista(a.palavras_chave).filter(Boolean).slice(0, 3);
+  const autores = autoresLista(a);
+  const iniciais = autores.slice(0, 3)
+    .map(x => `<span class="artigo-card__avatar" aria-hidden="true">${esc(String(x.nome).trim().charAt(0).toUpperCase())}</span>`).join('');
   return `<article class="artigo-card${extra ? ' ' + extra : ''}">
 <a class="artigo-card__link" href="${esc(href)}">
 ${capa}<div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}${rotuloLeitura(a) ? `<span class="noticia-card__data">${rotuloLeitura(a)}</span>` : ''}</p>
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}${!capa && leitura ? `<span class="noticia-card__data">${leitura}</span>` : ''}</p>
 <h3 class="artigo-card__title">${esc(tituloCompleto(a))}</h3>
-<p class="artigo-card__autores">${esc(nomesAutores(a))}</p>
-<p class="noticia-card__resumo">${esc(a.resumo || '')}</p>
+${a.resumo ? `<p class="artigo-card__resumo">${esc(a.resumo)}</p>` : ''}
+${palavras.length ? `<ul class="artigo-card__palavras" aria-label="Palavras-chave">${palavras.map(k => `<li class="tag-pill">${esc(k)}</li>`).join('')}</ul>` : ''}
+<div class="artigo-card__rodape">
+${autores.length ? `<div class="artigo-card__avatares">${iniciais}</div><p class="artigo-card__autores">${esc(nomesAutores(a))}</p>` : ''}
 <span class="noticia-card__cta">Ler artigo <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span>
+</div>
 </div>
 </a>
 </article>`;
@@ -654,8 +677,7 @@ async function gerarArtigos(cfg) {
   const miolo = artigos.length
     ? `<div class="section-header section__head" data-aos="fade-up">
 <p class="overline">Artigos</p>
-<h2>Produção acadêmica do Instituto e da sua rede.</h2>
-<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências, escritos pelos profissionais que integram o IBPR.</p>
+<h2 class="so-leitor">Artigos</h2>
 </div>
 <div class="artigos__lista" data-aos="fade-up">
 ${artigos.map(a => cardArtigo(a)).join('\n')}
@@ -672,9 +694,8 @@ ${artigos.map(a => cardArtigo(a)).join('\n')}
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header formacoes__header" data-aos="fade-up">
 <div class="formacoes__header-text">
-<p class="overline">Artigos</p>
-<h2>Produção acadêmica do Instituto e da sua rede.</h2>
-<p class="section-header__sub">Textos completos, com resumo, palavras-chave e referências.</p>
+<p class="overline">IBPR em Movimento</p>
+<h2>Artigos.</h2>
 </div>
 <a class="btn btn--dark" href="artigos.html">Ver todos os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
@@ -758,10 +779,12 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
       ? `<p class="artigo-hero__autores">${autores.map(x => `<span class="artigo-hero__autor"><i aria-hidden="true" class="fa-regular fa-user"></i>${esc(x.nome)}</span>`).join('')}</p>`
       : '';
     // Baixar: PDF de verdade quando existe; senão a impressão da própria página
-    // (folha de estilo de impressão), que a pessoa salva como PDF.
+    // (folha de estilo de impressão), que a pessoa salva como PDF. Desde
+    // 06/10/2026 o destaque do quadro Ações é "Receber publicações" (pedido do
+    // Decildo), então o PDF virou botão comum.
     const acaoPdf = urlSegura(a.pdf_url)
-      ? `<a class="artigo-acao artigo-acao--destaque" href="${esc(urlSegura(a.pdf_url))}" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar o PDF</span></a>`
-      : `<button class="artigo-acao artigo-acao--destaque" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>`;
+      ? `<a class="artigo-acao" href="${esc(urlSegura(a.pdf_url))}" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar o PDF</span></a>`
+      : `<button class="artigo-acao" data-imprimir type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i><span>Baixar em PDF</span></button>`;
 
     const html = molde
       .replaceAll('{{TITULO_COMPLETO}}', () => esc(completo))
@@ -785,6 +808,7 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
       .replaceAll('{{AUTORES_HERO}}', () => autoresHero)
       .replaceAll('{{ACAO_PDF}}', () => acaoPdf)
       .replaceAll('{{ACOES_MOBILE}}', () => `<div class="artigo-acoes artigo-acoes--mobile">
+<button class="artigo-acao artigo-acao--destaque" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i><span>Receber publicações</span></button>
 ${acaoPdf}
 <button class="artigo-acao" data-copiar-citacao type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i><span>Copiar citação</span></button>
 <button class="artigo-acao" data-copiar-link type="button"><i aria-hidden="true" class="fa-solid fa-link"></i><span>Copiar link</span></button>

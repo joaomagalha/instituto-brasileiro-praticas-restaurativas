@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="noindex, nofollow" name="robots"/>
-<title>Textos | Painel IBPR</title>
+<title>Inscritos | Painel IBPR</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -23,8 +23,8 @@
     <a class="painel-topbar__aba" href="artigos.html">Artigos</a>
     <a class="painel-topbar__aba" href="formacoes.html">Formações</a>
     <a class="painel-topbar__aba" href="pessoas.html">Pessoas</a>
-    <a aria-current="page" class="painel-topbar__aba is-ativa" href="textos.html">Textos</a>
-    <a class="painel-topbar__aba" href="inscritos.html">Inscritos</a>
+    <a class="painel-topbar__aba" href="textos.html">Textos</a>
+    <a aria-current="page" class="painel-topbar__aba is-ativa" href="inscritos.html">Inscritos</a>
   </nav>
   <div class="painel-topbar__dir">
     <a class="painel-topbar__site" href="../index.html" rel="noopener" target="_blank"><i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i> <span>Ver o site</span></a>
@@ -51,39 +51,39 @@
 
   <div class="painel-cabeca">
     <div>
-      <p class="overline">Textos do site</p>
-        <h1>Textos do site</h1>
-      <p>Os textos que mudam com o tempo, agrupados por página. Cada um aparece exatamente no
-         lugar em que já está no site; aqui você troca só as palavras. Para deixar um trecho em
-         <em>itálico</em>, escreva ele entre asteriscos: <code>*assim*</code>.</p>
+      <p class="overline">Receber publicações</p>
+      <h1>Inscritos</h1>
+      <p>Quem pediu, pelo botão <strong>Receber publicações</strong> do site, para receber as novas
+         notícias e artigos do Instituto. O site não manda e-mail sozinho: use <strong>Copiar e-mails</strong>
+         e cole no campo <em>Cco</em> (cópia oculta) do seu e-mail, ou baixe a planilha.</p>
+    </div>
+    <div class="painel-item__acoes">
+      <button class="btn btn--dark btn--sm" disabled id="btnCopiar" type="button"><i aria-hidden="true" class="fa-regular fa-copy"></i> Copiar e-mails</button>
+      <button class="btn btn--fantasma btn--sm" disabled id="btnPlanilha" type="button"><i aria-hidden="true" class="fa-solid fa-file-arrow-down"></i> Baixar planilha</button>
     </div>
   </div>
 
   <details class="painel-guia">
     <summary class="painel-guia__titulo">Se bater dúvida</summary>
     <dl>
-      <dt>Por que não dá para criar um texto novo aqui?</dt>
-      <dd>Cada texto desta lista ocupa um lugar fixo em uma página do site. Para tornar outro trecho editável, é só pedir ao João.</dd>
-      <dt>Mudei e me arrependi.</dt>
-      <dd>Use <strong>Restaurar o texto original</strong>. Ele devolve exatamente o texto do dia da entrega do site, mesmo meses depois.</dd>
-      <dt>Como faço uma palavra em itálico?</dt>
-      <dd>Escreva ela entre asteriscos: <code>*assim*</code>. Serve principalmente para título de livro.</dd>
+      <dt>Por que usar a cópia oculta (Cco)?</dt>
+      <dd>Assim ninguém da lista vê o e-mail dos outros. É também o que a LGPD espera.</dd>
+      <dt>Alguém pediu para sair da lista.</dt>
+      <dd>Clique em <strong>Remover</strong> ao lado do nome. A pessoa some da lista na hora.</dd>
+      <dt>Dá para o site mandar os e-mails sozinho?</dt>
+      <dd>Dá, mas é um serviço à parte. Fale com o João.</dd>
     </dl>
   </details>
-
 
   <div class="painel-msg painel-msg--info" id="carregando">Carregando…</div>
 
   <div class="painel-vazio" id="listaVazia" hidden>
-    <strong>Nenhum texto cadastrado</strong>
-    Se você está vendo isto, o banco ainda não recebeu os blocos de texto do site.
-    Avise o João (falta rodar <code>05b-seed-textos.sql</code>).
+    <strong>Ninguém se inscreveu ainda</strong>
+    Quando alguém clicar em Receber publicações no site e deixar o e-mail, aparece aqui.
   </div>
 
-  <div class="painel-com-sumario">
-    <nav aria-label="Páginas do site" class="painel-sumario" id="sumarioTextos" hidden></nav>
-    <div id="lista"></div>
-  </div>
+  <p class="painel-item__meta" id="total" hidden></p>
+  <div class="painel-lista" id="lista"></div>
 
 </main>
 
@@ -91,9 +91,9 @@
 <script src="../assets/js/supabase-config.js?v=20260909m"></script>
 <script src="../assets/js/supabase-client.js?v=20260918a"></script>
 <script src="assets/painel.js?v=20260929a"></script>
-<script src="assets/painel-textos.js?v=20260929a"></script>
+<script src="assets/painel-inscritos.js?v=20261006b"></script>
 <script>
-  IBPR.painel.iniciarTextos();
+  IBPR.painel.iniciarInscritos();
 </script>
 
 </body>
