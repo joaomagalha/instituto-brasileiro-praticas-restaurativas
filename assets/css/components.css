@@ -3936,7 +3936,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    mais curta e o "Voltar", por isso passou. Corrigido pra 0.88/0.66/0.28, que
    é o suficiente pra linha longa e não fecha a foto: o logo na parede fica em
    60-70% da largura, onde o scrim continua leve. */
-.page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.jpg?v=2"); }
+.page-hero--o-instituto { --como-hero: url("../images/o-instituto-hero.webp?v=3"); }
 .page-hero--o-instituto .page-hero__glow { display: none; }
 .page-hero--o-instituto::before {
   content: "";
