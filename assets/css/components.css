@@ -3788,6 +3788,26 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
+/* O "Voltar" fica no alto do hero, onde o scrim já é quase transparente:
+   sem fundo próprio ele media 1,1 a 1,4:1 sobre as paredes claras das fotos.
+   Vira a mesma pílula de vidro das etiquetas, um pouco mais escura (0.74)
+   pra passar AA em todas: 5,0 a 6,7:1 medido nas 4 fotos (08/10). */
+.page-hero--course .page-back {
+  padding: 0.5rem 1.7rem 0.5rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--navy900-rgb), 0.74);
+  border: 1px solid rgba(var(--white-rgb), 0.22);
+  color: var(--color-white);
+  text-shadow: none;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.page-hero--course .page-back__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  background: rgba(var(--white-rgb), 0.08);
+  border-color: rgba(var(--white-rgb), 0.2);
+}
 
 /* --- Variante da página-índice de Formações ---
    Mesma ideia das páginas de curso (foto de fundo + scrim navy), só que
