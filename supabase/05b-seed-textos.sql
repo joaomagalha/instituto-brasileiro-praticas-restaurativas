@@ -170,8 +170,8 @@ Essa forma de atuação permite aproximar a produção acadêmica dos desafios c
     'atuamos-bloco-relacoes', 'como-atuamos.html',
     'Como Atuamos', 'Fortalecendo relações', 'Frase do bloco', 'A frase sobre a foto. O título do bloco fica no código, porque a página inicial repete ele.',
     'texto', 21,
-    'Construir vínculos mais saudáveis entre pessoas, famílias e comunidades.',
-    'Construir vínculos mais saudáveis entre pessoas, famílias e comunidades.'
+    'Construir vínculos mais saudáveis entre pessoas, equipes e instituições.',
+    'Construir vínculos mais saudáveis entre pessoas, equipes e instituições.'
   ),
   (
     'atuamos-bloco-respostas', 'como-atuamos.html',
