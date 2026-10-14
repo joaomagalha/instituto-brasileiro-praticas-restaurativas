@@ -31,6 +31,7 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
+<link as="image" fetchpriority="high" href="assets/images/hero-instituto-poster.webp" rel="preload" type="image/webp"/>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"/>
@@ -98,7 +99,7 @@
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
-<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.png"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.png"/></a>
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.webp"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.webp"/></a>
 <nav aria-label="Navegação principal" class="navbar__nav">
 <ul class="navbar__links">
 <li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="index.html">Início</a></li>
@@ -144,7 +145,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.png"/>
+<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.webp"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -194,7 +195,8 @@
 <!-- hero -->
 <section aria-label="Apresentação" class="hero hero--video" id="hero">
 <div class="hero__bg">
-<video aria-hidden="true" autoplay="" class="hero__video" loop="" muted="" playsinline="" poster="assets/images/hero-instituto-poster.jpg" preload="metadata" webkit-playsinline="">
+<video aria-hidden="true" autoplay="" class="hero__video" loop="" muted="" playsinline="" poster="assets/images/hero-instituto-poster.webp" preload="metadata" webkit-playsinline="">
+<source media="(max-width: 899px)" src="assets/videos/hero-instituto-loop-720.mp4" type="video/mp4"/>
 <source src="assets/videos/hero-instituto-loop.mp4" type="video/mp4"/>
 </video>
 <div aria-hidden="true" class="hero__overlay"></div>
@@ -330,7 +332,7 @@
 <div aria-hidden="true" class="quotes__texture"></div>
 <div class="container">
 <div class="quote-mark" data-aos="fade-up">
-<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="quote-mark__emblem" src="assets/images/ibpr-logo-icone-navy.png"/>
+<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="quote-mark__emblem" src="assets/images/ibpr-logo-icone-navy.webp"/>
 <blockquote class="quote-mark__text"><!-- CMS:texto:home-citacao -->Entre compreender o ideal restaurativo e colocá-lo em prática há um caminho. Desenvolver as habilidades necessárias para percorrê-lo é parte do que fazemos.<!-- /CMS:texto:home-citacao --></blockquote>
 <!-- 17/09/2026, Word do Dr. Decildo: a frase deixou de ser a do manual de
      marca, então a assinatura "IBPR / Manual de marca, citação institucional"
@@ -528,7 +530,7 @@
 <div aria-hidden="true" class="founders__glow"></div>
 <div class="container">
 <div class="section-header founders__header" data-aos="fade-up">
-<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy.png"/>
+<img loading="lazy" decoding="async" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy.webp"/>
 <h2 class="founders__titulo">As pessoas por trás do propósito</h2>
 </div>
 
@@ -601,7 +603,7 @@
 <div class="pratica-viva__midia" data-aos="fade-up" data-aos-delay="100">
 <div class="rasgo__papel">
 <div class="rasgo__recorte">
-<video aria-label="Encontros e formações conduzidos pelo IBPR em diferentes contextos" autoplay="" class="rasgo__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-contextos-poster.jpg" preload="metadata" webkit-playsinline="">
+<video aria-label="Encontros e formações conduzidos pelo IBPR em diferentes contextos" class="rasgo__video" loop="" muted="" playsinline="" poster="assets/images/home-pratica-contextos-poster.jpg" preload="none" webkit-playsinline="">
 <source src="assets/videos/home-pratica-contextos.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -698,7 +700,7 @@
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.png"/>
+<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.webp"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
 <div class="footer__social">
 <span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>

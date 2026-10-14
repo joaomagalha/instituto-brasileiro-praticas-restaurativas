@@ -250,7 +250,7 @@ function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
   return `<article class="noticia-card${extra ? ' ' + extra : ''}">
 <a class="noticia-card__link" href="${esc(href)}">
 ${n.capaTipografica && !n.imagem_url
-    ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.png"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`
+    ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.webp"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`
     : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
