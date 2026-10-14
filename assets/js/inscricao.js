@@ -28,7 +28,7 @@
         '<p class="overline">IBPR em Movimento</p>' +
         '<h2 class="inscricao__titulo" id="inscricaoTitulo">Receber publicações</h2>' +
         '<p class="inscricao__texto">Deixe seu e-mail e receba as novas notícias e artigos do Instituto.</p>' +
-        '<label class="inscricao__campo"><span>Nome</span><input autocomplete="name" maxlength="120" name="nome" type="text"/></label>' +
+        '<label class="inscricao__campo"><span>Nome <small>(opcional)</small></span><input autocomplete="name" maxlength="120" name="nome" type="text"/></label>' +
         '<label class="inscricao__campo"><span>E-mail</span><input aria-describedby="inscricaoMsg" autocomplete="email" maxlength="254" name="email" required type="email"/></label>' +
         // armadilha pra robô: humano não vê nem preenche
         '<label aria-hidden="true" class="inscricao__isca">Não preencha<input autocomplete="off" name="hp_x9" tabindex="-1" type="text"/></label>' +
@@ -62,8 +62,10 @@
     if (f.hp_x9.value) { mensagem('Inscrição recebida. Obrigado!', 'ok'); return; } // robô
     var emailOk = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email);
     f.email.setAttribute('aria-invalid', emailOk ? 'false' : 'true');
-    f.aceite.setAttribute('aria-invalid', f.aceite.checked ? 'false' : 'true');
-    if (!emailOk) { mensagem('Confira o e-mail digitado.', 'erro'); f.email.focus(); return; }
+    f.aceite.setAttribute('aria-invalid', (!emailOk || f.aceite.checked) ? 'false' : 'true');
+    // Mensagem que diz o que fazer (14/10/2026): vazio pede o e-mail; com
+    // algo digitado e fora do formato, pede pra conferir.
+    if (!emailOk) { mensagem(email ? 'Confira o e-mail digitado.' : 'Informe seu e-mail para receber.', 'erro'); f.email.focus(); return; }
     if (!f.aceite.checked) { mensagem('Para receber, é preciso marcar o aceite.', 'erro'); f.aceite.focus(); return; }
 
     var botao = f.querySelector('.inscricao__enviar');

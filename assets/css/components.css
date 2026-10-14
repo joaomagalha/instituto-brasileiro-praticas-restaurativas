@@ -4333,6 +4333,10 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 .inscricao__campo { display: flex; flex-direction: column; gap: 0.4rem; font-size: 1.3rem; font-weight: var(--weight-medium); }
 .inscricao__campo input { font: inherit; font-size: 1.6rem; font-weight: 400; padding: 1.1rem 1.3rem; border: 1px solid var(--color-border-light); border-radius: var(--radius-sm); color: var(--color-navy); background: var(--color-white); }
 .inscricao__campo input:focus { outline: 2px solid var(--color-teal); outline-offset: 1px; border-color: var(--color-teal); }
+/* Campo com erro fica marcado, não só a frase lá embaixo (14/10/2026). */
+.inscricao__campo input[aria-invalid="true"] { border-color: #B42318; box-shadow: 0 0 0 1px #B42318; }
+.inscricao__aceite input[aria-invalid="true"] { outline: 2px solid #B42318; outline-offset: 2px; }
+.inscricao__campo small { font-size: 1.2rem; font-weight: 400; color: var(--color-mist); }
 .inscricao__isca { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .inscricao__aceite { display: flex; gap: 0.8rem; align-items: flex-start; font-size: 1.3rem; line-height: 1.5; color: var(--color-mist); margin-top: var(--space-xs); }
 .inscricao__aceite input { margin-top: 0.3rem; width: 1.6rem; height: 1.6rem; accent-color: var(--color-teal); flex-shrink: 0; }
