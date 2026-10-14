@@ -209,7 +209,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 .btn--white,
-.btn--primary { background: var(--color-white); color: rgba(var(--navy-rgb), 0.65); }
+/* 14/10/2026: o texto em repouso era navy a 65% e o CTA principal parecia
+   desativado (no celular não há hover pra acender). Agora já nasce navy cheio;
+   o hover segue com o anel dourado e a subida. */
+.btn--primary { background: var(--color-white); color: var(--color-navy); }
 
 .btn--dark { background: var(--color-navy); color: var(--color-white); }
 
@@ -910,7 +913,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   max-width: 56rem;
 }
 
-.hero__eyebrow { display: inline-flex; align-items: center; font-size: 1.15rem; opacity: 0.75; }
+/* 14/10/2026: a etiqueta dourada de 11,5 px a 75% media 2,4 a 4:1 sobre o
+   concreto do vídeo; ganha opacidade cheia, 1 px a mais e a sombra do título.
+   A linha de apoio (.hero__trust) segue a mesma lógica. */
+.hero__eyebrow { display: inline-flex; align-items: center; font-size: 1.25rem; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.7); }
 
 .hero__accent {
   background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-paper) 100%);
@@ -949,7 +955,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 .link-arrow:hover { color: var(--color-accent); }
 .link-arrow:hover i { transform: translateX(3px); }
 
-.hero__trust { display: inline-flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-lg); font-size: 1.3rem; color: rgba(var(--white-rgb), 0.72); }
+.hero__trust { display: inline-flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-lg); font-size: 1.3rem; color: rgba(var(--white-rgb), 0.88); text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6); }
 .hero__trust i { color: var(--color-accent); font-size: 1.5rem; }
 
 .hero__float-badge {
