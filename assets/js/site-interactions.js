@@ -570,6 +570,17 @@ document.addEventListener('keydown', (e) => {
   new IntersectionObserver(function (entradas) {
     fab.classList.toggle('is-visible', !entradas[0].isIntersecting);
   }, { rootMargin: '-100px 0px 0px 0px', threshold: 0 }).observe(noHero);
+
+  // Rolando pra baixo (lendo) ele se recolhe; rolando pra cima, volta.
+  // Perto do fim da página ele fica, porque ali a pessoa já terminou.
+  let ultimoY = window.scrollY;
+  window.addEventListener('scroll', function () {
+    const y = window.scrollY;
+    if (Math.abs(y - ultimoY) < 8) return;
+    const noFim = y + window.innerHeight >= document.documentElement.scrollHeight - 200;
+    fab.classList.toggle('is-recolhido', y > ultimoY && !noFim);
+    ultimoY = y;
+  }, { passive: true });
 })();
 
 // Página de artigo: data de acesso da citação ABNT (é a data de hoje, de quem

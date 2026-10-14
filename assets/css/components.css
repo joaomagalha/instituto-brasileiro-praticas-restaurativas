@@ -3013,6 +3013,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 .back-fab i { color: var(--color-gold); font-size: 1.2rem; transition: transform var(--transition-fast); }
 .back-fab.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+/* 14/10/2026: ele cobria 1 ou 2 linhas do texto no celular e encostava nos
+   botões no computador. Agora some enquanto a pessoa rola pra baixo (lendo)
+   e volta quando ela rola pra cima (procurando como sair). */
+.back-fab.is-visible.is-recolhido { opacity: 0; visibility: hidden; transform: translateY(1.2rem); }
 .back-fab:hover { background: var(--color-navy); border-color: rgba(var(--gold-rgb), 0.62); color: var(--color-white); }
 .back-fab:hover i { transform: translateX(-3px); }
 
