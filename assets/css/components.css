@@ -5194,3 +5194,12 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 .course-pills a.tag-pill { min-height: 4.4rem; border-color: var(--color-border-light); }
 .course-pills a.tag-pill::after { content: "→"; margin-left: 0.2rem; transition: transform var(--transition-fast); }
 .course-pills a.tag-pill:hover::after { transform: translateX(3px); }
+
+/* Política de privacidade (14/10/2026): os h2 tinham margem 0 e entrelinha
+   de corpo (1,65), então cada título colava no parágrafo de cima e, em 2
+   linhas no celular, abria um vão entre elas; a lista saía com 14 px num
+   texto de 18 px. */
+#politica .prose h2 { margin: 4.8rem 0 1.2rem; line-height: 1.25; }
+#politica .prose h2:first-of-type { margin-top: 2.4rem; }
+#politica .prose .dot-list li { font-size: 1.7rem; line-height: 1.65; }
+#politica .prose .dot-list li + li { margin-top: 0.8rem; }
