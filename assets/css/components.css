@@ -5105,3 +5105,16 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   .rasgo__recorte { width: auto; height: 100%; min-height: 60rem; max-height: 72rem; }
 }
 
+
+/* Práticas Restaurativas (14/10/2026): cada faixa escura de setor fecha com
+   o caminho pra formação correspondente. Antes a página (9 mil px) não
+   linkava nenhum curso até o CTA final. */
+.setor-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.6rem;
+  margin-top: 4.8rem;
+}
+@media (max-width: 599px) {
+  .setor-cta .btn { width: 100%; justify-content: center; }
+}
