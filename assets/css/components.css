@@ -5207,3 +5207,16 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 #politica .prose h2:first-of-type { margin-top: 2.4rem; }
 #politica .prose .dot-list li { font-size: 1.7rem; line-height: 1.65; }
 #politica .prose .dot-list li + li { margin-top: 0.8rem; }
+
+/* Alvos de toque no celular (14/10/2026), medidos abaixo de 44 px: botão do
+   menu (35x38), links do rodapé (19 px de altura), "Expandir todos" (24 px)
+   e os links com seta (23 px). O padding com margem negativa aumenta a área
+   de toque sem mexer no desenho nem no espaçamento. */
+.navbar__mobile-btn { min-width: 4.4rem; min-height: 4.4rem; }
+.course-modules__toggle { padding: 1rem 0.6rem; margin: -1rem -0.6rem; }
+.link-arrow { padding-block: 1rem; margin-block: -1rem; }
+@media (max-width: 899px) {
+  .footer--vidro .footer__links { gap: 0; }
+  .footer__link { padding-block: 1.2rem; }
+  .footer--vidro .footer__link--todas { display: inline-block; padding-block: 1.2rem; line-height: 1.4; }
+}
