@@ -334,6 +334,29 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
   return [cabeca, corpo, rodape].join('\n');
 }
 
+/* "Outras notícias" no fim de cada notícia (14/10/2026): antes a página
+   acabava em "Receber publicações" e quem terminava de ler não tinha pra
+   onde seguir. Mesmo desenho do "Outros artigos" do artigo. */
+function blocoOutrasNoticias(noticias, atual) {
+  const outras = noticias.filter(o => o.slug !== atual.slug).slice(0, 3);
+  if (!outras.length) return '';
+  return `<section aria-label="Outras notícias" class="section section--white">
+<div aria-hidden="true" class="grid-overlay"></div>
+<div class="container" style="position:relative;z-index:1">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
+<p class="overline">Continue lendo</p>
+<h2>Outras notícias.</h2>
+</div>
+<a class="btn btn--dark" href="ibpr-em-movimento.html">Ver todas as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+</div>
+<div class="noticias__lista" data-aos="fade-up">
+${outras.map(o => cardNoticia(o)).join('\n')}
+</div>
+</div>
+</section>`;
+}
+
 async function gerarNoticias(cfg, artigos = []) {
   const noticias = await consultar(cfg,
     'noticias?select=titulo,slug,resumo,conteudo,categoria,imagem_url,imagem_alt,imagem_legenda,fonte_nome,fonte_url,publicado_em,criado_em' +
@@ -438,7 +461,8 @@ async function gerarNoticias(cfg, artigos = []) {
         : '')
       .replaceAll('{{FIGURA}}', () => figura)
       .replaceAll('{{FONTE}}', () => fonte)
-      .replaceAll('{{CORPO}}', () => corpo);
+      .replaceAll('{{CORPO}}', () => corpo)
+      .replaceAll('{{OUTRAS}}', () => blocoOutrasNoticias(noticias, n));
 
     await salvar(arquivo, html);
   }
@@ -675,9 +699,14 @@ async function gerarArtigos(cfg) {
   // --- artigos.html: todos ---
   let pagina = await ler('artigos.html');
   const miolo = artigos.length
+    // Cabeçalho igual ao da lista de notícias (14/10/2026): antes o h2 era só
+    // pra leitor de tela e a lista abria com um "ARTIGOS" solto e um vão.
     ? `<div class="section-header section__head" data-aos="fade-up">
-<p class="overline">Artigos</p>
-<h2 class="so-leitor">Artigos</h2>
+<p class="overline">IBPR em Movimento</p>
+<h2>Artigos.</h2>
+<p class="section-header__meta">${esc(`${artigos.length} ${artigos.length === 1 ? 'artigo' : 'artigos'}` +
+      (dataCurta(artigos[0] && artigos[0].publicado_em) ? ` · mais recente em ${dataCurta(artigos[0].publicado_em)}` : ''))}</p>
+<button class="btn btn--dark section-header__acao" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>
 </div>
 <div class="artigos__lista" data-aos="fade-up">
 ${artigos.map(a => cardArtigo(a)).join('\n')}
