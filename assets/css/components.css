@@ -5244,3 +5244,41 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
    no celular. Enquanto ela não chega, o <i> vazio tinha 0 px e o texto
    pulava quando o ícone aparecia; com 1em reservado, não pula. */
 i.fa-solid, i.fa-regular, i.fa-brands { display: inline-block; min-width: 1em; text-align: center; }
+
+/* =====================================================================
+   ROLAGEM MAIS LEVE (14/10/2026)
+   O João sentiu os itens "travando" ao rolar. O JS de rolagem já era
+   passivo e agrupado por quadro; o peso estava no desenho:
+   1. Vidro (backdrop-filter) não tem cache: a cada quadro o navegador lê o
+      que está atrás e desfoca de novo. Na barra fixa do topo (rolada, 90%
+      branca, o desfoque quase nem aparecia) e no Voltar flutuante (94%
+      opaco) isso acontecia em TODO quadro de rolagem. Nos cards e no
+      rodapé, em todo quadro em que eles estão na tela. Sai o desfoque e o
+      fundo fica um pouco mais opaco pra compensar; o desenho é o mesmo.
+      Fica o vidro só onde ele aparece de verdade e não rola junto: a barra
+      no topo da página (sobre o vídeo/foto), o menu do celular aberto e as
+      pílulas do hero.
+   2. Os brilhos de fundo tinham filter: blur(90px) em círculos de até
+      720 px, o efeito mais caro que há. O degradê radial deles já some
+      nas bordas sozinho, então o desfoque saiu sem mudar o visual.
+   3. A animação de entrada subia cada bloco 100 px em 0,8 s enquanto a
+      pessoa rolava, o que dá a sensação de item "travando". Agora sobe
+      24 px em 0,6 s: o bloco ainda aparece com suavidade, sem pular.
+   ===================================================================== */
+.navbar.scrolled .navbar__container { background: rgba(var(--white-rgb), 0.97); backdrop-filter: none; -webkit-backdrop-filter: none; }
+.back-fab { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(6, 26, 48); }
+.footer__cartao { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.service-card__category { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(var(--navy900-rgb), 0.62); }
+.proj-card__badge, .proj-card__arrow, .pillar-chip, .encontro__legenda,
+.noticia-card__selo, .hero__float-badge { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.proj-card__badge { background: linear-gradient(rgba(var(--gold-rgb), 0.25), rgba(var(--gold-rgb), 0.25)), rgba(var(--navy900-rgb), 0.35); }
+.proj-card__arrow { background: rgba(var(--white-rgb), 0.18); }
+.encontro__legenda { background: rgba(var(--navy900-rgb), 0.86); }
+.noticia-card__selo { background: rgba(var(--navy900-rgb), 0.66); }
+.hero__float-badge { background: rgba(var(--navy900-rgb), 0.84); }
+
+.proposito__glow, .founders__glow, .noticias__glow, .page-hero__glow,
+.brand-panel__glow, .pratica-viva__glow { filter: none; }
+
+[data-aos="fade-up"][data-aos="fade-up"] { transform: translate3d(0, 2.4rem, 0); }
+body[data-aos-duration] [data-aos][data-aos] { transition-duration: 0.6s; }
