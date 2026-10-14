@@ -1247,7 +1247,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   flex: none;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3; /* 14/10/2026: 2 linhas cortava o melhor da frase */
   overflow: hidden;
 }
 
@@ -1364,13 +1364,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    que empurrava o título dele 14px pra baixo e desalinhava a família.
    Reservando as duas linhas, os 4 cards batem em qualquer viewport. */
 .service-card__audience {
-  font-size: 1.05rem;
+  font-size: 1.2rem; /* era 1.05rem (10,5 px), miúdo no celular */
   font-weight: var(--weight-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-overline);
   color: var(--color-accent);
   line-height: var(--leading-ui);
-  min-height: 2.94rem; /* 2 × (1.05rem × 1.4) */
+  min-height: 3.36rem; /* 2 × (1.2rem × 1.4) */
 }
 
 /* Os chips de modalidade/certificação (.service-card__meta) e os gradientes
