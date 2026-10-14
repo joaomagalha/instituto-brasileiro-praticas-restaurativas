@@ -1508,6 +1508,8 @@ async function gerarTextos(cfg) {
    ===================================================================== */
 
 const FORA_DO_SITEMAP = new Set(['404.html']);
+// A Home entra como "/" (14/10/2026): é pra onde os redirecionamentos levam,
+// e o canonical/og:url do index.html também apontam pra "/".
 
 async function gerarSitemap() {
   const paginas = (await readdir(RAIZ))
@@ -1516,7 +1518,7 @@ async function gerarSitemap() {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${paginas.map(f => `  <url><loc>${SITE}/${f}</loc></url>`).join('\n')}
+${paginas.map(f => `  <url><loc>${SITE}/${f === 'index.html' ? '' : f}</loc></url>`).join('\n')}
 </urlset>
 `;
 
