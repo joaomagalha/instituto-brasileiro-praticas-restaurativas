@@ -404,16 +404,19 @@
       });
     });
 
-    function enviarImagem(arquivo, slug, sufixo) {
+    function enviarImagem(original, slug, sufixo) {
+      var preparar = interno.otimizarImagem(original);
+      return preparar.then(function (arquivo) {
       var ext = (arquivo.name.split('.').pop() || 'jpg').toLowerCase();
       var caminho = slug + '-' + sufixo + '-' + Date.now() + '.' + ext;
 
       return db.storage.from(BUCKET)
-        .upload(caminho, arquivo, { cacheControl: '31536000', upsert: false })
+        .upload(caminho, arquivo, { cacheControl: '31536000', upsert: false, contentType: arquivo.type || undefined })
         .then(function (r) {
           if (r.error) throw r.error;
           return db.storage.from(BUCKET).getPublicUrl(caminho).data.publicUrl;
         });
+      });
     }
 
 

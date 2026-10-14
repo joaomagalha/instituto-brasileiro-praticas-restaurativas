@@ -795,16 +795,18 @@ window.IBPR.painel = (function () {
     });
 
     /* Envia a imagem pro storage e devolve o endereço público dela. */
-    function enviarImagem(arquivo, slug) {
+    function enviarImagem(original, slug) {
+      return otimizarImagem(original).then(function (arquivo) {
       var ext = (arquivo.name.split('.').pop() || 'jpg').toLowerCase();
       var caminho = slug + '-' + Date.now() + '.' + ext;
 
       return db.storage.from(BUCKET)
-        .upload(caminho, arquivo, { cacheControl: '31536000', upsert: false })
+        .upload(caminho, arquivo, { cacheControl: '31536000', upsert: false, contentType: arquivo.type || undefined })
         .then(function (r) {
           if (r.error) throw r.error;
           return db.storage.from(BUCKET).getPublicUrl(caminho).data.publicUrl;
         });
+      });
     }
 
 
@@ -961,6 +963,43 @@ window.IBPR.painel = (function () {
   }
 
 
+  /* Reduz a foto antes de subir (14/10/2026). Foto de celular chega com
+     4000 px e 3 a 5 MB, e o site servia esse original até nos cards de
+     360 px. Aqui ela vira no máximo 1600 px no lado maior (JPEG 0,82; PNG
+     continua PNG, pra não perder transparência). Se não der pra ler a
+     imagem, se ela já for pequena ou se o resultado sair maior, sobe o
+     original, sem erro: nunca trava o envio por causa disto. */
+  function otimizarImagem(arquivo, ladoMax) {
+    ladoMax = ladoMax || 1600;
+    var tipo = (arquivo && arquivo.type) || '';
+    if (!/^image\/(jpeg|png|webp)$/.test(tipo)) return Promise.resolve(arquivo);
+    return new Promise(function (resolve) {
+      var endereco = URL.createObjectURL(arquivo);
+      var img = new Image();
+      img.onerror = function () { URL.revokeObjectURL(endereco); resolve(arquivo); };
+      img.onload = function () {
+        URL.revokeObjectURL(endereco);
+        var w = img.naturalWidth, h = img.naturalHeight;
+        var escala = Math.min(1, ladoMax / Math.max(w, h));
+        if (escala === 1 && arquivo.size < 400 * 1024) { resolve(arquivo); return; }
+        var tela = document.createElement('canvas');
+        tela.width = Math.round(w * escala);
+        tela.height = Math.round(h * escala);
+        var ctx = tela.getContext('2d');
+        var saida = tipo === 'image/png' ? 'image/png' : 'image/jpeg';
+        if (saida === 'image/jpeg') { ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, tela.width, tela.height); }
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, 0, 0, tela.width, tela.height);
+        tela.toBlob(function (blob) {
+          if (!blob || blob.size >= arquivo.size) { resolve(arquivo); return; }
+          var base = (arquivo.name || 'imagem').replace(/\.[^.]+$/, '');
+          resolve(new File([blob], base + (saida === 'image/png' ? '.png' : '.jpg'), { type: saida }));
+        }, saida, 0.82);
+      };
+      img.src = endereco;
+    });
+  }
+
   return {
     montarConta: montarConta,
     apagarDoStorage: apagarDoStorage,
@@ -983,6 +1022,7 @@ window.IBPR.painel = (function () {
       sessaoValida: sessaoValida,
       protegerFormulario: protegerFormulario,
       fotoNoPainel: fotoNoPainel,
+      otimizarImagem: otimizarImagem,
       /* Devolve o cliente do banco, ou null se o painel ainda não foi
          conectado (e nesse caso já explicou isso na tela). */
       conectar: function () { return exigirConfiguracao() ? db : null; }

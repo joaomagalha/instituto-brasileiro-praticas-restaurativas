@@ -304,7 +304,10 @@
     });
 
     /* Envia um arquivo pro bucket e devolve o endereço público. */
-    function enviar(arquivo, slug, sufixo) {
+    function enviar(original, slug, sufixo) {
+      // só a capa passa pela redução; o PDF sobe como veio
+      var preparar = sufixo === 'capa' ? interno.otimizarImagem(original) : Promise.resolve(original);
+      return preparar.then(function (arquivo) {
       var ext = (arquivo.name.split('.').pop() || 'bin').toLowerCase();
       var caminho = slug + (sufixo ? '-' + sufixo : '') + '-' + Date.now() + '.' + ext;
       return db.storage.from(BUCKET)
@@ -313,6 +316,7 @@
           if (r.error) throw r.error;
           return db.storage.from(BUCKET).getPublicUrl(caminho).data.publicUrl;
         });
+      });
     }
 
 
