@@ -3805,7 +3805,15 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    sem fundo próprio ele media 1,1 a 1,4:1 sobre as paredes claras das fotos.
    Vira a mesma pílula de vidro das etiquetas, um pouco mais escura (0.74)
    pra passar AA em todas: 5,0 a 6,7:1 medido nas 4 fotos (08/10). */
-.page-hero--course .page-back {
+/* 14/10/2026: a mesma pílula vale pra todo hero com foto (Formações media
+   3,07 a 3,8:1 sem ela). */
+.page-hero--course .page-back,
+.page-hero--formacoes .page-back,
+.page-hero--como-atuamos .page-back,
+.page-hero--o-instituto .page-back,
+.page-hero--praticas .page-back,
+.page-hero--ibpr-movimento .page-back,
+.page-hero--aluno .page-back {
   padding: 0.5rem 1.7rem 0.5rem 0.5rem;
   border-radius: var(--radius-pill);
   background: rgba(var(--navy900-rgb), 0.74);
@@ -3815,7 +3823,13 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
-.page-hero--course .page-back__icon {
+.page-hero--course .page-back__icon,
+.page-hero--formacoes .page-back__icon,
+.page-hero--como-atuamos .page-back__icon,
+.page-hero--o-instituto .page-back__icon,
+.page-hero--praticas .page-back__icon,
+.page-hero--ibpr-movimento .page-back__icon,
+.page-hero--aluno .page-back__icon {
   width: 2.8rem;
   height: 2.8rem;
   background: rgba(var(--white-rgb), 0.08);
@@ -4024,10 +4038,10 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   background-image:
     linear-gradient(to bottom, rgba(var(--navy900-rgb), 0.58) 0%, rgba(var(--navy900-rgb), 0) 24%),
     linear-gradient(to right,
-      rgba(var(--navy900-rgb), 0.82) 0%,
-      rgba(var(--navy900-rgb), 0.50) 42%,
-      rgba(var(--navy900-rgb), 0.20) 70%,
-      rgba(var(--navy900-rgb), 0.06) 100%),
+      rgba(var(--navy900-rgb), 0.84) 0%,
+      rgba(var(--navy900-rgb), 0.70) 42%,
+      rgba(var(--navy900-rgb), 0.40) 70%,
+      rgba(var(--navy900-rgb), 0.14) 100%),
     var(--como-hero);
   background-size: cover;
   background-position: center 48%;
@@ -5121,4 +5135,27 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 }
 @media (max-width: 599px) {
   .setor-cta .btn { width: 100%; justify-content: center; }
+}
+
+/* Contraste no celular (14/10/2026). Na tela estreita o subtítulo vai até a
+   borda direita, onde o scrim "to right" quase some: medido 1,9 a 2,7:1 em
+   Como Atuamos, IBPR em Movimento, Artigos e nas notícias. Abaixo de 600 px o
+   scrim vira uniforme, encorpado o bastante pra passar AA na foto inteira. */
+@media (max-width: 599px) {
+  .page-hero--como-atuamos::before,
+  .page-hero--ibpr-movimento::before {
+    background-image:
+      linear-gradient(to bottom,
+        rgba(var(--navy900-rgb), 0.74) 0%,
+        rgba(var(--navy900-rgb), 0.66) 50%,
+        rgba(var(--navy900-rgb), 0.80) 100%),
+      var(--como-hero);
+  }
+}
+/* Data e tempo de leitura de artigo e notícia: era dourado de 11,5 px sem
+   sombra sobre a foto (1,1 a 1,8:1 nos piores pontos). Vira branco com a
+   mesma sombra do título. */
+.page-hero--ibpr-movimento .page-hero__eyebrow {
+  color: rgba(var(--white-rgb), 0.92);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 }
