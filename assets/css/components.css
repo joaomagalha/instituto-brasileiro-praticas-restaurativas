@@ -5238,3 +5238,9 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   .footer__link { padding-block: 1.2rem; }
   .footer--vidro .footer__link--todas { display: inline-block; padding-block: 1.2rem; line-height: 1.4; }
 }
+
+/* Ícones (14/10/2026): a folha do Font Awesome passou a carregar sem segurar
+   a página (preload + onload no <head>), o que tirou ~2 s do primeiro desenho
+   no celular. Enquanto ela não chega, o <i> vazio tinha 0 px e o texto
+   pulava quando o ícone aparecia; com 1em reservado, não pula. */
+i.fa-solid, i.fa-regular, i.fa-brands { display: inline-block; min-width: 1em; text-align: center; }
