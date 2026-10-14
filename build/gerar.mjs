@@ -974,10 +974,13 @@ ${itens.map(i => `<li>${esc(i)}</li>`).join('\n')}
 </div>`;
 }
 
-/* Bloco que ficou sem conteúdo simplesmente não aparece na página. */
+/* Bloco que ficou sem conteúdo simplesmente não aparece na página.
+   Ordem (14/10/2026): o que decide a inscrição vem primeiro ("Para quem é"
+   logo depois do "O que você vai desenvolver"; antes era o 6º de 7 blocos)
+   e "Temas relacionados", que são links pra fora da página, vai pro fim. */
 function blocosDoCurso(f) {
-  return [blocoDesenvolver, blocoTemas, blocoEixos, blocoModulos,
-          blocoFundamento, blocoParaQuem, blocoResultados]
+  return [blocoDesenvolver, blocoParaQuem, blocoEixos, blocoModulos,
+          blocoFundamento, blocoResultados, blocoTemas]
     .map(fn => fn(f)).filter(Boolean).join('\n\n');
 }
 

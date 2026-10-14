@@ -3594,6 +3594,8 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 }
 
 .section--dark .block-title { color: var(--color-white); border-bottom-color: rgba(var(--white-rgb), 0.12); }
+/* O ícone encostava no texto (0 px): "#Temas relacionados". 14/10/2026. */
+.block-title > i { margin-right: 0.6em; }
 
 .block + .block { margin-top: var(--space-2xl); }
 
@@ -5169,3 +5171,11 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   color: rgba(var(--white-rgb), 0.92);
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
 }
+
+/* Páginas de curso (14/10/2026): etiqueta que não é link ("Para quem é")
+   deixa de parecer botão (sem borda, fundo papel); etiqueta que é link
+   ("Temas relacionados") ganha seta e alvo de toque de 44 px. */
+.course-pills span.tag-pill { border-color: transparent; background: var(--color-paper); }
+.course-pills a.tag-pill { min-height: 4.4rem; border-color: var(--color-border-light); }
+.course-pills a.tag-pill::after { content: "→"; margin-left: 0.2rem; transition: transform var(--transition-fast); }
+.course-pills a.tag-pill:hover::after { transform: translateX(3px); }
