@@ -2280,6 +2280,10 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   .solucoes__nav-index { color: var(--color-gold); }
   .solucoes__nav-title { color: var(--color-white); }
   .solucoes__nav-desc { grid-template-rows: minmax(0, 1fr); opacity: 1; }
+  /* 14/10/2026: no celular a lista 01-04 repetia os mesmos títulos e textos
+     dos 4 cards com foto logo abaixo (a seção passava de 3.200 px). Os cards
+     já trazem título e resumo, então a lista sai. */
+  .solucoes__nav-col { display: none; }
 }
 
 /* ===================================
