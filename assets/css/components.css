@@ -2362,6 +2362,17 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    quebrariam a contagem par/ímpar. */
 .founder:nth-of-type(even) .founder__portrait { order: 2; }
 
+/* 14/10/2026: com 1fr 1fr a moldura (30rem) ficava colada na borda e o texto
+   começava no meio da página, uns 320 px depois da foto, e a linha parecia
+   desalinhada. A coluna do retrato passa a ter a largura da moldura e o texto
+   ocupa o resto, logo ao lado; a alternância de lados continua. */
+@media (min-width: 900px) {
+  .founder { grid-template-columns: 30rem minmax(0, 1fr); gap: var(--space-3xl); }
+  .founder:nth-of-type(even) { grid-template-columns: minmax(0, 1fr) 30rem; }
+  .founder__content { max-width: 60ch; }
+  .founder:nth-of-type(even) .founder__content { justify-self: end; }
+}
+
 /* quando o retrato vai pra coluna direita (fundador par), flex-start
    coincidiria com o gap do meio, não com a borda real da página. Precisa
    ser flex-end pra colar na borda direita — espelho exato do flex-start da
