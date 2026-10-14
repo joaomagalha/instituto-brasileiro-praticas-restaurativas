@@ -3494,7 +3494,8 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    grade, pra os dois alinharem pela mesma margem esquerda. */
 .measure-narrow { max-width: 92rem; margin-inline: auto; }
 .card-grid--equal { align-items: stretch; }
-.card-grid--equal .info-card { min-height: 36rem; }
+/* 14/10/2026: o min-height de 36rem deixava 70 a 148 px vazios no pé dos
+   cards; o stretch da grade já iguala as alturas em cada linha. */
 @media (min-width: 700px)  { .card-grid--2 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 700px)  { .card-grid--3 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .card-grid--3 { grid-template-columns: repeat(3, 1fr); } }
@@ -3519,10 +3520,12 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 
 .info-card__title {
   font-family: var(--font-display);
-  font-size: var(--text-h5);
+  /* era --text-h5 (14 a 16 px): no celular o título saía menor que o texto
+     do card (15 px). 14/10/2026. */
+  font-size: clamp(1.7rem, 1.4vw, 1.8rem);
   font-weight: var(--weight-semibold);
   color: var(--color-navy);
-  line-height: var(--leading-display);
+  line-height: 1.3;
   text-wrap: balance;
 }
 
@@ -3594,6 +3597,10 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
 }
 
 .section--dark .block-title { color: var(--color-white); border-bottom-color: rgba(var(--white-rgb), 0.12); }
+/* Práticas Restaurativas (14/10/2026): nas faixas escuras o .block-title é o
+   título da seção ("Como o IBPR pode apoiar sua instituição") e ficava com
+   16 px, menor que o título dos cards de dentro (18 px). */
+.section--dark > .container > .block-title { font-size: clamp(2.2rem, 2.4vw, 2.8rem); padding-bottom: var(--space-md); margin-bottom: var(--space-xl); }
 /* O ícone encostava no texto (0 px): "#Temas relacionados". 14/10/2026. */
 .block-title > i { margin-right: 0.6em; }
 
