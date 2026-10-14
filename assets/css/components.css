@@ -3429,6 +3429,9 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
   text-wrap: balance;
 }
 .mv-item__desc { font-size: var(--text-body); color: var(--color-mist); line-height: var(--leading-body); }
+/* Rótulo "Missão" / "Visão" acima de cada item (14/10/2026): sem ele o
+   visitante não sabia qual frase era qual. */
+.mv-item__rotulo { font-size: 1.2rem; font-weight: var(--weight-semibold); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--color-teal); margin-bottom: var(--space-xs); }
 
 @media (min-width: 700px) {
   .mv-item:first-child { border-right: 1px solid rgba(var(--navy-rgb), 0.12); padding-right: var(--space-3xl); }
