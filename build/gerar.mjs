@@ -251,7 +251,7 @@ function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
 <a class="noticia-card__link" href="${esc(href)}">
 ${n.capaTipografica && !n.imagem_url
     ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.webp"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`
-    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(img)}"/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
+    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(web(img))}"/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
@@ -428,7 +428,7 @@ async function gerarNoticias(cfg, artigos = []) {
     const legenda = String(n.imagem_legenda || '').trim();
     const figura = n.imagem_url
       ? `<figure class="noticia-figura${legenda ? ' noticia-figura--com-legenda' : ''}">\n` +
-        `<div class="noticia-figura__moldura"><img alt="${esc(n.imagem_alt || '')}" decoding="async" src="${esc(n.imagem_url)}"/></div>\n` +
+        `<div class="noticia-figura__moldura"><img alt="${esc(n.imagem_alt || '')}" decoding="async" src="${esc(web(n.imagem_url))}"/></div>\n` +
         (legenda ? `<figcaption class="noticia-figura__legenda">${esc(legenda)}</figcaption>\n` : '') +
         `</figure>`
       : '';
@@ -637,7 +637,7 @@ function cardArtigo(a, extra = '') {
   const href = `artigo-${a.slug}.html`;
   const leitura = rotuloLeitura(a);
   const capa = a.imagem_url
-    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(a.imagem_url)}"/>${leitura ? `<span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> ${esc(leitura)}</span>` : ''}</div>`
+    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(web(a.imagem_url))}"/>${leitura ? `<span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> ${esc(leitura)}</span>` : ''}</div>`
     : '';
   const palavras = lista(a.palavras_chave).filter(Boolean).slice(0, 3);
   const autores = autoresLista(a);
@@ -1023,7 +1023,7 @@ function cardFormacao(f, extras = '') {
     : '';
 
   return `<article class="service-card"${extras}>
-<div class="service-card__img-wrap"><img alt="${esc(f.imagem_card_alt || '')}" class="service-card__photo" decoding="async" loading="lazy" src="${esc(f.imagem_card_url || '')}"/></div>
+<div class="service-card__img-wrap"><img alt="${esc(f.imagem_card_alt || '')}" class="service-card__photo" decoding="async" loading="lazy" src="${esc(web(f.imagem_card_url || ''))}"/></div>
 <div class="service-card__body"><p class="service-card__audience">${esc(f.publico_curto || '')}</p><h3 class="service-card__title">${esc(tituloCurto(f))}</h3><p class="service-card__desc">${esc(f.resumo || '')}</p>${meta}<a class="service-card__link" href="${esc(arquivoFormacao(f))}">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
 </article>`;
 }
@@ -1252,6 +1252,7 @@ async function gerarFormacoes(cfg) {
          "assets/images/x.jpg" viraria "assets/css/assets/images/x.jpg" e a
          foto não carregaria. Conferido no navegador, não só no código. */
       .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(f.imagem_hero_url || IMAGEM_PADRAO)))
+      .replaceAll('{{IMAGEM_WEB}}', () => esc(absoluto(web(f.imagem_hero_url || IMAGEM_PADRAO))))
       /* Placeholder da foto do topo (ver build/dev/lqip.py). Só existe pras
          fotos do repositório; foto enviada pelo painel cai em "none", e a
          página mostra o gradiente azul até a foto chegar, como antes. */
@@ -1340,7 +1341,7 @@ function cartaoPessoa(p, comTrajetoria) {
      o painel exige foto, então isto é rede de proteção, não caminho
      normal. */
   const foto = p.foto_url
-    ? `<img alt="${esc(p.foto_alt || p.nome)}" class="founder__photo" decoding="async"${medidas} loading="lazy" src="${esc(p.foto_url)}"${largura}/>`
+    ? `<img alt="${esc(p.foto_alt || p.nome)}" class="founder__photo" decoding="async"${medidas} loading="lazy" src="${esc(web(p.foto_url))}"${largura}/>`
     : '';
 
   const cargo = p.cargo
@@ -1535,6 +1536,17 @@ async function gerarTextos(cfg) {
    data seria sempre "agora", o sitemap mudaria em toda rodada e o robô
    ficaria commitando sozinho pra sempre.
    ===================================================================== */
+
+/* Foto local que tem irmã .webp na mesma pasta (15/10/2026): o site mostra a
+   WebP, mais leve; og:image, twitter:image e dados estruturados continuam no
+   JPG, porque prévia de link (WhatsApp, redes) nem sempre aceita WebP. Foto
+   que veio pelo painel (Supabase) passa direto. */
+function web(url) {
+  const u = String(url || '');
+  const m = /^(\/?)(assets\/images\/.+)\.(jpe?g|png)(\?.*)?$/i.exec(u);
+  if (m && existsSync(path.join(RAIZ, m[2] + '.webp'))) return m[1] + m[2] + '.webp' + (m[4] || '');
+  return url;
+}
 
 const FORA_DO_SITEMAP = new Set(['404.html']);
 // A Home entra como "/" (14/10/2026): é pra onde os redirecionamentos levam,
