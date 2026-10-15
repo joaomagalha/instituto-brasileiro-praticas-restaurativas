@@ -17,6 +17,20 @@ if (rasgoVideos.length && 'IntersectionObserver' in window
   }, { rootMargin: '200px 0px' });
   rasgoVideos.forEach((v) => vigia.observe(v));
 }
+// Vídeo de fundo do topo pausa quando sai da tela e volta quando reaparece
+// (15/10/2026): antes ele seguia decodificando 1080p durante a página toda,
+// o que pesa na rolagem.
+const videosDeFundo = document.querySelectorAll('.hero__video, .page-hero__video');
+if (videosDeFundo.length && 'IntersectionObserver' in window
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const vigiaFundo = new IntersectionObserver((entradas) => {
+    entradas.forEach(({ target, isIntersecting }) => {
+      if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
+    });
+  });
+  videosDeFundo.forEach((v) => vigiaFundo.observe(v));
+}
 document.querySelectorAll('.hero__video, .page-hero__video').forEach((heroVideo) => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   heroVideo.muted = true;

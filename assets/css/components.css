@@ -354,7 +354,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 
 /* .navbar__logo-img--full é fill branco (funciona sobre o hero escuro).
    Rolada, a navbar vira uma pílula clara e o branco some — crossfade pra
-   ibpr-logo-full-navy.png, o mesmo lockup recolorido em var(--color-navy)
+   ibpr-logo-full-navy.webp, o mesmo lockup recolorido em var(--color-navy)
    (só o "ink" branco: texto IBPR, silhueta humana, subtítulo; a árvore
    colorida e "DE PRÁTICAS RESTAURATIVAS" em verde ficam intocados). */
 .navbar.scrolled .navbar__logo-img--full { opacity: 0; }
@@ -792,10 +792,14 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   z-index: 150;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-slow);
+  /* 15/10/2026: fechado ele ficava só transparente, cobrindo a tela inteira
+     com o desfoque ligado em toda página. Agora some de verdade (visibility)
+     depois que a animação de saída termina. */
+  visibility: hidden;
+  transition: opacity var(--transition-slow), visibility 0s linear 0.5s;
 }
 
-.overlay.active { opacity: 1; pointer-events: all; }
+.overlay.active { opacity: 1; pointer-events: all; visibility: visible; transition: opacity var(--transition-slow), visibility 0s; }
 
 /* ===================================
    HERO — 100% CSS, sem vídeo/foto
@@ -855,7 +859,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 /* Hero de vídeo (Home real) — árvore da marca animada, gerada a partir do
-   ibpr-logo-icone.png. Mesmo padrão de .hero__bg/.hero__overlay da Gaia,
+   ibpr-logo-icone.webp. Mesmo padrão de .hero__bg/.hero__overlay da Gaia,
    cores adaptadas pro navy do IBPR. Quando .hero--video está presente, os
    blobs CSS (::before/::after de .hero__bg) somem — o vídeo já resolve o
    movimento de fundo. */
@@ -1612,7 +1616,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
 }
 
 /* a silhueta humana do ícone é branca (feita pra fundo escuro) e some no
-   papel claro da seção — usa ibpr-logo-icone-navy.png, a mesma árvore com
+   papel claro da seção — usa ibpr-logo-icone-navy.webp, a mesma árvore com
    a silhueta recolorida em var(--color-navy) (só o "ink" branco; as
    folhas coloridas e o traço azul da base ficam intocados) */
 .quote-mark__emblem {
@@ -3883,7 +3887,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    O glow sai pra não turvar a foto. O scrim aqui é um gradiente vertical
    único, mais encorpado que o das páginas de curso, porque esta foto é
    clara e movimentada justamente no lado onde o título fica. */
-.page-hero--formacoes { --course-hero: url("../images/formacoes/formacoes-hero.jpg"); }
+.page-hero--formacoes { --course-hero: url("../images/formacoes/formacoes-hero.webp"); }
 .page-hero--formacoes .page-hero__glow { display: none; }
 .page-hero--formacoes::before {
   content: "";
@@ -3909,7 +3913,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    alto à esquerda, exatamente onde ficam kicker/título/subtítulo — então o
    scrim principal corre da esquerda pra direita, protegendo essa coluna, e
    uma pincelada no topo cobre a faixa da navbar. */
-.page-hero--como-atuamos { --como-hero: url("../images/como-atuamos-hero.jpg"); }
+.page-hero--como-atuamos { --como-hero: url("../images/como-atuamos-hero.webp"); }
 .page-hero--como-atuamos .page-hero__glow { display: none; }
 .page-hero--como-atuamos::before {
   content: "";
@@ -3937,7 +3941,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    da esquerda segura o texto sobre a porta e a estante. Valores medidos na
    build/dev/medir-hero.html. Original em clientes/…/midia/Biblioteca/Cenários/
    area-do-aluno-hero-original.jpeg (2752×1536). */
-.page-hero--aluno { --como-hero: url("../images/area-do-aluno-hero.jpg"); }
+.page-hero--aluno { --como-hero: url("../images/area-do-aluno-hero.webp"); }
 .page-hero--aluno .page-hero__glow { display: none; }
 .page-hero--aluno::before {
   content: "";
@@ -3992,7 +3996,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    logo em relevo, cobogó, jardim) — amarra a página de identidade à Home.
    Desde 10/09 ela NÃO é mais frame do vídeo (era 720p esticado pra 1600px, e
    aparecia pixelada): é imagem própria gerada em 2752px, com o logo real
-   composto na parede a partir de ibpr-logo-icone-navy.png, então o logo é
+   composto na parede a partir de ibpr-logo-icone-navy.webp, então o logo é
    exato e não tem risco de deformação de IA. O cobogó à esquerda é claro e
    recortado, bem onde entram título/subtítulo, então o scrim principal corre
    da esquerda pra direita e é mais encorpado que o de Como Atuamos.
@@ -4071,7 +4075,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    movimento (concreto moldado, cobogó, vidro pro jardim) — amarra a "atuação
    dentro e fora" da página. O teto claro e o fundo iluminado puxam o scrim
    um pouco mais forte no topo e na esquerda, onde entram título/subtítulo. */
-.page-hero--ibpr-movimento { --como-hero: url("../images/ibpr-movimento-hero.jpg"); }
+.page-hero--ibpr-movimento { --como-hero: url("../images/ibpr-movimento-hero.webp"); }
 .page-hero--ibpr-movimento .page-hero__glow { display: none; }
 .page-hero--ibpr-movimento::before {
   content: "";
@@ -4105,7 +4109,7 @@ section[id], .formacao[id] { scroll-margin-top: 11rem; }
    aula do Decildo), no lugar da foto gerada. O poster é o 1º quadro do
    vídeo; o scrim (::before) ficou igual, só sem a foto, e sobe pra z 1 pra
    cobrir o vídeo. Quem pede "reduzir movimento" vê o poster parado. */
-.page-hero--praticas { --como-hero: url("../images/praticas-restaurativas-hero.jpg"); isolation: isolate; }
+.page-hero--praticas { --como-hero: url("../images/praticas-restaurativas-hero.webp"); isolation: isolate; }
 .page-hero--praticas .page-hero__glow { display: none; }
 .page-hero__video {
   position: absolute; inset: 0; z-index: 0;
