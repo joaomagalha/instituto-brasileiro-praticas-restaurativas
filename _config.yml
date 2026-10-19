@@ -1,0 +1,7 @@
+# GitHub Pages: o que fica no repositório mas não vai pro site no ar.
+# (19/10/2026, revisão de segurança: SQL, scripts de build e anotações não precisam estar no domínio.)
+exclude:
+  - supabase
+  - build
+  - README.md
+  - CLAUDE.md

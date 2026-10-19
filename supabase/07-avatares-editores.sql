@@ -1,3 +1,5 @@
+-- 19/10/2026: e-mails tirados do repositório público (revisão de segurança).
+-- Antes de rodar de novo, trocar cada <e-mail de ...> pelo e-mail de login da pessoa.
 -- =====================================================================
 -- IBPR — Foto de perfil dos editores no painel (15/09/2026)
 -- =====================================================================
@@ -19,22 +21,22 @@ comment on column public.editores.foto_url is
 update public.editores e
 set foto_url = 'https://www.ibpr.com.br/painel/assets/avatares/joao-victor.jpg'
 from auth.users u
-where u.id = e.user_id and u.email = 'magalhaesjoaovictor81@gmail.com';
+where u.id = e.user_id and u.email = '<e-mail de João>';
 
 -- Os três do Instituto: só surte efeito depois que cada um aceitar o
 -- convite e for cadastrado em editores (passo 6 do SETUP). Pode rodar
 -- de novo depois sem problema.
 update public.editores e
 set foto_url = 'https://www.ibpr.com.br/assets/images/fundadores/fernanda-mariela-lopes.jpg'
-from auth.users u where u.id = e.user_id and lower(u.email) = 'fernandamariela@hotmail.com';
+from auth.users u where u.id = e.user_id and lower(u.email) = '<e-mail de Fernanda>';
 
 update public.editores e
 set foto_url = 'https://www.ibpr.com.br/assets/images/fundadores/decildo-lopes.jpg'
-from auth.users u where u.id = e.user_id and lower(u.email) = 'decildo@hotmail.com';
+from auth.users u where u.id = e.user_id and lower(u.email) = '<e-mail de Decildo>';
 
 update public.editores e
 set foto_url = 'https://www.ibpr.com.br/assets/images/fundadores/rauny-viana.jpg'
-from auth.users u where u.id = e.user_id and lower(u.email) = 'raunyviana@hotmail.com';
+from auth.users u where u.id = e.user_id and lower(u.email) = '<e-mail de Rauny>';
 
 -- Conferir:
 -- select u.email, e.nome, e.foto_url from public.editores e join auth.users u on u.id = e.user_id;
