@@ -1,3 +1,5 @@
+-- ⚠ 19/10/2026: NÃO rodar de novo depois do 21-inscritos-so-pela-funcao.sql:
+-- reabriria a gravação direta em inscritos (ver supabase/20 e 21).
 -- =====================================================================
 -- IBPR · 17 · Inscritos para receber publicações (06/10/2026)
 -- =====================================================================

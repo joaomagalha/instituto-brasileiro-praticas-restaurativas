@@ -48,11 +48,13 @@ jobs:
       # ref: main (28/09/2026). Sem isso, uma execução que ficou na fila
       # montava o site sobre a versão do main de quando foi DISPARADA, não
       # a de agora.
-      - uses: actions/checkout@v4
+      # Fixadas pelo código do commit, não pela etiqueta (19/10/2026, revisão de
+      # segurança): etiqueta pode ser movida por quem controla a action.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: main
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '22'
 

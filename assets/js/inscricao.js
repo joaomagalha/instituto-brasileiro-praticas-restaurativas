@@ -2,10 +2,11 @@
    IBPR — "Receber publicações" (06/10/2026)
    =====================================================================
    Qualquer elemento com [data-receber-publicacoes] abre uma janela com
-   nome, e-mail e o aceite da LGPD. A inscrição vai direto pra tabela
-   `inscritos` do Supabase pela API REST (sem carregar o supabase-js: é um
-   POST só). O visitante só consegue INSERIR; a lista só o editor vê, na
-   aba Inscritos do painel (ver supabase/17-inscritos.sql).
+   nome, e-mail e o aceite da LGPD. A inscrição vai pela função
+   `inscrever` do Supabase (API REST, sem carregar o supabase-js: é um
+   POST só), que responde igual pra e-mail novo e já inscrito e aplica os
+   limites anti-robô (supabase/20-seguranca-2026-10-19.sql). A lista só o
+   editor vê, na aba Inscritos do painel (ver supabase/17-inscritos.sql).
 
    Carregar depois de supabase-config.js. Sem configuração, o botão vira
    um e-mail pronto pro ibpr@ibpr.com.br: o visitante nunca fica sem saída.
@@ -76,31 +77,32 @@
     var corte = typeof AbortController === 'function' ? new AbortController() : null;
     var relogio = corte ? setTimeout(function () { corte.abort(); }, 15000) : null;
 
-    fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/inscritos', {
+    fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/rpc/inscrever', {
       method: 'POST',
       signal: corte ? corte.signal : undefined,
       headers: {
         'apikey': cfg.anonKey,
         'Authorization': 'Bearer ' + cfg.anonKey,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        nome: nome || null,
-        email: email,
-        origem: (location.pathname.split('/').pop() || 'index.html').slice(0, 200),
-        consentimento: true
+        p_nome: nome || null,
+        p_email: email,
+        p_origem: (location.pathname.split('/').pop() || 'index.html').slice(0, 200),
+        p_consentimento: true
       })
     })
       .then(function (r) {
-        // 409 = e-mail já inscrito: pra quem está do lado de fora, deu certo
+        // A função responde igual pra e-mail novo e já inscrito (19/10/2026,
+        // revisão de segurança): resposta diferente deixava qualquer um testar
+        // quem está na lista. 409 só aparece numa corrida rara; também é sucesso.
         if (r.ok || r.status === 409) {
           f.reset();
-          mensagem(r.status === 409 ? 'Este e-mail já está na lista. Obrigado!' : 'Pronto! Você vai receber as próximas publicações do IBPR.', 'ok');
+          mensagem('Pronto! Você vai receber as próximas publicações do IBPR.', 'ok');
           dialogo.querySelector('.inscricao__msg').focus();
           return;
         }
-        // 400: a trava do banco (P0001, 18-inscritos-travas.sql) ou dado recusado (e-mail/nome fora da regra)
+        // 400: a trava do banco (P0001, 20-seguranca) ou dado recusado (e-mail/nome fora da regra)
         if (r.status === 400) {
           return r.json().catch(function () { return {}; }).then(function (b) {
             mensagem(b && b.code === 'P0001'
