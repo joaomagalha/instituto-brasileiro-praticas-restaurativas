@@ -116,6 +116,7 @@ window.IBPR.painel = (function () {
     if (/same.*password|should be different/i.test(m)) return 'A senha nova precisa ser diferente da antiga.';
     if (/rate limit|too many/i.test(m)) return 'Muitas tentativas seguidas. Espere alguns minutos e tente de novo.';
     if (/Password should be at least/i.test(m)) return 'A senha precisa ter pelo menos 8 caracteres.';
+    if (/Password should contain/i.test(m)) return 'A senha precisa ter letras e números.';
     if (/Failed to fetch|NetworkError/i.test(m)) return 'Sem conexão com o servidor. Verifique a internet e tente de novo.';
     if (/exceeded the maximum allowed size/i.test(m)) return 'A imagem é grande demais. Use uma de até 5 MB.';
     return 'Não deu certo: ' + m;
@@ -540,6 +541,8 @@ window.IBPR.painel = (function () {
       var s2 = $('senha2').value;
 
       if (s1.length < 8)  { aviso('A senha precisa ter pelo menos 8 caracteres.'); return; }
+      // mesma regra do servidor (Supabase Auth, 19/10/2026): letras e números
+      if (!/[A-Za-z]/.test(s1) || !/[0-9]/.test(s1)) { aviso('A senha precisa ter letras e números.'); return; }
       if (s1 !== s2)      { aviso('As duas senhas não são iguais.'); return; }
 
       var btn = $('btnSalvarSenha');
