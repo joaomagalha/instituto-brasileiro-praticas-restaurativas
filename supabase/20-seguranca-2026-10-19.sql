@@ -8,8 +8,9 @@
 --      e-mail novo ou já inscrito. Antes, a resposta (409, ou o contador
 --      Content-Range) deixava qualquer um testar quem está na lista.
 --      O visitante para de gravar direto na tabela no arquivo 21.
---   2. Limite por pessoa: no máximo 3 tentativas por hora vindas da mesma
---      internet, e 60 no site todo a cada 10 min. Os limites são conferidos
+--   2. Limite por internet: no máximo 10 tentativas por hora vindas do mesmo
+--      IP (10, não 3: turma de formação no mesmo Wi-Fi ou operadora de celular
+--      dividem o IP), e 60 no site todo a cada 10 min. Os limites são conferidos
 --      ANTES de olhar se o e-mail existe (senão o limite viraria outro
 --      jeito de testar). O IP vira um código HMAC com chave secreta do
 --      Vault (não dá pra voltar ao IP sem a chave) e é apagado em 24 h.
@@ -117,7 +118,7 @@ begin
 
   -- limites ANTES de saber se o e-mail existe
   if hash is not null and (select count(*) from public.inscricao_tentativas
-       where ip_hash = hash and criado_em > now() - interval '1 hour') >= 3 then
+       where ip_hash = hash and criado_em > now() - interval '1 hour') >= 10 then
     raise exception 'Muitas inscrições em pouco tempo. Tente de novo em alguns minutos.'
       using errcode = 'P0001';
   end if;
@@ -209,6 +210,7 @@ select
         and not has_table_privilege('anon', 'public.inscricao_tentativas', 'SELECT')
         and not has_table_privilege('authenticated', 'public.inscricao_tentativas', 'SELECT')
         and exists (select 1 from vault.secrets where name = 'inscricao_chave_ip')
+        and pg_get_functiondef('public.inscrever(text,text,text,boolean)'::regprocedure) like '%>= 10 then%'
        then 'ok' else 'ERRO' end as inscricao,
   case when pg_get_functiondef('public.avisar_github()'::regprocedure) like '%e_editor()%'
        then 'ok' else 'ERRO' end as aviso_so_editor,
