@@ -85,6 +85,7 @@ window.IBPR.cookies = (function () {
     caixa.setAttribute('role', 'dialog');
     caixa.setAttribute('aria-label', 'Aviso sobre cookies');
     caixa.innerHTML =
+      '<span class="aviso-cookies__icone" aria-hidden="true"><i class="fa-solid fa-cookie-bite"></i></span>' +
       '<div class="aviso-cookies__texto">' +
         '<p><strong>Este site usa cookies para entender como as pessoas navegam.</strong></p>' +
         '<p>São dados de navegação, usados só para melhorar o site. Você pode recusar, e nada ' +
@@ -92,8 +93,8 @@ window.IBPR.cookies = (function () {
           '<a href="' + POLITICA + '">política de privacidade</a>.</p>' +
       '</div>' +
       '<div class="aviso-cookies__acoes">' +
-        '<button class="btn btn--dark btn--sm" type="button" data-cookies="aceito">Aceitar</button>' +
-        '<button class="btn btn--outline btn--sm" type="button" data-cookies="recusado">Recusar</button>' +
+        '<button class="btn btn--dark" type="button" data-cookies="aceito">Aceitar</button>' +
+        '<button class="fcard__btn fcard__btn--claro" type="button" data-cookies="recusado">Recusar</button>' +
       '</div>';
 
     caixa.addEventListener('click', function (e) {
