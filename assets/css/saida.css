@@ -5,39 +5,7 @@
    enquanto sai por cima da tela. Só "to" (começa do valor da entrada, não a
    atropela) e `translate` (não briga com transform do hover). A chamada final
    fica de fora (é o fim da página). ===== */
-@supports (animation-timeline: view()) {
-  @keyframes saida-hero { to { opacity: 0; translate: 0 -8vh; } }
-  @keyframes saida { to { opacity: 0; translate: 0 -6vh; } }
-
-  .hero-interna__conteudo { animation: saida-hero linear both; animation-timeline: view(); animation-range: exit-crossing -6vh exit-crossing 50%; } /* só perto do topo (João, 20/10) */
-
-  /* blocos mais altos que a tela apagavam enquanto ainda eram lidos (o "exit"
-     começa quando a base deles chega ao pé da tela); neles a saída vai nas peças
-     de dentro: itens da faixa da Práticas, cartões do Como Atuamos, eixos e o
-     cartão do aluno na Formações (19/10) */
-  .citacao-cartao:not(.citacao-cartao--cta), .leitura__lado, .sustenta__topo, .sustenta__pilar,
-  .mv2__topo, .mv2-cartao, .orienta__topo, .orienta__faixa, .founders__titulo, .pessoa-cartao, .convite,
-  .atuar__foto, .catalogo__topo, .fint__para, .aluno__texto,
-  .mov-noticias .section-header, #artigos .section-header,
-  .section > .container > * {
-    animation: saida linear both;
-    animation-timeline: view();
-    animation-range: exit-crossing -6vh exit-crossing 50%; /* João, 20/10: "só sumam perto do topo". O exit-crossing conta do topo do bloco cruzando o topo da tela, seja ele alto ou baixo (o "exit" de antes começava na base do bloco chegando ao pé da tela, e o cartão de cada pessoa apagava no meio) */
-  }
-
-  /* quem já tem animação própria: a saída entra junto, na lista */
-  @media (prefers-reduced-motion: no-preference) {
-    .leitura__passo { animation: leitura-sobe linear both, saida linear both; animation-timeline: view(), view(); animation-range: entry 0% entry 60%, exit-crossing -6vh exit-crossing 50%; }
-  }
-  .abordagem.is-visible .abordagem__lado { animation: abordagem-sobe 0.9s var(--curva-saida) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .fint.is-visible .fint__topo { animation: fint-sobe 0.9s var(--curva-saida) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .fint.is-visible .fint__eixo { animation: fint-sobe 0.9s var(--curva-saida) calc(0.3s + var(--k) * 0.15s) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .atuar.is-visible .atuar__item { animation: atuar-sobe 0.9s var(--curva-saida) calc(0.7s + var(--k) * 0.14s) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .aluno.is-visible .aluno__tela { animation: aluno-sobe 1s var(--curva-saida) 0.25s both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .mov-noticias .noticia-card.is-visible { animation: not-sobe 0.6s var(--curva-saida) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  #artigos .artigo-card.is-visible { animation: art-pousa 1s var(--curva-saida) both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-  .abordagem.is-visible .abordagem__texto { animation: abordagem-sobe 0.9s var(--curva-saida) 0.2s both, saida linear both; animation-timeline: auto, view(); animation-range: normal, exit-crossing -6vh exit-crossing 50%; }
-}
+/* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 /* overflow:hidden vira "área de rolagem" e prende a linha do tempo do view()
    (as pessoas e o convite não reagiam); clip corta igual sem isso, como na Home */
 .founders { overflow: clip; }

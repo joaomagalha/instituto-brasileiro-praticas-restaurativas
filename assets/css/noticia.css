@@ -75,10 +75,7 @@
   .js-noticia .noticia-corpo .noticia-figura.is-in .noticia-figura__legenda { transition-delay: 0.35s; }
   .js-noticia .noticia-corpo :is(.noticia-figura.is-in .noticia-figura__legenda, .prose p.is-in, .noticia-fonte.is-in, .noticia-fim.is-in) { opacity: 1; transform: none; }
 
-  @supports (animation-timeline: view()) {
-    @keyframes noticia-saida { to { opacity: 0; translate: 0 -6vh; } }
-    .noticia-corpo :is(.noticia-figura, .prose p, .noticia-fonte) { animation: noticia-saida linear both; animation-timeline: view(); animation-range: exit-crossing -6vh exit-crossing 50%; }
-  }
+  /* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 }
 
 @media (max-width: 767px) {

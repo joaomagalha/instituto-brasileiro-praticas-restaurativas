@@ -235,15 +235,7 @@
    peça sobe e apaga enquanto sai por cima da tela. Vai nas peças, não no
    capítulo inteiro, pra não apagar o que ainda está sendo lido. O cartão preso
    da direita fica de fora. ===== */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .curso-cap__titulo, .curso-checks li, .curso-publico li, .curso-eixo, .curso-modulos .course-modules__bar,
-    .curso-modulo, .curso-fundamento, .curso-resultado, .curso-temas li {
-      animation: saida linear both;
-      animation-timeline: view();
-      animation-range: exit-crossing -6vh exit-crossing 50%;
-    }
-    /* o pulso do check continua junto com a saída */
-    .js-curso .is-in .curso-check { animation: curso-pulso 0.7s ease-out calc(0.7s + var(--i, 0) * 0.06s) both; }
-  }
+/* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-curso .is-in .curso-check { animation: curso-pulso 0.7s ease-out calc(0.7s + var(--i, 0) * 0.06s) both; }
 }

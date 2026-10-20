@@ -168,8 +168,6 @@
     /* o passo no meio da tela fica cheio; acima e abaixo, mais claro (contraste ≥4,5 no claro) */
     @keyframes leitura-foco { 0%, 100% { color: #66727F; } 35%, 65% { color: #2E4157; } }
     @keyframes leitura-sobe { from { opacity: 0; transform: translate3d(0, 28px, 0); } to { opacity: 1; transform: none; } }
-    .leitura__passo { animation: leitura-sobe linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
-    .leitura__passo p { animation: leitura-foco linear both; animation-timeline: view(); animation-range: cover 10% cover 90%; }
   }
 }
 
@@ -714,7 +712,7 @@
 .atuar__desc { margin: 1.2rem 0 0; max-width: 46ch; color: rgba(255, 255, 255, 0.88); font-size: clamp(1.6rem, 1.2vw, 1.8rem); line-height: 1.6; text-wrap: pretty; }
 /* cartões de vidro que sobem sobre a base da foto; um pouco mais transparentes
    (João, 19/10: "só um pouquinho") */
-.atuar__itens { position: relative; z-index: 1; list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.6rem, 2vw, 2.4rem); margin: clamp(-12rem, -9vw, -8rem) clamp(1.6rem, 3vw, 4rem) 0; translate: 0 calc((1 - var(--p)) * 4rem); }
+.atuar__itens { position: relative; z-index: 1; list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.6rem, 2vw, 2.4rem); margin: clamp(-12rem, -9vw, -8rem) clamp(1.6rem, 3vw, 4rem) 0; } /* sem andar na rolagem (20/10): o vidro desfocado se movendo a cada quadro pesava; os cartões já sobem ao aparecer (atuar-sobe) */
 .atuar__item { padding: 3.2rem 2.8rem; border-radius: 2rem; background: rgba(255, 255, 255, 0.74); -webkit-backdrop-filter: blur(20px) saturate(1.25); backdrop-filter: blur(20px) saturate(1.25); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75), 0 24px 48px -28px rgba(var(--navy-rgb), 0.5); }
 .atuar__num { display: block; margin-bottom: 1.4rem; color: #0F6B6D; font: 600 1.25rem/1 var(--font-body); letter-spacing: 0.1em; }
 .atuar__item-titulo { margin: 0 0 1rem; color: var(--color-navy); font: 500 clamp(1.9rem, 1.5vw, 2.2rem)/1.25 var(--font-titulo); letter-spacing: -0.02em; text-wrap: balance; }
@@ -1147,7 +1145,9 @@
    não cortar a sombra nem a capa inclinada (João, 19/10: a dobra parecia um ladrilho) */
 #artigos .artigo-card { clip-path: polygon(0 3.2rem, 3.2rem 0, 3.2rem -10rem, calc(100% + 10rem) -10rem, calc(100% + 10rem) calc(100% + 10rem), -10rem calc(100% + 10rem), -10rem 3.2rem); }
 #artigos .artigo-card::after { content: ""; position: absolute; left: 0; top: 0; width: 3.2rem; height: 3.2rem; border-radius: 0 0 0.4rem 0; background: linear-gradient(135deg, transparent 50%, #EFE7D3 50%, #E0D5BA); filter: drop-shadow(1px 2px 2px rgba(6, 26, 48, 0.16)); pointer-events: none; }
-#artigos .artigo-card::before { content: ""; position: absolute; left: 4.4rem; right: 2.8rem; top: 0; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #0F6B6D, #B8962E); transform-origin: left; transform: scaleX(var(--p)); transition: transform 0.6s var(--curva-saida); }
+#artigos .artigo-card::before { content: ""; position: absolute; left: 4.4rem; right: 2.8rem; top: 0; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #0F6B6D, #B8962E); transform-origin: left; transform: scaleX(1); transition: transform 0.9s var(--curva-saida) 0.2s; }
+/* o fio enche uma vez ao aparecer (20/10): antes seguia a rolagem com transição, e a transição recomeçava a cada quadro */
+.js-rolagem #artigos .artigo-card:not(.is-visible)::before { transform: scaleX(0); }
 #artigos .artigo-card__link { display: grid; grid-template-columns: 9.6rem minmax(0, 1fr) minmax(0, 26rem); grid-template-areas: "num corpo capa"; gap: clamp(2.4rem, 3vw, 4rem); align-items: center; padding: clamp(3.6rem, 4vw, 5.2rem) clamp(3.2rem, 3.6vw, 4.8rem) clamp(3.6rem, 4vw, 5.2rem) clamp(2.4rem, 3vw, 4rem); }
 /* margem de caderno entre o número e o texto */
 #artigos .artigo-card__link::after { content: ""; position: absolute; top: 2.4rem; bottom: 2.4rem; left: calc(clamp(2.4rem, 3vw, 4rem) + 9.6rem + clamp(1.2rem, 1.5vw, 2rem)); width: 1px; background: rgba(192, 69, 58, 0.22); }
@@ -1208,4 +1208,14 @@
   #artigos .artigo-card__resumo { max-height: calc(1.7em * 4); }
   #artigos .artigo-card::before { transform: none !important; }
   #artigos .artigo-card__media { transform: none !important; }
+}
+
+/* passos da leitura (20/10/2026): a entrada e o "passo do meio cheio" eram presos
+   à rolagem (a cor mudava a cada quadro); agora assets/js/rolagem.js põe .is-in
+   quando o passo aparece e .no-meio quando ele está na faixa do meio da tela */
+@media (prefers-reduced-motion: no-preference) {
+  .js-rolagem .leitura__passo { opacity: 0; transform: translate3d(0, 28px, 0); transition: opacity 0.7s var(--curva-saida, ease), transform 0.9s var(--curva-saida, ease); }
+  .js-rolagem .leitura__passo.is-in { opacity: 1; transform: none; }
+  .js-rolagem .leitura__passo p { color: #66727F; transition: color 0.35s ease; }
+  .js-rolagem .leitura__passo.no-meio p { color: #2E4157; }
 }

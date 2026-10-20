@@ -29,7 +29,8 @@
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var listas = [].slice.call(document.querySelectorAll('.leitura__passos'));
   if (!listas.length) return;
-  var pedido = false;
+  var pedido = false, vistas = 0;
+  var rem = parseFloat(getComputedStyle(document.documentElement).fontSize); // lido uma vez (20/10)
   function escala(lista) {
     var t = getComputedStyle(lista, '::after').transform;
     if (!t || t === 'none') return 1;
@@ -39,9 +40,8 @@
   function atualiza() {
     pedido = false;
     listas.forEach(function (lista) {
+      if (!lista.__vista) return;
       var r = lista.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > innerHeight + 200) return;
-      var rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
       var ponta = r.top + 0.6 * rem + escala(lista) * (r.height - 1.2 * rem);
       lista.querySelectorAll('.leitura__passo').forEach(function (p) {
         var n = p.querySelector('.leitura__num').getBoundingClientRect();
@@ -50,8 +50,13 @@
       });
     });
   }
-  function pede() { if (!pedido) { pedido = true; requestAnimationFrame(atualiza); } }
+  function pede() { if (vistas && !pedido) { pedido = true; requestAnimationFrame(atualiza); } }
+  // só lê a linha enquanto a lista está perto da tela (20/10)
+  var perto = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { vistas += e.isIntersecting ? 1 : (e.target.__vista ? -1 : 0); e.target.__vista = e.isIntersecting; });
+    pede();
+  }, { rootMargin: '200px 0px' });
+  listas.forEach(function (l) { perto.observe(l); });
   addEventListener('scroll', pede, { passive: true });
   addEventListener('resize', pede);
-  atualiza();
 })();

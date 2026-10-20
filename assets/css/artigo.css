@@ -111,10 +111,7 @@
   .js-artigo .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar, .noticia-fim) { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.7s var(--a-curva); }
   .js-artigo .artigo-corpo-secao .artigo-autor + .artigo-autor { transition-delay: 0.08s; }
   .js-artigo .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar, .noticia-fim).is-in { opacity: 1; transform: none; }
-  @supports (animation-timeline: view()) {
-    @keyframes artigo-saida { to { opacity: 0; translate: 0 -6vh; } }
-    .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar) { animation: artigo-saida linear both; animation-timeline: view(); animation-range: exit-crossing -6vh exit-crossing 50%; }
-  }
+  /* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 }
 
 @media (max-width: 767px) {

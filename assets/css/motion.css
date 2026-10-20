@@ -77,27 +77,7 @@ html.mo .fio.is-in path { stroke-dashoffset: 0; }
 .noticia-card:hover .noticia-card__media img { transform: scale(1.05); }
 
 /* Ligado à rolagem (Chrome, Edge, Safari 26). Sem suporte: estado final. */
-@supports (animation-timeline: view()) {
-  /* Hero: ao rolar, o texto sobe e apaga, o vídeo segue mais devagar */
-  @keyframes mo-hero-sai { to { opacity: 0; transform: translate3d(0, -12vh, 0); } }
-  @keyframes mo-hero-fundo { to { transform: translate3d(0, 14vh, 0) scale(1.06); } }
-  .hero__content { animation: mo-hero-sai linear both; animation-timeline: scroll(root); animation-range: 10vh 85vh; }
-
-  /* Blocos escuros encaixam: chegam um pouco menores e assentam */
-  @keyframes mo-encaixa { from { transform: scale(0.94); } to { transform: none; } }
-  .proposito, .solucoes, .pratica-viva, .footer {
-    animation: mo-encaixa linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 70%;
-  }
-
-  /* Fotos com profundidade: andam um pouco dentro da moldura */
-  @keyframes mo-paralaxe { from { transform: translate3d(0, -5%, 0) scale(1.12); } to { transform: translate3d(0, 5%, 0) scale(1.12); } }
-  .solucoes__panel .proj-card__photo {
-    animation: mo-paralaxe linear both;
-    animation-timeline: view();
-  }
-}
+/* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 
 @media (prefers-reduced-motion: reduce) {
   html.mo [data-aos], html.mo .hero__content > *, html.mo .hero__video,
@@ -416,12 +396,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   box-shadow: 0 -24px 48px -28px rgba(6, 26, 48, 0.45);
 }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--color-navy-900); opacity: 0; pointer-events: none; }
-@supports (animation-timeline: scroll()) {
-  @keyframes mo-hero-recua { to { transform: scale(0.94); } }
-  @keyframes mo-hero-escurece { to { opacity: 0.45; } }
-  .hero { transform-origin: 50% 0; animation: mo-hero-recua linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
-  .hero::after { animation: mo-hero-escurece linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
-}
+/* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 @media (prefers-reduced-motion: reduce) { .hero, .hero::after { animation: none !important; } }
 
 /* ===== FUNDO DO PROPÓSITO (escolha do João, 15/10: degradê creme > verde-água
@@ -799,15 +774,7 @@ main { counter-reset: secao; }
    A pilha de Formações e o hero ficam de fora (têm efeito próprio); o CTA
    final também (é o fim da página, ficaria meio apagado); cada fundador apaga
    sozinho (na lista inteira, o 2º sumia no meio da tela). ===== */
-@supports (animation-timeline: view()) {
-  @keyframes mo-sai { to { opacity: 0; translate: 0 -6vh; } }
-  .topo-secao, .palco-moldura, .atua-andar, .quote-mark, .founder,
-  .formacoes__beneficios {
-    animation: mo-sai linear both;
-    animation-timeline: view();
-    animation-range: exit-crossing -6vh exit-crossing 50%; /* começa a apagar com o topo a ~6% da tela e termina com metade dele passada (João, 20/10: "só sumam perto do topo") */
-  }
-}
+/* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 /* overflow:hidden vira "área de rolagem" e prende a linha do tempo do
    view() nela (citação e fundadores não reagiam); clip corta igual sem isso */
 .quotes, .founders { overflow: clip; }
