@@ -1,0 +1,180 @@
+/* ===== NA PRÁTICA COMO PALCO PINADO (João, 16/10, escolheu entre 3
+   estruturas). No computador a seção trava: o vídeo fica no arco e os
+   3 contextos passam um por vez, com o fundo granulado mudando de tom
+   (3 camadas trocando por opacidade, sem animar degradê). No celular,
+   tablet e movimento reduzido nada trava: tudo empilhado.
+   Substitui o papel rasgado de 23/09. JS em pratica.js. ===== */
+
+.pratica-palco { position: relative; background: var(--color-paper); padding: clamp(1.6rem, 3vw, 4rem) 0; }
+.pv-palco__cartao {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: clamp(3rem, 4vw, 6rem); align-items: center;
+  padding: clamp(4rem, 5vw, 7.2rem);
+  border-radius: var(--raio-bloco, 28px);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06);
+}
+
+/* fundo: 3 tons, um por contexto */
+.pv-palco__fundo, .pv-palco__fundo i { position: absolute; inset: 0; z-index: -1; }
+.pv-palco__fundo i { opacity: 0; transition: opacity 0.9s ease; }
+.pv-palco__fundo i:nth-child(1) { background: var(--grao),
+  radial-gradient(40% 60% at 80% 70%, rgba(217, 183, 79, 0.26), transparent 72%),
+  radial-gradient(60% 80% at 4% 0%, rgba(255, 253, 248, 0.85), transparent 62%),
+  linear-gradient(135deg, #F5F5EF 0%, #DDEBE6 55%, #C3DDD7 100%); }
+.pv-palco__fundo i:nth-child(2) { background: var(--grao),
+  radial-gradient(40% 60% at 80% 70%, rgba(217, 183, 79, 0.2), transparent 72%),
+  radial-gradient(60% 80% at 4% 0%, rgba(255, 253, 248, 0.85), transparent 62%),
+  linear-gradient(135deg, #F3F5F7 0%, #DFE6EE 55%, #C9D6E4 100%); }
+.pv-palco__fundo i:nth-child(3) { background: var(--grao),
+  radial-gradient(40% 60% at 80% 70%, rgba(var(--teal-rgb), 0.16), transparent 72%),
+  radial-gradient(60% 80% at 4% 0%, rgba(255, 253, 248, 0.85), transparent 62%),
+  linear-gradient(135deg, #F8F3E9 0%, #F0E3CB 55%, #E6D0A8 100%); }
+[data-passo="0"] .pv-palco__fundo i:nth-child(1),
+[data-passo="1"] .pv-palco__fundo i:nth-child(2),
+[data-passo="2"] .pv-palco__fundo i:nth-child(3) { opacity: 1; }
+
+/* texto */
+.pv-palco__texto { position: relative; min-width: 0; }
+.pv-palco .fcard__selo { margin-bottom: 2.2rem; }
+.pv-palco__titulo { margin: 0; font-family: var(--font-titulo); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(3rem, 3.4vw, 4.4rem); line-height: 1.08; color: var(--color-navy); text-wrap: balance; }
+
+/* contextos */
+.pv-ctx2-lista { list-style: none; margin: 0; padding: 0; max-width: 56rem; }
+.pv-ctx2 { border-top: 1px solid rgba(var(--navy-rgb), 0.14); }
+.pv-ctx2:last-child { border-bottom: 1px solid rgba(var(--navy-rgb), 0.14); }
+.pv-ctx2__topo {
+  display: flex; align-items: center; gap: 1.4rem; width: 100%; min-height: 5.6rem; padding: 1rem 0;
+  border: 0; background: none; cursor: pointer; text-align: left; color: var(--color-navy); font: inherit;
+  opacity: 0.5; transition: opacity 0.4s ease;
+}
+.pv-ctx2__topo:hover, .pv-ctx2.is-ativo .pv-ctx2__topo { opacity: 1; }
+.pv-ctx2__num { font: 600 1.2rem/1 var(--font-body); letter-spacing: 0.1em; min-width: 2.4rem; }
+.pv-ctx2__icone { display: grid; place-items: center; width: 3.6rem; height: 3.6rem; border-radius: 50%; background: rgba(var(--navy-rgb), 0.08); font-size: 1.4rem; transition: background 0.4s ease, color 0.4s ease; }
+.pv-ctx2.is-ativo .pv-ctx2__icone { background: var(--color-navy); color: #fff; }
+.pv-ctx2__titulo { font: 600 clamp(1.7rem, 1.4vw, 2rem)/1.2 var(--font-body); }
+.pv-ctx2__corpo { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.55s var(--curva-saida, ease); }
+.pv-ctx2__corpo-in { min-height: 0; overflow: hidden; } /* um filho só: a linha 0fr → 1fr abre o bloco inteiro */
+.pv-ctx2.is-ativo .pv-ctx2__corpo { grid-template-rows: 1fr; }
+
+
+.pv-palco__acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 1.6rem 2.8rem; margin-top: 3.2rem; }
+
+/* vídeo no arco, com o círculo em órbita e um ponto que gira a cada contexto */
+.pv-palco__midia { position: relative; display: grid; place-items: center; min-width: 0; }
+.pv-palco__arco {
+  position: relative; z-index: 1; overflow: hidden;
+  height: min(64rem, 68vh); aspect-ratio: 480 / 854; max-width: 100%;
+  border-radius: 999px 999px 2.4rem 2.4rem;
+  box-shadow: 0 30px 60px rgba(var(--navy-rgb), 0.18), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  background: #0B2741;
+}
+.pv-palco__video { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--curva-saida, ease); }
+[data-passo="1"] .pv-palco__video { transform: scale(1.06); }
+[data-passo="2"] .pv-palco__video { transform: scale(1.12); }
+.pv-palco__orbita {
+  position: absolute; z-index: 0; left: 50%; top: 34%; width: min(130%, 52rem); aspect-ratio: 1; translate: -50% -50%;
+  border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16);
+  transition: rotate 1.2s var(--curva-saida, ease);
+}
+.pv-palco__orbita::after { content: ""; position: absolute; top: -0.6rem; left: 50%; width: 1.2rem; height: 1.2rem; margin-left: -0.6rem; border-radius: 50%; background: var(--color-gold, #D9B74F); box-shadow: 0 0 0 0.5rem rgba(217, 183, 79, 0.22); }
+[data-passo="1"] .pv-palco__orbita { rotate: 120deg; }
+[data-passo="2"] .pv-palco__orbita { rotate: 240deg; }
+
+/* entrada: o arco sobe, o texto aparece */
+html.mo .pv-palco__arco { opacity: 0; translate: 0 8%; scale: 0.94; transition: opacity 0.9s var(--curva-saida, ease), translate 1.1s var(--curva-saida, ease), scale 1.1s var(--curva-saida, ease); }
+html.mo .pv-palco__texto > * { opacity: 0; translate: 0 2rem; transition: opacity 0.8s var(--curva-saida, ease), translate 0.9s var(--curva-saida, ease); }
+html.mo .pratica-palco.is-in .pv-palco__arco { opacity: 1; translate: 0 0; scale: 1; }
+html.mo .pratica-palco.is-in .pv-palco__texto > * { opacity: 1; translate: 0 0; }
+html.mo .pratica-palco.is-in .pv-palco__texto > :nth-child(2) { transition-delay: 0.08s; }
+html.mo .pratica-palco.is-in .pv-palco__texto > :nth-child(3) { transition-delay: 0.16s; }
+html.mo .pratica-palco.is-in .pv-palco__texto > :nth-child(n+4) { transition-delay: 0.24s; }
+
+/* ---- computador: trava (pin) ---- */
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .pratica-palco { height: 320vh; padding: 0; }
+  .pv-palco { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: stretch; padding: clamp(8.4rem, 11vh, 10rem) 0 clamp(1.6rem, 2.4vh, 2.4rem); }
+  .pv-palco > .container { display: flex; width: 100%; }
+  .pv-palco__cartao { width: 100%; }
+  .pv-palco__arco { height: min(64rem, calc(100svh - 22rem)); }
+}
+/* tela de computador mais baixa: menos respiro pra caber */
+@media (min-width: 1024px) and (min-height: 700px) and (max-height: 820px) and (prefers-reduced-motion: no-preference) {
+  .pv-palco__cartao { padding-block: 3.2rem; }
+      .pv-ctx2__topo { min-height: 4.8rem; padding: 0.6rem 0; }
+  .pv-palco__acoes { margin-top: 2.2rem; }
+}
+
+/* ---- sem trava (celular, tablet, tela baixa, movimento reduzido): tudo aberto ---- */
+@media not all and (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .pv-ctx2__corpo { grid-template-rows: 1fr; }
+  .pv-ctx2__topo { opacity: 1; cursor: default; }
+  .pv-ctx2 .pv-ctx2__icone { background: var(--color-navy); color: #fff; }
+  .pv-palco__orbita { rotate: 0deg !important; }
+  .pv-palco__video { transform: none !important; }
+  .pv-palco__fundo i:nth-child(1) { opacity: 1; }
+  .pv-palco__fundo i:nth-child(n+2) { opacity: 0 !important; }
+}
+@media (max-width: 1023px) {
+  .pv-palco__cartao { grid-template-columns: 1fr; gap: 0; padding: 4.8rem clamp(2.4rem, 5vw, 5.6rem); }
+  .pv-palco__texto { display: contents; }
+  .pv-palco__cartao > * , .pv-palco__texto > * { grid-column: 1; }
+  .pv-palco .fcard__selo, .pv-palco__titulo,   .pv-palco__midia { order: 2; margin: 3.6rem 0 1rem; }
+  .pv-ctx2-lista, .pv-palco__acoes { order: 3; }
+  .pv-palco__fundo { order: 0; }
+  .pv-palco__arco { height: min(56rem, 120vw); }
+  .pv-palco__orbita { width: min(110%, 44rem); }
+}
+@media (max-width: 767px) {
+  .pv-palco__cartao { padding: 4rem 2.2rem; }
+  .pv-palco__titulo { font-size: clamp(2.8rem, 7.6vw, 3.4rem); }
+    .pv-palco__arco { height: min(48rem, 118vw); }
+      .pv-ctx2__topo { gap: 1.2rem; }
+  .pv-palco__acoes { flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html.mo .pv-palco__arco, html.mo .pv-palco__texto > * { opacity: 1; translate: none; scale: none; transition: none; }
+}
+
+/* ---- v2 (João, 16/10: "muito texto", botões colados no pé) ---- */
+.pv-ctx2-lista { position: relative; margin-top: clamp(2.4rem, 3.4vh, 3.6rem); }
+/* a frase do ativo é o link pro trecho de Práticas */
+.pv-ctx2__frase { display: block; padding: 0 0 1.4rem 7.4rem; color: #3D5773; font-size: 1.6rem; line-height: 1.5; text-decoration: none; }
+.pv-ctx2__frase i { margin-left: 0.4rem; font-size: 1.2rem; color: var(--color-navy); transition: transform 0.3s ease; }
+.pv-ctx2__frase:hover { color: var(--color-navy); }
+.pv-ctx2__frase:hover i { transform: translateX(3px); }
+/* etiqueta de vidro embaixo do arco: qual contexto o vídeo está mostrando */
+.pv-palco__etiqueta {
+  position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 1rem; margin: -2.6rem 0 0;
+  padding: 0.9rem 1.6rem; border-radius: 99px; white-space: nowrap;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.68));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), 0 10px 30px rgba(var(--navy-rgb), 0.14);
+  color: var(--color-navy); font: 600 1.4rem/1 var(--font-body);
+}
+.pv-palco__etiqueta-num { font-size: 1.15rem; letter-spacing: 0.1em; color: rgba(var(--navy-rgb), 0.6); }
+.pv-palco__etiqueta-nome { transition: opacity 0.3s ease; }
+.pv-palco__midia { grid-template-rows: auto auto; justify-items: center; }
+.pv-palco__orbita { grid-row: 1; }
+
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  /* fio de progresso à esquerda da lista, enchendo com a rolagem */
+  .pv-ctx2-lista { padding-left: 2rem; }
+  .pv-ctx2-lista::before, .pv-ctx2-lista::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; border-radius: 2px; }
+  .pv-ctx2-lista::before { background: rgba(var(--navy-rgb), 0.12); }
+  .pv-ctx2-lista::after { background: var(--color-navy); transform-origin: 50% 0; transform: scaleY(calc(var(--pv-prog, 0) / 3)); }
+  .pv-ctx2 { border-top: 0; }
+  .pv-ctx2:last-child { border-bottom: 0; }
+  /* respiro garantido no pé: o cartão cabe na tela e centraliza o conteúdo */
+  .pv-palco__cartao { padding-block: clamp(4.8rem, 7vh, 7.2rem); }
+  .pv-palco__arco { height: min(60rem, calc(100svh - 30rem)); }
+}
+@media (max-width: 1023px) {
+  .pv-palco__midia { margin-bottom: 2.4rem; }
+}
+@media (max-width: 767px) {
+  .pv-ctx2__frase { padding-left: 0; }
+  .pv-palco__etiqueta { font-size: 1.3rem; }
+}
+/* sem trava a etiqueta não tem o que acompanhar */
+@media not all and (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .pv-palco__etiqueta { display: none; }
+}

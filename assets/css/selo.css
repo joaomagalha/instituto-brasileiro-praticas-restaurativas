@@ -1,0 +1,31 @@
+/* ===== SELO SEM OS DOIS CÍRCULOS (João, 16/10: "o que mais está me
+   incomodando são os dois círculos do lado"). Escolhida a opção 3 de 3:
+   contorno fino, sem fundo; no topo de seção o número da seção num círculo
+   navy ("01 · Nosso propósito"). Claro = topo de seção e cards; escuro =
+   hero, pinturas e seção escura. Recusadas: três sementes e vidro com
+   ponto de luz. ===== */
+
+/* some com os círculos de fora e a margem que guardava espaço pra eles */
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo)::after { content: none !important; }
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo) {
+  display: inline-flex; align-items: center; gap: 1rem; margin-right: 0; text-shadow: none;
+}
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo)::before { content: none; }
+
+/* claro: contorno navy */
+:root :is(.topo-secao .overline:not(.overline--light), .fcard__selo > span:first-child) {
+  padding: 0.8rem 1.5rem; background: transparent; color: var(--color-navy) !important;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3);
+}
+/* escuro: contorno branco */
+:root :is(.hero .hero__eyebrow, .topo-secao .overline--light, .citacao-selo) {
+  background: transparent; color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+/* número da seção (só nos topos que contam no counter "secao" do motion.css) */
+:root .topo-secao:not(.topo-secao--centro):not(.topo-secao--coluna) .overline { padding: 0.4rem 1.5rem 0.4rem 0.4rem; }
+:root .topo-secao:not(.topo-secao--centro):not(.topo-secao--coluna) .overline::before {
+  content: counter(secao, decimal-leading-zero); display: grid; place-items: center; flex: none; position: static;
+  width: 2.6rem; height: 2.6rem; border-radius: 50%;
+  background: var(--color-navy); color: #fff; font: 600 1.05rem/1 var(--font-body); letter-spacing: 0;
+}

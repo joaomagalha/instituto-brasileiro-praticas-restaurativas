@@ -1,0 +1,133 @@
+/* ===== CORPO DA NOTÍCIA NO VISUAL NOVO (João, 19/10: "deixe bonita, atrativa e
+   fácil de ler", começando pela do Sistema Restaura). Só peças que o site já
+   usa: fundo granulado claro da .leitura/.fint, fontes novas, abertura com a
+   capitular verde-água dos Artigos, foto que se revela subindo como nas notícias
+   da IBPR em Movimento, Botão padrão e link com seta no círculo. A página ainda
+   está no visual antigo; este arquivo só mexe na seção .noticia-corpo.
+   No repo: o molde da notícia no build/gerar.mjs precisa deste markup. ===== */
+
+.noticia-corpo {
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-titulo: "Plus Jakarta Sans", system-ui, sans-serif;
+  --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
+  --n-navy: var(--color-navy, #0A2A4D);
+  --n-teal: #0F6B6D;
+  --n-texto: #2C4158;
+  --n-cinza: #5B6B7C;
+  --n-curva: cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  padding: clamp(6.4rem, 7vw, 10.4rem) 0 clamp(7.2rem, 8vw, 11.2rem);
+  background:
+    url("../images/grao.png"),
+    linear-gradient(180deg, transparent calc(100% - 7vw), #FAFBF8 100%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    radial-gradient(40vw 30vw at 0% 70%, rgba(var(--teal-rgb), 0.07), transparent 72%),
+    #FAFBF8;
+  font-family: var(--font-body);
+  color: var(--n-texto);
+}
+.noticia-corpo .measure-narrow { max-width: 88rem; }
+
+/* ---- foto ---- */
+.noticia-corpo .noticia-figura { margin: 0 0 clamp(4.4rem, 5vw, 6.4rem); }
+.noticia-corpo .noticia-figura__moldura {
+  border-radius: 2.4rem; overflow: clip; background: #DDE5E6;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 30px 60px -40px rgba(var(--navy-rgb), 0.5);
+}
+.noticia-corpo .noticia-figura img { max-height: min(72vh, 62rem); }
+.noticia-corpo .noticia-figura__legenda { gap: 1rem; margin-top: 1.4rem; padding-left: 0.4rem; color: var(--n-cinza); font: 400 1.35rem/1.5 var(--font-body); }
+.noticia-corpo .noticia-figura__legenda::before { flex-basis: 2rem; margin-top: 0.95rem; height: 1.5px; background: rgba(var(--teal-rgb), 0.6); }
+
+/* ---- texto: coluna de leitura de ~68 caracteres ---- */
+.noticia-corpo .prose { max-width: 62ch; margin-inline: auto; }
+.noticia-corpo .prose p { margin: 0; color: var(--n-texto); font: 400 clamp(1.75rem, 1.3vw, 1.9rem)/1.78 var(--font-body); text-wrap: pretty; }
+.noticia-corpo .prose p + p { margin-top: 2.4rem; }
+/* abertura: maior, navy cheio e a capitular verde-água dos Artigos */
+.noticia-corpo .prose p:first-child { color: var(--n-navy); font: 500 clamp(2rem, 1.55vw, 2.25rem)/1.62 var(--font-body); letter-spacing: -0.005em; }
+.noticia-corpo .prose p:first-child::first-letter { float: left; margin: 0.08em 0.12em 0 0; color: var(--n-teal); font: 600 3.4em/0.82 var(--font-titulo); }
+
+/* ---- fonte da notícia: pílula de vidro ---- */
+.noticia-corpo .noticia-fonte {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; width: fit-content; max-width: 62ch;
+  margin: 4rem auto 0; padding: 1rem 1.8rem; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 12px 26px -20px rgba(var(--navy-rgb), 0.45);
+  color: var(--n-cinza); font: 400 1.4rem/1.4 var(--font-body);
+}
+.noticia-corpo .noticia-fonte a { border: 0; color: var(--n-teal); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(var(--teal-rgb), 0.35); text-underline-offset: 0.25em; transition: text-decoration-color 0.3s ease; }
+.noticia-corpo .noticia-fonte a:hover { text-decoration-color: var(--n-teal); }
+
+/* ---- fim: Botão padrão + link com seta no círculo ---- */
+.noticia-corpo .noticia-fim { max-width: 62ch; margin: 4.8rem auto 0; padding-top: 3.2rem; border-top: 1px solid rgba(var(--navy-rgb), 0.09); gap: 1.6rem 3.2rem; }
+.noticia-corpo .link-seta { display: inline-flex; align-items: center; gap: 1.2rem; min-height: 44px; color: var(--n-navy); font: 600 1.6rem/1.2 var(--font-body); text-decoration: none; }
+.noticia-corpo .link-seta__circ { display: grid; place-items: center; flex: none; width: 3.8rem; height: 3.8rem; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--n-navy); color: var(--n-navy); font-size: 1.3rem; overflow: hidden; transition: background 0.35s ease, color 0.35s ease; }
+.noticia-corpo .link-seta__circ i { transition: transform 0.4s var(--curva-suave); }
+.noticia-corpo .link-seta:hover .link-seta__circ { background: var(--n-navy); color: #fff; }
+.noticia-corpo .link-seta:hover .link-seta__circ i { transform: translateX(3px); }
+.noticia-corpo .link-seta:focus-visible { outline: 2px solid var(--n-navy); outline-offset: 4px; border-radius: 999px; }
+
+/* ---- entrada (noticia.js marca .is-in) e saída ao rolar ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-noticia .noticia-corpo .noticia-figura__moldura { clip-path: inset(100% 0 0 0 round 2.4rem); transition: clip-path 0.7s cubic-bezier(0.65, 0, 0.35, 1); }
+  .js-noticia .noticia-corpo .noticia-figura.is-in .noticia-figura__moldura { clip-path: inset(0 0 0 0 round 2.4rem); }
+  .js-noticia .noticia-corpo .noticia-figura__legenda,
+  .js-noticia .noticia-corpo :is(.prose p, .noticia-fonte, .noticia-fim) { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.7s var(--n-curva); }
+  .js-noticia .noticia-corpo .noticia-figura.is-in .noticia-figura__legenda { transition-delay: 0.35s; }
+  .js-noticia .noticia-corpo :is(.noticia-figura.is-in .noticia-figura__legenda, .prose p.is-in, .noticia-fonte.is-in, .noticia-fim.is-in) { opacity: 1; transform: none; }
+
+  @supports (animation-timeline: view()) {
+    @keyframes noticia-saida { to { opacity: 0; translate: 0 -6vh; } }
+    .noticia-corpo :is(.noticia-figura, .prose p, .noticia-fonte) { animation: noticia-saida linear both; animation-timeline: view(); animation-range: exit-crossing -6vh exit-crossing 50%; }
+  }
+}
+
+@media (max-width: 767px) {
+  .noticia-corpo .noticia-figura__moldura { border-radius: 1.8rem; }
+  .noticia-corpo .prose p:first-child::first-letter { font-size: 3em; }
+  .noticia-corpo .noticia-fonte { border-radius: 1.6rem; }
+  .noticia-corpo .noticia-fim { flex-direction: column; align-items: flex-start; }
+}
+
+/* ===== OUTRAS NOTÍCIAS (19/10, João: "deixe igual a gente já fez"): o fim de
+   cada notícia usa o bloco .mov-noticias da IBPR em Movimento (pagina-interna.css
+   + noticias.js). As notícias ainda não carregam o base.css (mudaria a navbar e
+   o hero antigos), então as variáveis que o bloco usa moram aqui. ===== */
+.mov-noticias {
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-titulo: "Plus Jakarta Sans", system-ui, sans-serif;
+  --curva-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
+  --grao: url("../images/grao.png");
+  --papel-claro: #FAFBF8;
+  font-family: var(--font-body);
+}
+/* "Ver todas as notícias" no lugar da ação do topo, como o "Ver todas" da Home */
+.mov-noticias .link-seta { display: inline-flex; align-items: center; gap: 1.2rem; min-height: 44px; color: var(--color-navy); font: 600 1.6rem/1.2 var(--font-body); text-decoration: none; }
+.mov-noticias .link-seta__circ { display: grid; place-items: center; flex: none; width: 3.8rem; height: 3.8rem; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--color-navy); color: var(--color-navy); font-size: 1.3rem; overflow: hidden; transition: background 0.35s ease, color 0.35s ease; }
+.mov-noticias .link-seta__circ i { transition: transform 0.4s var(--curva-suave); }
+.mov-noticias .link-seta:hover .link-seta__circ { background: var(--color-navy); color: #fff; }
+.mov-noticias .link-seta:hover .link-seta__circ i { transform: translateX(3px); }
+.mov-noticias .link-seta:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 4px; border-radius: 999px; }
+
+/* ===== EMENDA DOS FUNDOS (19/10, João: "os backgrounds estão conflitando,
+   queria que eles se juntassem igual a gente já fez"): o "Outras notícias"
+   continua o fundo de cima em vez de recomeçar. Com o corpo novo, começa em
+   papel limpo, sem a mancha do topo, e com pouco respiro (um bloco só). Com o
+   corpo antigo (papel cinza liso), nasce dessa mesma cor e se dissolve. ===== */
+.noticia-corpo + .mov-noticias {
+  padding-top: clamp(2.4rem, 3vw, 4rem);
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
+    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(217, 183, 79, 0.14), transparent 76%),
+    radial-gradient(56vw 18vw at 78% calc(100% - 6vw), rgba(var(--teal-rgb), 0.12), transparent 78%),
+    var(--papel-claro);
+}
+.section--paper + .mov-noticias {
+  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 248, 247, 0) 8vw),
+    var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
+    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(217, 183, 79, 0.14), transparent 76%),
+    radial-gradient(56vw 18vw at 78% calc(100% - 6vw), rgba(var(--teal-rgb), 0.12), transparent 78%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 14vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    var(--papel-claro);
+}

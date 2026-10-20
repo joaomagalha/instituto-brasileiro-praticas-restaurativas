@@ -2,12 +2,19 @@
 # IBPR — publica o site a partir do CMS
 # =====================================================================
 # Roda build/gerar.mjs, que lê o conteúdo publicado no Supabase e escreve
-# o HTML. Se algo mudou, commita em `main`; o GitHub Pages republica
-# sozinho (o Pages deste repo publica de main/raiz, modo clássico).
+# o HTML. Se algo mudou, commita em `main`. Depois gera a versão otimizada
+# (build/otimizar/otimizar.cjs → _site) e publica ela no GitHub Pages.
 #
-# ⚠️ NÃO ACRESCENTE `push` NOS GATILHOS.
-# Este workflow commita em main. Se ele também disparasse em push, cada
-# execução dispararia a próxima, para sempre.
+# Desde 20/10/2026 o Pages publica pelo Actions (modo "GitHub Actions"), não
+# mais direto de main/raiz: o repo guarda o HTML legível, que o robô
+# reescreve, e o que vai pro ar é o _site otimizado (CSS de cada página num
+# arquivo só, sem regra sobrando, fontes servidas pelo site, JS minificado).
+#
+# Sobre o gatilho `push` (proibido até 20/10/2026, por medo de loop): o commit
+# que este workflow faz usa o GITHUB_TOKEN, e push feito com ele não dispara
+# workflow nenhum, então não há loop. Mesmo assim o job pula push de commit
+# do robô (mensagem "CMS: ..."), por garantia. O push manual precisa disparar
+# porque agora é este workflow que põe o site no ar.
 
 name: Publicar site
 
@@ -29,6 +36,10 @@ on:
         type: boolean
         default: false
 
+  # 4. Mudança feita à mão no main (código, CSS, imagem)
+  push:
+    branches: [main]
+
 # Só uma execução por vez. Duas publicações seguidas não podem gerar dois
 # builds concorrentes commitando por cima um do outro.
 concurrency:
@@ -37,12 +48,18 @@ concurrency:
 
 jobs:
   publicar:
+    if: github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'CMS:')
     runs-on: ubuntu-latest
     # Um build normal leva menos de 1 minuto. Sem limite, uma consulta
     # travada seguraria a fila de publicações por até 6 horas.
     timeout-minutes: 10
     permissions:
       contents: write   # o GITHUB_TOKEN nativo já basta pra commitar
+      pages: write      # publicar no Pages
+      id-token: write   # exigido pelo deploy-pages
+    environment:
+      name: github-pages
+      url: ${{ steps.implantar.outputs.page_url }}
 
     steps:
       # ref: main (28/09/2026). Sem isso, uma execução que ficou na fila
@@ -94,3 +111,19 @@ jobs:
           done
           echo "Não consegui publicar depois de 3 tentativas."
           exit 1
+
+      # Versões travadas no package-lock.json desta pasta.
+      - name: Instalar as ferramentas do otimizar
+        run: npm ci --prefix build/otimizar --no-audit --no-fund
+
+      - name: Gerar a versão otimizada (_site)
+        run: node build/otimizar/otimizar.cjs
+
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+      - id: implantar
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

@@ -26,14 +26,21 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
 <!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
 <link as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/><noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" rel="stylesheet"/></noscript>
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20261015a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p242" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p198" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p241" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -53,47 +60,56 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909m" defer></script>
+<script src="assets/js/cookies.js?v=p167" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="assets/css/noticia.css?v=p241" rel="stylesheet"/>
+<script>document.documentElement.classList.add('js-noticia')</script>
+<link href="assets/css/mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
+<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp?v=2" imagesrcset="assets/images/ibpr-movimento-hero-1100.webp?v=2 1100w, assets/images/ibpr-movimento-hero.webp?v=2 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
+<script>document.documentElement.classList.add('mo')</script>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
 
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
-<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.webp"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.webp"/></a>
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img width="200" height="100" alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full-sm.webp"/><img width="200" height="100" alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy-sm.webp"/></a>
 <nav aria-label="Navegação principal" class="navbar__nav">
 <ul class="navbar__links">
 <li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="praticas-restaurativas.html">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="formacoes.html">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
+<ul class="navbar__dropdown">
 <!-- CMS:formacoes-navbar -->
-<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active" aria-current="page" href="ibpr-em-movimento.html">IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="artigos.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="artigos.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 </ul>
@@ -108,7 +124,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.webp"/>
+<img width="120" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone-sm.webp"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -156,24 +172,28 @@
 <!-- MOLDE, não edite o resultado: este arquivo vira noticia-<slug>.html
      gerado por build/gerar.mjs a partir do que está publicado no painel.
      Editar a página gerada é trabalho perdido, o próximo build sobrescreve. -->
-
-<a aria-label="Voltar para o IBPR em Movimento" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="Notícia" class="page-hero page-hero--ibpr-movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
-<div aria-hidden="true" class="page-hero__glow"></div>
-<div class="container">
-<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<p class="overline overline--light page-hero__eyebrow">Rede · 17 ago 2026</p>
-<h1>Experiência inovadora de Justiça Restaurativa do TJGO se torna objeto de pesquisa de mestrado na UFG</h1>
-<p class="page-hero__sub">Érica Fernanda Teixeira Santos defendeu na UFG pesquisa sobre o Plano de Reparação, destacando caminhos para transformar reflexão e responsabilização em ações concretas de reparação.</p>
+<!-- 19/10/2026: topo no cartão das páginas internas, com a foto da IBPR em
+     Movimento (a mesma que já era o fundo do topo antigo das notícias). -->
+<section aria-label="Notícia" class="hero-interna hero-interna--noticia" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAECAwUGBP/EACoQAAIBAwIFAQkAAAAAAAAAAAECAwAEESExBRITIkEVMjNRUnKBkaLB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAZEQEBAAMBAAAAAAAAAAAAAAAAAQIRMUH/2gAMAwEAAhEDEQA/AMvZx8wkA+WuhU6ZCue7G2RTLGVIUmZvKgD70trCkioWKoude72tvAoUokZWZMjABPKCPJ+FSNaP0UKxoCe7JYZIqf0xZbWzjtXPMZ3GCd8gYpYOH36JHK0QlQxbJjfJ0P4NTS3JSr7iX6f7TYCcEZO9FFOjF5wJmEuQxyEYjXY6VqYtbG0HjpA/qKKKPq3j/9k=')">
+<picture class="hero-interna__bg">
+<source media="(max-width: 899px)" srcset="assets/images/ibpr-movimento-hero-1100.webp?v=2" type="image/webp"/>
+<source srcset="assets/images/ibpr-movimento-hero.webp?v=2" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/ibpr-movimento-hero.jpg?v=2" width="1920"/>
+</picture>
+<div aria-hidden="true" class="hero-interna__overlay"></div>
+<div class="container hero-interna__conteudo">
+<span class="citacao-selo">Rede · 17 ago 2026</span>
+<h1 class="hero-interna__titulo">Experiência inovadora de Justiça Restaurativa do TJGO se torna objeto de pesquisa de mestrado na UFG</h1>
+<p class="hero-interna__sub">Érica Fernanda Teixeira Santos defendeu na UFG pesquisa sobre o Plano de Reparação, destacando caminhos para transformar reflexão e responsabilização em ações concretas de reparação.</p>
 </div>
 </section>
 
-<section aria-label="Conteúdo da notícia" class="section section--paper">
+<section aria-label="Conteúdo da notícia" class="noticia-corpo">
 <div class="container">
 
 <article class="measure-narrow">
 <figure class="noticia-figura noticia-figura--com-legenda">
-<div class="noticia-figura__moldura"><img alt="Érica Fernanda Teixeira Santos em defesa de dissertação de mestrado" decoding="async" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/experiencia-inovadora-de-justica-restaurativa-do-tjgo-se-torna-objeto-de-pesquis-1789682647522.jpg"/></div>
+<div class="noticia-figura__moldura"><img alt="Érica Fernanda Teixeira Santos em defesa de dissertação de mestrado" decoding="async" height="900" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/experiencia-inovadora-de-justica-restaurativa-do-tjgo-se-torna-objeto-de-pesquis-1789682647522.jpg" width="1600"/></div>
 <figcaption class="noticia-figura__legenda">Érica Fernanda Teixeira Santos em defesa de dissertação de mestrado</figcaption>
 </figure>
 <div class="prose">
@@ -191,27 +211,24 @@
 
 <div class="noticia-fim">
 <button class="btn btn--dark" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>
-<a class="link-arrow" href="ibpr-em-movimento.html">Ver todas as publicações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-seta" href="ibpr-em-movimento.html"><span>Ver todas as publicações</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
 </div>
 </article>
 
 </div>
 </section>
 
-<section aria-label="Outras notícias" class="section section--white">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div class="container" style="position:relative;z-index:1">
-<div class="section-header formacoes__header" data-aos="fade-up">
-<div class="formacoes__header-text">
+<section aria-label="Outras notícias" class="mov-noticias" id="outras-noticias">
+<div class="container">
+<div class="section-header section__head">
 <p class="overline">Continue lendo</p>
 <h2>Outras notícias.</h2>
-</div>
-<a class="btn btn--dark" href="ibpr-em-movimento.html">Ver todas as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="link-seta section-header__acao" href="ibpr-em-movimento.html"><span>Ver todas as notícias</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
 </div>
 <div class="noticias__lista" data-aos="fade-up">
 <article class="noticia-card">
 <a class="noticia-card__link" href="noticia-sistema-restaura-tjmt-nacionalizado-pelo-cnj.html">
-<div class="noticia-card__media"><img alt="Homem apresenta o Sistema Restaura em frente a uma tela com a plataforma projetada" decoding="async" loading="lazy" src="assets/images/noticias/sistema-restaura-tjmt.webp"/></div>
+<div class="noticia-card__media"><img alt="Homem apresenta o Sistema Restaura em frente a uma tela com a plataforma projetada" decoding="async" height="900" loading="lazy" src="assets/images/noticias/sistema-restaura-tjmt.webp" width="1600"/></div>
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Rede</span><span class="noticia-card__data">14 set 2026</span></p>
 <h3 class="noticia-card__title">Sistema Restaura, criado no TJMT, será adotado em todo o país pelo CNJ</h3>
@@ -222,7 +239,7 @@
 </article>
 <article class="noticia-card">
 <a class="noticia-card__link" href="noticia-ha-espaco-para-praticas-restaurativas-em-uma-representacao-diplomatica.html">
-<div class="noticia-card__media"><img alt="Registros da visita e da vivência em círculo realizadas na Embaixada do Brasil em Camberra, Austrália." decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/ha-espaco-para-praticas-restaurativas-em-uma-representacao-diplomatica-1789709851036.jpg"/></div>
+<div class="noticia-card__media"><img alt="Registros da visita e da vivência em círculo realizadas na Embaixada do Brasil em Camberra, Austrália." decoding="async" height="1358" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/ha-espaco-para-praticas-restaurativas-em-uma-representacao-diplomatica-1789709851036.jpg" width="1684"/></div>
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Rede</span><span class="noticia-card__data">21 mai 2026</span></p>
 <h3 class="noticia-card__title">Há espaço para práticas restaurativas em uma representação diplomática?</h3>
@@ -233,7 +250,7 @@
 </article>
 <article class="noticia-card">
 <a class="noticia-card__link" href="noticia-pesquisa-brasileira-sobre-justica-restaurativa-no-sistema-prisional-e-apresentad.html">
-<div class="noticia-card__media"><img alt="Apresentação de pesquisa sobre Justiça Restaurativa e sistema prisional brasileiro na Australian National University, em Canberra." decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/pesquisa-brasileira-sobre-justica-restaurativa-no-sistema-prisional-e-apresentad-1789705379281.jpg"/></div>
+<div class="noticia-card__media"><img alt="Apresentação de pesquisa sobre Justiça Restaurativa e sistema prisional brasileiro na Australian National University, em Canberra." decoding="async" height="831" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/noticias/pesquisa-brasileira-sobre-justica-restaurativa-no-sistema-prisional-e-apresentad-1789705379281.jpg" width="1800"/></div>
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Rede</span><span class="noticia-card__data">31 mar 2026</span></p>
 <h3 class="noticia-card__title">Pesquisa brasileira sobre Justiça Restaurativa no sistema prisional é apresentada na Australian National University</h3>
@@ -249,15 +266,14 @@
 </main>
 
 <!-- footer -->
-<footer class="footer footer--vidro">
-<div aria-hidden="true" class="grid-overlay footer__grade"></div>
-<div aria-hidden="true" class="footer__marca-agua">IBPR</div>
+<footer class="footer footer--vidro footer--rod">
 <div class="container">
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.webp"/>
+<img width="200" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full-sm.webp"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
+<a class="btn btn--white rodape__fale" href="mailto:ibpr@ibpr.com.br">Fale com o IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <div class="footer__social">
 <span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
 <span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin-in"></i></span>
@@ -321,8 +337,12 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/supabase-config.js?v=20260909m"></script>
+<script src="assets/js/supabase-config.js?v=p167"></script>
 <script src="assets/js/inscricao.js?v=20261019a"></script>
-<script src="assets/js/site-interactions.js?v=20261015a"></script>
+<script defer src="assets/js/noticias.js?v=p198"></script>
+<script defer src="assets/js/noticia.js?v=p199"></script>
+<script src="assets/js/voltar.js?v=p211"></script>
+<script src="assets/js/site-interactions.js?v=p167"></script>
+<script defer src="assets/js/menu-vidro.js?v=p167"></script>
 </body>
 </html>

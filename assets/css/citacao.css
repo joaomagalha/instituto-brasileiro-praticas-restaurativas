@@ -1,0 +1,119 @@
+/* ===== CITAÇÕES PINTADAS (João, 16/10: referência Duna AI, "um desenho").
+   Cada citação ganha um cartão com uma pintura de copa de árvore vista de
+   baixo (Magnific, Nano Banana Pro): Home de manhã, Práticas à tarde.
+   Texto branco no centro sobre uma mancha navy suave + grão leve.
+   Arquivo próprio porque a página de Práticas ainda não carrega o motion.css. ===== */
+.quotes--pintura { background: var(--color-paper, #f6f7f5); padding: clamp(1.6rem, 3vw, 4rem) 0; overflow: clip; }
+.quotes--pintura .encontro { max-width: none; }
+.quotes--pintura .grid-overlay, .quotes--pintura .quotes__texture, .quotes--pintura .fio { display: none; }
+.citacao-cartao {
+  --cit-img: url("../images/citacao-home-1920.webp");
+  position: relative; isolation: isolate; overflow: hidden;
+  border-radius: var(--raio-bloco, 28px);
+  min-height: clamp(52rem, 78vh, 76rem);
+  display: grid; place-items: center;
+  padding: clamp(8rem, 12vw, 14rem) var(--container-pad, 2.4rem);
+  background: #3f7f86 var(--cit-img) center / cover no-repeat;
+}
+.citacao-cartao--praticas { --cit-img: url("../images/citacao-praticas-1920.webp"); }
+@media (max-width: 1279px) {
+  .citacao-cartao { --cit-img: url("../images/citacao-home-1100.webp"); }
+  .citacao-cartao--praticas { --cit-img: url("../images/citacao-praticas-1100.webp"); }
+}
+@media (max-width: 640px) {
+  .citacao-cartao { --cit-img: url("../images/citacao-home-cel.webp"); min-height: 0; padding-block: 9rem; }
+  .citacao-cartao--praticas { --cit-img: url("../images/citacao-praticas-cel.webp"); }
+}
+/* mancha navy atrás do texto + grão, pra o branco ler sobre o céu */
+.citacao-cartao::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(52% 58% at 50% 52%, rgba(6, 26, 48, 0.68) 0%, rgba(6, 26, 48, 0.5) 50%, rgba(6, 26, 48, 0.12) 85%, rgba(6, 26, 48, 0) 100%),
+    linear-gradient(180deg, rgba(6, 26, 48, 0.08), rgba(6, 26, 48, 0.12));
+}
+@media (min-width: 641px) and (max-width: 1279px) {
+  .citacao-cartao::before {
+    background:
+      url("../images/grao-hero.png"),
+      radial-gradient(68% 58% at 50% 52%, rgba(6, 26, 48, 0.72) 0%, rgba(6, 26, 48, 0.54) 50%, rgba(6, 26, 48, 0.2) 85%, rgba(6, 26, 48, 0.06) 100%);
+  }
+}
+@media (max-width: 640px) {
+  .citacao-cartao::before {
+    background:
+      url("../images/grao-hero.png"),
+      radial-gradient(95% 60% at 50% 50%, rgba(6, 26, 48, 0.7) 0%, rgba(6, 26, 48, 0.5) 60%, rgba(6, 26, 48, 0.22) 100%);
+  }
+}
+.citacao-cartao__miolo { position: relative; max-width: 78rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+/* selo claro (mesmo desenho do selo do hero: pílula + 2 círculos) */
+.citacao-selo {
+  position: relative; z-index: 0; display: inline-flex; align-items: center; margin: 0 4.6rem 2.8rem 0;
+  padding: 1.05rem 1.5rem; border-radius: 99px; background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+  color: #fff; font: 700 1.1rem/1 var(--font-body, sans-serif); letter-spacing: 0.08em; text-transform: uppercase;
+}
+.citacao-selo::after { content: ""; position: absolute; z-index: -1; top: 50%; right: -2.7rem; width: 3.6rem; height: 3.6rem; margin-top: -1.8rem; border-radius: 50%; background: rgba(255, 255, 255, 0.18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 1.8rem 0 0 0 rgba(255, 255, 255, 0.09); }
+
+.citacao-cartao blockquote {
+  margin: 0; color: #fff;
+  font-family: var(--font-titulo, inherit); font-weight: 500;
+  font-size: clamp(2.3rem, 2.5vw, 3.4rem); line-height: 1.3; letter-spacing: -0.015em;
+  text-wrap: balance; text-shadow: 0 1px 24px rgba(6, 26, 48, 0.35);
+}
+.citacao-cartao .quote-mark__text .destaque { color: #F1D98A; font-weight: 600; }
+.citacao-cartao__credito { margin-top: 2.8rem; display: flex; flex-direction: column; gap: 0.4rem; font-style: normal; color: rgba(255, 255, 255, 0.94); font-size: 1.5rem; }
+.citacao-cartao__credito strong { color: #fff; font-weight: 600; font-size: 1.6rem; }
+.citacao-cartao__credito em { font-style: italic; }
+@media (max-width: 640px) {
+  .citacao-selo { padding: 0.8rem 1.2rem; font-size: 1rem; margin: 0 3.6rem 2.2rem 0; }
+  .citacao-selo::after { right: -2.1rem; width: 2.8rem; height: 2.8rem; margin-top: -1.4rem; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 1.4rem 0 0 0 rgba(255, 255, 255, 0.09); }
+}
+.citacao-cartao .palavra { white-space: nowrap; } /* "percorrê-lo" não quebra no hífen */
+.citacao-cartao .sem-quebra { white-space: nowrap; }
+.citacao-cartao blockquote { hyphens: manual; -webkit-hyphens: manual; }
+@media (max-width: 640px) {
+  .citacao-cartao blockquote { font-size: 2.05rem; line-height: 1.32; text-wrap: pretty; } /* balance só equilibra até ~6 linhas; pretty evita palavra sozinha na última */
+}
+
+/* ===== CHAMADA FINAL PINTADA (16/10): mesmo cartão das citações, pintura
+   "Galhos pendentes" (a 4ª opção da 1ª rodada), céu petróleo no meio pro
+   texto branco. No celular a pintura é uma montagem com os galhos nos cantos
+   de cima, porque o recorte do meio perdia os galhos. ===== */
+.cta-final--pintura { background: var(--color-paper, #f6f7f5); padding: clamp(1.6rem, 3vw, 4rem) 0 clamp(4rem, 6vw, 8rem); overflow: clip; text-align: center; }
+.cta-final--pintura .container { display: block; }
+.citacao-cartao--cta { --cit-img: url("../images/cta-galhos-1920.webp"); min-height: clamp(48rem, 66vh, 64rem); background-position: center 30%; }
+@media (max-width: 1279px) { .citacao-cartao--cta { --cit-img: url("../images/cta-galhos-1100.webp"); } }
+@media (max-width: 640px) { .citacao-cartao--cta { --cit-img: url("../images/cta-galhos-cel.webp"); min-height: 0; padding-block: 8rem 7rem; background-position: center top; } }
+/* uma pintura diferente em cada chamada final (João, 20/10: "cada citação, cada
+   seção pra levar pra outra página, um desenho diferente, folhas e florestas").
+   A Home segue com os galhos pendentes; as outras usam as pinturas guardadas em
+   16/10 pra isso (midia/Biblioteca/Cenários): trilhas, copas e floresta. */
+.citacao-cartao--cta-praticas { --cit-img: url("../images/cta-praticas-1920.webp"); }
+.citacao-cartao--cta-instituto { --cit-img: url("../images/cta-instituto-1920.webp"); }
+.citacao-cartao--cta-atuamos { --cit-img: url("../images/cta-atuamos-1920.webp"); }
+.citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-1920.webp"); }
+.citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-1920.webp"); }
+@media (max-width: 1279px) {
+  .citacao-cartao--cta-praticas { --cit-img: url("../images/cta-praticas-1100.webp"); }
+  .citacao-cartao--cta-instituto { --cit-img: url("../images/cta-instituto-1100.webp"); }
+  .citacao-cartao--cta-atuamos { --cit-img: url("../images/cta-atuamos-1100.webp"); }
+  .citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-1100.webp"); }
+  .citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-1100.webp"); }
+}
+@media (max-width: 640px) {
+  .citacao-cartao--cta-praticas { --cit-img: url("../images/cta-praticas-cel.webp"); background-position: center; }
+  .citacao-cartao--cta-instituto { --cit-img: url("../images/cta-instituto-cel.webp"); background-position: center; }
+  .citacao-cartao--cta-atuamos { --cit-img: url("../images/cta-atuamos-cel.webp"); background-position: center; }
+  .citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-cel.webp"); background-position: center; }
+  .citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-cel.webp"); background-position: center; }
+}
+.citacao-cartao--cta .citacao-selo { margin-bottom: 2.4rem; }
+.citacao-cartao--cta .cta-final__title { color: #fff; max-width: 72rem; margin: 0 0 1.6rem; text-wrap: balance; text-shadow: 0 1px 24px rgba(6, 26, 48, 0.35); }
+.citacao-cartao--cta .cta-final__sub { color: rgba(255, 255, 255, 0.86); max-width: 54rem; margin: 0 0 3.2rem; text-wrap: pretty; text-shadow: 0 1px 16px rgba(6, 26, 48, 0.4); }
+.citacao-cartao--cta .cta-final__actions { display: flex; flex-wrap: wrap; gap: 1.6rem 2.8rem; justify-content: center; align-items: center; }
+@media (max-width: 640px) {
+  .citacao-cartao--cta .cta-final__actions { flex-direction: column; gap: 2rem; }
+}

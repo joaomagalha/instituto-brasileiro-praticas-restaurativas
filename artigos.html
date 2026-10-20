@@ -38,9 +38,9 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20261015a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p244" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.jpg" rel="preload"/>
+<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -60,8 +60,12 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909m" defer></script>
+<script src="assets/js/cookies.js?v=p167" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
@@ -69,38 +73,38 @@
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
-<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.webp"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.webp"/></a>
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img width="200" height="100" alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full-sm.webp"/><img width="200" height="100" alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy-sm.webp"/></a>
 <nav aria-label="Navegação principal" class="navbar__nav">
 <ul class="navbar__links">
 <li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="praticas-restaurativas.html">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="formacoes.html">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
+<ul class="navbar__dropdown">
 <!-- CMS:formacoes-navbar -->
-<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown is-active" aria-current="page" href="ibpr-em-movimento.html">IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a aria-current="page" class="navbar__dropdown-link" href="artigos.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a aria-current="page" class="navbar__dropdown-link" href="artigos.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 </ul>
@@ -115,7 +119,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.webp"/>
+<img width="120" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone-sm.webp"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -161,11 +165,9 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="ibpr-em-movimento.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
 <section aria-label="Artigos" class="page-hero page-hero--ibpr-movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="ibpr-em-movimento.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
 <h1 data-aos="fade-up"><!-- CMS:texto:artigos-hero-titulo -->Pesquisar, experimentar, refletir, compartilhar.<!-- /CMS:texto:artigos-hero-titulo --></h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:artigos-hero-sub -->Artigos científicos, textos de reflexão e artigos de opinião para aprofundar temas e colocar ideias em debate.<!-- /CMS:texto:artigos-hero-sub --></p>
 </div>
@@ -186,7 +188,7 @@
 <div class="artigos__lista" data-aos="fade-up">
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-quando-restaurar-e-tambem-saber-terminar.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/quando-restaurar-e-tambem-saber-terminar-capa-1790962273965.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 22 min de leitura</span></div><div class="artigo-card__body">
+<div class="artigo-card__media"><img alt="" decoding="async" height="1024" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/quando-restaurar-e-tambem-saber-terminar-capa-1790962273965.jpg" width="1536"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 22 min de leitura</span></div><div class="artigo-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">02 out 2026</span></p>
 <h3 class="artigo-card__title">Quando restaurar é também saber terminar: O fim da relação como resultado restaurativo legítimo</h3>
 <p class="artigo-card__resumo">Este artigo apresenta a trajetória de um casal encaminhado a um programa de Justiça Restaurativa em razão de um episódio de violência doméstica. O texto articula a narrativa da experiência vivenciada pelas facilitadoras a uma leitura teórica dos processos observados ao longo da intervenção. O percurso começou com a participação do homem em círculos de diálogo, nos quais passou a compreender de outra maneira o dano causado, suas consequências e sua própria responsabilidade. Posteriormente, a mulher participou de encontros individuais, nos quais emergiram necessidades relacionadas à autonomia, à segurança e à independência financeira, culminando na decisão de encerrar a relação. A experiência permite discutir processos interacionais produzidos pelas práticas restaurativas, o protagonismo da vítima e os limites de intervenções construídas exclusivamente a partir da perspectiva do ofensor. Também questiona a ideia de que práticas restaurativas devam necessariamente resultar em reconciliação, recomposição de vínculos, encontros entre vítimas e ofensores ou acordos formais. Por fim, o caso conduz à reflexão sobre os desafios da inserção da Justiça Restaurativa no sistema formal de justiça e sobre a capacidade institucional de reconhecer e valorar resultados construídos segundo uma lógica distinta daquela que tradicionalmente orienta o sistema de justiça criminal.</p>
@@ -200,7 +202,7 @@
 </article>
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-acendedor-de-lampioes-e-o-legislador-penal.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/acendedor-de-lampioes-e-o-legislador-penal-capa-1790962857880.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 18 min de leitura</span></div><div class="artigo-card__body">
+<div class="artigo-card__media"><img alt="" decoding="async" height="1024" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/acendedor-de-lampioes-e-o-legislador-penal-capa-1790962857880.jpg" width="1536"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 18 min de leitura</span></div><div class="artigo-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">17 set 2026</span></p>
 <h3 class="artigo-card__title">O Acendedor de Lampiões e o Legislador Penal: Uma Análise Crítica da Justiça Restaurativa no PL nº 3.890/2024 (Estatuto da Vítima)</h3>
 <p class="artigo-card__resumo">Este artigo analisa criticamente a forma como o Projeto de Lei do Estatuto da Vítima (PL nº 3.890/2024) incorpora a Justiça Restaurativa, identificando reduções conceituais, inconsistências normativas e riscos de distorção institucional. A partir da metáfora do acendedor de lampiões, evidencia-se como o legislador penal, mesmo ao tentar inovar, mantém estruturas rígidas que não dialogam com os marcos nacionais e internacionais da JR. Argumenta-se que o PL, ao se deixar influenciar pela lógica retributiva, reduz a amplitude da abordagem restaurativa, limitando seu potencial transformador e sua capacidade de responder às necessidades das vítimas não atendidas pelo modelo tradicional.</p>
@@ -214,7 +216,7 @@
 </article>
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-caminhos-praticos-para-aplicacao-da-justica-restaurativa.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/caminhos-praticos-para-aplicacao-da-justica-restaurativa-capa-1790963852407.jpg"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 14 min de leitura</span></div><div class="artigo-card__body">
+<div class="artigo-card__media"><img alt="" decoding="async" height="1024" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/caminhos-praticos-para-aplicacao-da-justica-restaurativa-capa-1790963852407.jpg" width="1536"/><span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> 14 min de leitura</span></div><div class="artigo-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">16 set 2026</span></p>
 <h3 class="artigo-card__title">Caminhos práticos para aplicação da Justiça Restaurativa: Possibilidades reais no sistema penal brasileiro</h3>
 <p class="artigo-card__resumo">Imagine um hospital público em que um médico, diante da mais ampla variedade de doenças, prescrevesse sempre o mesmo medicamento. Não importasse a causa (bacteriana, viral ou acidental) a resposta seria invariavelmente a mesma. É fácil prever o resultado: indignação, ineficácia e abandono do tratamento.</p>
@@ -228,7 +230,7 @@
 </article>
 <article class="artigo-card">
 <a class="artigo-card__link" href="artigo-justica-restaurativa-nova-cultura-no-espaco-prisional.html">
-<div class="artigo-card__media"><img alt="" decoding="async" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/justica-restaurativa-nova-cultura-no-espaco-prisional-capa-1790964415770.jpg"/></div><div class="artigo-card__body">
+<div class="artigo-card__media"><img alt="" decoding="async" height="1024" loading="lazy" src="https://dlqisnyhuexcjjbglzxp.supabase.co/storage/v1/object/public/artigos/justica-restaurativa-nova-cultura-no-espaco-prisional-capa-1790964415770.jpg" width="1536"/></div><div class="artigo-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span><span class="noticia-card__data">01 dez 2021</span></p>
 <h3 class="artigo-card__title">Justiça Restaurativa como instrumento para construção de uma nova cultura no espaço prisional: Estudo da aplicação de círculos de construção de paz em unidades prisionais</h3>
 <p class="artigo-card__resumo">O presente estudo avalia o programa de Justiça Restaurativa aplicado nas unidades prisionais de Uruaçu, Barro Alto e Rialma, todas localizadas no Estado de Goiás. A pesquisa parte da contextualização da política criminal brasileira, com foco nas expressões do paradigma punitivo na forma como o sistema prisional tem exercido o seu papel no sistema de justiça penal. Registra críticas ao ideal ressocializador, como forma de compreender o cenário específico em que a prática restaurativa investigada é aplicada. Por meio de pesquisa bibliográfica, revisa a expansão da Justiça Restaurativa no Brasil, suas características, em especial as tensões decorrentes de sua aproximação ao sistema de justiça criminal, suscitando preocupações quanto ao risco de cooptação pela lógica do sistema punitivo. Apresenta os resultados de pesquisa de campo realizada nas citadas unidades prisionais, com o fim de aferir, junto às pessoas que tiveram contato direto com as metodologias da Justiça Restaurativa, suas impressões a respeito, tanto no que concerne ao cumprimento dos objetivos enunciados, quanto aos efetivos efeitos que as práticas surtem no público destinatário, de modo a subsidiar uma avaliação sobre a pergunta principal orientadora da pesquisa: se os círculos de construção de paz podem servir como instrumento para a construção de uma nova cultura no sistema prisional. Por meio de entrevistas semiestruturadas, foram ouvidas 29 pessoas provadas privadas de liberdade (20 homens e 9 mulheres). Os três diretores das unidades prisionais responderam ao questionário encaminhado via e-mail. Os achados da pesquisa sugerem que a aplicação de programas restaurativos no sistema prisional pode, sim, contribuir para esse propósito, mas não unicamente por meio da aplicação de círculos de construção de paz, conforme realizado na prática examinada. Os relatos colhidos revelaram um contraste entre a descrição dos valores compreendidos como típicos da prisão e aqueles que passaram a cultivar após a participação nos círculos. A melhoria no relacionamento interno, o estímulo ao exercício da empatia e o potencial para diminuição dos conflitos se destacam como pontos positivos. Por outro lado, os achados revelam também algumas deficiências que, embora não desconstituam as conclusões anteriores, podem representar empecilho ao avanço de programas da mesma natureza no sistema prisional ou mesmo inseri-lo nas hipóteses de risco de afastamento dos princípios da Justiça Restaurativa. A partir dessas observações, propõe-se sugestões para o caso de manutenção e/ou a eventual expansão do programa: a) qualificação da apresentação do programa e dos objetivos da Justiça Restaurativa para a execução penal; b) inclusão de programas destinados aos integrantes da administração prisional; c) estabelecimento de recursos de avaliação constante dos resultados do programa; d) estabelecimento de meios que permitam, para além do ciclo de círculos de paz, oportunidades para reverberação dos valores e propósitos estabelecidos nos círculos; e) formação continuada dos facilitadores e ampliação de seu quantitativo; f) inclusão de módulo 294 ReJuB - Rev. Jud. Bras., Brasília, Ano 1, sup. esp., p. 293 - 329, jul./dez. 2021 JUSTIÇA RESTAURATIVA COMO INSTRUMENTO PARA CONSTRUÇÃO DE UMA NOVA CULTURA NO ESPAÇO PRISIONAL: ESTUDO DA APLICAÇÃO DE CÍRCULOS DE CONSTRUÇÃO DE PAZ EM UNIDADES PRISIONAIS sobre justiça restaurativa no curso de formação dos policiais penais; g) aprimoramento do material orientador do programa, de modo que os danos causados às vítimas e às comunidades, assim como aos meios de restauração, sejam mais bem trabalhados.</p>
@@ -247,7 +249,6 @@
 
 <!-- cta final -->
 <section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
 <div aria-hidden="true" class="cta-final__glow"></div>
 <div class="container">
 <p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
@@ -264,15 +265,14 @@
 </main>
 
 <!-- footer -->
-<footer class="footer footer--vidro">
-<div aria-hidden="true" class="grid-overlay footer__grade"></div>
-<div aria-hidden="true" class="footer__marca-agua">IBPR</div>
+<footer class="footer footer--vidro footer--rod">
 <div class="container">
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.webp"/>
+<img width="200" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full-sm.webp"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
+<a class="btn btn--white rodape__fale" href="mailto:ibpr@ibpr.com.br">Fale com o IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <div class="footer__social">
 <span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
 <span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin-in"></i></span>
@@ -336,8 +336,9 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/supabase-config.js?v=20260909m"></script>
+<script src="assets/js/supabase-config.js?v=p167"></script>
 <script src="assets/js/inscricao.js?v=20261019a"></script>
-<script src="assets/js/site-interactions.js?v=20261015a"></script>
+<script src="assets/js/voltar.js?v=p211"></script>
+<script src="assets/js/site-interactions.js?v=p167"></script>
 </body>
 </html>

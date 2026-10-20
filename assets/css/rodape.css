@@ -1,0 +1,74 @@
+/* ===== RODAPÉ: cartão navy granulado (João, 16/10, escolheu a versão 3
+   entre 3; a floresta em camadas ficou "too much" com a pintura da chamada
+   logo acima, backups no scratchpad). O cartão de vidro de antes, agora
+   sobre o mesmo degradê granulado do hero (navy → petróleo), com uma faixa
+   de cima (logo, frase e "Fale com o IBPR") e os links embaixo. ===== */
+.footer.footer--rod {
+  animation: none;
+  padding: clamp(4rem, 6vw, 6.4rem) 0 clamp(2.4rem, 3vw, 3.2rem);
+  background: url("../images/grao-hero.png"), radial-gradient(60rem 40rem at 90% 10%, rgba(var(--teal-rgb), 0.34), transparent 62%), radial-gradient(50rem 30rem at 0% 100%, rgba(217, 183, 79, 0.14), transparent 62%), linear-gradient(160deg, #0B2741 0%, #0E3A4E 60%, #0F4A5A 100%);
+}
+.footer--rod .rodape__fale { display: inline-flex; margin-top: 2rem; }
+.footer--rod .footer__legal { color: rgba(255, 255, 255, 0.74); } /* 0,55 dava 4,2 sobre o petróleo */
+@media (min-width: 1024px) {
+  .footer--rod .footer__grid { grid-template-columns: 1fr; gap: 3.2rem; }
+  .footer--rod .footer__brand { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 1.6rem 4rem; padding-bottom: 3.2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+  .footer--rod .footer__brand-desc { margin: 0; max-width: 56rem; }
+  .footer--rod .footer__social { display: none; }
+  .footer--rod .footer__nav { padding-left: 0; }
+  .footer--rod .footer__nav::before { display: none; }
+  .footer--rod .rodape__fale { margin-top: 0; }
+}
+
+/* ===== RODAPÉ FORA DA HOME (17/10, refação da Práticas Restaurativas): o
+   cartão e a fonte moravam no motion.css, que é só da Home. Aqui o rodapé
+   fica independente; na Home os valores são os mesmos. ===== */
+.footer.footer--rod {
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  font-family: var(--font-body);
+  margin: 0 var(--respiro-bloco, 12px) var(--respiro-bloco, 12px);
+  border-radius: var(--raio-bloco, 32px); overflow: clip; border-top: 0;
+}
+@media (max-width: 767px) { .footer.footer--rod { margin: 0 var(--respiro-bloco, 6px) var(--respiro-bloco, 6px); border-radius: var(--raio-bloco, 22px); } }
+
+/* ===== RODAPÉ MENOR (19/10, pedido do Rauny ao João: "está bem bonito, mas
+   queria dar uma diminuída no tamanho"). Mesmo desenho, textos, links e cores;
+   só folgas menores, links mais juntos, "Instituto" e "Formações" em 2
+   colunas de até 3 no computador e o Contato numa linha só no celular. Antes:
+   backups/rodape-antes-menor.css (625px no computador, 1.118px no celular). ===== */
+.footer.footer--rod { padding: clamp(2rem, 2.6vw, 3.6rem) 0 clamp(1.2rem, 1.2vw, 1.6rem); }
+.footer.footer--rod .footer__cartao { padding: clamp(2rem, 2.4vw, 2.8rem); }
+.footer.footer--rod .footer__grid { gap: 2.4rem; }
+.footer.footer--rod .footer__col-title { margin-bottom: 1.2rem; padding-bottom: 0.7rem; }
+.footer.footer--rod .footer__links { gap: 0.6rem; }
+.footer.footer--rod .footer__bottom { margin-top: 2.4rem; padding-top: 1.6rem; gap: 0.4rem; }
+@media (min-width: 1024px) {
+  .footer.footer--rod .footer__brand { padding-bottom: 2.4rem; }
+}
+/* 2 colunas por bloco só onde cabe sem encostar (em 1024px "IBPR em Movimento"
+   batia em "Plano Pena Justa") */
+@media (min-width: 1200px) {
+  .footer.footer--rod .footer__col:is(:nth-child(1), :nth-child(2)) .footer__links { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; grid-auto-columns: max-content; gap: 0.6rem 3.2rem; align-items: start; }
+  .footer.footer--rod .footer__col:nth-child(2) .footer__links > li { margin: 0; }
+  .footer.footer--rod .footer__col:nth-child(2) .footer__link--todas { display: flex; gap: 0.5rem; margin: 0; }
+  .footer.footer--rod .footer__col:nth-child(2) .footer__link--todas i { width: auto; margin: 0; }
+}
+@media (max-width: 1023px) {
+  .footer.footer--rod .footer__brand-desc { margin-top: 1.2rem; }
+  .footer.footer--rod .rodape__fale { margin-top: 1.6rem; }
+  .footer.footer--rod .footer__social { margin-top: 1.6rem; }
+}
+/* o reforço de toque do components.css (1,2rem em cima e embaixo) dobrava a
+   altura de cada link; 0,6rem ainda deixa ~30px por link */
+@media (max-width: 899px) {
+  .footer.footer--rod .footer__links { gap: 0; }
+  .footer.footer--rod .footer__link, .footer.footer--rod .footer__link--todas { padding-block: 0.6rem; }
+  .footer.footer--rod .footer__endereco { padding-block: 0.6rem; }
+}
+@media (max-width: 767px) {
+  .footer.footer--rod .footer__nav { gap: 2.4rem 1.6rem; }
+  /* Contato: os 3 itens seguidos, quebrando a linha quando não cabem */
+  .footer.footer--rod .footer__col:nth-child(3) .footer__links { flex-direction: row; flex-wrap: wrap; column-gap: 2rem; }
+  .footer.footer--rod .footer__bottom { margin-top: 2rem; padding-top: 1.4rem; }
+  .footer.footer--rod :is(.footer__copy, .footer__legal) { font-size: 1.1rem; line-height: 1.5; }
+}

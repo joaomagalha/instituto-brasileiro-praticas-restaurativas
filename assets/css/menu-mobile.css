@@ -1,0 +1,67 @@
+/* ===== MENU DO CELULAR (João, 19/10: "quero o botão de Área do Aluno dentro do
+   menu mobile e o menu mais bonito, vidro transparente com degradê e grainy").
+   O painel antigo (components.css) era navy-900 com dourado no item ativo e
+   fontes antigas. Aqui só peças do site: grão, navy, verde-água, vidro, selo de
+   contorno e o Botão. Escolhida a versão 1, vidro claro (recusadas vidro escuro
+   e cartão flutuante, em backups/menu-mobile-3-versoes.css). O JS
+   (site-interactions.js) é o mesmo. ===== */
+
+/* "Área do Aluno" sai da navbar abaixo de 1180px: fica só dentro do menu.
+   (O botao.css forçava display:inline-flex em todo Botão e trazia ele de volta.) */
+@media (max-width: 1179px) { :root .navbar .navbar__cta { display: none; } }
+
+/* ---------- base comum às 3 ---------- */
+.mobile-menu {
+  --mm-navy: #0A2A4D;
+  --mm-teal: #0F6B6D;
+  --mm-texto: #0A2A4D;
+  --mm-suave: #4A5A6B;
+  --mm-fio: rgba(10, 42, 77, 0.1);
+  --mm-hover: rgba(10, 42, 77, 0.06);
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  border-left: 0;
+}
+.mobile-menu__header { padding: 1.8rem 2rem 1.2rem; }
+.mobile-menu__logo { height: 3rem; }
+.mobile-menu__close { width: 4.2rem; height: 4.2rem; border: 0; font-size: 1.5rem; }
+.mobile-menu__nav { padding: 0.4rem 1.4rem 2rem; gap: 1.4rem; }
+.mobile-menu__links { gap: 0.2rem; }
+.mobile-menu__link { min-height: 5rem; padding: 1.1rem 1.4rem; border-radius: 1.4rem; font: 500 1.8rem/1.2 "Plus Jakarta Sans", system-ui, sans-serif; letter-spacing: -0.015em; }
+.mobile-menu__link::after { font-size: 1rem; }
+.mobile-menu__link.is-active::before { content: none; }
+.mobile-menu__divider { display: none; }
+/* títulos dos grupos: o selo de contorno do site */
+.mobile-menu__section-label {
+  display: inline-flex; align-items: center; width: fit-content; margin: 1rem 0 0.6rem 1.2rem; padding: 0.6rem 1.2rem; border-radius: 999px;
+  font: 600 1rem/1.2 "Instrument Sans", system-ui, sans-serif; letter-spacing: 0.14em; text-transform: uppercase;
+}
+.mobile-menu__service-link { min-height: 4.4rem; padding: 0.8rem 1.4rem; border-radius: 1.2rem; font: 400 1.45rem/1.35 "Instrument Sans", system-ui, sans-serif; }
+.mobile-menu__service-link::before { flex-basis: 0.6rem; width: 0.6rem; height: 1.5px; border-radius: 2px; }
+.mobile-menu__footer { padding: 1.4rem 2rem 2.2rem; }
+/* o Botão padrão, na largura toda */
+:root .mobile-menu .mobile-menu__cta { width: 100%; min-height: 50px; border-radius: 12px; font: 600 1.5rem/1 "Instrument Sans", system-ui, sans-serif; }
+.overlay { background: rgba(6, 26, 48, 0.32); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+
+/* ---------- vidro claro (painel lateral) ---------- */
+.mobile-menu {
+  width: 88%; max-width: 38rem;
+  background:
+    url("../images/grao.png"),
+    radial-gradient(90% 40% at 100% 0%, rgba(15, 107, 109, 0.16), transparent 70%),
+    radial-gradient(80% 30% at 0% 100%, rgba(10, 42, 77, 0.08), transparent 70%),
+    linear-gradient(180deg, rgba(250, 251, 248, 0.82), rgba(244, 247, 246, 0.9));
+  -webkit-backdrop-filter: blur(22px) saturate(1.4); backdrop-filter: blur(22px) saturate(1.4);
+  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.9);
+}
+.mobile-menu .mobile-menu__close { background: rgba(255, 255, 255, 0.7); color: var(--mm-navy); box-shadow: inset 0 0 0 1px rgba(10, 42, 77, 0.1), 0 6px 16px -10px rgba(10, 42, 77, 0.4); }
+.mobile-menu .mobile-menu__link { color: var(--mm-texto); }
+.mobile-menu .mobile-menu__link::after { color: rgba(10, 42, 77, 0.3); }
+.mobile-menu .mobile-menu__link:is(:hover, :active) { background: var(--mm-hover); color: var(--mm-navy); }
+.mobile-menu .mobile-menu__link.is-active { background: rgba(15, 107, 109, 0.1); color: var(--mm-teal); }
+.mobile-menu .mobile-menu__link.is-active::after { color: var(--mm-teal); }
+.mobile-menu .mobile-menu__section-label { color: var(--mm-navy); box-shadow: inset 0 0 0 1px rgba(10, 42, 77, 0.28); }
+.mobile-menu .mobile-menu__service-link { color: var(--mm-suave); }
+.mobile-menu .mobile-menu__service-link::before { background: rgba(15, 107, 109, 0.45); }
+.mobile-menu .mobile-menu__service-link:is(:hover, :active) { background: var(--mm-hover); color: var(--mm-navy); }
+.mobile-menu .mobile-menu__footer { border-top: 1px solid var(--mm-fio); }
+.mobile-menu .mobile-menu__cta { background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); color: #fff; box-shadow: 0 10px 22px -12px rgba(10, 42, 77, 0.6); }

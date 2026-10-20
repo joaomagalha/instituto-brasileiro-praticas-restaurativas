@@ -1,0 +1,104 @@
+/* ===== PILHA DE FORMAÇÕES (19/10): saiu do motion.css sem alteração pra ser
+   compartilhada entre a Home e a página Formações (João, 19/10: "igual os cards
+   de formação do index, com o mesmo efeito de um card ficando por cima do
+   outro"). O recuo e o escuro na rolagem moram no pilha.js. ===== */
+/* ===== FORMAÇÕES (15/10): cards do CMS em pilha estilo clay.com (escolha
+   do João): presos no topo, o próximo sobe por cima e o de baixo recua.
+   Fundo da seção LISO (sem grão), pra não cansar: o grão fica nos cards. ===== */
+.formacoes { position: relative; background: radial-gradient(70vw 34vw at 50% 0%, rgba(var(--teal-rgb), 0.16), transparent 70%), radial-gradient(50vw 30vw at 100% 100%, rgba(217, 183, 79, 0.1), transparent 70%), #FFFFFF; } /* fundo 2, escolha do João */
+.formacoes > .container { position: relative; z-index: 1; }
+.formacoes > .grid-overlay { display: none; }
+.fcard { position: relative; color: var(--color-navy); }
+.fcard a { color: inherit; text-decoration: none; }
+.fcard__selo { display: inline-flex; align-items: center; margin: 0 0 2rem; }
+.fcard__selo span { position: relative; z-index: 3; padding: 0.7rem 1.4rem; border-radius: 99px; background: var(--color-navy); color: #fff; font: 600 1.15rem/1 var(--font-body); letter-spacing: 0.16em; text-transform: uppercase; }
+.fcard__selo i { width: 2.9rem; height: 2.9rem; margin-left: -1.6rem; border-radius: 50%; background: rgba(var(--navy-rgb), 0.14); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.18); }
+.fcard__selo i + i { z-index: 1; background: rgba(var(--navy-rgb), 0.07); }
+.fcard__selo i:first-of-type { z-index: 2; }
+.fcard__titulo { font: 500 clamp(3rem, 3.4vw, 4.8rem)/1.05 var(--font-titulo); letter-spacing: -0.03em; margin: 0 0 1.6rem; color: var(--color-navy); text-wrap: balance; }
+.fcard__titulo a:hover { color: var(--color-teal); }
+.fcard__publico { margin: 0 0 1.2rem; font: 600 1.25rem/1.4 var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-teal); }
+.fcard__desc { margin: 0; font-size: clamp(1.6rem, 1.2vw, 1.8rem); line-height: 1.6; color: #3A4A5C; max-width: 50rem; }
+.fcard__meta { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 2rem 0 0; }
+.fcard__meta span { display: inline-flex; align-items: center; gap: 0.7rem; padding: 0.8rem 1.2rem; border-radius: 99px; background: rgba(255, 255, 255, 0.7); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08); font: 500 1.35rem/1 var(--font-body); color: var(--color-navy); }
+.fcard__meta i { color: var(--color-teal); font-size: 1.15rem; }
+.fcard__acoes { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: auto; padding-top: 3.2rem; }
+/* .fcard__btn: o Botão padrão do site (botao.css) */
+.fcard__foto { position: relative; overflow: hidden; border-radius: 24px; background: #DDE3E3; }
+.fcard__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s var(--curva-suave); }
+.fcard__foto::after { content: ""; position: absolute; inset: 0; background: var(--grao); opacity: 0.55; pointer-events: none; }
+.fcard__veu { display: none; }
+/* tom de cada formação (granulado claro, alternando as cores da marca) */
+.fcard { --tom-base: #EEF5F3; --tom-mancha: rgba(var(--teal-rgb), 0.32); }
+.fcard:nth-of-type(4n+2) { --tom-base: #F8F2E2; --tom-mancha: rgba(204, 160, 40, 0.34); }
+.fcard:nth-of-type(4n+3) { --tom-base: #EDF1F7; --tom-mancha: rgba(31, 78, 122, 0.28); }
+
+/* ---------- A · PILHA ---------- */
+.formacoes[data-formato="a"] .fpilha { display: grid; gap: 3.2rem; margin-top: clamp(3.2rem, 4vw, 5.6rem); }
+.formacoes[data-formato="a"] .fcard {
+  position: sticky; top: calc(10rem + var(--i) * 1.8rem);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(2.4rem, 3vw, 4rem);
+  min-height: min(70vh, 62rem); padding: clamp(2rem, 2vw, 2.8rem);
+  border-radius: 32px; transform-origin: 50% 0; transform: scale(var(--recuo, 1));
+  background: var(--grao), radial-gradient(60% 90% at 0% 100%, var(--tom-mancha), transparent 72%), var(--tom-base);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 -18px 40px -30px rgba(6, 26, 48, 0.35);
+}
+.formacoes[data-formato="a"] .fcard__corpo { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(1.6rem, 2.4vw, 3.6rem) 0 clamp(1.2rem, 1.6vw, 2rem) clamp(1.2rem, 1.8vw, 2.8rem); }
+.formacoes[data-formato="a"] .fcard__veu { display: block; position: absolute; inset: 0; border-radius: inherit; background: var(--color-navy); opacity: var(--escuro, 0); pointer-events: none; }
+@media (max-width: 899px) {
+  .formacoes[data-formato="a"] .fcard { grid-template-columns: 1fr; top: calc(8.4rem + var(--i) * 1.2rem); min-height: 0; border-radius: 24px; padding: 1.2rem; gap: 0; }
+  .formacoes[data-formato="a"] .fcard__foto { order: -1; height: 26svh; border-radius: 16px; }
+  .formacoes[data-formato="a"] .fcard__corpo { padding: 2rem 0.8rem 0.8rem; }
+  .formacoes[data-formato="a"] .fcard__titulo { font-size: 2.6rem; }
+  .formacoes[data-formato="a"] .fcard__desc { font-size: 1.5rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .formacoes[data-formato="a"] .fcard__acoes { padding-top: 2rem; }
+  .formacoes[data-formato="a"] .fcard__selo { margin-bottom: 1.4rem; }
+}
+
+@media (max-width: 599px) {
+  .formacoes[data-formato="a"] .fcard__btn--claro { display: none; }
+}
+
+/* entrada (todas): os cards sobem em cascata */
+html.mo .fcard { opacity: 0; translate: 0 2.4rem; transition: opacity 0.8s var(--curva-suave), translate 1s var(--curva-suave), transform 0.5s var(--curva-suave), box-shadow 0.5s ease; }
+html.mo .fpilha.is-in .fcard { opacity: 1; translate: 0 0; }
+html.mo .fpilha.is-in .fcard:nth-of-type(2) { transition-delay: 0.08s; }
+html.mo .fpilha.is-in .fcard:nth-of-type(3) { transition-delay: 0.16s; }
+html.mo .fpilha.is-in .fcard:nth-of-type(4) { transition-delay: 0.24s; }
+@media (prefers-reduced-motion: reduce) {
+  html.mo .fcard { opacity: 1; translate: none; transition: none; }
+  .formacoes[data-formato="a"] .fcard { position: relative; top: auto; transform: none; }
+}
+/* na pilha o recuo vem do JS a cada quadro: sem transição no transform */
+html.mo .formacoes[data-formato="a"] .fcard { transition: opacity 0.8s var(--curva-suave), translate 1s var(--curva-suave); }
+
+/* Barrinha de comparação: SÓ NO PROTÓTIPO (não vai pro site real) */
+.demo-opcoes { position: fixed; left: 12px; bottom: 12px; z-index: 100000; display: flex; align-items: center; gap: 4px; padding: 6px 8px; border-radius: 12px; background: rgba(10, 42, 77, 0.94); color: #fff; font: 600 12px/1 var(--font-body); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
+.demo-opcoes span { opacity: 0.75; margin: 0 4px 0 6px; }
+.demo-opcoes button { width: 28px; height: 28px; border-radius: 8px; border: 0; background: rgba(255, 255, 255, 0.12); color: #fff; font: inherit; cursor: pointer; }
+.demo-opcoes button.on { background: var(--color-gold); color: var(--color-navy); }
+
+
+/* ===== TEXTO DOS CARDS DE FORMAÇÕES (João, 15/10, opção 3): só selo,
+   título e resumo; "4 módulos · 12 tópicos" ao lado do selo, números em
+   destaque pra ler de relance; o público vira frase depois do resumo. ===== */
+.formacoes .fcard__meta { display: none; }
+.formacoes .fcard__titulo { font-size: clamp(2.8rem, 3vw, 4.2rem); line-height: 1.06; margin-bottom: 1.4rem; }
+.formacoes .fcard__desc { order: 3; color: #4A5A6B; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.formacoes .fcard__selo { flex-wrap: wrap; row-gap: 1rem; }
+.formacoes .fcard__selo .fcard__conteudo { display: inline-flex; align-items: center; gap: 1rem; margin-left: 1.6rem; padding: 0; background: none; border-radius: 0; letter-spacing: 0; text-transform: none; font: 500 1.55rem/1 var(--font-body); color: #3D5773; }
+.fcard__selo .fcard__conteudo span { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0; background: none; border-radius: 0; letter-spacing: 0; text-transform: none; font: inherit; color: inherit; z-index: auto; }
+.fcard__selo .fcard__conteudo i { width: auto; height: auto; margin: 0; border-radius: 0; background: none; box-shadow: none; z-index: auto; font-size: 1.25rem; color: var(--color-teal); }
+.fcard__conteudo strong { font-weight: 700; color: var(--color-navy); }
+.fcard__conteudo .fcard__sep { color: #8A96A3; }
+.formacoes .fcard__publico { display: block; order: 4; margin: 1.6rem 0 0; font: 500 1.5rem/1.45 var(--font-body); letter-spacing: 0; text-transform: none; color: var(--color-navy); }
+.formacoes .fcard__acoes { order: 5; }
+@media (max-width: 899px) {
+  .formacoes .fcard__titulo { font-size: 2.4rem; }
+  .formacoes .fcard__selo .fcard__conteudo { font-size: 1.45rem; margin-left: 0; width: 100%; }
+}
+
+
+/* Pilha de Formações: a escala muda a cada quadro; com camada própria só
+   enquanto a seção está na tela, a GPU escala sem repintar o card (16/10). */
+.fpilha.em-tela .fcard, .fpilha.em-tela .fcard__veu { will-change: transform, opacity; }

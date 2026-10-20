@@ -1,0 +1,70 @@
+/* ===== BOTÃO PADRÃO DO SITE (João, 16/10). Padronização: o site tinha 5
+   formatos de botão; ficam 2. Este é o Botão, a ação principal de um bloco:
+   o modelo dos cards de Formações ("sem estar muito arredondado, tom de
+   seriedade"), 12px de raio, 48px, 15px/600. O outro tipo é o .link-seta
+   (motion.css), pra ir a uma página no topo da seção ou como secundário.
+   Hover: o reflexo escolhido antes (brilho que atravessa uma vez, sombra que
+   cresce, seta que anda), sem o anel dourado girando do components.css.
+   Cores: navy em fundo claro (.btn--dark, .fcard__btn, navbar rolada);
+   branco em fundo escuro (.btn--white, .btn--primary); claro com borda
+   como secundário do par (.fcard__btn--claro). Backups no scratchpad:
+   botao-3opcoes.css (as 3 animações) e botao-antes-padrao.css (pílula). ===== */
+
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn)::after { content: none; animation: none; }
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn) {
+  position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  min-height: 48px; padding: 0 2.2rem; border: 0; border-radius: 12px;
+  font: 600 1.5rem/1 var(--font-body); letter-spacing: 0; white-space: nowrap; text-decoration: none;
+  transition: box-shadow 0.5s var(--curva-suave, ease), transform 0.3s ease;
+}
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn):hover { transform: none; }
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn):active { transform: scale(0.98); }
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn):focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn) > i { font-size: 1.3rem; transition: transform 0.5s var(--curva-suave, ease); }
+
+/* o reflexo: faixa de luz diagonal guardada fora do botão, à esquerda */
+:root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn)::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.75) 48%, transparent 66%);
+  transform: translateX(-120%);
+}
+
+/* branco (fundo escuro) */
+:root :is(.btn--white, .btn--primary) {
+  background: linear-gradient(180deg, #FFFFFF 0%, #EEF3F4 100%); color: var(--color-navy);
+  box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 6px 16px -8px rgba(var(--navy-rgb), 0.35);
+}
+/* reflexo verde-água no branco: o branco sobre branco não aparecia (João, 19/10:
+   "quando o botão está branco não aparece nenhum efeito") */
+:root :is(.btn--white, .btn--primary)::before { background: linear-gradient(105deg, transparent 30%, rgba(var(--teal-rgb), 0.16) 48%, transparent 66%); }
+/* claro com borda (secundário do par, fundo claro) */
+:root .fcard__btn--claro {
+  background: #fff; color: var(--color-navy);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.14), 0 1px 2px rgba(var(--navy-rgb), 0.04);
+}
+:root .fcard__btn--claro::before { background: linear-gradient(105deg, transparent 30%, rgba(var(--teal-rgb), 0.1) 48%, transparent 66%); }
+/* navy (fundo claro) */
+:root :is(.btn--dark, .fcard__btn:not(.fcard__btn--claro), .navbar.scrolled .navbar__cta) {
+  background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px -10px rgba(var(--navy-rgb), 0.55);
+}
+:root :is(.btn--dark, .fcard__btn:not(.fcard__btn--claro), .navbar.scrolled .navbar__cta)::before { background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 48%, transparent 66%); }
+
+/* compacto: Área do Aluno na navbar */
+:root .navbar .navbar__cta { min-height: 40px; padding: 0 1.8rem; border-radius: 10px; font-size: 1.4rem; }
+
+@media (hover: hover) {
+  :root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn):hover::before { transform: translateX(120%); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+  :root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn):hover > i { transform: translateX(3px); }
+  :root :is(.btn--white, .btn--primary):hover { color: var(--color-navy); background: linear-gradient(180deg, #FFFFFF 0%, #E6F0EF 100%); box-shadow: inset 0 1px 0 #fff, inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), 0 12px 26px -10px rgba(var(--navy-rgb), 0.45); }
+  :root .fcard__btn--claro:hover { color: var(--color-navy); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3), 0 8px 20px -12px rgba(var(--navy-rgb), 0.3); }
+  :root :is(.btn--dark, .fcard__btn:not(.fcard__btn--claro), .navbar.scrolled .navbar__cta):hover { color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 14px 28px -10px rgba(var(--navy-rgb), 0.65); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn) > i, :root :is(.btn--white, .btn--primary, .btn--dark, .fcard__btn)::before { transition: none !important; transform: none !important; }
+}
+
+/* contorno (Recusar do aviso de cookies): mesma forma do Botão */
+:root .btn--outline { min-height: 48px; padding: 0 2.2rem; border-radius: 12px; font: 600 1.5rem/1 var(--font-body); }

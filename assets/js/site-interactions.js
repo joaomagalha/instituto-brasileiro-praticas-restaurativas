@@ -6,7 +6,7 @@
 // O vídeo do papel rasgado (.rasgo__video) fica fora da 1ª tela: sem autoplay
 // e com preload="none" no HTML, só baixa e toca quando entra na tela (e pausa
 // quando sai). Antes ele baixava os 2,8 MB inteiros ao abrir a Home.
-const rasgoVideos = document.querySelectorAll('.rasgo__video');
+const rasgoVideos = document.querySelectorAll('.rasgo__video, .pv-palco__video');
 if (rasgoVideos.length && 'IntersectionObserver' in window
     && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const vigia = new IntersectionObserver((entradas) => {

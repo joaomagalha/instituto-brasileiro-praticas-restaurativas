@@ -1,0 +1,219 @@
+/* ===== CORPO DO ARTIGO NO VISUAL NOVO (João, 19/10: "faça algo parecido com
+   o que a gente fez na seção de notícias, sem sair muito do padrão"). Mesmo
+   molde do corpo da notícia (noticia.css): fundo granulado claro, fontes novas,
+   coluna de leitura, abertura com a capitular verde-água; o resto com peças que
+   o site já usa: iniciais dos autores dos cartões de Artigos, cartão de vidro
+   (Fundamento das formações), selo de contorno, pílulas de vidro, Botão padrão,
+   ícone em círculo verde-água (cartão da formação), link com seta no círculo.
+   A página ainda está no visual antigo; isto só mexe em .artigo-corpo-secao.
+   No repo: o molde do artigo no build precisa deste markup. ===== */
+
+.artigo-corpo-secao {
+  --font-body: "Instrument Sans", system-ui, sans-serif;
+  --font-titulo: "Plus Jakarta Sans", system-ui, sans-serif;
+  --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
+  --a-navy: var(--color-navy, #0A2A4D);
+  --a-teal: #0F6B6D;
+  --a-texto: #2C4158;
+  --a-cinza: #5B6B7C;
+  --a-fio: rgba(var(--navy-rgb), 0.09);
+  --a-curva: cubic-bezier(0.22, 1, 0.36, 1);
+  --a-vidro: radial-gradient(46% 70% at 88% 20%, rgba(var(--teal-rgb), 0.1), transparent 75%), rgba(255, 255, 255, 0.58);
+  --a-vidro-borda: inset 0 0 0 1px rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 30px 60px -42px rgba(var(--navy-rgb), 0.45);
+  position: relative;
+  padding: clamp(6.4rem, 7vw, 10.4rem) 0 clamp(7.2rem, 8vw, 11.2rem);
+  background:
+    url("../images/grao.png"),
+    linear-gradient(180deg, transparent calc(100% - 7vw), #FAFBF8 100%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    radial-gradient(40vw 30vw at 0% 60%, rgba(var(--teal-rgb), 0.07), transparent 72%),
+    #FAFBF8;
+  font-family: var(--font-body);
+  color: var(--a-texto);
+}
+
+/* selo de contorno (o do site) pro "Resumo", "Como citar" e "Ações" */
+.artigo-corpo-secao :is(.artigo-resumo, .artigo-citar) .overline,
+.artigo-corpo-secao .artigo-acoes__titulo {
+  display: inline-flex; align-items: center; width: fit-content; margin: 0 0 1.8rem; padding: 0.7rem 1.4rem; border-radius: 999px;
+  background: none; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3); color: var(--a-navy);
+  font: 600 1.1rem/1.2 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase;
+}
+.artigo-corpo-secao :is(.artigo-resumo, .artigo-citar) .overline::before,
+.artigo-corpo-secao :is(.artigo-resumo, .artigo-citar) .overline::after { content: none !important; }
+
+/* ---- autores: iniciais dos cartões de Artigos ---- */
+.artigo-corpo-secao .artigo-autores { gap: 2.4rem 3.2rem; margin-bottom: clamp(3.2rem, 3.6vw, 4.4rem); }
+.artigo-corpo-secao .artigo-autor { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1.4rem; align-items: start; }
+.artigo-autor__inicial { grid-row: 1 / 3; display: grid; place-items: center; width: 4.4rem; height: 4.4rem; border-radius: 50%; background: var(--a-navy); color: #fff; font: 600 1.6rem/1 var(--font-titulo); box-shadow: 0 0 0 3px #FAFBF8; }
+.artigo-corpo-secao .artigo-autor:nth-child(2n) .artigo-autor__inicial { background: var(--a-teal); }
+.artigo-corpo-secao .artigo-autor__nome { margin: 0.2rem 0 0.4rem; color: var(--a-navy); font: 500 1.75rem/1.3 var(--font-titulo); letter-spacing: -0.01em; }
+.artigo-corpo-secao .artigo-autor__cred { margin: 0; color: var(--a-cinza); font: 400 1.4rem/1.55 var(--font-body); }
+
+/* ---- resumo: cartão de vidro ---- */
+.artigo-corpo-secao .artigo-resumo { margin: 0 0 clamp(4rem, 4.4vw, 5.6rem); padding: clamp(2.8rem, 3.4vw, 4.4rem); border: 0; border-radius: 2.4rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
+.artigo-corpo-secao .artigo-resumo__texto { margin: 0; color: var(--a-navy); font: 400 1.75rem/1.7 var(--font-body); }
+.artigo-corpo-secao .artigo-palavras { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 2.2rem 0 0; padding: 0; list-style: none; }
+.artigo-corpo-secao .artigo-palavras .tag-pill { padding: 0.9rem 1.5rem; border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.72); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 10px 22px -18px rgba(var(--navy-rgb), 0.5); color: var(--a-navy); font: 500 1.35rem/1.3 var(--font-body); }
+
+/* ---- texto: coluna de leitura, igual à da notícia ---- */
+.artigo-corpo-secao .prose--artigo { max-width: 62ch; }
+.artigo-corpo-secao .prose--artigo p { margin: 0; color: var(--a-texto); font: 400 clamp(1.75rem, 1.3vw, 1.9rem)/1.78 var(--font-body); text-wrap: pretty; }
+.artigo-corpo-secao .prose--artigo > * + * { margin-top: 2.4rem; }
+.artigo-corpo-secao .prose--artigo > p:first-of-type { color: var(--a-navy); font: 500 clamp(2rem, 1.55vw, 2.25rem)/1.62 var(--font-body); letter-spacing: -0.005em; }
+.artigo-corpo-secao .prose--artigo > p:first-of-type::first-letter { float: left; margin: 0.08em 0.12em 0 0; color: var(--a-teal); font: 600 3.4em/0.82 var(--font-titulo); }
+.artigo-corpo-secao .prose--artigo :is(h2, h3) { margin: 4.8rem 0 0; color: var(--a-navy); font: 500 clamp(2.4rem, 2vw, 2.8rem)/1.2 var(--font-titulo); letter-spacing: -0.02em; }
+.artigo-corpo-secao .prose--artigo h3 { font-size: clamp(2rem, 1.6vw, 2.2rem); }
+.artigo-corpo-secao .prose--artigo :is(ul, ol) { color: var(--a-texto); font: 400 clamp(1.75rem, 1.3vw, 1.9rem)/1.78 var(--font-body); }
+.artigo-corpo-secao .prose--artigo a { color: var(--a-teal); text-decoration-color: rgba(var(--teal-rgb), 0.35); text-underline-offset: 0.2em; }
+/* falas em itálico: pausa de reflexão das autoras, com fio fino de uma cor */
+.artigo-corpo-secao .prose--artigo blockquote { margin: 2.4rem 0 0; padding: 0.2rem 0 0.2rem 2.4rem; border: 0; border-left: 2px solid rgba(var(--teal-rgb), 0.45); background: none; border-radius: 0; }
+.artigo-corpo-secao .prose--artigo blockquote + blockquote { margin-top: 1.6rem; }
+.artigo-corpo-secao .prose--artigo blockquote p { color: #3D5068; font-style: italic; }
+
+/* ---- como citar: cartão de vidro ---- */
+.artigo-corpo-secao .artigo-citar { margin: clamp(4.8rem, 5vw, 6.4rem) 0 0; padding: clamp(2.6rem, 3vw, 3.6rem); border: 0; border-radius: 2.4rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
+.artigo-corpo-secao .artigo-citar__texto { margin: 0; color: var(--a-texto); font: 400 1.5rem/1.65 var(--font-body); }
+.artigo-corpo-secao .artigo-citar__copiar { display: inline-flex; align-items: center; gap: 0.8rem; min-height: 40px; margin-top: 1.8rem; padding: 0 1.6rem; border: 0; border-radius: 10px; background: transparent; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.18); color: var(--a-navy); font: 600 1.35rem/1 var(--font-body); cursor: pointer; transition: background 0.3s ease; }
+.artigo-corpo-secao .artigo-citar__copiar:hover { background: rgba(var(--navy-rgb), 0.05); color: var(--a-navy); }
+
+/* ---- fim: link com seta no círculo ---- */
+.artigo-corpo-secao .noticia-fim { margin: 4rem 0 0; padding-top: 3.2rem; border-top: 1px solid var(--a-fio); }
+.artigo-corpo-secao .link-seta { display: inline-flex; align-items: center; gap: 1.2rem; min-height: 44px; color: var(--a-navy); font: 600 1.6rem/1.2 var(--font-body); text-decoration: none; }
+.artigo-corpo-secao .link-seta__circ { display: grid; place-items: center; flex: none; width: 3.8rem; height: 3.8rem; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--a-navy); color: var(--a-navy); font-size: 1.3rem; overflow: hidden; transition: background 0.35s ease, color 0.35s ease; }
+.artigo-corpo-secao .link-seta__circ i { transition: transform 0.4s var(--curva-suave); }
+.artigo-corpo-secao .link-seta:hover .link-seta__circ { background: var(--a-navy); color: #fff; }
+.artigo-corpo-secao .link-seta:hover .link-seta__circ i { transform: translateX(3px); }
+
+/* ---- ações: cartão de vidro na lateral presa (e antes do texto no celular) ---- */
+.artigo-corpo-secao .artigo-acoes { display: flex; flex-direction: column; gap: 0.4rem; padding: 2.2rem; border: 0; border-radius: 2.2rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
+.artigo-corpo-secao .artigo-acoes__titulo { margin-bottom: 1.2rem; }
+.artigo-corpo-secao .artigo-acao { display: flex; align-items: center; gap: 1.2rem; width: 100%; min-height: 44px; padding: 0.4rem 0.6rem; border: 0; border-radius: 1.2rem; background: none; color: var(--a-navy); font: 500 1.45rem/1.3 var(--font-body); text-align: left; cursor: pointer; transition: background 0.3s ease; }
+.artigo-corpo-secao .artigo-acao i { display: grid; place-items: center; flex: none; width: 3.4rem; height: 3.4rem; border-radius: 50%; background: rgba(var(--teal-rgb), 0.09); color: var(--a-teal); font-size: 1.3rem; }
+.artigo-corpo-secao .artigo-acao:hover { background: rgba(255, 255, 255, 0.7); }
+.artigo-corpo-secao .artigo-acao:focus-visible { outline: 2px solid var(--a-navy); outline-offset: 2px; }
+/* "Receber publicações": o Botão padrão navy (botao.css), por cima das regras acima */
+:root .artigo-corpo-secao .artigo-acao--destaque {
+  position: relative; isolation: isolate; overflow: hidden; justify-content: center; gap: 0.9rem; min-height: 48px; margin-bottom: 0.8rem; padding: 0 2rem; border-radius: 12px;
+  background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); color: #fff; font: 600 1.45rem/1 var(--font-body);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px -10px rgba(var(--navy-rgb), 0.55); transition: box-shadow 0.5s var(--curva-suave);
+}
+:root .artigo-corpo-secao .artigo-acao--destaque i { width: auto; height: auto; background: none; color: inherit; }
+:root .artigo-corpo-secao .artigo-acao--destaque::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 48%, transparent 66%); transform: translateX(-120%); }
+@media (hover: hover) {
+  :root .artigo-corpo-secao .artigo-acao--destaque:hover { background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 14px 28px -10px rgba(var(--navy-rgb), 0.65); }
+  :root .artigo-corpo-secao .artigo-acao--destaque:hover::before { transform: translateX(120%); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+}
+.artigo-corpo-secao .artigo-acoes--mobile { margin: 0 0 3.2rem; }
+
+/* ---- entrada (artigo.js marca .is-in) e saída ao rolar, como na notícia ---- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-artigo .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar, .noticia-fim) { opacity: 0; transform: translateY(14px); transition: opacity 0.5s ease, transform 0.7s var(--a-curva); }
+  .js-artigo .artigo-corpo-secao .artigo-autor + .artigo-autor { transition-delay: 0.08s; }
+  .js-artigo .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar, .noticia-fim).is-in { opacity: 1; transform: none; }
+  @supports (animation-timeline: view()) {
+    @keyframes artigo-saida { to { opacity: 0; translate: 0 -6vh; } }
+    .artigo-corpo-secao :is(.artigo-autor, .artigo-resumo, .prose--artigo > *, .artigo-citar) { animation: artigo-saida linear both; animation-timeline: view(); animation-range: exit-crossing -6vh exit-crossing 50%; }
+  }
+}
+
+@media (max-width: 767px) {
+  .artigo-corpo-secao .prose--artigo > p:first-of-type::first-letter { font-size: 3em; }
+  .artigo-corpo-secao .prose--artigo blockquote { padding-left: 1.6rem; }
+  .artigo-corpo-secao .artigo-resumo, .artigo-corpo-secao .artigo-citar { border-radius: 1.8rem; }
+}
+/* a versão do celular (antes do texto) só aparece sem a lateral */
+@media (min-width: 1024px) { .artigo-corpo-secao .artigo-acoes--mobile { display: none; } }
+.artigo-corpo-secao .artigo-acoes.artigo-acoes--mobile { flex-direction: column; flex-wrap: nowrap; padding: 2.2rem; }
+.artigo-corpo-secao .artigo-acoes--mobile .artigo-acao { flex: none; width: 100%; justify-content: flex-start; text-align: left; }
+:root .artigo-corpo-secao .artigo-acoes--mobile .artigo-acao--destaque { justify-content: center; }
+
+/* ===== REFINO LEVE (19/10, João: "só dar uma leve refinada") ===== */
+/* falas em sequência: um trecho só, com o fio contínuo, e mais ar em volta */
+.artigo-corpo-secao .prose--artigo > blockquote { margin-top: 3.2rem; }
+.artigo-corpo-secao .prose--artigo > blockquote + blockquote { margin-top: 0; padding-top: 1.8rem; }
+.artigo-corpo-secao .prose--artigo > blockquote + p { margin-top: 3.2rem; }
+/* autores: credenciais mais leves, inicial alinhada ao nome, fio antes do resumo */
+.artigo-corpo-secao .artigo-autores { padding-bottom: clamp(2.8rem, 3vw, 3.6rem); border-bottom: 1px solid var(--a-fio); }
+.artigo-corpo-secao .artigo-autor { align-items: center; }
+.artigo-autor__inicial { grid-row: 1; }
+.artigo-corpo-secao .artigo-autor__nome { margin: 0; }
+.artigo-corpo-secao .artigo-autor__cred { grid-column: 2; margin-top: 0.6rem; line-height: 1.6; }
+/* resumo: um pouco menor que o corpo, linha mais curta, palavras separadas por fio */
+.artigo-corpo-secao .artigo-resumo__texto { max-width: 66ch; font-size: 1.7rem; line-height: 1.7; }
+.artigo-corpo-secao .artigo-palavras { margin-top: 2.4rem; padding-top: 2.2rem; border-top: 1px solid var(--a-fio); }
+/* texto: um pouco mais estreito e com mais ar entre parágrafos */
+.artigo-corpo-secao .prose--artigo { max-width: 58ch; }
+.artigo-corpo-secao .prose--artigo > p + p { margin-top: 2.8rem; }
+/* ações: hover escurece o círculo; "Copiado" em verde-água cheio */
+.artigo-corpo-secao .artigo-acao:not(.artigo-acao--destaque) i { transition: background 0.3s ease, color 0.3s ease; }
+.artigo-corpo-secao .artigo-acao:not(.artigo-acao--destaque):hover i { background: rgba(var(--teal-rgb), 0.16); }
+.artigo-corpo-secao .artigo-acao:not(.artigo-acao--destaque):has(.fa-check) i { background: var(--a-teal); color: #fff; }
+.artigo-corpo-secao .artigo-citar__copiar:has(.fa-check) { box-shadow: inset 0 0 0 1px rgba(var(--teal-rgb), 0.5); color: var(--a-teal); }
+/* como citar: mais discreto que o corpo */
+.artigo-corpo-secao .artigo-citar__texto { color: var(--a-cinza); font-size: 1.45rem; }
+
+/* ===== EMENDA COM "OUTROS ARTIGOS" (19/10, igual às notícias): a seção de
+   folhas (#artigos, a mesma da IBPR em Movimento) continua o fundo de cima. ===== */
+.artigo-corpo-secao + #artigos {
+  padding-top: clamp(2.4rem, 3vw, 4rem);
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
+    radial-gradient(50vw 18vw at 12% 70%, rgba(217, 183, 79, 0.13), transparent 76%),
+    var(--papel-claro);
+}
+.section--paper + #artigos {
+  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 248, 247, 0) 8vw),
+    var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
+    radial-gradient(56vw 22vw at 84% 24%, rgba(var(--teal-rgb), 0.14), transparent 74%),
+    radial-gradient(50vw 18vw at 12% 70%, rgba(217, 183, 79, 0.13), transparent 76%),
+    var(--papel-claro);
+}
+
+/* ===== AUTORES NO TOPO (19/10, João: "padronize esse bullet igual fizemos nas
+   outras seções"): a forma dos atalhos do topo (.hero-interna__atalho) com um
+   vidro leve, e a inicial em círculo navy/verde-água dos cartões de Artigos. ===== */
+.hero-interna .artigo-hero__autores { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 0.4rem 0 0; }
+.hero-interna .artigo-hero__autor {
+  display: inline-flex; align-items: center; gap: 0.9rem; min-height: 36px; padding: 0.4rem 1.5rem 0.4rem 0.4rem; border: 0; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  color: #fff; font: 500 1.4rem/1.2 "Instrument Sans", system-ui, sans-serif;
+}
+.artigo-hero__inicial { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--color-navy, #0A2A4D); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); color: #fff; font: 600 1.2rem/1 "Plus Jakarta Sans", system-ui, sans-serif; }
+.hero-interna .artigo-hero__autor:nth-child(2n) .artigo-hero__inicial { background: #0F6B6D; }
+@media (max-width: 767px) { .hero-interna .artigo-hero__autor { font-size: 1.3rem; } }
+
+/* ===== SUMÁRIO "NESTE ARTIGO" (artigos com intertítulos): mesmo cartão de vidro
+   das Ações, selo de contorno no título e trilho fino; a seção atual fica em
+   navy com o trilho verde-água (era dourado, que saiu do site). ===== */
+.artigo-corpo-secao .artigo-toc { padding: 2.2rem; border: 0; border-radius: 2.2rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
+.artigo-corpo-secao .artigo-toc__titulo {
+  display: inline-flex; align-items: center; width: fit-content; margin: 0 0 1.4rem; padding: 0.7rem 1.4rem; border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3); color: var(--a-navy); font: 600 1.1rem/1.2 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase;
+}
+.artigo-corpo-secao .artigo-toc ol { gap: 0.2rem; max-height: 46vh; overflow: auto; }
+.artigo-corpo-secao .artigo-toc a { padding: 0.7rem 1rem 0.7rem 1.4rem; border-left: 2px solid var(--a-fio); border-radius: 0 0.8rem 0.8rem 0; color: var(--a-cinza); font: 400 1.35rem/1.45 var(--font-body); }
+.artigo-corpo-secao .artigo-toc a:hover { color: var(--a-navy); background: rgba(255, 255, 255, 0.7); }
+.artigo-corpo-secao .artigo-toc a.is-ativo { color: var(--a-navy); border-left-color: var(--a-teal); font-weight: 600; }
+.artigo-corpo-secao .artigo-toc--mobile { margin: 0 0 1.6rem; }
+.artigo-corpo-secao .artigo-toc--mobile summary { color: var(--a-navy); font: 600 1.45rem/1.3 var(--font-body); }
+.artigo-corpo-secao .artigo-toc--mobile summary i { color: var(--a-teal); }
+.artigo-corpo-secao .artigo-toc--mobile ol { max-height: none; margin-top: 1.4rem; }
+/* intertítulos e notas */
+.artigo-corpo-secao .prose--artigo > :is(h2, h3) { scroll-margin-top: 12rem; }
+.artigo-corpo-secao .prose--artigo > :is(h2, h3) + p { margin-top: 1.6rem; }
+.artigo-corpo-secao .prose--artigo h2#notas { margin-top: 5.6rem; padding-top: 3.2rem; border-top: 1px solid var(--a-fio); font-size: 2rem; }
+.artigo-corpo-secao .prose--artigo li + li { margin-top: 0.8rem; }
+.artigo-corpo-secao .prose--artigo li::marker { color: var(--a-teal); }
+
+/* ===== ARTIGO PUBLICADO FORA (PDF + revista): o acesso num cartão de vidro,
+   com o Botão padrão, o link externo no estilo dos links do site e o DOI. ===== */
+.artigo-corpo-secao .artigo-acesso { gap: 1.6rem 2.8rem; margin: 0 0 clamp(4rem, 4.4vw, 5.6rem); padding: clamp(2.4rem, 3vw, 3.2rem); border-radius: 2.4rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
+.artigo-corpo-secao .artigo-acesso .link-arrow { display: inline-flex; align-items: center; gap: 0.8rem; min-height: 44px; color: var(--a-navy); font: 600 1.5rem/1.2 var(--font-body); text-decoration: underline; text-decoration-color: rgba(var(--navy-rgb), 0.25); text-underline-offset: 0.3em; transition: text-decoration-color 0.3s ease; }
+.artigo-corpo-secao .artigo-acesso .link-arrow:hover { text-decoration-color: var(--a-navy); }
+.artigo-corpo-secao .artigo-acesso .link-arrow i { color: var(--a-teal); font-size: 1.2rem; }
+.artigo-corpo-secao .artigo-acesso__doi { padding-top: 1.4rem; border-top: 1px solid var(--a-fio); color: var(--a-cinza); font: 400 1.35rem/1.5 var(--font-body); }
+.artigo-corpo-secao .artigo-acesso__doi span { color: var(--a-navy); font-size: 1.3rem; }
+.artigo-corpo-secao .prose--artigo:empty { display: none; }

@@ -5286,3 +5286,16 @@ i.fa-solid, i.fa-regular, i.fa-brands { display: inline-block; min-width: 1em; t
 
 [data-aos="fade-up"][data-aos="fade-up"] { transform: translate3d(0, 2.4rem, 0); }
 body[data-aos-duration] [data-aos][data-aos] { transition-duration: 0.6s; }
+
+/* com o menu aberto, o aviso de cookies (z-index 9000) cobria os últimos itens;
+   ele some enquanto o menu está aberto e volta ao fechar (auditoria, 20/10) */
+body:has(.mobile-menu.active) .aviso-cookies { visibility: hidden; }
+
+/* nome do autor no rodapé do cartão de artigo: o "Ler artigo" dividia a linha e
+   o nome saía cortado com reticências ("Decildo Ferreira Lop…"); até 1024px o
+   nome ganha a linha dele (auditoria, 20/10) */
+@media (max-width: 1024px) {
+  :root .artigo-card__rodape { flex-wrap: wrap; }
+  :root .artigo-card__rodape .artigo-card__autores { flex: 1 1 100%; white-space: normal; overflow: visible; text-overflow: clip; }
+  :root .artigo-card__rodape .noticia-card__cta { margin-left: 0; }
+}

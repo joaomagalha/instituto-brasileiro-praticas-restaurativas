@@ -1,0 +1,64 @@
+/* ===== BOTÃO VOLTAR (João, 19/10: "não tem um botão pra voltar à página de
+   onde parei"). Desfaz o último clique: o history.back() do
+   site-interactions.js devolve a pessoa ao mesmo ponto da rolagem; sem
+   histórico do site, segue o link de emergência. Escolhida a versão "junto
+   da navbar" (as outras em conv/voltar-3-versoes.css): pílula pequena logo
+   abaixo da navbar, sempre à vista. Sobre o hero é vidro claro; sobre fundo
+   claro (is-claro, posto pelo voltar.js) vira degradê navy com grão, porque
+   o vidro sumia no branco. Cores próprias, pra servir também às páginas que
+   ainda estão no visual antigo. ===== */
+
+.voltar {
+  --v-navy: #0A2A4D;
+  --v-curva: cubic-bezier(0.22, 1, 0.36, 1);
+  position: fixed; z-index: 95;
+  top: var(--voltar-top, 96px); left: var(--voltar-left, 24px);
+  isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 4px 14px 4px 4px; border-radius: 999px;
+  color: var(--v-navy); text-decoration: none; white-space: nowrap;
+  font: 600 13px/1 "Instrument Sans", system-ui, sans-serif; letter-spacing: 0;
+  background: rgba(255, 255, 255, 0.74);
+  -webkit-backdrop-filter: blur(10px) saturate(1.4); backdrop-filter: blur(10px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 0 1px rgba(10, 42, 77, 0.08), 0 12px 28px -12px rgba(6, 26, 48, 0.4);
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity 0.5s var(--v-curva), transform 0.5s var(--v-curva), visibility 0.5s, color 0.35s ease, background-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* degradê com grão: camada própria, aparece com opacidade (sem salto) */
+.voltar::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background:
+    url("../images/grao.png"),
+    radial-gradient(120% 140% at 0% 0%, rgba(120, 190, 190, 0.35), transparent 55%),
+    linear-gradient(135deg, #0A2A4D 0%, #12406B 58%, #1B5A6E 100%);
+  opacity: 0; transition: opacity 0.35s ease, filter 0.3s ease;
+}
+.voltar.is-visivel { opacity: 1; visibility: visible; transform: none; }
+.voltar:hover { background-color: rgba(255, 255, 255, 0.92); }
+.voltar:focus-visible { outline: 2px solid var(--v-navy); outline-offset: 3px; }
+
+.voltar__seta { display: grid; place-items: center; flex: none; width: 26px; height: 26px; border-radius: 50%; background: rgba(10, 42, 77, 0.08); color: var(--v-navy); font-size: 11px; transition: background-color 0.35s ease, color 0.35s ease; }
+.voltar__seta i { transition: transform 0.45s var(--v-curva); }
+.voltar:hover .voltar__seta i, .voltar:focus-visible .voltar__seta i { transform: translateX(-3px); }
+
+/* sobre fundo claro */
+.voltar.is-claro {
+  color: #fff; background-color: transparent;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 10px 24px -10px rgba(6, 26, 48, 0.55);
+}
+.voltar.is-claro::before { opacity: 1; }
+.voltar.is-claro:hover::before { filter: brightness(1.15); }
+.voltar.is-claro .voltar__seta { background: rgba(255, 255, 255, 0.14); color: #fff; }
+
+@media (max-width: 599px) {
+  .voltar { padding: 3px; }
+  .voltar__txt { display: none; }
+  .voltar__seta { width: 32px; height: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .voltar { transform: none; transition: opacity 0.2s linear, visibility 0.2s; }
+  .voltar::before, .voltar__seta i { transition: none; }
+}
+@media print { .voltar { display: none; } }

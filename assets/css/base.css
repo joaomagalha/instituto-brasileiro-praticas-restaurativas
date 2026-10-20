@@ -1,0 +1,124 @@
+/* ===== BASE COMPARTILHADA DO VISUAL NOVO (17/10). Tokens, tipografia,
+   papel, grão e a navbar de vidro, que moravam no motion.css (só da Home).
+   Movidos sem alteração, na mesma ordem; carregar ANTES do motion.css e de
+   qualquer CSS de página. ===== */
+
+/* 1 · Tipografia: Plus Jakarta Sans nos títulos (escolha do João, 15/10;
+   a Fraunces foi recusada), Instrument Sans no resto */
+:root {
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-body:    "Instrument Sans", system-ui, sans-serif;
+  --font-titulo:  "Plus Jakarta Sans", system-ui, sans-serif;
+  --raio-bloco: 32px;
+  --respiro-bloco: 12px;
+  --curva-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --curva-suave: cubic-bezier(0.45, 0, 0.2, 1); /* entra e sai devagar: troca do carrossel */
+  /* Dourado mais claro (João, 15/10): #C9A22B (L 48%) virou #D9B74F (L 58%),
+     mesmo tom. Sobre o navy o contraste sobe de 7,3 pra 9,0:1. */
+  --color-gold: #D9B74F;
+  --gold-rgb: 217, 183, 79;
+}
+
+/* Na pílula branca do menu, dourado claro como texto some (1,9:1). João,
+   15/10: nada de dourado escuro; o item ativo fica navy com um sublinhado
+   em dourado claro (o dourado aparece sem virar texto ilegível). */
+.navbar.scrolled .navbar__link.is-active, .navbar.scrolled .navbar__link:hover { color: var(--color-navy); }
+@media (max-width: 767px) { :root { --raio-bloco: 22px; --respiro-bloco: 6px; } }
+
+.hero__title,
+.section-header h2,
+.cta-final__title,
+.quote-mark__text,
+.founders__titulo,
+.founder__name,
+.pratica-viva h2 {
+  font-family: var(--font-titulo);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.hero__title { line-height: 1.08; } /* tamanho do token (--text-h1): cabe em 2 linhas */
+.quote-mark__text { letter-spacing: -0.012em; } /* frase longa: tracking menos fechado */
+.section-header h2, .pratica-viva h2 { font-size: clamp(2.8rem, 3.6vw, 3.8rem); line-height: 1.1; }
+.cta-final__title { font-size: clamp(3.2rem, 5vw, 5.4rem); line-height: 1.06; }
+.founder__name { font-weight: 500; }
+
+/* 2 · Menu no topo sem vidro fosco (o blur sobre o vídeo custa caro) */
+.navbar:not(.scrolled) .navbar__container {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  /* O hero agora é um cartão afastado do topo: o menu desce junto e ganha
+     respiro por dentro, pra o botão não encostar na borda do cartão. */
+  margin-top: var(--respiro-bloco);
+  padding-top: clamp(1.6rem, 2.2vw, 2.4rem);
+  padding-bottom: clamp(1.2rem, 1.6vw, 1.6rem);
+}
+
+body { background: var(--color-paper); }
+
+:root {
+  --grao: url("../images/grao.png"); /* PNG, não SVG com feTurbulence: o filtro custava caro a cada repintura (16/10) */
+  --papel-claro: #FAFBF8;
+}
+
+:root {
+  --grao-claro: url("../images/grao-claro.png");
+  --grao-suave: url("../images/grao-suave.png");
+}
+
+/* ===== MENU DE VIDRO (João, 16/10: "efeito de glow, meio de vidro, que eu
+   possa ver um vulto dos elementos atrás passando"). O desfoque tinha saído
+   em 14/10 (cc74d48) porque travava ao rolar: volta só na pílula (pequena),
+   com raio leve. Saída sem blur pronta: trocar --nav-blur por none e o
+   fundo claro por .86. ===== */
+.navbar { --nav-blur: none; } /* 16/10: o blur travava a rolagem de novo (como em 14/10); fica o vidro sem desfoque */
+.navbar .navbar__container {
+  -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
+  border-radius: 1.8rem; /* era pílula; concêntrico com o botão de 10px (João, 16/10) */
+  transition: max-width var(--transition-slow), margin var(--transition-slow), padding var(--transition-slow), background var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition-slow);
+}
+.navbar.scrolled .navbar__container { border-radius: 1.8rem; } /* a rolada tinha pílula no components.css */
+/* no topo, sobre o hero: vidro escuro em pílula */
+.navbar:not(.scrolled) .navbar__container {
+  max-width: calc(100vw - (var(--nav-offset) * 2)); margin-left: auto; margin-right: auto;
+  padding: 1rem clamp(1.6rem, 4vw, 2.4rem); /* igual à rolada: simétrico (João, 16/10) */
+  margin-top: calc(var(--respiro-bloco) + clamp(1.6rem, 2.4vw, 3.2rem)); /* respiro da borda do cartão do hero */
+  background: linear-gradient(180deg, rgba(6, 26, 48, 0.6), rgba(6, 26, 48, 0.48));
+  -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 30px -14px rgba(0, 0, 0, 0.45);
+}
+/* rolada: vidro claro com borda de luz e halo */
+.navbar.scrolled .navbar__container {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+  -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(6, 26, 48, 0.05), 0 10px 34px -14px rgba(6, 26, 48, 0.3);
+}
+/* Menu mobile e iPad mais baixo (João, 16/10: "muito grande"): 66px → ~50px.
+   O ☰ mantém 44px de toque, mas encosta na borda com margem negativa. */
+@media (max-width: 1179px) {
+  .navbar:not(.scrolled) .navbar__container, .navbar.scrolled .navbar__container { padding: 0.6rem clamp(1.4rem, 3.6vw, 2rem); }
+  .navbar .navbar__logo-img { height: 2.9rem; }
+  .navbar .navbar__container, .navbar.scrolled .navbar__container { border-radius: 1.4rem; }
+  .navbar .navbar__mobile-btn { font-size: 1.9rem; padding: 0; margin-block: -0.3rem; margin-right: -0.6rem; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .navbar.scrolled .navbar__container { background: rgba(255, 255, 255, 0.92); }
+  .navbar:not(.scrolled) .navbar__container { background: rgba(6, 26, 48, 0.55); }
+}
+
+/* ===== ITEM ATIVO DA NAVBAR: pílula suave (João, 18/10, escolhida entre
+   pílula, ponto dourado e contorno fino). Sai o sublinhado dourado, que saía
+   quebrado (um traço no texto e outro na setinha). Cantos de 10px, os do botão
+   Área do Aluno; branco translúcido no topo escuro, navy leve na rolada. ===== */
+.navbar .navbar__link.is-active { text-decoration: none; font-weight: 600; }
+.navbar:not(.scrolled) .navbar__link.is-active, .navbar:not(.scrolled) .navbar__link:hover { color: #fff; }
+.navbar.scrolled .navbar__link.is-active, .navbar.scrolled .navbar__link:hover { color: var(--color-navy); }
+.navbar__links { gap: clamp(0.2rem, 0.5vw, 0.8rem); }
+.navbar__link { position: relative; padding: 0.8rem 1.2rem; border-radius: 10px; transition: color 0.3s ease, background 0.3s ease; }
+.navbar:not(.scrolled) .navbar__link.is-active { background: rgba(255, 255, 255, 0.14); }
+.navbar:not(.scrolled) .navbar__link:not(.is-active):hover { background: rgba(255, 255, 255, 0.07); }
+.navbar.scrolled .navbar__link.is-active { background: rgba(var(--navy-rgb), 0.07); }
+.navbar.scrolled .navbar__link:not(.is-active):hover { background: rgba(var(--navy-rgb), 0.04); }

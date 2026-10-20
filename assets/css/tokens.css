@@ -105,7 +105,7 @@
   --space-5xl: 12.8rem;
 
   /* LAYOUT */
-  --container-max: 128rem;
+  --container-max: 144rem; /* 15/10: era 128rem; mais largo, mesmo respiro lateral pra todas as seções */
   /* Espaçamento lateral do conteúdo — cresce com a largura da tela em vez
      de ficar fixo, pra nunca colar nas bordas em janela mais estreita
      (o max-width do .container sozinho não resolve isso). */

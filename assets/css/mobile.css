@@ -1,0 +1,363 @@
+/* ===== CELULAR (João, 19/10: "no desktop está perfeito, mas no mobile tem
+   muitas coisas feias; gosto de textos um pouco menores, mais simples, bem
+   bonitos"). Uma escala só pro celular, carregada por último nas páginas
+   novas e só até 767px: o desktop não muda. Medição de antes: H1 28 a 32px,
+   H2 25 a 34px, H3 17 a 33px, texto corrido em 6 tamanhos (14 a 20px) e o
+   respiro do desktop entre as seções (até 128px). Aqui: H1 27, H2 24, H3 18
+   a 22, texto 15,5 e respiro de 56px. Nada novo, só tamanho e espaço. ===== */
+@media (max-width: 767px) {
+
+  /* ---------- títulos do topo ---------- */
+  :root .hero-interna__titulo { font-size: 2.7rem; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+  :root .hero__title { font-size: 2.8rem; line-height: 1.12; }
+  :root :is(.hero-interna__sub, .hero__subtitle) { font-size: 1.55rem; line-height: 1.6; margin-bottom: 2.4rem; }
+  :root .hero-interna__conteudo { padding-bottom: 3.6rem; }
+
+  /* ---------- títulos de seção (H2) ---------- */
+  :root :is(.section-header h2, .formacoes__header h2, .abordagem__titulo, .aluno__titulo, .atuar__titulo,
+    .catalogo__titulo, .fint__titulo, .founders__header h2.founders__titulo, .leitura__titulo, .mv2__titulo,
+    .orienta__titulo, .pv-palco__titulo, .sustenta__titulo),
+  :root .mov-noticias .section-header h2, :root #artigos .section-header h2 {
+    font-size: 2.4rem; line-height: 1.15; letter-spacing: -0.025em;
+  }
+  :root .cta-final__title { font-size: 2.5rem; line-height: 1.15; }
+  :root .curso-cap__titulo { font-size: 2.2rem; gap: 1.2rem; }
+  :root .curso-cap__num { width: 3.8rem; height: 3.8rem; }
+  :root .curso-cap__num > span { width: 3rem; height: 3rem; font-size: 1.1rem; }
+
+  /* ---------- títulos de cartão (H3) ---------- */
+  :root .formacoes[data-formato] .fcard__titulo, :root .fcard__titulo { font-size: 2.1rem; line-height: 1.18; }
+  :root .founder__name { font-size: 2.5rem; }
+  :root .proposito-card__title { font-size: 2.3rem; }
+  :root .atua-andar__titulo { font-size: 2.2rem; }
+  :root .convite__titulo { font-size: 2.1rem; }
+  :root .mv2-cartao__titulo { font-size: 2rem; }
+  :root .curso-cartao__titulo { font-size: 2.1rem; }
+  :root .mov-noticias .noticia-card__title, :root #artigos .artigo-card__title, :root .noticia-card__title, :root .artigo-card__title { font-size: 1.8rem; line-height: 1.25; }
+  :root :is(.encontro__texto, .quote-mark__text) { font-size: 1.85rem; line-height: 1.45; }
+
+  /* ---------- texto corrido: 15,5px ---------- */
+  :root :is(.proposito-card__desc, .atua-andar__desc, .convite__apoio, .leitura__passo p, .section-header__sub, .catalogo__sub,
+    .fint__sub, .aluno__desc, .abordagem__texto p, .mv2-cartao__texto, .founder__bio, .fcard__desc) { font-size: 1.55rem; line-height: 1.62; }
+  :root .curso-fundamento p { font-size: 1.6rem; }
+  :root .curso-checks__txt { font-size: 1.5rem; }
+  :root .curso-eixo__frase { font-size: 1.8rem; }
+  /* notícia e artigo: corpo 16px, abertura 17px, resumo 15,5px */
+  :root :is(.noticia-corpo .prose p, .artigo-corpo-secao .prose--artigo p) { font-size: 1.6rem; line-height: 1.72; }
+  :root :is(.noticia-corpo .prose p:first-child, .artigo-corpo-secao .prose--artigo > p:first-of-type) { font-size: 1.7rem; line-height: 1.6; }
+  :root .artigo-corpo-secao .artigo-resumo__texto { font-size: 1.55rem; }
+  :root .artigo-corpo-secao .artigo-autor__nome { font-size: 1.6rem; }
+  :root :is(.noticia-corpo .prose p, .artigo-corpo-secao .prose--artigo > *) + * { margin-top: 2rem; }
+
+  /* ---------- respiro entre seções: 56px ---------- */
+  :root :is(.proposito, .formacoes, .solucoes, .leitura, .mv2, .orienta, .abordagem, .fint, .curso, .mov-noticias, main > .section) { padding-top: 5.6rem; padding-bottom: 5.6rem; }
+  :root #artigos { padding-top: 5.6rem; padding-bottom: 5.6rem; }
+  :root .aluno { padding-top: 4.8rem; padding-bottom: 4.8rem; }
+  :root .atuar { padding-bottom: 5.6rem; }
+  :root :is(.noticia-corpo, .artigo-corpo-secao) { padding-top: 4.4rem; padding-bottom: 4.8rem; }
+  /* as emendas continuam coladas na seção de cima */
+  :root :is(.noticia-corpo, .section--paper) + .mov-noticias, :root :is(.artigo-corpo-secao, .section--paper) + #artigos { padding-top: 2.4rem; }
+  :root .curso__main { gap: 5.6rem; }
+  :root .curso__grade { gap: 4rem; }
+  :root :is(.section-header, .catalogo__topo, .mov-noticias .section-header, #artigos .section-header) { margin-bottom: 3.2rem; }
+
+
+  /* ---------- pessoas: retrato menor (era quase uma tela por pessoa) ---------- */
+  :root .pessoa-cartao__foto { height: clamp(26rem, 74vw, 32rem); }
+  :root .pessoa-cartao__texto { padding: 3.2rem 2.2rem 1.2rem; }
+  :root .pessoa-cartao .founder__name { font-size: 2.5rem; }
+  :root .pessoa-cartao .founder__bio { font-size: 1.5rem; }
+  /* "Quem já se juntou a este propósito": quebrava fora da tela (nowrap) */
+  :root .founders__subhead h2.founders__titulo { white-space: normal; text-align: center; font-size: 1.3rem; line-height: 1.4; gap: 1.2rem; }
+  :root .founders__subhead h2.founders__titulo::before, :root .founders__subhead h2.founders__titulo::after { flex-basis: 2.4rem; }
+
+  /* ---------- navbar: "Área do Aluno" mais leve no celular ---------- */
+  :root .navbar .navbar__cta { min-height: 36px; padding: 0 1.4rem; border-radius: 9px; font-size: 1.3rem; }
+
+  /* ---------- Voltar: some ao descer lendo, volta ao subir (voltar.js) ---------- */
+  :root .voltar.is-recolhido { opacity: 0; visibility: hidden; transform: translateY(-8px); }
+
+  /* ---------- Propósito: setas no meio do cartão (João, 19/10; ficavam na altura da ilustração) ---------- */
+  :root .palco-moldura .palco__seta { top: 50%; }
+  /* no meio, a seta da esquerda cobria o número do cartão: um pouco mais pra fora */
+  :root .palco-moldura .palco__seta--ant { left: -18px; }
+  :root .palco-moldura .palco__seta--prox { right: -18px; }
+
+  /* ---------- toque: pontinhos do palco com 44px ---------- */
+  :root .palco__dot { width: 44px; height: 44px; min-width: 44px; }
+}
+
+/* telas bem pequenas (360px): mais um degrau */
+@media (max-width: 380px) {
+  :root .hero-interna__titulo, :root .hero__title { font-size: 2.5rem; }
+  :root :is(.section-header h2, .catalogo__titulo, .fint__titulo, .leitura__titulo, .sustenta__titulo, .cta-final__title) { font-size: 2.25rem; }
+}
+
+/* ===== CARTÃO DE FORMAÇÃO NO CELULAR (João, 19/10: "muito esticado e a imagem
+   muito pequena; aumentaria a imagem e deixaria algum texto por cima, sem perder
+   conteúdo"). Só até 767px; iPad e computador como estavam. Foto grande no topo
+   com degradê navy e grão; selo e título sobre a foto; resumo, público e botão
+   embaixo. O corpo vira "display: contents" pra cada peça ir pra sua linha da
+   grade; o markup e o build não mudam. ===== */
+@media (max-width: 767px) {
+  :root .formacoes[data-formato="a"] .fcard {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto auto auto; padding: 0.8rem; gap: 0;
+  }
+  :root .formacoes[data-formato="a"] .fcard__corpo { display: contents; }
+  :root .formacoes[data-formato="a"] .fcard__foto { grid-row: 1 / 4; grid-column: 1; order: 0; height: max(46svh, 30rem); border-radius: 18px; }
+  :root .formacoes[data-formato="a"] .fcard__foto::after {
+    opacity: 1;
+    background: var(--grao), linear-gradient(180deg, rgba(6, 26, 48, 0) 30%, rgba(6, 26, 48, 0.45) 58%, rgba(6, 26, 48, 0.86) 100%);
+  }
+  /* sobre a foto: selo (Formação 0X + módulos e tópicos) e título */
+  :root .formacoes[data-formato="a"] .fcard__selo { grid-row: 2; grid-column: 1; position: relative; z-index: 2; align-self: end; margin: 0; padding: 0 1.8rem 1rem; }
+  :root .formacoes[data-formato="a"] .fcard__selo > span:first-child { color: #fff !important; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55) !important; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  :root .formacoes[data-formato="a"] .fcard__selo .fcard__conteudo { color: rgba(255, 255, 255, 0.88); }
+  :root .formacoes[data-formato="a"] .fcard__selo .fcard__conteudo strong { color: #fff; }
+  :root .formacoes[data-formato="a"] .fcard__selo .fcard__conteudo i { color: #9FD4CF; }
+  :root .formacoes[data-formato="a"] .fcard__selo .fcard__sep { color: rgba(255, 255, 255, 0.5); }
+  :root .formacoes[data-formato="a"] .fcard__titulo { grid-row: 3; grid-column: 1; position: relative; z-index: 2; margin: 0; padding: 0 1.8rem 2rem; color: #fff; font-size: 2.3rem; line-height: 1.12; text-shadow: 0 1px 14px rgba(6, 26, 48, 0.35); }
+  :root .formacoes[data-formato="a"] .fcard__titulo a:hover { color: #fff; }
+  /* embaixo, no fundo do cartão: resumo, público e botão */
+  :root .formacoes[data-formato="a"] .fcard__desc { grid-row: 4; padding: 1.8rem 1rem 0; font-size: 1.5rem; }
+  :root .formacoes[data-formato="a"] .fcard__publico { grid-row: 5; margin: 1.2rem 0 0; padding: 0 1rem; font-size: 1.45rem; }
+  :root .formacoes[data-formato="a"] .fcard__acoes { grid-row: 6; padding: 1.8rem 1rem 1rem; }
+}
+
+/* ===== PILHA: o último cartão encosta antes de a pilha sair (João, 19/10:
+   "quero que ele esbarre no penúltimo card e aí sim podemos descer"). O sticky
+   só vale dentro da .fpilha, que acabava no fim do último cartão; um espaço no
+   fim (item da grade, não padding, que o sticky não conta) deixa o último prender
+   na posição dele e a pilha ficar parada um instante antes de subir inteira. ===== */
+@media (max-width: 767px) {
+  :root .formacoes[data-formato="a"] .fpilha::after { content: ""; height: 26svh; margin-top: -3.2rem; pointer-events: none; }
+}
+
+/* ===== PESSOAS DA HOME: "Conhecer a trajetória" perto do texto e menor
+   (João, 19/10: ficava a ~60px do texto e grande pro celular) ===== */
+@media (max-width: 767px) {
+  :root .pessoa-cartao .founder__bio { margin-bottom: 0; }
+  :root .pessoa-cartao__link { margin-top: 1.6rem; gap: 1rem; min-height: 40px; font-size: 1.45rem; }
+  :root .pessoa-cartao__link .link-seta__circ { width: 3.2rem; height: 3.2rem; font-size: 1.15rem; }
+}
+
+/* ===== "NA PRÁTICA" DA HOME NO CELULAR (João, 19/10: "totalmente quebrado").
+   O fundo absoluto estava preso na coluna da grade (pratica.css: .pv-palco__cartao
+   > * { grid-column: 1 }) e começava 22px pra dentro, deixando uma faixa clara.
+   Aqui ele cobre o cartão inteiro; o arco do vídeo fica menor e centralizado, a
+   órbita dentro do cartão, os contextos alinhados e as ações no pé. ===== */
+@media (max-width: 767px) {
+  :root .pv-palco__cartao { padding: 3.2rem 2rem 2.8rem; gap: 0; }
+  :root .pv-palco__fundo { grid-column: auto; grid-row: auto; inset: 0; }
+  :root .pv-palco .fcard__selo { margin: 0 0 1.4rem; }
+  :root .pv-palco__titulo { margin: 0 0 2.8rem; }
+  :root .pv-palco__midia { margin: 0 0 2.8rem; justify-self: center; width: 100%; }
+  :root .pv-palco__arco { height: min(31rem, 100vw); max-width: 78%; }
+  :root .pv-palco__orbita { width: min(84%, 30rem); top: 40%; }
+  :root .pv-ctx2-lista { margin-top: 0; }
+  :root .pv-ctx2__topo { min-height: 5.2rem; padding: 1.2rem 0 0.8rem; gap: 1rem; }
+  :root .pv-ctx2__num { min-width: 2rem; font-size: 1.1rem; }
+  :root .pv-ctx2__icone { width: 3.2rem; height: 3.2rem; font-size: 1.25rem; }
+  :root .pv-ctx2__titulo { font-size: 1.65rem; }
+  /* a frase alinha com o título, não embaixo do número */
+  :root .pv-ctx2__frase { padding: 0 0 1.4rem 6.2rem; font-size: 1.5rem; line-height: 1.5; }
+  :root .pv-palco__acoes { flex-direction: column; align-items: stretch; gap: 1.2rem; margin-top: 2.4rem; }
+  :root .pv-palco__acoes .btn { width: 100%; }
+  :root .pv-palco__acoes .link-seta { align-self: center; }
+}
+/* a faixa do fundo também aparecia no tablet (mesma regra da grade até 1023px) */
+@media (max-width: 1023px) { :root .pv-palco__fundo { grid-column: auto; grid-row: auto; inset: 0; } }
+
+/* ===== "NA PRÁTICA": órbita com o mesmo centro do arco (João, 19/10: "esse
+   círculo atrás do vídeo ainda me parece desalinhado"). A órbita era posta por
+   porcentagem da caixa e nunca coincidia com o centro da cúpula do arco. Aqui o
+   arco tem largura definida (--arco-w) e a órbita centra no meio do semicírculo
+   (topo do arco + metade da largura), com um 2º anel mais suave e o ponto em
+   verde-água (o dourado saiu do site). Só sem o palco pinado (até 1023px). ===== */
+@media (max-width: 1023px) {
+  :root .pv-palco__midia { --arco-w: min(40vw, 30rem); align-items: start; }
+  /* os anéis passam ~0,3 da largura acima do topo do arco: esse espaço fica
+     reservado em cima, pra eles não encostarem no título (João, 19/10) */
+  :root .pv-palco__midia { padding-top: calc(var(--arco-w) * 0.3); }
+  :root .pv-palco__arco { width: var(--arco-w); height: auto; max-width: none; aspect-ratio: 480 / 854; }
+  :root .pv-palco__orbita {
+    top: calc(var(--arco-w) / 2); left: 50%; translate: -50% -50%;
+    width: calc(var(--arco-w) * 1.34); aspect-ratio: 1;
+    box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.18);
+  }
+  :root .pv-palco__orbita::before { content: ""; position: absolute; inset: -9%; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07); pointer-events: none; }
+  :root .pv-palco__orbita::after { background: #0F6B6D; box-shadow: 0 0 0 0.5rem rgba(var(--teal-rgb), 0.16); }
+}
+@media (max-width: 767px) {
+  :root .pv-palco__midia { --arco-w: min(52vw, 22rem); }
+}
+
+/* ===== "NA PRÁTICA": final da seção no celular (João, 19/10: "esses botões não
+   estão me agradando no mobile"). O Botão em largura toda e o link centrado
+   embaixo ficavam em eixos e pesos diferentes. Escolhida a versão 3, cartão de
+   vidro granulado fechando a seção (recusados o par de Botões e os links em
+   lista, em backups/final-pratica-3-versoes.css). Antes:
+   backups/mobile-antes-final-pratica.css. ===== */
+@media (max-width: 767px) {
+  :root .pv-palco__acoes {
+    gap: 0; margin-top: 2.4rem; padding: 1.4rem; border-radius: 2rem;
+    background: url("../images/grao.png"), rgba(255, 255, 255, 0.72);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2); backdrop-filter: blur(12px) saturate(1.2);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 18px 40px -32px rgba(var(--navy-rgb), 0.5);
+  }
+  :root .pv-palco__acoes.pv-palco__acoes .link-seta {
+    align-self: stretch; justify-content: space-between; margin-top: 1.2rem; padding: 1.2rem 0.4rem 0;
+    border-top: 1px solid rgba(var(--navy-rgb), 0.1); font-size: 1.55rem;
+  }
+}
+
+/* ===== IBPR EM MOVIMENTO (Home) NO CELULAR (João, 19/10: "essa seção está muito
+   feia no mobile; deixe os artigos e as notícias do mesmo tamanho"). O artigo era
+   um cartão grande e as notícias, cartões baixos com foto de 96px; tudo branco
+   chapado. Aqui os 3 viram o mesmo cartão (foto em cima, mesma altura), a seção
+   ganha o papel granulado e o topo fica mais junto. Escolhida a versão 3, foto
+   com título por cima (recusados vidro e carrossel, em
+   backups/mov-home-3-versoes.css). Antes: backups/mobile-antes-mov.css. ===== */
+@media (max-width: 767px) {
+  :root #ibpr-movimento-preview.movimento {
+    padding-block: 5.6rem;
+    background: var(--grao),
+      radial-gradient(90% 30% at 100% 0%, rgba(var(--teal-rgb), 0.14), transparent 70%),
+      radial-gradient(80% 26% at 0% 100%, rgba(var(--teal-rgb), 0.08), transparent 70%),
+      var(--color-paper);
+  }
+  /* topo mais junto: selo, título, texto e link */
+  :root #ibpr-movimento-preview .topo-secao { row-gap: 0; margin-bottom: 0; }
+  :root #ibpr-movimento-preview .topo-secao .overline { margin-bottom: 1.6rem; }
+  :root #ibpr-movimento-preview .topo-secao .section-header__sub { margin-top: 1.2rem; }
+  :root #ibpr-movimento-preview .topo-secao > .link-seta { margin-top: 1.4rem; }
+
+  /* os 3 cartões no mesmo formato e na mesma altura */
+  :root #ibpr-movimento-preview .mov-d { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; gap: 1.6rem; margin-top: 2.8rem; }
+  :root #ibpr-movimento-preview .mov-d__lado { display: contents; }
+  :root #ibpr-movimento-preview .mcard__link { flex-direction: column; align-items: stretch; }
+  :root #ibpr-movimento-preview .mcard__media { width: auto; min-height: 0; align-self: stretch; aspect-ratio: 16 / 10; }
+  :root #ibpr-movimento-preview .mcard__corpo { padding: 1.8rem 1rem 0.8rem; }
+  :root #ibpr-movimento-preview .mcard__titulo { font-size: 1.95rem; line-height: 1.22; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  :root #ibpr-movimento-preview .mcard__resumo { display: -webkit-box; -webkit-line-clamp: 2; font-size: 1.45rem; }
+  :root #ibpr-movimento-preview .mcard__cta { padding-top: 1.4rem; }
+
+  /* foto grande com degradê navy e grão; frente, data e título sobre ela (o cartão de formação do celular) */
+  :root #ibpr-movimento-preview .mcard__link {
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto auto auto auto; padding: 0.8rem;
+    background: var(--grao), rgba(255, 255, 255, 0.72);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.85), inset 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 18px 40px -32px rgba(var(--navy-rgb), 0.5);
+  }
+  :root #ibpr-movimento-preview .mcard__corpo { display: contents; }
+  :root #ibpr-movimento-preview .mcard__media { grid-row: 1 / 4; grid-column: 1; aspect-ratio: auto; height: auto; min-height: 30rem; border-radius: 1.6rem; }
+  :root #ibpr-movimento-preview .mcard__media::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: var(--grao), linear-gradient(180deg, rgba(6, 26, 48, 0) 28%, rgba(6, 26, 48, 0.45) 56%, rgba(6, 26, 48, 0.88) 100%);
+  }
+  :root #ibpr-movimento-preview .mcard__meta { grid-row: 2; grid-column: 1; position: relative; z-index: 2; margin: 0; padding: 0 1.6rem 1rem; color: rgba(255, 255, 255, 0.86); }
+  :root #ibpr-movimento-preview .mcard__frente { background: rgba(255, 255, 255, 0.1); color: #fff; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  :root #ibpr-movimento-preview .mcard__titulo { grid-row: 3; grid-column: 1; position: relative; z-index: 2; margin: 0 1.6rem 1.8rem; padding: 0; color: #fff; font-size: 2.1rem; line-height: 1.15; text-shadow: 0 1px 14px rgba(6, 26, 48, 0.35); }
+  :root #ibpr-movimento-preview .mcard__resumo { grid-row: 4; margin: 0; padding: 1.6rem 0.8rem 0; }
+  :root #ibpr-movimento-preview .mcard__cta { grid-row: 5; padding: 1.4rem 0.8rem 0.6rem; }
+}
+
+/* ===== HERO DA HOME NO CELULAR (João, 20/10: "o texto ocupa quase toda a hero;
+   eu acho bonito aparecer bastante da hero, bastante white space, e o textinho
+   ocupando mais pra baixo"). O texto desce pro pé, o escurecimento vira degradê
+   só embaixo e a frase do Decildo ("Construindo caminhos...") sai só da tela
+   pequena (continua no computador). Escolhida a versão 1 dos botões, par de
+   Botões (recusados Botão + círculo e cartão de vidro escuro, em
+   backups/hero-home-3-versoes.css). Antes: backups/mobile-antes-hero.css. ===== */
+@media (max-width: 767px) {
+  :root #hero.hero { align-items: flex-end; }
+  :root #hero .hero__content { padding-top: 12rem; padding-bottom: 3.2rem; }
+  :root #hero .hero__trust { display: none; }
+  :root #hero.hero--video .hero__overlay {
+    background:
+      var(--grao-hero),
+      radial-gradient(90% 40% at 30% 100%, rgba(15, 107, 109, 0.3) 0%, rgba(15, 107, 109, 0) 100%),
+      linear-gradient(180deg, rgba(6, 26, 48, 0.32) 0%, rgba(6, 26, 48, 0.06) 16%, rgba(6, 26, 48, 0.1) 34%, rgba(6, 26, 48, 0.62) 56%, rgba(6, 26, 48, 0.88) 78%, rgba(6, 26, 48, 0.92) 100%);
+  }
+  :root #hero .hero__subtitle { margin-bottom: 2.4rem; }
+
+  /* par de Botões: o branco e um de vidro com borda branca fina */
+  :root #hero .hero__actions { flex-direction: column; align-items: stretch; gap: 1rem; }
+  :root #hero .hero__cta { width: 100%; }
+  :root #hero .hero__actions .link-seta {
+    justify-content: center; gap: 0.9rem; min-height: 48px; padding: 0 2.2rem; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font: 600 1.5rem/1 var(--font-body);
+  }
+  :root #hero .hero__actions .link-seta__circ { width: auto; height: auto; box-shadow: none; background: none; font-size: 1.3rem; }
+}
+
+/* ===== TOPO DAS PÁGINAS INTERNAS NO CELULAR (João, 20/10: "melhore o header do
+   jeito que fizemos no index, em todas as outras; deixa apenas o essencial").
+   Como o hero da Home: mais foto aparecendo, texto no pé, escurecimento só da
+   metade pra baixo. Saem só no celular os atalhos de seção (links pra descer
+   na mesma página) e as pílulas de autor dos artigos (os autores abrem o texto
+   logo abaixo); o HTML e o computador seguem com tudo. Antes:
+   backups/mobile-antes-hero-interna.css. ===== */
+@media (max-width: 767px) {
+  :root .hero-interna { min-height: 88svh; }
+  :root .hero-interna__conteudo { padding-top: 12rem; padding-bottom: 3.2rem; }
+  :root .hero-interna__overlay {
+    background:
+      var(--grao-hero),
+      radial-gradient(90% 40% at 30% 100%, rgba(15, 107, 109, 0.28) 0%, rgba(15, 107, 109, 0) 100%),
+      linear-gradient(180deg, rgba(6, 26, 48, 0.34) 0%, rgba(6, 26, 48, 0.06) 16%, rgba(6, 26, 48, 0.12) 34%, rgba(6, 26, 48, 0.62) 56%, rgba(6, 26, 48, 0.88) 78%, rgba(6, 26, 48, 0.92) 100%);
+  }
+  :root .hero-interna :is(.hero-interna__atalhos, .artigo-hero__autores) { display: none; }
+  :root .hero-interna .hero-interna__sub:last-child { margin-bottom: 0; }
+  :root .hero-interna__acoes { display: flex; }
+  :root .hero-interna__acoes .btn { width: 100%; }
+}
+
+/* o botão da sanfona só existe no celular */
+.sustenta__abrir { display: none; }
+
+/* ===== "O QUE SUSTENTA" E AS FAIXAS DE APOIO (Práticas) NO CELULAR (João, 20/10:
+   "esses cards não estão bonitos; o que mais me incomoda é que estão esticados").
+   Era cartão dentro de cartão: o pilar ficava com 294px de largura e até 670px
+   de altura. A faixa encosta na borda como os outros blocos e o pilar ganha
+   largura. No "O que sustenta", escolhida a versão 1, sanfona (recusados
+   carrossel e sem caixas, em backups/sustenta-3-versoes.css). Antes:
+   backups/mobile-antes-sustenta.css. ===== */
+@media (max-width: 767px) {
+  :root .sustenta { padding: var(--respiro-bloco, 6px); }
+  :root .sustenta .sustenta__cartao { padding: 4.8rem 0 2rem; }
+  :root .sustenta .sustenta__cartao > .container { padding-inline: 1.4rem; }
+  :root .sustenta .sustenta__topo { margin-bottom: 2.8rem; padding-inline: 0.6rem; }
+  :root .sustenta .sustenta__pilar { padding: 2.2rem 1.8rem; border-radius: 20px; }
+  :root .sustenta .sustenta__cab { margin-bottom: 1.4rem; }
+  :root .sustenta .sustenta__nome { font-size: 2.05rem; }
+  :root .sustenta .sustenta__rapido { gap: 1.2rem; margin-bottom: 1.6rem; }
+  :root .sustenta .sustenta__rapido p { font-size: 1.5rem; }
+  :root .sustenta .sustenta__texto { font-size: 1.5rem; line-height: 1.65; padding-top: 1.6rem; }
+  :root .sustenta .sustenta__grade { gap: 1.2rem; }
+
+  /* sanfona: número, título e o contraste à vista; o texto inteiro abre no toque */
+  :root .sustenta:not(.sustenta--apoio) .sustenta__texto { display: none; }
+  :root .sustenta:not(.sustenta--apoio) .sustenta__pilar.is-aberto .sustenta__texto { display: block; }
+  :root .sustenta:not(.sustenta--apoio) .sustenta__abrir {
+    display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; margin: 0; padding: 1.2rem 0 0;
+    border: 0; border-top: 1px solid rgba(var(--navy-rgb), 0.1); background: none; color: var(--color-navy); font: 600 1.45rem/1.2 var(--font-body); cursor: pointer;
+  }
+  :root .sustenta__abrir i { display: grid; place-items: center; width: 3.2rem; height: 3.2rem; border-radius: 50%; box-shadow: inset 0 0 0 1.5px var(--color-navy); font-size: 1.1rem; transition: transform 0.35s ease; }
+  :root .sustenta__pilar.is-aberto .sustenta__abrir i { transform: rotate(45deg); }
+  :root .sustenta__pilar.is-aberto .sustenta__abrir { margin-bottom: 0.4rem; }
+}
+
+/* ===== "JÁ É ALUNO?" (Formações) NO CELULAR (João, 20/10: "no desktop está
+   perfeita, mas no mobile está feia"). A tela de exemplo ficava num palco
+   deslocado, cortava os itens na borda direita e o selo "No seu ritmo" caía em
+   cima do cartão. Escolhida a versão 3: sem a tela no celular, só o essencial
+   (recusadas tela limpa e tela em cima, em backups/aluno-3-versoes.css). A tela
+   segue no computador. Antes: backups/mobile-antes-aluno.css. ===== */
+@media (max-width: 767px) {
+  :root .aluno__tela { display: none; }
+  :root .aluno__perk-linha { display: none; }
+  :root .aluno__perk { cursor: default; }
+  :root .aluno__btn { width: 100%; }
+}

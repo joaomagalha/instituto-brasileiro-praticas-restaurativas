@@ -31,16 +31,25 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
 <link as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/><noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" rel="stylesheet"/></noscript>
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20261015a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p242" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/pessoas.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p198" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p241" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/o-instituto-hero.webp?v=3" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/o-instituto-hero.webp" imagesrcset="assets/images/o-instituto-hero-1100.webp 1100w, assets/images/o-instituto-hero.webp 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -60,46 +69,50 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909m" defer></script>
+<script src="assets/js/cookies.js?v=p167" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="assets/css/mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
-<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.webp"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.webp"/></a>
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img width="200" height="100" alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full-sm.webp"/><img width="200" height="100" alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy-sm.webp"/></a>
 <nav aria-label="Navegação principal" class="navbar__nav">
 <ul class="navbar__links">
 <li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="praticas-restaurativas.html">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 <li class="navbar__item"><a aria-current="page" class="navbar__link is-active" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="formacoes.html">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
+<ul class="navbar__dropdown">
 <!-- CMS:formacoes-navbar -->
-<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="ibpr-em-movimento.html">IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="artigos.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="artigos.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 </ul>
@@ -114,7 +127,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.webp"/>
+<img width="120" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone-sm.webp"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -160,132 +173,219 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html#fundadores-preview"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
-<section aria-label="O Instituto" class="page-hero page-hero--o-instituto" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAQDBQYBAv/EACEQAAICAgIDAAMAAAAAAAAAAAECAxEAIQQSBTFBEyKB/8QAGAEAAgMAAAAAAAAAAAAAAAAAAwQAAQL/xAAbEQACAwEBAQAAAAAAAAAAAAAAIQECA0ERMf/aAAwDAQACEQMRAD8ATRFcj6DnjlQpAp7IdtS18OMcMgEMx0Dsk435WIcxkeF0CLTH+YnaWxmsJFPH43mTt1VEXf3I18c35CnIfqQrHrGLOs0QLR8lpQjXoaIrM/yeH5CGZpI+zWGFj3R+ZdX0xp7wjlJtBZon1jZYhlonDDJoEz+HUkex+7bBveWkbMyxWSbQ3Z96wwwUBJP/2Q==')">
-<div aria-hidden="true" class="page-hero__glow"></div>
-<div class="container">
-<a class="page-back" data-voltar href="index.html#fundadores-preview"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
-<h1 data-aos="fade-up"><!-- CMS:texto:instituto-hero-titulo -->Pesquisa, formação e inovação em Justiça Restaurativa.<!-- /CMS:texto:instituto-hero-titulo --></h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:instituto-hero-sub -->A forma como lidamos com conflitos e danos pode mudar relações e instituições.<!-- /CMS:texto:instituto-hero-sub --></p>
+<!-- 18/10/2026: hero no padrão da Práticas (cartão, foto do Magnific, camada
+     granulada suave, selo, destaque dourado); o "Voltar" saiu -->
+<section aria-label="O Instituto" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIG/8QAIxAAAgEDBAIDAQAAAAAAAAAAAQIDABExBBITQQVRIWFxof/EABcBAQEBAQAAAAAAAAAAAAAAAAIBAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIRITH/2gAMAwEAAhEDEQA/APK8e4gjIHVUtApmunGzMPXdc6GNGZeRlVfbYrasenm4eJthEY3EMASbn7rlbFKecE6iNkcIkd2uA27423rfwQeNjWeO5msbydjGPVIm0yQG0F3b7YfNTdfr5ixjmGwdDH9pTgL0mTMeUC5sBin6bI/KKK1jgqQE3zSvJAHcSAbYvRRUgt+H/9k=')">
+<picture class="hero-interna__bg">
+<source media="(max-width: 899px)" srcset="assets/images/o-instituto-hero-1100.webp" type="image/webp"/>
+<source srcset="assets/images/o-instituto-hero.webp" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/o-instituto-hero.jpg" width="1920"/>
+</picture>
+<div aria-hidden="true" class="hero-interna__overlay"></div>
+<div class="container hero-interna__conteudo">
+<span class="citacao-selo">O Instituto</span>
+<h1 class="hero-interna__titulo"><!-- CMS:texto:instituto-hero-titulo -->Pesquisa, formação e inovação em <span class="hero-interna__destaque">Justiça Restaurativa</span>.<!-- /CMS:texto:instituto-hero-titulo --></h1>
+<p class="hero-interna__sub"><!-- CMS:texto:instituto-hero-sub -->A forma como lidamos com conflitos e danos pode mudar relações e instituições.<!-- /CMS:texto:instituto-hero-sub --></p>
 </div>
 </section>
 
 <!-- missão e visão -->
-<section aria-label="Missão e visão" class="section section--white" id="missao-visao">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div class="container" style="position:relative;z-index:1">
-<div class="mv-head" data-aos="fade-up">
-<div class="mv-head__text">
-<p class="overline overline--light">Missão e visão</p>
-<h2>Por que o Instituto existe?</h2>
+<!-- 19/10/2026: missão e visão em 2 cartões com mini-interfaces animadas, como o
+     Propósito da Home (João: "linda, animada, fácil de entender"). As ilustrações
+     só usam palavras dos próprios textos. Sai o painel navy com a árvore. -->
+<!-- 19/10/2026 (v2): missão e visão em 2 painéis compactos (texto + ilustração),
+     ilustrações mais detalhadas em SVG/CSS (João: "cards muito grandes", "motion
+     mais detalhado"). Só palavras dos próprios textos. -->
+<section aria-label="Missão e visão" class="mv2" id="missao-visao">
+<div class="container">
+<div class="mv2__topo" data-aos="fade-up">
+<span class="mv2__selo">Missão e visão</span>
+<h2 class="mv2__titulo">Por que o Instituto <span class="mv2__destaque">existe</span>?</h2>
 </div>
-<div class="brand-panel" aria-hidden="true">
-<span class="brand-panel__glow"></span>
-<img alt="" aria-hidden="true" class="brand-panel__emblem" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone-navy.webp"/>
+<div class="mv2__grade">
+<article class="mv2-cartao mv2-cartao--missao">
+<div class="mv2-cartao__texto">
+<p class="mv2-cartao__rotulo"><span>01</span>Missão</p>
+<h3 class="mv2-cartao__titulo"><!-- CMS:texto:instituto-missao-titulo -->Contribuir para respostas mais qualificadas.<!-- /CMS:texto:instituto-missao-titulo --></h3>
+<p class="mv2-cartao__desc"><!-- CMS:texto:instituto-missao-texto -->Contribuir para que pessoas e instituições construam respostas mais qualificadas aos problemas, conflitos e danos da sociedade.<!-- /CMS:texto:instituto-missao-texto --></p>
+</div>
+<div aria-hidden="true" class="mv2-ilu mv2-ilu--missao">
+<svg class="mv2-svg" viewBox="0 0 320 200" preserveAspectRatio="none">
+<defs>
+<linearGradient id="mv2g0" gradientUnits="userSpaceOnUse" x1="96" y1="0" x2="150" y2="0"><stop offset="0" stop-color="#B5523B"/><stop offset="1" stop-color="#0F6B6D"/></linearGradient>
+<linearGradient id="mv2g1" gradientUnits="userSpaceOnUse" x1="96" y1="0" x2="150" y2="0"><stop offset="0" stop-color="#D9822B"/><stop offset="1" stop-color="#0F6B6D"/></linearGradient>
+<linearGradient id="mv2g2" gradientUnits="userSpaceOnUse" x1="96" y1="0" x2="150" y2="0"><stop offset="0" stop-color="#C9A22B"/><stop offset="1" stop-color="#0F6B6D"/></linearGradient>
+</defs>
+<path id="mv2p0" class="mv2m-elo" pathLength="1" stroke="url(#mv2g0)" style="--k:0" d="M96 40 C 124 40, 124 100, 152 100"/>
+<path id="mv2p1" class="mv2m-elo" pathLength="1" stroke="url(#mv2g1)" style="--k:1" d="M96 100 C 124 100, 124 100, 152 100"/>
+<path id="mv2p2" class="mv2m-elo" pathLength="1" stroke="url(#mv2g2)" style="--k:2" d="M96 160 C 124 160, 124 100, 152 100"/>
+<path id="mv2p3" class="mv2m-elo mv2m-elo--saida" pathLength="1" style="--k:3" d="M152 100 L 186 100"/>
+<g class="mv2m-pulsos"><circle class="mv2m-pulso" r="1.4" opacity="0.25"><animateMotion begin="0.00s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p0"/></animateMotion></circle><circle class="mv2m-pulso" r="1.9" opacity="0.45"><animateMotion begin="0.07s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p0"/></animateMotion></circle><circle class="mv2m-pulso" r="2.6" opacity="1"><animateMotion begin="0.14s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p0"/></animateMotion></circle><circle class="mv2m-pulso" r="1.4" opacity="0.25"><animateMotion begin="0.87s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p1"/></animateMotion></circle><circle class="mv2m-pulso" r="1.9" opacity="0.45"><animateMotion begin="0.94s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p1"/></animateMotion></circle><circle class="mv2m-pulso" r="2.6" opacity="1"><animateMotion begin="1.01s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p1"/></animateMotion></circle><circle class="mv2m-pulso" r="1.4" opacity="0.25"><animateMotion begin="1.73s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p2"/></animateMotion></circle><circle class="mv2m-pulso" r="1.9" opacity="0.45"><animateMotion begin="1.80s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p2"/></animateMotion></circle><circle class="mv2m-pulso" r="2.6" opacity="1"><animateMotion begin="1.87s" dur="2.6s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="spline" keySplines="0.45 0 0.55 1"><mpath href="#mv2p2"/></animateMotion></circle></g>
+</svg>
+<div class="mv2m-chip mv2m-chip--0" style="--i:0"><span class="mv2m-chip__icone"><i class="fa-solid fa-circle-exclamation"></i></span>Problemas</div>
+<div class="mv2m-chip mv2m-chip--1" style="--i:1"><span class="mv2m-chip__icone"><i class="fa-solid fa-people-arrows"></i></span>Conflitos</div>
+<div class="mv2m-chip mv2m-chip--2" style="--i:2"><span class="mv2m-chip__icone"><i class="fa-solid fa-heart-crack"></i></span>Danos</div>
+<div class="mv2m-no"><i class="fa-solid fa-handshake"></i></div>
+<div class="mv2m-resposta">
+<span class="mv2m-selo"><i class="fa-solid fa-circle-check"></i>Resposta</span>
+<p class="mv2m-resposta__titulo">Respostas mais qualificadas</p>
+<p class="mv2m-item" style="--k:0"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><path pathLength="1" d="M4.6 8.3 7 10.6 11.5 5.6"/></svg>Pessoas</p>
+<p class="mv2m-item" style="--k:1"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="7"/><path pathLength="1" d="M4.6 8.3 7 10.6 11.5 5.6"/></svg>Instituições</p>
+<p class="mv2m-medidor"><span>Qualidade da resposta</span><span class="mv2m-medidor__barra"><i></i></span></p>
 </div>
 </div>
-<div class="mv-grid">
-<div class="mv-item" data-aos="fade-up">
-<p class="mv-item__rotulo">Missão</p>
-<h3 class="mv-item__title"><!-- CMS:texto:instituto-missao-titulo -->Contribuir para respostas mais qualificadas.<!-- /CMS:texto:instituto-missao-titulo --></h3>
-<p class="mv-item__desc"><!-- CMS:texto:instituto-missao-texto -->Contribuir para que pessoas e instituições construam respostas mais qualificadas aos problemas, conflitos e danos da sociedade.<!-- /CMS:texto:instituto-missao-texto --></p>
+</article>
+<article class="mv2-cartao mv2-cartao--visao">
+<div class="mv2-cartao__texto">
+<p class="mv2-cartao__rotulo"><span>02</span>Visão</p>
+<h3 class="mv2-cartao__titulo"><!-- CMS:texto:instituto-visao-titulo -->Ser referência nacional em Práticas Restaurativas.<!-- /CMS:texto:instituto-visao-titulo --></h3>
+<p class="mv2-cartao__desc"><!-- CMS:texto:instituto-visao-texto -->Ser referência nacional na produção de conhecimento, na formação de profissionais e no desenvolvimento de soluções restaurativas.<!-- /CMS:texto:instituto-visao-texto --></p>
 </div>
-<div class="mv-item" data-aos="fade-up" data-aos-delay="100">
-<p class="mv-item__rotulo">Visão</p>
-<h3 class="mv-item__title"><!-- CMS:texto:instituto-visao-titulo -->Ser referência nacional em Práticas Restaurativas.<!-- /CMS:texto:instituto-visao-titulo --></h3>
-<p class="mv-item__desc"><!-- CMS:texto:instituto-visao-texto -->Ser referência nacional na produção de conhecimento, na formação de profissionais e no desenvolvimento de soluções restaurativas.<!-- /CMS:texto:instituto-visao-texto --></p>
+<div aria-hidden="true" class="mv2-ilu mv2-ilu--visao">
+<div class="mv2v-card">
+<span class="mv2v-selo">Visão</span>
+<p class="mv2v-titulo">Referência nacional em Práticas Restaurativas</p>
+<ul class="mv2v-frentes">
+<li style="--k:0;--w:72%"><i class="fa-solid fa-book-open"></i><span>Produção de conhecimento</span><b><em></em></b></li>
+<li style="--k:1;--w:86%"><i class="fa-solid fa-graduation-cap"></i><span>Formação de profissionais</span><b><em></em></b></li>
+<li style="--k:2;--w:64%"><i class="fa-solid fa-seedling"></i><span>Soluções restaurativas</span><b><em></em></b></li>
+</ul>
 </div>
+<div class="mv2v-rumo">
+<p class="mv2v-rumo__rotulo"><i class="fa-solid fa-arrow-trend-up"></i>Horizonte</p>
+<svg viewBox="0 0 120 56" preserveAspectRatio="none"><path class="mv2v-rumo__linha" pathLength="1" d="M8 48 C 30 46, 44 34, 60 30 S 96 12, 112 8"/><circle class="mv2v-marco" style="--k:0" cx="8" cy="48" r="3.4"/><circle class="mv2v-marco" style="--k:1" cx="60" cy="30" r="3.4"/><circle class="mv2v-marco mv2v-marco--fim" style="--k:2" cx="112" cy="8" r="4.2"/></svg>
+</div>
+<div class="mv2v-chip"><span class="mv2v-chip__icone"><i class="fa-solid fa-location-dot"></i></span>Brasil</div>
+</div>
+</article>
 </div>
 </div>
 </section>
 
 <!-- princípios -->
-<section aria-label="Os princípios que orientam o IBPR" class="section section--dark" id="principios">
-<div aria-hidden="true" class="proposito__glow"></div>
-<div class="container" style="position:relative;z-index:1">
-<div class="section-header section-header--dark section__head" data-aos="fade-up">
-<!-- H2 descritivo removido a pedido do grupo (05/09). Seguindo o padrão
-     que eles mesmos pediram na seção dos fundadores em 02/09: o rótulo
-     curto sobe pra fonte grande e entra um kicker novo, também curto,
-     em cima. "O que nos orienta" é texto meu, fácil de trocar. -->
-<p class="overline overline--light">O que nos orienta</p>
-<h2>Princípios.</h2>
+<!-- 19/10/2026: princípios em 4 blocos que se abrem em sequência, com linha de
+     progresso (referência trajectory.ai, pedido do João). Cada um com a cor e uma
+     ilustração; textos e marcadores do CMS iguais. -->
+<section aria-label="Os princípios que orientam o IBPR" class="orienta" id="principios">
+<div class="container">
+<div class="orienta__topo" data-aos="fade-up">
+<span class="orienta__selo">O que nos orienta</span>
+<h2 class="orienta__titulo">Os <span class="orienta__destaque">princípios</span> que orientam o IBPR</h2>
 </div>
-<ol class="principles">
-<li class="principle" data-aos="fade-up">
-<span class="principle__num">01</span>
-<div class="principle__body">
-<h3 class="principle__title">Aprendizagem permanente</h3>
-<p class="principle__desc"><!-- CMS:texto:instituto-principio-1 -->Reconhecer que toda experiência pode gerar conhecimento, aperfeiçoar práticas e fortalecer pessoas, equipes e organizações em um processo contínuo de evolução.<!-- /CMS:texto:instituto-principio-1 --></p>
+<div class="orienta__faixa">
+<article class="orienta-bloco orienta-bloco--1 is-ativo" data-i="0">
+<span aria-hidden="true" class="orienta-bloco__linha"><i></i></span>
+<button aria-controls="orienta-corpo-1" aria-expanded="true" class="orienta-bloco__cab" type="button">
+<span aria-hidden="true" class="orienta-bloco__num">01</span>
+<span aria-hidden="true" class="orienta-bloco__icone"><svg viewBox="0 0 24 24"><path d="M12 21V11"/><path d="M12 11C12 7.2 9.4 5 5 5c0 4.1 2.8 6 7 6Z"/><path d="M12 14c0-3.3 2.3-5.4 6.5-5.4 0 3.7-2.4 5.4-6.5 5.4Z"/></svg></span>
+<span class="orienta-bloco__conta">1 de 4<span class="orienta-bloco__tempo"></span></span>
+<h3 class="orienta-bloco__titulo">Aprendizagem permanente</h3>
+</button>
+<div class="orienta-bloco__corpo" id="orienta-corpo-1">
+<p class="orienta-bloco__desc"><!-- CMS:texto:instituto-principio-1 -->Reconhecer que toda experiência pode gerar conhecimento, aperfeiçoar práticas e fortalecer pessoas, equipes e organizações em um processo contínuo de evolução.<!-- /CMS:texto:instituto-principio-1 --></p>
+<div aria-hidden="true" class="orienta-ilu orienta-ilu--1"><svg class="or-svg" viewBox="0 0 320 180" preserveAspectRatio="none">
+<circle class="or-anel-fundo" cx="160" cy="95" r="62"/>
+<path id="or-ciclo" class="or-traco or-anel" pathLength="1" d="M160 33 a62 62 0 1 1 0 124 a62 62 0 1 1 0 -124"/>
+<path class="or-seta" transform="translate(213.7 64.0) rotate(60)" d="M-4 -3.5 L1.5 0 L-4 3.5"/><path class="or-seta" transform="translate(160.0 157.0) rotate(180)" d="M-4 -3.5 L1.5 0 L-4 3.5"/><path class="or-seta" transform="translate(106.3 64.0) rotate(300)" d="M-4 -3.5 L1.5 0 L-4 3.5"/>
+<g class="or-luz-grupo"><circle class="or-luz-rastro" r="5"><animateMotion dur="5s" begin="0.12s" repeatCount="indefinite"><mpath href="#or-ciclo"/></animateMotion></circle><circle class="or-luz" r="3"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#or-ciclo"/></animateMotion></circle></g>
+</svg>
+<span class="or-estacao" style="--x:50.00%;--y:18.33%;--k:0"><i class="fa-solid fa-lightbulb"></i>Experiência</span><span class="or-estacao" style="--x:66.78%;--y:70.00%;--k:1"><i class="fa-solid fa-book-open"></i>Conhecimento</span><span class="or-estacao" style="--x:33.22%;--y:70.00%;--k:2"><i class="fa-solid fa-hands-holding"></i>Prática</span><div class="or-broto" style="--x:50.00%;--y:52.78%"><svg viewBox="0 0 40 40"><path class="or-broto__haste" d="M20 34V14"/><path class="or-folha or-folha--1" d="M20 26c-6 0-9-3-9-8 5 0 9 3 9 8Z"/><path class="or-folha or-folha--2" d="M20 21c0-5 3-8 9-8 0 5-3 8-9 8Z"/><path class="or-folha or-folha--3" d="M20 16c-4 0-7-2.5-7-6.5 4 0 7 2.5 7 6.5Z"/><path class="or-folha or-folha--4" d="M20 13c0-4 2.5-6.5 6.5-6.5 0 4-2.5 6.5-6.5 6.5Z"/></svg><span>Evolução</span></div></div>
 </div>
-</li>
-<li class="principle" data-aos="fade-up">
-<span class="principle__num">02</span>
-<div class="principle__body">
-<h3 class="principle__title">Inovação orientada por evidências</h3>
-<p class="principle__desc"><!-- CMS:texto:instituto-principio-2 -->Desenvolver soluções fundamentadas na pesquisa científica, integrando conhecimento, experiência prática e avaliação contínua para enfrentar problemas complexos.<!-- /CMS:texto:instituto-principio-2 --></p>
+</article>
+<article class="orienta-bloco orienta-bloco--2" data-i="1">
+<span aria-hidden="true" class="orienta-bloco__linha"><i></i></span>
+<button aria-controls="orienta-corpo-2" aria-expanded="false" class="orienta-bloco__cab" type="button">
+<span aria-hidden="true" class="orienta-bloco__num">02</span>
+<span aria-hidden="true" class="orienta-bloco__icone"><svg viewBox="0 0 24 24"><path d="M9.5 3h5"/><path d="M10.5 3v5.5L5.2 17.6A2 2 0 0 0 7 20.6h5"/><path d="M13.5 3v5.5l1.4 2.4"/><circle cx="17" cy="16.5" r="3.2"/><path d="m19.3 18.8 2.2 2.2"/></svg></span>
+<span class="orienta-bloco__conta">2 de 4<span class="orienta-bloco__tempo"></span></span>
+<h3 class="orienta-bloco__titulo">Inovação orientada por evidências</h3>
+</button>
+<div class="orienta-bloco__corpo" id="orienta-corpo-2">
+<p class="orienta-bloco__desc"><!-- CMS:texto:instituto-principio-2 -->Desenvolver soluções fundamentadas na pesquisa científica, integrando conhecimento, experiência prática e avaliação contínua para enfrentar problemas complexos.<!-- /CMS:texto:instituto-principio-2 --></p>
+<div aria-hidden="true" class="orienta-ilu orienta-ilu--2"><svg class="or-svg" viewBox="0 0 320 180" preserveAspectRatio="none"><path id="or-ev0" class="or-traco or-elo" pathLength="1" style="--k:0" d="M124 38 C 162 38, 160 95, 196 95"/><path id="or-ev1" class="or-traco or-elo" pathLength="1" style="--k:1" d="M124 95 C 162 95, 160 95, 196 95"/><path id="or-ev2" class="or-traco or-elo" pathLength="1" style="--k:2" d="M124 152 C 162 152, 160 95, 196 95"/><g class="or-pulsos"><circle class="or-pulso" r="1.6" opacity="0.3"><animateMotion dur="2.4s" begin="0.00s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev0"/></animateMotion></circle><circle class="or-pulso" r="2.1" opacity="0.55"><animateMotion dur="2.4s" begin="0.06s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev0"/></animateMotion></circle><circle class="or-pulso" r="2.8" opacity="1"><animateMotion dur="2.4s" begin="0.12s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev0"/></animateMotion></circle><circle class="or-pulso" r="1.6" opacity="0.3"><animateMotion dur="2.4s" begin="0.80s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev1"/></animateMotion></circle><circle class="or-pulso" r="2.1" opacity="0.55"><animateMotion dur="2.4s" begin="0.86s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev1"/></animateMotion></circle><circle class="or-pulso" r="2.8" opacity="1"><animateMotion dur="2.4s" begin="0.92s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev1"/></animateMotion></circle><circle class="or-pulso" r="1.6" opacity="0.3"><animateMotion dur="2.4s" begin="1.60s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev2"/></animateMotion></circle><circle class="or-pulso" r="2.1" opacity="0.55"><animateMotion dur="2.4s" begin="1.66s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev2"/></animateMotion></circle><circle class="or-pulso" r="2.8" opacity="1"><animateMotion dur="2.4s" begin="1.72s" repeatCount="indefinite" calcMode="spline" keyPoints="0;1" keyTimes="0;1" keySplines="0.45 0 0.55 1"><mpath href="#or-ev2"/></animateMotion></circle></g></svg>
+<span class="or-estacao or-estacao--esq" style="--x:3.5%;--y:21.11%;--k:0"><i class="fa-solid fa-microscope"></i>Pesquisa científica</span><span class="or-estacao or-estacao--esq" style="--x:3.5%;--y:52.78%;--k:1"><i class="fa-solid fa-hands"></i>Experiência prática</span><span class="or-estacao or-estacao--esq" style="--x:3.5%;--y:84.44%;--k:2"><i class="fa-solid fa-clipboard-check"></i>Avaliação contínua</span><div class="or-cartao" style="--x:61.5%;--y:52.8%"><div class="or-cartao__topo"><span class="or-cartao__nome">Soluções</span><span class="or-selo-pisca"><i></i>Evidência</span></div><div class="or-barras"><i style="--h:34%;--k:0"></i><i style="--h:48%;--k:1"></i><i style="--h:44%;--k:2"></i><i style="--h:66%;--k:3"></i><i style="--h:88%;--k:4"></i><svg viewBox="0 0 100 60" preserveAspectRatio="none"><path class="or-tendencia" pathLength="1" d="M8 42 L28 34 L48 36 L68 22 L90 8"/></svg></div></div></div>
 </div>
-</li>
-<li class="principle" data-aos="fade-up">
-<span class="principle__num">03</span>
-<div class="principle__body">
-<h3 class="principle__title">São as relações humanas que operam transformações</h3>
-<p class="principle__desc"><!-- CMS:texto:instituto-principio-3 -->A transformação não vem só do método. São as relações humanas que constroem novas formas de responder aos problemas, conflitos e danos.<!-- /CMS:texto:instituto-principio-3 --></p>
+</article>
+<article class="orienta-bloco orienta-bloco--3" data-i="2">
+<span aria-hidden="true" class="orienta-bloco__linha"><i></i></span>
+<button aria-controls="orienta-corpo-3" aria-expanded="false" class="orienta-bloco__cab" type="button">
+<span aria-hidden="true" class="orienta-bloco__num">03</span>
+<span aria-hidden="true" class="orienta-bloco__icone"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="8.5" r="2.6"/><path d="M2.5 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/><path d="M14 14.3c.8-.4 1.6-.6 2.5-.6 2.7 0 5 2.3 5 5.8"/></svg></span>
+<span class="orienta-bloco__conta">3 de 4<span class="orienta-bloco__tempo"></span></span>
+<h3 class="orienta-bloco__titulo">São as relações humanas que operam transformações</h3>
+</button>
+<div class="orienta-bloco__corpo" id="orienta-corpo-3">
+<p class="orienta-bloco__desc"><!-- CMS:texto:instituto-principio-3 -->A transformação não vem só do método. São as relações humanas que constroem novas formas de responder aos problemas, conflitos e danos.<!-- /CMS:texto:instituto-principio-3 --></p>
+<div aria-hidden="true" class="orienta-ilu orienta-ilu--3"><svg class="or-svg" viewBox="0 0 320 180" preserveAspectRatio="none"><circle class="or-onda" style="--k:0" cx="160" cy="92" r="16"/><circle class="or-onda" style="--k:1" cx="160" cy="92" r="16"/><circle class="or-onda" style="--k:2" cx="160" cy="92" r="16"/><line class="or-laco" style="--k:0" x1="160.0" y1="28.0" x2="243.1" y2="60.0"/><line class="or-laco" style="--k:1" x1="243.1" y1="60.0" x2="243.1" y2="124.0"/><line class="or-laco" style="--k:2" x1="243.1" y1="124.0" x2="160.0" y2="156.0"/><line class="or-laco" style="--k:3" x1="160.0" y1="156.0" x2="76.9" y2="124.0"/><line class="or-laco" style="--k:4" x1="76.9" y1="124.0" x2="76.9" y2="60.0"/><line class="or-laco" style="--k:5" x1="76.9" y1="60.0" x2="160.0" y2="28.0"/></svg>
+<span class="or-av or-av--0" style="--x:50.00%;--y:15.56%;--k:0"><i class="fa-solid fa-user"></i></span><span class="or-av or-av--1" style="--x:75.98%;--y:33.33%;--k:1"><i class="fa-solid fa-user"></i></span><span class="or-av or-av--2" style="--x:75.98%;--y:68.89%;--k:2"><i class="fa-solid fa-user"></i></span><span class="or-av or-av--0" style="--x:50.00%;--y:86.67%;--k:3"><i class="fa-solid fa-user"></i></span><span class="or-av or-av--1" style="--x:24.02%;--y:68.89%;--k:4"><i class="fa-solid fa-user"></i></span><span class="or-av or-av--2" style="--x:24.02%;--y:33.33%;--k:5"><i class="fa-solid fa-user"></i></span><span class="or-fala" style="--x:62.99%;--y:24.44%;--k:0"><i></i><i></i><i></i></span><span class="or-fala" style="--x:75.98%;--y:51.11%;--k:1"><i></i><i></i><i></i></span><span class="or-fala" style="--x:62.99%;--y:77.78%;--k:2"><i></i><i></i><i></i></span><span class="or-fala" style="--x:37.01%;--y:77.78%;--k:3"><i></i><i></i><i></i></span><span class="or-fala" style="--x:24.02%;--y:51.11%;--k:4"><i></i><i></i><i></i></span><span class="or-fala" style="--x:37.01%;--y:24.44%;--k:5"><i></i><i></i><i></i></span><span class="or-centro" style="--x:50.00%;--y:51.11%"><i class="fa-solid fa-heart"></i>Relações</span></div>
 </div>
-</li>
-<li class="principle" data-aos="fade-up">
-<span class="principle__num">04</span>
-<div class="principle__body">
-<h3 class="principle__title">Qualificar respostas</h3>
-<p class="principle__desc"><!-- CMS:texto:instituto-principio-4 -->Trabalhamos para que pessoas e instituições desenvolvam formas cada vez mais qualificadas de responder aos problemas, conflitos e danos da sociedade.<!-- /CMS:texto:instituto-principio-4 --></p>
+</article>
+<article class="orienta-bloco orienta-bloco--4" data-i="3">
+<span aria-hidden="true" class="orienta-bloco__linha"><i></i></span>
+<button aria-controls="orienta-corpo-4" aria-expanded="false" class="orienta-bloco__cab" type="button">
+<span aria-hidden="true" class="orienta-bloco__num">04</span>
+<span aria-hidden="true" class="orienta-bloco__icone"><svg viewBox="0 0 24 24"><path d="M3 20h5v-5h5v-5h5V6"/><path d="M15 6h4v4"/><path d="m14.5 10.5 4.3-4.3"/></svg></span>
+<span class="orienta-bloco__conta">4 de 4<span class="orienta-bloco__tempo"></span></span>
+<h3 class="orienta-bloco__titulo">Qualificar respostas</h3>
+</button>
+<div class="orienta-bloco__corpo" id="orienta-corpo-4">
+<p class="orienta-bloco__desc"><!-- CMS:texto:instituto-principio-4 -->Trabalhamos para que pessoas e instituições desenvolvam formas cada vez mais qualificadas de responder aos problemas, conflitos e danos da sociedade.<!-- /CMS:texto:instituto-principio-4 --></p>
+<div aria-hidden="true" class="orienta-ilu orienta-ilu--4"><div class="or-grafico"><div class="or-grafico__topo"><span class="or-grafico__nome">Respostas</span><span class="or-carimbo"><i class="fa-solid fa-check"></i></span></div>
+<div class="or-grafico__area"><svg class="or-grafico__svg" viewBox="0 0 280 110" preserveAspectRatio="none">
+<path class="or-guia" d="M0 27H280 M0 55H280 M0 83H280"/>
+<path class="or-traco or-degrau or-degrau--b" pathLength="1" d="M6 104 H70 V92 H130 V76 H190 V58 H274"/>
+<path id="or-deg-a" class="or-traco or-degrau or-degrau--a" pathLength="1" d="M6 100 H56 V80 H106 V62 H156 V42 H206 V22 H274"/>
+<circle class="or-marcador" r="5"><animateMotion dur="4.5s" begin="0.8s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.8;1" calcMode="linear"><mpath href="#or-deg-a"/></animateMotion></circle>
+</svg><span class="or-tag">mais qualificadas</span></div>
+<p class="or-legenda"><span><i class="or-leg or-leg--a"></i>Pessoas</span><span><i class="or-leg or-leg--b"></i>Instituições</span></p></div></div>
 </div>
-</li>
-</ol>
+</article>
+</div>
 </div>
 </section>
 
 <!-- nossa abordagem -->
-<section aria-label="Nossa abordagem" class="section section--paper" id="abordagem">
+<!-- 19/10/2026: seção de respiro refeita em duas colunas (opção escolhida pelo
+     João; recusadas: frase centrada com traço e cartão claro): título preso à
+     esquerda com o desenho em traço do Magnific, texto à direita com o fio. Os 3 cards (Pesquisa / Formação / Inovação) saíram a
+     pedido do grupo (05/09) e continuam fora: o parágrafo já diz os três e os
+     mesmos cards estão na Home, em #proposito. O build precisa manter os spans
+     de destaque e de linha do título dentro do texto do CMS. -->
+<section aria-label="Nossa abordagem" class="abordagem" id="abordagem">
 <div class="container">
-<div class="section-header section__head" data-aos="fade-up">
-<p class="overline overline--light">Nossa abordagem</p>
-<h2><!-- CMS:texto:instituto-abordagem-titulo -->Da produção do conhecimento à transformação institucional.<!-- /CMS:texto:instituto-abordagem-titulo --></h2>
+<div class="abordagem__cartao">
+<div class="abordagem__lado">
+<p class="abordagem__selo">Nossa abordagem</p>
+<h2 class="abordagem__titulo"><!-- CMS:texto:instituto-abordagem-titulo --><span class="abordagem__linha-t">Da produção do conhecimento</span> <span class="abordagem__linha-t">à <span class="abordagem__destaque">transformação institucional</span>.</span><!-- /CMS:texto:instituto-abordagem-titulo --></h2>
+<img alt="" class="abordagem__desenho" decoding="async" height="1075" loading="lazy" src="assets/images/abordagem-traco.webp" width="800"/>
 </div>
-<div class="prose" data-aos="fade-up">
+<div class="abordagem__texto">
+<span aria-hidden="true" class="abordagem__fio"><i></i></span>
 <!-- CMS:texto:instituto-abordagem-texto -->
 <p>O IBPR atua a partir da integração entre pesquisa, formação e inovação. Acreditamos que respostas mais qualificadas aos problemas, conflitos e danos não surgem de ações isoladas, mas da combinação entre conhecimento científico, desenvolvimento de capacidades e implementação de soluções adaptadas à realidade de cada organização.</p>
 <p>Essa forma de atuação permite aproximar a produção acadêmica dos desafios concretos enfrentados por escolas, empresas, órgãos públicos e instituições de justiça e segurança pública.</p>
 <!-- /CMS:texto:instituto-abordagem-texto -->
 </div>
-<!-- Os 3 cards (Pesquisa / Formação / Inovação) saíram a pedido do grupo
-     (05/09). Eram redundantes duas vezes: o parágrafo logo acima já diz
-     os três ("conhecimento científico, desenvolvimento de capacidades e
-     implementação de soluções adaptadas"), e os mesmos cards continuam
-     na Home, em #proposito. A seção fica kicker + título + prosa, igual
-     à #jr-praticas de praticas-restaurativas.html. -->
+</div>
 </div>
 </section>
 
 <!-- as pessoas por trás do propósito -->
-<section aria-label="As pessoas por trás do propósito" class="founders" id="fundadores">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="founders__glow"></div>
+<!-- 19/10/2026: pessoas em cartões espelhados, igual à Home (retrato de corpo
+     recortado no arco verde-água); Érica, Maxuel e Mônica com retratos do Magnific
+     a partir das fotos oficiais, rosto intocado; só vão pro ar com o ok de cada um -->
+<section aria-label="As pessoas por trás do propósito" class="founders founders--cartoes" id="fundadores">
 <div class="container">
 <div class="section-header founders__header" data-aos="fade-up">
-<img alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy.webp"/>
+<img width="120" height="132" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy-sm.webp"/>
 <h2 class="founders__titulo">As pessoas por trás do propósito</h2>
 </div>
 <div class="founders__list">
 <!-- CMS:pessoas-direcao -->
-<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-<img alt="Fernanda Mariela Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/fernanda-mariela-lopes.webp" width="700"/>
-</div>
-</div>
-<div class="founder__content">
+<article class="founder pessoa-cartao" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+<div class="fcard__selo"><span>Diretora-Geral</span></div>
 <h3 class="founder__name">Fernanda Mariela Lopes</h3>
-<p class="founder__credentials">Diretora-Geral</p>
 <p class="founder__bio">Administradora de Empresas e Advogada, com especialização em Docência Superior, Fernanda é responsável pela gestão institucional e operacional do IBPR.</p>
 <details class="accordion">
 <summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
@@ -296,21 +396,16 @@
 </div>
 </details>
 </div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+<img alt="Fernanda Mariela Lopes" decoding="async" height="1200" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/fernanda-mariela-lopes-recorte-900.webp" srcset="assets/images/fundadores/fernanda-mariela-lopes-recorte-cel.webp 412w, assets/images/fundadores/fernanda-mariela-lopes-recorte-900.webp 650w" width="650"/>
+</div>
 </article>
-<div aria-hidden="true" class="founders__divider">
-<span class="founders__divider-line"></span>
-<span class="founders__seeds"><i></i><i></i><i></i></span>
-<span class="founders__divider-line"></span>
-</div>
-<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-<img alt="Decildo Lopes" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/decildo-lopes.webp" width="700"/>
-</div>
-</div>
-<div class="founder__content">
+<article class="founder pessoa-cartao pessoa-cartao--invertido" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+<div class="fcard__selo"><span>Coordenador Acadêmico</span></div>
 <h3 class="founder__name">Decildo Lopes</h3>
-<p class="founder__credentials">Coordenador Acadêmico</p>
 <p class="founder__bio">Professor e pesquisador, Decildo é responsável pelo desenvolvimento dos conteúdos, cursos e programas de formação do IBPR, bem como por suas atividades de pesquisa e produção de conhecimento.</p>
 <details class="accordion">
 <summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
@@ -322,85 +417,88 @@
 </div>
 </details>
 </div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+<img alt="Decildo Lopes" decoding="async" height="1200" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/decildo-lopes-recorte-900.webp" srcset="assets/images/fundadores/decildo-lopes-recorte-cel.webp 388w, assets/images/fundadores/decildo-lopes-recorte-900.webp 612w" width="612"/>
+</div>
 </article>
 <!-- /CMS:pessoas-direcao -->
 </div>
-
 <!-- CMS:pessoas-rede -->
 <div class="section-header founders__header founders__subhead" data-aos="fade-up">
 <h2 class="founders__titulo">Quem já se juntou a este propósito</h2>
 </div>
 <div class="founders__list">
-<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-<img alt="Érica Fernanda Teixeira Santos" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/erica-santos.webp" width="700"/>
-</div>
-</div>
-<div class="founder__content">
+<article class="founder pessoa-cartao" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+<div class="fcard__selo"><span>Servidora pública</span></div>
 <h3 class="founder__name">Érica Fernanda Teixeira Santos</h3>
-<p class="founder__credentials">Servidora pública</p>
 <p class="founder__bio">Servidora pública com atuação profissional dedicada exclusivamente à Justiça Restaurativa, Érica possui experiência na aplicação de processos restaurativos em contextos de elevada complexidade, especialmente na justiça criminal, no sistema prisional e em situações de violência doméstica.</p>
 </div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+<img alt="Érica Fernanda Teixeira Santos" decoding="async" height="1200" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/erica-santos-recorte-900.webp" srcset="assets/images/fundadores/erica-santos-recorte-cel.webp 388w, assets/images/fundadores/erica-santos-recorte-900.webp 612w" width="612"/>
+</div>
 </article>
-<div aria-hidden="true" class="founders__divider">
-<span class="founders__divider-line"></span>
-<span class="founders__seeds"><i></i><i></i><i></i></span>
-<span class="founders__divider-line"></span>
-</div>
-<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-<img alt="Maxuel Pereira Dias" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/maxuel-dias.webp" width="700"/>
-</div>
-</div>
-<div class="founder__content">
+<article class="founder pessoa-cartao pessoa-cartao--invertido" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+<div class="fcard__selo"><span>Defensor Público</span></div>
 <h3 class="founder__name">Maxuel Pereira Dias</h3>
-<p class="founder__credentials">Defensor Público</p>
 <p class="founder__bio">Defensor Público, especialista em Criminologia e facilitador de práticas restaurativas, Maxuel é também coautor dos livros <em>Justiça Restaurativa na Execução Penal</em> e <em>Justiça Restaurativa: Novos Caminhos para o Sistema Penal</em>.</p>
 </div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+<img alt="Maxuel Pereira Dias" decoding="async" height="1200" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/maxuel-dias-recorte-900.webp" srcset="assets/images/fundadores/maxuel-dias-recorte-cel.webp 381w, assets/images/fundadores/maxuel-dias-recorte-900.webp 601w" width="601"/>
+</div>
 </article>
-<div aria-hidden="true" class="founders__divider">
-<span class="founders__divider-line"></span>
-<span class="founders__seeds"><i></i><i></i><i></i></span>
-<span class="founders__divider-line"></span>
-</div>
-<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-<img alt="Mônica Borges" class="founder__photo" decoding="async" height="875" loading="lazy" src="assets/images/fundadores/monica-borges.webp" width="700"/>
-</div>
-</div>
-<div class="founder__content">
+<article class="founder pessoa-cartao" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+<div class="fcard__selo"><span>Servidora pública</span></div>
 <h3 class="founder__name">Mônica Borges</h3>
-<p class="founder__credentials">Servidora pública</p>
 <p class="founder__bio">Servidora pública com atuação profissional dedicada exclusivamente à Justiça Restaurativa, Mônica acumula ampla experiência na implementação e no acompanhamento de práticas e programas restaurativos em diferentes contextos. É instrutora de práticas restaurativas, com destacada experiência no desenvolvimento de programas restaurativos em ambientes escolares.</p>
+</div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+<img alt="Mônica Borges" decoding="async" height="1200" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/monica-borges-recorte-900.webp" srcset="assets/images/fundadores/monica-borges-recorte-cel.webp 366w, assets/images/fundadores/monica-borges-recorte-900.webp 578w" width="578"/>
 </div>
 </article>
 </div>
 <!-- /CMS:pessoas-rede -->
-
-<div class="founders__invite" data-aos="fade-up">
-<p class="founders__invite-text">O IBPR está aberto a novas conexões. Se você compartilha nosso propósito e gostaria de estar mais perto das pessoas, ideias e projetos que circulam por aqui, conecte-se conosco. Deixe seu contato e conte um pouco sobre você. Esse pode ser o começo de novas conversas, encontros e parcerias.</p>
-<a class="btn btn--dark" href="mailto:ibpr@ibpr.com.br">Fale com o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<!-- 19/10/2026: convite em cartão compacto (João: "mais bonito, mais simples");
+     título e apoio são trechos do texto do grupo, encurtados; só vai pro ar com o
+     ok do Decildo. Original: "O IBPR está aberto a novas conexões. Se você compartilha nosso propósito e gostaria de estar mais perto das pessoas, ideias e projetos que circulam por aqui, conecte-se conosco. Deixe seu contato e conte um pouco sobre você. Esse pode ser o começo de novas conversas, encontros e parcerias." -->
+<div class="convite" data-aos="fade-up">
+<div class="convite__texto">
+<h3 class="convite__titulo">O IBPR está aberto a <span class="convite__destaque">novas conexões</span>.</h3>
+<p class="convite__apoio">Se você compartilha nosso propósito, deixe seu contato e conte um pouco sobre você.</p>
 </div>
-
+<div class="convite__acao">
+<a class="btn btn--dark" href="mailto:ibpr@ibpr.com.br">Fale com o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="convite__email" href="mailto:ibpr@ibpr.com.br">ibpr@ibpr.com.br</a>
+</div>
+</div>
 </div>
 </section>
 
 <!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div aria-hidden="true" class="cta-final__glow"></div>
+<!-- 19/10/2026: chamada final igual à da Home e da Práticas (cartão com a pintura
+     dos galhos pendentes); textos e botões são os desta página (Decildo, 04/10) -->
+<section aria-label="Chamada final" class="cta-final cta-final--pintura" id="cta-final">
 <div class="container">
-<p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
-<!-- 06/10/2026: textos do Decildo (04/10) -->
-<h2 class="cta-final__title" data-aos="fade-up">Há sempre espaço para novas conexões.</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Conheça nossa rede, acompanhe o que estamos construindo e, se fizer sentido para você, aproxime-se.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<!-- 06/10/2026: botões alinhados ao texto novo ("conheça nossa rede, acompanhe o que estamos construindo") -->
-<a class="btn btn--dark" href="#fundadores">Conhecer a rede <i aria-hidden="true" class="fa-solid fa-arrow-up"></i></a>
-<a class="link-arrow" href="ibpr-em-movimento.html#noticias">Acompanhar as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<div class="citacao-cartao citacao-cartao--cta citacao-cartao--cta-instituto">
+<div class="citacao-cartao__miolo" data-aos="fade-up">
+<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<h2 class="cta-final__title">Há sempre espaço para novas conexões.</h2>
+<p class="cta-final__sub">Conheça nossa rede, acompanhe o que estamos construindo e, se fizer sentido para você, aproxime-se.</p>
+<div class="cta-final__actions">
+<a class="btn btn--white" href="#fundadores">Conhecer a rede <i aria-hidden="true" class="fa-solid fa-arrow-up"></i></a>
+<a class="link-seta link-seta--claro" href="ibpr-em-movimento.html#noticias"><span>Acompanhar as notícias</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -408,15 +506,14 @@
 </main>
 
 <!-- footer -->
-<footer class="footer footer--vidro">
-<div aria-hidden="true" class="grid-overlay footer__grade"></div>
-<div aria-hidden="true" class="footer__marca-agua">IBPR</div>
+<footer class="footer footer--vidro footer--rod">
 <div class="container">
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.webp"/>
+<img width="200" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full-sm.webp"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
+<a class="btn btn--white rodape__fale" href="mailto:ibpr@ibpr.com.br">Fale com o IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <div class="footer__social">
 <span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
 <span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin-in"></i></span>
@@ -477,6 +574,11 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20261015a"></script>
+<script src="assets/js/voltar.js?v=p211"></script>
+<script src="assets/js/site-interactions.js?v=p167"></script>
+<script defer src="assets/js/menu-vidro.js?v=p167"></script>
+<script defer src="assets/js/abordagem.js?v=p167"></script>
+<script defer src="assets/js/orienta.js?v=p167"></script>
+<script defer src="assets/js/missao.js?v=p167"></script>
 </body>
 </html>

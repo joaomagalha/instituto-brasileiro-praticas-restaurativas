@@ -38,7 +38,7 @@
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
-<link href="assets/css/components.css?v=20261015a" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p244" rel="stylesheet"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -58,46 +58,50 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=20260909m" defer></script>
+<script src="assets/js/cookies.js?v=p167" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
 <!-- navbar -->
 <header class="navbar" id="navbar">
 <div class="navbar__container">
-<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full.webp"/><img alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy.webp"/></a>
+<a aria-label="IBPR, voltar ao início" class="navbar__logo" href="index.html"><img width="200" height="100" alt="Instituto Brasileiro de Práticas Restaurativas" class="navbar__logo-img navbar__logo-img--full" src="assets/images/ibpr-logo-full-sm.webp"/><img width="200" height="100" alt="" aria-hidden="true" class="navbar__logo-img navbar__logo-img--scrolled" src="assets/images/ibpr-logo-full-navy-sm.webp"/></a>
 <nav aria-label="Navegação principal" class="navbar__nav">
 <ul class="navbar__links">
 <li class="navbar__item"><a class="navbar__link" href="index.html">Início</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="praticas-restaurativas.html">Práticas Restaurativas <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#jr-praticas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-circle-nodes"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa e Práticas Restaurativas</span><span class="navbar__dropdown-desc">Conhecimento que se transforma em prática</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#educacao"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Educação</span><span class="navbar__dropdown-desc">Muito além da resolução de conflitos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#justica-prisional"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Na Justiça e no Sistema Prisional</span><span class="navbar__dropdown-desc">Novas formas de pensar e agir nas instituições</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="praticas-restaurativas.html#empresas"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Nas Empresas</span><span class="navbar__dropdown-desc">Lidar com conflitos e trabalhar juntos</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 <li class="navbar__item"><a class="navbar__link" href="o-instituto.html">O Instituto</a></li>
 <li class="navbar__item"><a class="navbar__link" href="como-atuamos.html">Como Atuamos</a></li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="formacoes.html">Formações <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
+<ul class="navbar__dropdown">
 <!-- CMS:formacoes-navbar -->
-<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-execucao-penal.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-scale-balanced"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Justiça Restaurativa aplicada à Execução Penal</span><span class="navbar__dropdown-desc">Para policiais penais, gestores e magistrados</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-pena-justa.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-building-shield"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Implementação da JR no Plano Pena Justa</span><span class="navbar__dropdown-desc">Para gestores e comitês de políticas penais</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-ambiente-escolar.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-graduation-cap"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas no Ambiente Escolar</span><span class="navbar__dropdown-desc">Para diretores, professores e equipes</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="formacao-relacoes-trabalho.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-briefcase"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Práticas Restaurativas nas Relações de Trabalho</span><span class="navbar__dropdown-desc">Para lideranças, gestores e equipes de RH</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>
 <!-- /CMS:formacoes-navbar -->
 </ul>
 </li>
 <li class="navbar__item navbar__item--dropdown">
 <a aria-expanded="false" aria-haspopup="true" class="navbar__link navbar__link--dropdown" href="ibpr-em-movimento.html">IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-chevron-down navbar__chevron"></i></a>
-<ul class="navbar__dropdown" role="menu">
-<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li><a class="navbar__dropdown-link" href="artigos.html" role="menuitem"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<ul class="navbar__dropdown">
+<li><a class="navbar__dropdown-link" href="ibpr-em-movimento.html#noticias"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-newspaper"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Notícias</span><span class="navbar__dropdown-desc">A atuação do Instituto e da sua rede</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li><a class="navbar__dropdown-link" href="artigos.html"><span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid fa-book-open"></i></span><span class="navbar__dropdown-text"><span class="navbar__dropdown-title">Artigos</span><span class="navbar__dropdown-desc">Produção acadêmica em texto completo</span></span><span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>
 </ul>
 </li>
 </ul>
@@ -112,7 +116,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone.webp"/>
+<img width="120" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone-sm.webp"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -158,11 +162,9 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<a aria-label="Voltar para a página anterior" class="back-fab" data-voltar href="index.html"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i>Voltar</a>
 <section aria-label="Política de Privacidade" class="page-hero" id="topo">
 <div aria-hidden="true" class="page-hero__glow"></div>
 <div class="container">
-<a class="page-back" data-voltar href="index.html"><span aria-hidden="true" class="page-back__icon"><i class="fa-solid fa-arrow-left"></i></span>Voltar</a>
 <h1 data-aos="fade-up">Política de Privacidade.</h1>
 <p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">O que este site coleta, por que coleta e como você recusa. Em português claro, sem letra miúda.</p>
 </div>
@@ -226,15 +228,14 @@
 </main>
 
 <!-- footer -->
-<footer class="footer footer--vidro">
-<div aria-hidden="true" class="grid-overlay footer__grade"></div>
-<div aria-hidden="true" class="footer__marca-agua">IBPR</div>
+<footer class="footer footer--vidro footer--rod">
 <div class="container">
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full.webp"/>
+<img width="200" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full-sm.webp"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
+<a class="btn btn--white rodape__fale" href="mailto:ibpr@ibpr.com.br">Fale com o IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <div class="footer__social">
 <span aria-label="Instagram, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-instagram"></i></span>
 <span aria-label="LinkedIn, perfil a confirmar" class="footer__social-link is-pending" title="Perfil oficial a confirmar"><i aria-hidden="true" class="fa-brands fa-linkedin-in"></i></span>
@@ -295,7 +296,8 @@ AOS.init({
   disable: function () { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
 });
 </script>
-<script src="assets/js/site-interactions.js?v=20261015a"></script>
+<script src="assets/js/voltar.js?v=p211"></script>
+<script src="assets/js/site-interactions.js?v=p167"></script>
 
 <script>
   // Botão "rever minha escolha": apaga a decisão guardada e faz o aviso

@@ -1,0 +1,61 @@
+/* ===== IBPR EM MOVIMENTO (João, 16/10): fundo igual ao da Formações (sem
+   granulado), cards parados, só a entrada ao aparecer. Versão D escolhida
+   na 2ª rodada (A/B/C e E/F recusadas; backups no scratchpad): destaque +
+   2 cards deitados com a mesma altura somada. Hover suave, sem sublinhado
+   (João: "não é suave e aparece uma linha amarela feia"). ===== */
+#ibpr-movimento-preview.movimento {
+  position: relative;
+  background: radial-gradient(70vw 34vw at 50% 0%, rgba(var(--teal-rgb), 0.16), transparent 70%), radial-gradient(50vw 30vw at 100% 100%, rgba(217, 183, 79, 0.1), transparent 70%), #FFFFFF;
+}
+.movimento .mov-d { display: grid; margin-top: clamp(3.2rem, 4vw, 5.6rem); }
+/* ---- card minimalista: branco, borda fina, imagem recuada ---- */
+.mcard { min-width: 0; }
+.mcard__link {
+  display: flex; flex-direction: column; height: 100%; padding: 1.2rem;
+  border-radius: 2rem; background: #fff; color: inherit; text-decoration: none;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), 0 1px 2px rgba(var(--navy-rgb), 0.03);
+  transition: box-shadow 0.45s var(--curva-suave, ease);
+}
+/* hover: o card "acende" (borda + sombra difusa), a foto aproxima devagar,
+   o título clareia e a seta anda; nada muda de lugar, sem sublinhado */
+.mcard__link:hover, .mcard__link:focus-visible { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.22), 0 18px 44px rgba(var(--navy-rgb), 0.08); }
+.mcard__link:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 3px; }
+.mcard__media { position: relative; aspect-ratio: 4 / 3; border-radius: 1.2rem; overflow: hidden; background: #E9EFEE; flex-shrink: 0; }
+.mcard__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s var(--curva-suave, ease); }
+.mcard__link:hover .mcard__media img { transform: scale(1.04); }
+.mcard__selo { position: absolute; top: 1.2rem; left: 1.2rem; padding: 0.6rem 1.1rem; border-radius: 99px; background: #F6E7B5; color: var(--color-navy); font: 600 1.1rem/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; }
+.mcard__corpo { display: flex; flex-direction: column; flex: 1; padding: 2rem 1.2rem 1.2rem; }
+.mcard__meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem 1rem; margin: 0 0 1.2rem; font: 500 1.3rem/1 var(--font-body); color: #4A5A6B; }
+.mcard__frente { padding: 0.45rem 0.9rem; border-radius: 99px; background: rgba(var(--teal-rgb), 0.12); color: #1F5F5B; font: 600 1.1rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; }
+.mcard__titulo { margin: 0; font-family: var(--font-titulo); font-weight: 500; letter-spacing: -0.02em; color: var(--color-navy); font-size: clamp(1.9rem, 1.55vw, 2.2rem); line-height: 1.22; text-wrap: balance; transition: color 0.45s var(--curva-suave, ease); }
+.mcard__link:hover .mcard__titulo { color: #1F4A6B; }
+.mcard__resumo { margin: 1rem 0 0; color: #4A5A6B; font-size: 1.5rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.mcard__cta { display: inline-flex; align-items: center; gap: 0.7rem; margin-top: auto; padding-top: 1.6rem; color: var(--color-navy); font: 600 1.35rem/1.2 var(--font-body); }
+.mcard__cta i { font-size: 1.15rem; transition: transform 0.45s var(--curva-suave, ease); }
+.mcard__link:hover .mcard__cta i { transform: translateX(3px); }
+@media (prefers-reduced-motion: reduce) { .mcard__media img, .mcard__titulo, .mcard__cta i { transition: none; } .mcard__link:hover .mcard__media img, .mcard__link:hover .mcard__cta i { transform: none; } }
+
+/* card horizontal (lado da D): imagem à esquerda, texto à direita */
+.mov-d__lado .mcard__link { flex-direction: row; align-items: stretch; }
+.mov-d__lado .mcard__media { aspect-ratio: auto; width: 42%; min-height: 100%; }
+.mov-d__lado .mcard__corpo { padding: 1.2rem 1.2rem 1.2rem 2.4rem; }
+
+/* ---- D · equilibrada: destaque + 2 horizontais da mesma altura somada ---- */
+.mov-d { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(1.6rem, 2vw, 2.4rem); align-items: stretch; }
+.mov-d .mcard--destaque .mcard__media { aspect-ratio: 16 / 10; }
+.mov-d .mcard--destaque .mcard__titulo { font-size: clamp(2.2rem, 2vw, 2.8rem); }
+.mov-d__lado { display: grid; grid-template-rows: 1fr 1fr; gap: clamp(1.6rem, 2vw, 2.4rem); }
+.mov-d__lado .mcard__resumo { -webkit-line-clamp: 2; }
+
+/* ---- tablet ---- */
+@media (max-width: 1023px) {
+  .mov-d { grid-template-columns: 1fr; }
+}
+/* ---- celular: 1 coluna; destaque com imagem em cima, os outros compactos ---- */
+@media (max-width: 640px) {
+  .mov-d__lado .mcard__media { width: 9.6rem; aspect-ratio: 1; min-height: 0; align-self: flex-start; }
+  .mov-d__lado .mcard__corpo { padding: 0.4rem 0.4rem 0.4rem 1.6rem; }
+  .mov-d__lado .mcard__resumo { display: none; }
+  .mov-d__lado .mcard__titulo { font-size: 1.7rem; }
+  .mov-d__lado .mcard__cta { padding-top: 1rem; }
+}

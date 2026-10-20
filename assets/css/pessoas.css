@@ -1,0 +1,162 @@
+/* ===== BASE DO CARTÃO DE PESSOA (veio do motion.css em 19/10 pra valer
+   também na O Instituto; mesma ordem de antes na Home) ===== */
+/* ===== PESSOAS EM CARTÕES (João, 16/10: referência de cartão com texto de
+   um lado e a pessoa do outro, alternando). Retrato estendido no Magnific a
+   partir da foto oficial (rosto intocado) e recortado: o fundo é do cartão,
+   linho quente pro verde-névoa, sem grão, com a luz dourada clara atrás
+   da pessoa. No repo, `listaPessoas` do build gera este markup. ===== */
+.founders--cartoes { padding: clamp(6rem, 8vw, 10rem) 0; }
+.founders--cartoes .founders__list { gap: clamp(1.6rem, 2vw, 2.4rem); margin-top: clamp(3.2rem, 4vw, 5.6rem); }
+.pessoa-cartao {
+  --luz-x: 74%;
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 0; align-items: stretch;
+  min-height: clamp(54rem, 72vh, 66rem);
+  border-radius: var(--raio-bloco, 28px);
+  background:
+    radial-gradient(34% 58% at var(--luz-x) 66%, rgba(217, 183, 79, 0.3) 0%, rgba(217, 183, 79, 0.1) 45%, rgba(217, 183, 79, 0) 72%),
+    radial-gradient(70% 90% at 8% 6%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
+    linear-gradient(128deg, #F4EFE6 0%, #ECE9E0 46%, #DCE7E3 100%);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06);
+}
+.pessoa-cartao--invertido { --luz-x: 26%; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  background:
+    radial-gradient(34% 58% at var(--luz-x) 66%, rgba(217, 183, 79, 0.3) 0%, rgba(217, 183, 79, 0.1) 45%, rgba(217, 183, 79, 0) 72%),
+    radial-gradient(70% 90% at 92% 6%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
+    linear-gradient(232deg, #F4EFE6 0%, #ECE9E0 46%, #DCE7E3 100%);
+}
+.pessoa-cartao--invertido .pessoa-cartao__foto { order: -1; }
+/* o components.css alterna as colunas com .founder:nth-of-type(even) (30rem
+   pro retrato antigo): aqui o cartão manda nas duas */
+.founders--cartoes .pessoa-cartao { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: 0; }
+.founders--cartoes .pessoa-cartao--invertido { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
+.pessoa-cartao__texto { align-self: center; padding: clamp(4rem, 6vw, 8.8rem); display: flex; flex-direction: column; align-items: flex-start; }
+.pessoa-cartao .fcard__selo { margin-bottom: 2.4rem; }
+.pessoa-cartao .founder__name { font-size: clamp(3.4rem, 3.8vw, 5.2rem); line-height: 1.04; margin: 0; max-width: 14ch; }
+.pessoa-cartao .founder__bio { margin: 2rem 0 0; padding: 0; max-width: 46rem; font-size: clamp(1.6rem, 1.2vw, 1.8rem); line-height: 1.6; color: #3D5773; }
+.pessoa-cartao .founder__bio::before { display: none; }
+.pessoa-cartao__foto { position: relative; min-height: 100%; }
+.pessoa-cartao__foto img {
+  position: absolute; bottom: 0; left: 50%; translate: -50% 0;
+  height: 95%; width: auto; max-width: none; object-fit: contain;
+  filter: drop-shadow(0 24px 40px rgba(var(--navy-rgb), 0.16));
+}
+/* sombra de chão bem leve onde a pessoa "pisa" na base do cartão */
+.pessoa-cartao__foto::after { content: ""; position: absolute; left: 18%; right: 18%; bottom: -2rem; height: 6rem; border-radius: 50%; background: radial-gradient(closest-side, rgba(var(--navy-rgb), 0.16), transparent); z-index: -1; }
+html.mo .pessoa-cartao__foto img { opacity: 0; translate: -50% 4%; transition: opacity 0.9s var(--curva-saida), translate 1.1s var(--curva-saida); }
+html.mo .pessoa-cartao.is-in .pessoa-cartao__foto img { opacity: 1; translate: -50% 0; }
+@media (prefers-reduced-motion: reduce) { html.mo .pessoa-cartao__foto img { opacity: 1; translate: -50% 0; transition: none; } }
+
+/* tablet em pé: a pessoa um pouco menor, texto com menos respiro */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .pessoa-cartao { min-height: 48rem; }
+  .pessoa-cartao__texto { padding: 4rem 3.2rem 4rem 4rem; }
+  .pessoa-cartao--invertido .pessoa-cartao__texto { padding: 4rem 4rem 4rem 3.2rem; }
+  .pessoa-cartao__foto img { height: 88%; }
+}
+/* celular: texto em cima, pessoa embaixo encostada na base; não espelha */
+@media (max-width: 767px) {
+  .founders--cartoes .pessoa-cartao, .founders--cartoes .pessoa-cartao--invertido { grid-template-columns: 1fr; min-height: 0; --luz-x: 50%;
+    background:
+      radial-gradient(60% 34% at 50% 80%, rgba(217, 183, 79, 0.3) 0%, rgba(217, 183, 79, 0.1) 45%, rgba(217, 183, 79, 0) 72%),
+      radial-gradient(90% 50% at 10% 4%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
+      linear-gradient(170deg, #F4EFE6 0%, #ECE9E0 46%, #DCE7E3 100%); }
+  .pessoa-cartao--invertido .pessoa-cartao__foto { order: 0; }
+  .pessoa-cartao__texto { padding: 4rem 2.4rem 1.6rem; }
+  .pessoa-cartao .founder__name { font-size: clamp(3rem, 8.4vw, 3.6rem); }
+  .pessoa-cartao .founder__bio { font-size: 1.6rem; }
+  .pessoa-cartao__foto { height: clamp(34rem, 96vw, 44rem); min-height: 0; }
+  .pessoa-cartao__foto img { height: 100%; }
+}
+
+/* ===== PESSOAS EM CARTÕES: arco + fundo verde-água granulado (João, 16/10,
+   escolheu a composição 3 com o fundo B entre 9 opções; as outras estão no
+   scratchpad, pessoas-opcoes.css). A pessoa fica dentro de um arco, com um
+   círculo fino atrás da cabeça e o link "Conhecer a trajetória".
+   Base do cartão (grade, foto, celular) no motion.css. ===== */
+
+/* grade com áreas: arco, órbita e foto ocupam a mesma célula */
+.founders--cartoes .pessoa-cartao { grid-template-areas: "texto foto"; }
+.founders--cartoes .pessoa-cartao--invertido { grid-template-areas: "foto texto"; }
+.pessoa-cartao__texto { grid-area: texto; position: relative; z-index: 2; }
+.pessoa-cartao__foto, .pessoa-cartao__arco, .pessoa-cartao__orbita { grid-area: foto; }
+.pessoa-cartao__foto { z-index: 1; }
+.pessoa-cartao--invertido .pessoa-cartao__foto { order: 0; }
+
+/* fundo: grão por cima, luz dourada atrás da pessoa, mancha verde-água no
+   pé do lado do texto, brilho claro no canto do texto, degradê creme →
+   verde-água (a família do Propósito). As posições são do cartão; var de
+   posição definida na seção invalidaria o background inteiro. */
+.founders--cartoes .pessoa-cartao { --luz-x: 74%; --brilho-x: 8%; --oposto-x: 26%; --ang: 128deg; }
+.founders--cartoes .pessoa-cartao--invertido { --luz-x: 26%; --brilho-x: 92%; --oposto-x: 74%; --ang: 232deg; }
+.founders--cartoes .pessoa-cartao {
+  background:
+    var(--grao),
+    radial-gradient(36% 62% at var(--luz-x) 64%, rgba(217, 183, 79, 0.3) 0%, transparent 72%),
+    radial-gradient(46% 70% at var(--oposto-x) 110%, rgba(var(--teal-rgb), 0.22), transparent 72%),
+    radial-gradient(70% 90% at var(--brilho-x) 6%, rgba(255, 253, 248, 0.85) 0%, rgba(255, 253, 248, 0) 60%),
+    linear-gradient(var(--ang), #F6F3EC 0%, #E9EFEA 50%, #CFE3DF 100%);
+}
+
+/* círculo fino atrás da cabeça (o mesmo traço dos círculos do selo) */
+.pessoa-cartao__orbita { position: relative; pointer-events: none; }
+.pessoa-cartao__orbita i { position: absolute; left: 50%; top: 22%; width: min(78%, 46rem); aspect-ratio: 1; border-radius: 50%; translate: -50% -50%; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.14); }
+
+/* arco atrás da pessoa */
+.pessoa-cartao__arco {
+  align-self: end; justify-self: center; width: min(74%, 44rem); height: 84%;
+  border-radius: 999px 999px 0 0;
+  background: var(--grao), linear-gradient(180deg, rgba(var(--teal-rgb), 0.26), rgba(var(--navy-rgb), 0.16));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+html.mo .pessoa-cartao__arco { transform-origin: 50% 100%; scale: 1 0.6; opacity: 0; transition: scale 1s var(--curva-saida), opacity 0.8s var(--curva-saida); }
+html.mo .pessoa-cartao.is-in .pessoa-cartao__arco { scale: 1 1; opacity: 1; }
+@media (prefers-reduced-motion: reduce) { html.mo .pessoa-cartao__arco { scale: 1 1; opacity: 1; transition: none; } }
+
+.pessoa-cartao__link { margin-top: 2.8rem; }
+
+/* celular: uma coluna, texto em cima, pessoa no arco embaixo */
+@media (max-width: 767px) {
+  .founders--cartoes .pessoa-cartao, .founders--cartoes .pessoa-cartao--invertido { grid-template-areas: "texto" "foto"; }
+  .founders--cartoes .pessoa-cartao { background:
+      var(--grao),
+      radial-gradient(70% 34% at 50% 82%, rgba(217, 183, 79, 0.3) 0%, transparent 72%),
+      radial-gradient(80% 40% at 50% 110%, rgba(var(--teal-rgb), 0.22), transparent 72%),
+      radial-gradient(90% 50% at 10% 4%, rgba(255, 253, 248, 0.85) 0%, rgba(255, 253, 248, 0) 60%),
+      linear-gradient(170deg, #F6F3EC 0%, #E9EFEA 50%, #CFE3DF 100%); }
+  .pessoa-cartao__arco { width: 76%; height: 92%; }
+  .pessoa-cartao__orbita i { width: 72%; }
+}
+
+/* ===== PESSOA COM FOTO INTEIRA (20/10/2026) =====
+   Quem entra pelo painel chega com a foto oficial, com fundo, e não com o
+   retrato recortado que as outras pessoas têm. Colada no arco, a foto ficaria
+   um retângulo solto em cima do desenho. Por isso o build (listaPessoas, em
+   build/gerar.mjs) marca o cartão com pessoa-cartao--foto-inteira, e aqui a
+   foto vira um retrato emoldurado NO FORMATO DO ARCO: mesma largura e altura
+   do arco, topo arredondado, a foto cobrindo a área toda (object-fit: cover)
+   e puxada pro rosto (centro na horizontal, 22% a partir do topo, onde o
+   rosto costuma estar num retrato). O arco de trás fica escondido, porque a
+   própria moldura ocupa o lugar dele. Quando o recorte da pessoa for salvo
+   como "-recorte-900.webp", o build deixa de marcar o cartão sozinho. */
+.pessoa-cartao--foto-inteira .pessoa-cartao__foto {
+  align-self: end; justify-self: center;
+  width: min(74%, 44rem); height: 84%; min-height: 0;
+  border-radius: 999px 999px 0 0; overflow: hidden;
+  box-shadow: 0 24px 40px rgba(var(--navy-rgb), 0.16), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.pessoa-cartao--foto-inteira .pessoa-cartao__foto::after { display: none; }
+.pessoa-cartao--foto-inteira .pessoa-cartao__arco { visibility: hidden; }
+.pessoa-cartao--foto-inteira .pessoa-cartao__foto img {
+  position: absolute; inset: 0; translate: none;
+  width: 100%; height: 100%; max-width: 100%;
+  object-fit: cover; object-position: 50% 22%; filter: none;
+}
+html.mo .pessoa-cartao--foto-inteira .pessoa-cartao__foto img { translate: 0 4%; }
+html.mo .pessoa-cartao--foto-inteira.is-in .pessoa-cartao__foto img { translate: 0 0; }
+@media (prefers-reduced-motion: reduce) { html.mo .pessoa-cartao--foto-inteira .pessoa-cartao__foto img { translate: none; } }
+/* celular: a altura da área do retrato vem do mobile.css (a mesma dos
+   retratos recortados); a moldura fica com a largura do arco no celular */
+@media (max-width: 767px) {
+  .pessoa-cartao--foto-inteira .pessoa-cartao__foto { width: 76%; }
+}

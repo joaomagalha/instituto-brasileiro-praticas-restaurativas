@@ -24,7 +24,7 @@
    ===================================================================== */
 
 import { readFile, writeFile, readdir, unlink } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const RAIZ = path.resolve(import.meta.dirname, '..');
@@ -139,6 +139,15 @@ function esc(t) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
+/* Link com seta num círculo (visual novo, 20/10/2026): onde o desenho novo
+   trocou o btn--dark ou o link-arrow por ele ("Ver todas as publicações",
+   "Ver todas as notícias"). Um lugar só pra que os blocos gerados saiam com
+   o mesmo desenho das páginas. A faixa de artigos manteve o btn--dark. */
+function linkSeta(href, rotulo, extra = '') {
+  return `<a class="link-seta${extra ? ' ' + extra : ''}" href="${esc(href)}"><span>${esc(rotulo)}</span>` +
+    `<span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>`;
+}
+
 const MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
 
 /* Dia, mês e ano no fuso do Instituto (28/09/2026). Antes era UTC: uma
@@ -251,7 +260,7 @@ function cardNoticia(n, extra = '', selo = extra === 'noticia-card--destaque') {
 <a class="noticia-card__link" href="${esc(href)}">
 ${n.capaTipografica && !n.imagem_url
     ? `<div class="noticia-card__media noticia-card__media--artigo" aria-hidden="true"><img alt="" decoding="async" loading="lazy" src="assets/images/ibpr-logo-icone.webp"/><span>Artigo</span>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`
-    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(web(img))}"/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
+    : `<div class="noticia-card__media"><img alt="${esc(n.imagem_alt || '')}" decoding="async"${attrAltura(web(img))} loading="lazy" src="${esc(web(img))}"${attrLargura(web(img))}/>${selo ? '<span class="noticia-card__selo">Adicionada recentemente</span>' : ''}</div>`}
 <div class="noticia-card__body">
 <p class="noticia-card__meta"><span class="noticia-card__frente">${esc(frente)}</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="noticia-card__title">${esc(n.titulo)}</h3>
@@ -260,6 +269,26 @@ ${n.capaTipografica && !n.imagem_url
 </div>
 </a>
 </article>`;
+}
+
+/* Card da Home no visual novo (20/10/2026): foto, frente + data, título,
+   resumo e "Ler ...". `destaque` é o primeiro, maior, e leva o selo
+   "Adicionada recentemente" (é sempre o que entrou por último no site, ver
+   gerarNoticias). Artigo sem capa não tem mais a capa tipográfica aqui: o
+   desenho novo não tem versão sem foto, então entra a foto padrão do IBPR
+   em Movimento, a mesma que a notícia sem foto já usava. */
+function cardMovimento(n, destaque) {
+  const data = dataCurta(n.publicado_em);
+  const href = n.href || `noticia-${n.slug}.html`;
+  const img = n.imagem_url || IMAGEM_PADRAO;
+  const alt = n.imagem_url ? (n.imagem_alt || '') : '';
+  return `<article class="mcard${destaque ? ' mcard--destaque' : ''}" data-aos="fade-up"><a class="mcard__link" href="${esc(href)}">
+<div class="mcard__media"><img alt="${esc(alt)}" decoding="async"${attrAltura(web(img))} loading="lazy" src="${esc(web(img))}"${attrLargura(web(img))}/>${destaque ? '<span class="mcard__selo">Adicionada recentemente</span>' : ''}</div>
+<div class="mcard__corpo"><p class="mcard__meta"><span class="mcard__frente">${esc(n.frente || n.categoria)}</span>${data ? `<span>${data}</span>` : ''}</p>
+<h3 class="mcard__titulo">${esc(n.titulo)}</h3>
+<p class="mcard__resumo">${esc(n.resumo || '')}</p>
+<span class="mcard__cta">${esc(n.cta || 'Ler notícia')} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></span></div>
+</a></article>`;
 }
 
 /* As 3 frentes: é o estado "em breve", que continua sendo a cara da seção
@@ -294,18 +323,22 @@ function secaoMovimento(noticias, { kicker, titulo, sub, meta, kickerVazio, titu
      Formações (texto à esquerda, botão à direita, largura do container) e
      um card em destaque abaixo. Fora do measure-narrow de propósito, pra
      alinhar com as outras seções da Home. */
+  /* Visual novo (20/10/2026): a primeira publicação vira o card grande
+     (.mcard--destaque) e as outras duas empilham ao lado (.mov-d__lado).
+     Com uma publicação só, a coluna do lado não é escrita. */
   if (tem && linkTopo) {
-    return `<div class="section-header formacoes__header" data-aos="fade-up">
+    const [primeira, ...outras] = noticias;
+    return `<div class="section-header formacoes__header topo-secao" data-aos="fade-up">
 <div class="formacoes__header-text">
 <p class="overline">${esc(kicker)}</p>
 <h2>${esc(titulo)}</h2>
 <p class="section-header__sub">${esc(sub)}</p>
 </div>
-<a class="btn btn--dark" href="${esc(linkTopo.href)}">${esc(linkTopo.rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+${linkSeta(linkTopo.href, linkTopo.rotulo)}
 </div>
-<div class="noticias__lista noticias__lista--destaque" data-aos="fade-up">
-${noticias.map((n, i) => cardNoticia(n, 'noticia-card--destaque', i === 0)).join('\n')}
-</div>`;
+<div class="mov-d">
+${cardMovimento(primeira, true)}
+${outras.length ? `<div class="mov-d__lado">\n${outras.map(n => cardMovimento(n, false)).join('\n')}\n</div>\n` : ''}</div>`;
   }
 
   // Com notícia, a lista ocupa o container inteiro, alinhada com Artigos e o
@@ -336,19 +369,18 @@ ${tem ? '' : '<p class="overline">Primeiras publicações em breve</p>\n'}${bota
 
 /* "Outras notícias" no fim de cada notícia (14/10/2026): antes a página
    acabava em "Receber publicações" e quem terminava de ler não tinha pra
-   onde seguir. Mesmo desenho do "Outros artigos" do artigo. */
+   onde seguir. Mesmo desenho do "Outros artigos" do artigo.
+   Visual novo (20/10/2026): mesma faixa .mov-noticias da lista do IBPR em
+   Movimento, com o "Ver todas" em link-seta ao lado do título. */
 function blocoOutrasNoticias(noticias, atual) {
   const outras = noticias.filter(o => o.slug !== atual.slug).slice(0, 3);
   if (!outras.length) return '';
-  return `<section aria-label="Outras notícias" class="section section--white">
-<div aria-hidden="true" class="grid-overlay"></div>
-<div class="container" style="position:relative;z-index:1">
-<div class="section-header formacoes__header" data-aos="fade-up">
-<div class="formacoes__header-text">
+  return `<section aria-label="Outras notícias" class="mov-noticias" id="outras-noticias">
+<div class="container">
+<div class="section-header section__head">
 <p class="overline">Continue lendo</p>
 <h2>Outras notícias.</h2>
-</div>
-<a class="btn btn--dark" href="ibpr-em-movimento.html">Ver todas as notícias <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+${linkSeta('ibpr-em-movimento.html', 'Ver todas as notícias', 'section-header__acao')}
 </div>
 <div class="noticias__lista" data-aos="fade-up">
 ${outras.map(o => cardNoticia(o)).join('\n')}
@@ -364,6 +396,7 @@ async function gerarNoticias(cfg, artigos = []) {
 
   console.log(`\n== Notícias publicadas: ${noticias.length}`);
   await conferirQueda('Notícias', 'noticia-', noticias.length);
+  await prepararMedidas([...noticias, ...artigos].map(x => x.imagem_url));
 
   // --- Home: as 3 publicações que ENTRARAM NO SITE por último, notícias e
   //     artigos juntos (17/09/2026). Ordena por criado_em, não por
@@ -388,7 +421,7 @@ async function gerarNoticias(cfg, artigos = []) {
     kickerVazio: 'IBPR em Movimento',
     tituloVazio: 'Acompanhe a atuação do IBPR e da sua rede.',
     subVazio: 'Um espaço para acompanhar o que o Instituto e os profissionais da sua rede realizam, dentro e fora do IBPR.',
-    botao: '<a class="btn btn--dark" href="ibpr-em-movimento.html">Ir para o IBPR em Movimento <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>',
+    botao: linkSeta('ibpr-em-movimento.html', 'Ir para o IBPR em Movimento'),
     linkTopo: { href: 'ibpr-em-movimento.html', rotulo: 'Ver todas as publicações' }
   }));
   await salvar('index.html', home);
@@ -428,7 +461,7 @@ async function gerarNoticias(cfg, artigos = []) {
     const legenda = String(n.imagem_legenda || '').trim();
     const figura = n.imagem_url
       ? `<figure class="noticia-figura${legenda ? ' noticia-figura--com-legenda' : ''}">\n` +
-        `<div class="noticia-figura__moldura"><img alt="${esc(n.imagem_alt || '')}" decoding="async" src="${esc(web(n.imagem_url))}"/></div>\n` +
+        `<div class="noticia-figura__moldura"><img alt="${esc(n.imagem_alt || '')}" decoding="async"${attrAltura(web(n.imagem_url))} src="${esc(web(n.imagem_url))}"${attrLargura(web(n.imagem_url))}/></div>\n` +
         (legenda ? `<figcaption class="noticia-figura__legenda">${esc(legenda)}</figcaption>\n` : '') +
         `</figure>`
       : '';
@@ -599,6 +632,11 @@ function autoresLista(a) {
     .filter(x => x && x.nome);
 }
 
+/* A letra do círculo do autor (hero, bloco de autores e card). */
+function inicial(nome) {
+  return String(nome).trim().charAt(0).toUpperCase();
+}
+
 function nomesAutores(a) {
   const nomes = autoresLista(a).map(x => x.nome);
   if (nomes.length <= 1) return nomes.join('');
@@ -636,17 +674,21 @@ function cardArtigo(a, extra = '') {
   const data = dataCurta(a.publicado_em);
   const href = `artigo-${a.slug}.html`;
   const leitura = rotuloLeitura(a);
-  const capa = a.imagem_url
-    ? `<div class="artigo-card__media"><img alt="${esc(a.imagem_alt || '')}" decoding="async" loading="lazy" src="${esc(web(a.imagem_url))}"/>${leitura ? `<span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> ${esc(leitura)}</span>` : ''}</div>`
-    : '';
+  /* Artigo sem capa (20/10/2026): na grade de 2 colunas do visual novo o
+     card sem foto ficava com um vão branco do tamanho da foto do vizinho.
+     Entra a foto padrão do IBPR em Movimento, a mesma do topo do artigo e
+     do card da Home, com alt vazio (é decoração, não a capa do artigo). */
+  const foto = web(a.imagem_url || IMAGEM_PADRAO);
+  const altCapa = a.imagem_url ? (a.imagem_alt || '') : '';
+  const capa = `<div class="artigo-card__media"><img alt="${esc(altCapa)}" decoding="async"${attrAltura(foto)} loading="lazy" src="${esc(foto)}"${attrLargura(foto)}/>${leitura ? `<span class="artigo-card__selo"><i aria-hidden="true" class="fa-regular fa-clock"></i> ${esc(leitura)}</span>` : ''}</div>`;
   const palavras = lista(a.palavras_chave).filter(Boolean).slice(0, 3);
   const autores = autoresLista(a);
   const iniciais = autores.slice(0, 3)
-    .map(x => `<span class="artigo-card__avatar" aria-hidden="true">${esc(String(x.nome).trim().charAt(0).toUpperCase())}</span>`).join('');
+    .map(x => `<span class="artigo-card__avatar" aria-hidden="true">${esc(inicial(x.nome))}</span>`).join('');
   return `<article class="artigo-card${extra ? ' ' + extra : ''}">
 <a class="artigo-card__link" href="${esc(href)}">
 ${capa}<div class="artigo-card__body">
-<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}${!capa && leitura ? `<span class="noticia-card__data">${leitura}</span>` : ''}</p>
+<p class="noticia-card__meta"><span class="noticia-card__frente">Artigo</span>${data ? `<span class="noticia-card__data">${data}</span>` : ''}</p>
 <h3 class="artigo-card__title">${esc(tituloCompleto(a))}</h3>
 ${a.resumo ? `<p class="artigo-card__resumo">${esc(a.resumo)}</p>` : ''}
 ${palavras.length ? `<ul class="artigo-card__palavras" aria-label="Palavras-chave">${palavras.map(k => `<li class="tag-pill">${esc(k)}</li>`).join('')}</ul>` : ''}
@@ -694,6 +736,7 @@ async function gerarArtigos(cfg) {
     return [];
   }
   await conferirQueda('Artigos', 'artigo-', artigos.length);
+  await prepararMedidas(artigos.map(a => a.imagem_url));
   console.log(`\n== Artigos publicados: ${artigos.length}`);
 
   // --- artigos.html: todos ---
@@ -717,9 +760,9 @@ ${artigos.map(a => cardArtigo(a)).join('\n')}
 
   // --- Hub IBPR em Movimento: os 3 mais recentes; sem artigo, a seção some ---
   let hub = await ler('ibpr-em-movimento.html');
+  // Visual novo (20/10/2026): a faixa saiu sem a grade de fundo (grid-overlay).
   const secaoHub = artigos.length
     ? `<section aria-label="Artigos" class="section section--white" id="artigos">
-<div aria-hidden="true" class="grid-overlay"></div>
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header formacoes__header" data-aos="fade-up">
 <div class="formacoes__header-text">
@@ -763,6 +806,7 @@ ${artigos.slice(0, 3).map(a => cardArtigo(a)).join('\n')}
     const autores = autoresLista(a);
     const blocoAutores = autores.length
       ? `<div class="artigo-autores">\n${autores.map(x => `<div class="artigo-autor">
+<span class="artigo-autor__inicial" aria-hidden="true">${esc(inicial(x.nome))}</span>
 <p class="artigo-autor__nome">${esc(x.nome)}</p>
 ${lista(x.credenciais).length ? `<p class="artigo-autor__cred">${lista(x.credenciais).map(esc).join('<br/>')}</p>` : ''}
 </div>`).join('\n')}\n</div>`
@@ -785,8 +829,9 @@ ${palavras.length ? `<ul class="artigo-palavras" aria-label="Palavras-chave">${p
 
     const outros = artigos.filter(o => o.slug !== a.slug).slice(0, 3);
     const blocoOutros = outros.length
-      ? `<section aria-label="Outros artigos" class="section section--white">
-<div aria-hidden="true" class="grid-overlay"></div>
+      // Visual novo (20/10/2026): sem a grade de fundo, e com id="artigos",
+      // igual à faixa de artigos do IBPR em Movimento (é o mesmo CSS).
+      ? `<section aria-label="Outros artigos" class="section section--white" id="artigos">
 <div class="container" style="position:relative;z-index:1">
 <div class="section-header formacoes__header" data-aos="fade-up">
 <div class="formacoes__header-text">
@@ -805,7 +850,8 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
     const meta = ['Artigo', a.publicado_em ? dataCurta(a.publicado_em) : '', rotuloLeitura(a)].filter(Boolean).join(' · ');
     const corpo = corpoRico(a.corpo);
     const autoresHero = autores.length
-      ? `<p class="artigo-hero__autores">${autores.map(x => `<span class="artigo-hero__autor"><i aria-hidden="true" class="fa-regular fa-user"></i>${esc(x.nome)}</span>`).join('')}</p>`
+      // Visual novo (19/10/2026): a inicial num círculo no lugar do ícone de pessoa.
+      ? `<p class="artigo-hero__autores">${autores.map(x => `<span class="artigo-hero__autor"><span class="artigo-hero__inicial" aria-hidden="true">${esc(inicial(x.nome))}</span>${esc(x.nome)}</span>`).join('')}</p>`
       : '';
     // Baixar: PDF de verdade quando existe; senão a impressão da própria página
     // (folha de estilo de impressão), que a pessoa salva como PDF. Desde
@@ -818,7 +864,7 @@ ${outros.map(o => cardArtigo(o)).join('\n')}
     const html = molde
       .replaceAll('{{TITULO_COMPLETO}}', () => esc(completo))
       .replaceAll('{{TITULO}}', () => esc(titulo))
-      .replaceAll('{{SUBTITULO}}', () => subtitulo ? `<p class="page-hero__sub">${esc(subtitulo)}</p>` : '')
+      .replaceAll('{{SUBTITULO}}', () => subtitulo ? `<p class="hero-interna__sub">${esc(subtitulo)}</p>` : '')
       .replaceAll('{{DESCRICAO}}', () => esc(descricao))
       .replaceAll('{{META}}', () => esc(meta))
       .replaceAll('{{URL}}', () => esc(url))
@@ -864,7 +910,7 @@ ${acaoPdf}
      1. o menu suspenso "Formações" da navbar, em todas as páginas
      2. a lista de Formações do menu do celular, em todas as páginas
      3. a coluna "Formações" do rodapé, em todas as páginas
-     4. o carrossel da Home (e a quantidade de bolinhas dele)
+     4. a pilha de cards da Home (era um carrossel com bolinhas até 20/10/2026)
      5. o catálogo de formacoes.html (e o título fixo do catálogo)
      6. os dados estruturados de formacoes.html (o ItemList do Google)
      7. a página própria do curso, formacao-<slug>.html
@@ -904,133 +950,250 @@ function contagem(f) {
 
 /* --- os blocos da página do curso ---------------------------------- */
 
-function blocoDesenvolver(f) {
-  const itens = lista(f.desenvolver);
-  if (!itens.length) return '';
-  return `<div class="course-learn" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-award"></i>O que você vai desenvolver</h2>
-<ul class="check-list check-list--2col">
-${itens.map(i => `<li>${esc(i)}</li>`).join('\n')}
+/* Visual novo (19/10/2026): cada bloco é um "capítulo" numerado (01, 02...)
+   com um anel que se desenha no scroll (curso.js), e o cartão lateral tem
+   um índice com os mesmos capítulos. Por isso cada bloco aqui devolve, além
+   do HTML, o id e o título: a numeração e o índice saem da lista dos blocos
+   que EXISTEM nesta formação. Bloco sem conteúdo some, e os números dos
+   seguintes sobem junto, sem buraco ("01, 02, 04").
+
+   Os títulos dos capítulos são fixos, do desenho, como já eram antes. */
+
+const ANEL = '<svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg>';
+const CHECK = '<svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true">' +
+  '<circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/>' +
+  '<path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg>';
+const TRACO_TOPICO = '<svg class="curso-topicos__traco" viewBox="0 0 16 6" aria-hidden="true"><path d="M1 3.5 C 5 1.5, 10 5, 15 2.5" pathLength="1"/></svg>';
+
+function dois(n) { return String(n).padStart(2, '0'); }
+
+function tituloCapitulo(n, titulo) {
+  return `<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true">${ANEL}<span>${dois(n)}</span></span>` +
+    `<span class="curso-cap__txt">${esc(titulo)}</span></h2>`;
+}
+
+function checks(itens) {
+  return itens.map((t, i) => `<li style="--i:${i}">${CHECK}<span class="curso-checks__txt">${esc(t)}</span></li>`).join('\n');
+}
+
+/* Cada bloco recebe a formação e o número do capítulo, e devolve o HTML ou
+   '' quando não tem o que mostrar. */
+/* As páginas de formação publicadas nesta rodada (preenchido em gerarFormacoes). */
+let FORMACOES_NO_AR = null;
+
+const CAPITULOS = [
+  { id: 'desenvolver', titulo: 'O que você vai desenvolver', bloco(f, n) {
+    const itens = lista(f.desenvolver);
+    if (!itens.length) return '';
+    return `<section class="curso-cap" id="desenvolver" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<ul class="curso-checks curso-checks--2col">
+${checks(itens)}
 </ul>
-</div>`;
-}
+</section>`;
+  } },
 
-function blocoTemas(f) {
-  const itens = lista(f.temas_relacionados).filter(t => t && t.texto);
-  if (!itens.length) return '';
-  return `<section aria-label="Temas relacionados" id="temas" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-hashtag"></i>Temas relacionados</h2>
-<div class="course-pills">
-${itens.map(t => urlSegura(t.href)
-    ? `<a class="tag-pill" href="${esc(urlSegura(t.href))}">${esc(t.texto)}</a>`
-    : `<span class="tag-pill">${esc(t.texto)}</span>`).join('\n')}
+  { id: 'para-quem', titulo: 'Para quem é', atalho: true, bloco(f, n) {
+    const itens = lista(f.para_quem);
+    if (!itens.length) return '';
+    return `<section class="curso-cap" id="para-quem" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<ul class="curso-publico">
+${itens.map((t, i) => `<li style="--i:${i}">${esc(t)}</li>`).join('\n')}
+</ul>
+</section>`;
+  } },
+
+  /* O fio desenhado liga até 3 eixos (é o desenho de 3 colunas); com outra
+     quantidade os cartões aparecem igual, só o fio fica de fora. */
+  { id: 'eixos', titulo: 'Os eixos da formação', atalho: true, bloco(f, n) {
+    const itens = lista(f.eixos).filter(e => e && e.chave);
+    if (!itens.length) return '';
+    const fio = itens.length === 3
+      ? `<svg class="curso-eixos__fio" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+<path class="curso-eixos__base" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
+<path class="curso-eixos__tinta" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
+</svg>\n`
+      : '';
+    return `<section class="curso-cap" id="eixos" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<div class="curso-eixos-palco">
+${fio}<ol class="curso-eixos">
+${itens.map((e, i) => `<li class="curso-eixo" style="--i:${i}"><div class="curso-eixo__face">` +
+      `<span class="curso-eixo__num" aria-hidden="true">${dois(i + 1)}</span>` +
+      `<span class="curso-eixo__chave">${esc(e.chave)}</span>` +
+      `<span class="curso-eixo__frase">${esc(e.frase || '')}</span>` +
+      `<span class="curso-eixo__desc">${esc(e.desc || '')}</span></div></li>`).join('\n')}
+</ol>
 </div>
 </section>`;
-}
+  } },
 
-function blocoEixos(f) {
-  const itens = lista(f.eixos).filter(e => e && e.chave);
-  if (!itens.length) return '';
-  return `<section aria-label="Os eixos da formação" id="eixos" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-diagram-project"></i>Os eixos da formação</h2>
-<div class="course-eixos">
-${itens.map((e, i) => `<div class="course-eixo">
-<span class="course-eixo__num">${String(i + 1).padStart(2, '0')}</span>
-<span class="course-eixo__key">${esc(e.chave)}</span>
-<span class="course-eixo__phrase">${esc(e.frase || '')}</span>
-<span class="course-eixo__desc">${esc(e.desc || '')}</span>
-</div>`).join('\n')}
-</div>
-</section>`;
-}
-
-function blocoModulos(f) {
-  const itens = lista(f.modulos).filter(m => m && m.titulo);
-  if (!itens.length) return '';
-  return `<section aria-label="Conteúdo do programa" id="conteudo-programa" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-layer-group"></i>Conteúdo do programa</h2>
-<div class="course-modules" id="course-modules">
+  { id: 'conteudo-programa', titulo: 'Conteúdo do programa', atalho: true, bloco(f, n) {
+    const itens = lista(f.modulos).filter(m => m && m.titulo);
+    if (!itens.length) return '';
+    return `<section class="curso-cap" id="conteudo-programa" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<div class="course-modules curso-modulos" id="course-modules">
 <div class="course-modules__bar">
 <p class="course-modules__count">${plural(itens.length, 'módulo', 'módulos')}</p>
 <button type="button" class="course-modules__toggle" data-accordion-toggle aria-expanded="false">Expandir todos</button>
 </div>
-${itens.map(m => {
-    const tops = lista(m.topicos);
-    return `<details class="accordion">
-<summary class="accordion__summary"><i aria-hidden="true" class="fa-solid fa-chevron-down"></i><span class="accordion__label">${esc(m.titulo)}</span><span class="accordion__meta">${plural(tops.length, 'tópico', 'tópicos')}</span></summary>
+<div class="curso-modulos__pilha">
+${itens.map((m, i) => {
+      const tops = lista(m.topicos);
+      return `<details class="accordion curso-modulo" style="--i:${i}">
+<summary class="accordion__summary"><span class="curso-modulo__num" aria-hidden="true">${dois(i + 1)}</span>` +
+        `<span class="accordion__label">${esc(m.titulo)}</span><span class="accordion__meta">${plural(tops.length, 'tópico', 'tópicos')}</span>` +
+        `<span class="curso-modulo__mais" aria-hidden="true"></span></summary>
 <div class="accordion__content">
-<ul class="dot-list">
-${tops.map(t => `<li>${esc(t)}</li>`).join('\n')}
+<ul class="curso-topicos">
+${tops.map((t, j) => `<li style="--i:${j}">${TRACO_TOPICO}${esc(t)}</li>`).join('\n')}
 </ul>
 </div>
 </details>`;
-  }).join('\n')}
+    }).join('\n')}
+</div>
 </div>
 </section>`;
-}
+  } },
 
-function blocoFundamento(f) {
-  const paras = String(f.fundamento || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
-  if (!paras.length) return '';
-  return `<section aria-label="Fundamento da formação" id="fundamento" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-book-open"></i>Fundamento da formação</h2>
-<div class="prose">
+  { id: 'fundamento', titulo: 'Fundamento da formação', atalho: true, bloco(f, n) {
+    const paras = String(f.fundamento || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+    if (!paras.length) return '';
+    return `<section class="curso-cap" id="fundamento" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<div class="curso-fundamento">
 ${paras.map(p => `<p>${esc(p).replace(/\n/g, '<br/>')}</p>`).join('\n')}
 </div>
 </section>`;
-}
+  } },
 
-function blocoParaQuem(f) {
-  const itens = lista(f.para_quem);
-  if (!itens.length) return '';
-  return `<section aria-label="Para quem é" id="para-quem" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-users"></i>Para quem é</h2>
-<div class="course-pills">
-${itens.map(i => `<span class="tag-pill">${esc(i)}</span>`).join('\n')}
+  { id: 'resultados', titulo: 'O que sua instituição será capaz de implementar', bloco(f, n) {
+    const itens = lista(f.resultados);
+    if (!itens.length) return '';
+    const intro = f.resultados_intro ? `<p class="curso-resultado__intro">${esc(f.resultados_intro)}</p>\n` : '';
+    return `<section class="curso-cap curso-cap--resultado" id="resultados" data-cap aria-label="${esc(this.titulo)}">
+<div class="curso-resultado">
+${tituloCapitulo(n, this.titulo)}
+${intro}<ul class="curso-checks">
+${checks(itens)}
+</ul>
 </div>
 </section>`;
-}
+  } },
 
-function blocoResultados(f) {
-  const itens = lista(f.resultados);
-  if (!itens.length) return '';
-  const intro = f.resultados_intro ? `<p>${esc(f.resultados_intro)}</p>\n` : '';
-  return `<div class="course-outcome" data-aos="fade-up">
-<h2 class="block-title"><i aria-hidden="true" class="fa-solid fa-rocket"></i>O que sua instituição será capaz de implementar</h2>
-${intro}<ul class="check-list">
-${itens.map(i => `<li>${esc(i)}</li>`).join('\n')}
+  /* Tema com link vira o cartão com seta; sem link (ou com link recusado
+     pelo urlSegura), o mesmo cartão sem a seta e sem ser clicável. Link pra
+     uma formação que não está publicada (despublicada no painel) também perde
+     o link: a página dela foi apagada e o tema levaria pra um 404. */
+  { id: 'temas', titulo: 'Temas relacionados', bloco(f, n) {
+    const itens = lista(f.temas_relacionados).filter(t => t && t.texto);
+    if (!itens.length) return '';
+    const destino = t => {
+      const h = urlSegura(t.href);
+      const curso = /^(formacao-[a-z0-9-]+\.html)(#.*)?$/.exec(h);
+      return curso && FORMACOES_NO_AR && !FORMACOES_NO_AR.has(curso[1]) ? '' : h;
+    };
+    return `<section class="curso-cap" id="temas" data-cap aria-label="${esc(this.titulo)}">
+${tituloCapitulo(n, this.titulo)}
+<ul class="curso-temas">
+${itens.map((t, i) => destino(t)
+      ? `<li style="--i:${i}"><a class="curso-tema" href="${esc(destino(t))}"><span>${esc(t.texto)}</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>`
+      : `<li style="--i:${i}"><span class="curso-tema"><span>${esc(t.texto)}</span></span></li>`).join('\n')}
 </ul>
-</div>`;
-}
+</section>`;
+  } }
+];
 
 /* Bloco que ficou sem conteúdo simplesmente não aparece na página.
    Ordem (14/10/2026): o que decide a inscrição vem primeiro ("Para quem é"
    logo depois do "O que você vai desenvolver"; antes era o 6º de 7 blocos)
-   e "Temas relacionados", que são links pra fora da página, vai pro fim. */
-function blocosDoCurso(f) {
-  return [blocoDesenvolver, blocoParaQuem, blocoEixos, blocoModulos,
-          blocoFundamento, blocoResultados, blocoTemas]
-    .map(fn => fn(f)).filter(Boolean).join('\n\n');
+   e "Temas relacionados", que são links pra fora da página, vai pro fim.
+   Devolve os capítulos que existem, já numerados: { id, titulo, atalho, html }. */
+function capitulosDoCurso(f) {
+  const saida = [];
+  for (const c of CAPITULOS) {
+    const html = c.bloco(f, saida.length + 1);
+    if (html) saida.push({ id: c.id, titulo: c.titulo, atalho: !!c.atalho, html });
+  }
+  return saida;
+}
+
+/* Índice do cartão lateral: um ponto por capítulo, com o número e o nome
+   pro leitor de tela (o curso.js mostra o nome do capítulo atual). */
+function indiceDoCurso(caps) {
+  return caps.map((c, i) =>
+    `<li><a href="#${c.id}" data-indice="${i}" aria-label="${dois(i + 1)} · ${esc(c.titulo)}"></a></li>`).join('\n');
+}
+
+/* Atalhos no topo: os capítulos do meio da página (o primeiro já aparece
+   logo abaixo do topo; o resultado e os temas ficam pro fim da leitura). */
+function atalhosDoCurso(caps) {
+  const itens = caps.filter(c => c.atalho);
+  if (!itens.length) return '';
+  return `<nav aria-label="Seções desta página" class="hero-interna__atalhos">
+${itens.map(c => `<a class="hero-interna__atalho" href="#${c.id}">${esc(c.titulo)}</a>`).join('\n')}
+</nav>\n`;
+}
+
+/* Foto do topo (visual novo): <picture> com a WebP e o JPG, em caminho
+   RELATIVO. Antes era background de CSS e precisava de endereço absoluto
+   (o url() de um .css resolve a partir do arquivo .css, não da página);
+   agora é um <img> de verdade, que resolve a partir da página.
+   Foto do repositório perde o "?v=2" do banco: o visual novo trocou as
+   fotos de nome e não depende mais dele. Foto do painel (Supabase) passa
+   como veio, sem WebP, com as medidas lidas do começo do arquivo. */
+function heroDoCurso(f) {
+  const bruta = String(f.imagem_hero_url || IMAGEM_PADRAO);
+  const local = !/^https?:\/\//i.test(bruta);
+  const jpg = local ? bruta.replace(/^\/+/, '').split('?')[0] : bruta;
+  const webp = local ? web(jpg) : jpg;
+  const temWebp = local && webp !== jpg;
+  const medidas = medidasDe(jpg);
+  return {
+    foto: `<picture class="hero-interna__bg">
+${temWebp ? `<source srcset="${esc(webp)}" type="image/webp"/>\n` : ''}<img alt="" decoding="async" fetchpriority="high"${medidas ? ` height="${medidas.altura}"` : ''} src="${esc(jpg)}"${medidas ? ` width="${medidas.largura}"` : ''}/>
+</picture>`,
+    preload: `<link as="image" fetchpriority="high" href="${esc(temWebp ? webp : jpg)}" rel="preload"${temWebp ? ' type="image/webp"' : ''}/>`
+  };
 }
 
 
 /* --- o card, usado na Home, no catálogo e em "outras formações" ----- */
 
-function cardFormacao(f, extras = '') {
+/* Card do visual novo (15/10/2026, pilha estilo clay.com): cada card prende
+   no topo e o próximo sobe por cima. O pilha.js lê a posição na pilha pelo
+   --i do style, por isso ele recomeça do 0 em cada lista. Já o "Formação 01"
+   do selo é a posição do curso no catálogo inteiro (a ordem do painel), pra
+   que o mesmo curso tenha o mesmo número na Home, no catálogo e no "Outras
+   formações" de cada curso.
+     `posicao`   índice na pilha (vira --i)
+     `numero`    posição no catálogo, começando em 1
+     `verTodas`  o botão claro "Ver todas"; sai no próprio catálogo */
+function cardFormacao(f, { posicao, numero, verTodas = true }) {
   const { modulos, topicos } = contagem(f);
+  const arq = esc(arquivoFormacao(f));
+  const seta = '<i aria-hidden="true" class="fa-solid fa-arrow-right"></i>';
+  const conteudo = modulos
+    ? `<span class="fcard__conteudo"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i><strong>${modulos}</strong> ${modulos === 1 ? 'módulo' : 'módulos'}</span>` +
+      `<span aria-hidden="true" class="fcard__sep">·</span>` +
+      `<span><i aria-hidden="true" class="fa-solid fa-book-open"></i><strong>${topicos}</strong> ${topicos === 1 ? 'tópico' : 'tópicos'}</span></span>`
+    : '';
   const meta = modulos
-    ? `<p class="service-card__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>${plural(modulos, 'módulo', 'módulos')}</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>${plural(topicos, 'tópico', 'tópicos')}</span></p>`
+    ? `<p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>${plural(modulos, 'módulo', 'módulos')}</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>${plural(topicos, 'tópico', 'tópicos')}</span></p>\n`
     : '';
 
-  return `<article class="service-card"${extras}>
-<div class="service-card__img-wrap"><img alt="${esc(f.imagem_card_alt || '')}" class="service-card__photo" decoding="async" loading="lazy" src="${esc(web(f.imagem_card_url || ''))}"/></div>
-<div class="service-card__body"><p class="service-card__audience">${esc(f.publico_curto || '')}</p><h3 class="service-card__title">${esc(tituloCurto(f))}</h3><p class="service-card__desc">${esc(f.resumo || '')}</p>${meta}<a class="service-card__link" href="${esc(arquivoFormacao(f))}">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></div>
+  return `<article class="fcard" style="--i:${posicao}">
+<div class="fcard__corpo">
+<p class="fcard__selo"><span>Formação ${String(numero).padStart(2, '0')}</span>${conteudo}</p>
+<h3 class="fcard__titulo"><a href="${arq}">${esc(tituloCurto(f))}</a></h3>
+${f.publico_curto ? `<p class="fcard__publico">${esc(f.publico_curto)}</p>\n` : ''}<p class="fcard__desc">${esc(f.resumo || '')}</p>
+${meta}<div class="fcard__acoes"><a class="fcard__btn" href="${arq}">Conhecer a formação ${seta}</a>${verTodas ? '<a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a>' : ''}</div>
+</div>
+<div class="fcard__foto"><img alt="${esc(f.imagem_card_alt || '')}" decoding="async"${attrAltura(web(f.imagem_card_url))} loading="lazy" src="${esc(web(f.imagem_card_url || ''))}"${attrLargura(web(f.imagem_card_url))}/></div>
+<span aria-hidden="true" class="fcard__veu"></span>
 </article>`;
-}
-
-/* Dá o data-aos escalonado, do jeito que as páginas já usam. */
-function comAos(i) {
-  return i === 0 ? ' data-aos="fade-up"' : ` data-aos="fade-up" data-aos-delay="${i * 80}"`;
 }
 
 
@@ -1047,12 +1210,12 @@ function regiaoNavbar(formacoes, atual) {
   const itens = formacoes.map(f => {
     const arq = arquivoFormacao(f);
     const desc = f.publico_curto ? `<span class="navbar__dropdown-desc">${esc(f.publico_curto)}</span>` : '';
-    return `<li><a ${marca(arq)}class="navbar__dropdown-link" href="${esc(arq)}" role="menuitem">` +
+    return `<li><a ${marca(arq)}class="navbar__dropdown-link" href="${esc(arq)}">` +
       `<span aria-hidden="true" class="navbar__dropdown-icon"><i class="fa-solid ${esc(f.area_icone || 'fa-graduation-cap')}"></i></span>` +
       `<span class="navbar__dropdown-text"><span class="navbar__dropdown-title">${esc(tituloCurto(f))}</span>${desc}</span>` +
       `<span aria-hidden="true" class="navbar__dropdown-seta"><i class="fa-solid fa-arrow-right"></i></span></a></li>`;
   });
-  itens.push(`<li><a ${marca('formacoes.html')}class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html" role="menuitem">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>`);
+  itens.push(`<li><a ${marca('formacoes.html')}class="navbar__dropdown-link navbar__dropdown-link--all" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a></li>`);
   return itens.join('\n');
 }
 
@@ -1198,6 +1361,9 @@ async function gerarFormacoes(cfg) {
     }
   }
 
+  await prepararMedidas(formacoes.flatMap(f => [f.imagem_card_url, f.imagem_hero_url]));
+  FORMACOES_NO_AR = new Set(formacoes.map(arquivoFormacao));
+
   /* --- 1, 2, 3: menus e rodapé das páginas fixas ---
      index.html e formacoes.html ficam de fora porque têm regiões extras;
      elas são montadas inteiras logo abaixo e salvas UMA vez só. Salvar duas
@@ -1210,11 +1376,11 @@ async function gerarFormacoes(cfg) {
   // --- 4: carrossel da Home ---
   let home = aplicarMenus(await ler('index.html'), formacoes, 'index.html');
   home = trocarRegiao(home, 'formacoes-home',
-    formacoes.map(f => cardFormacao(f)).join('\n'));
-  home = trocarRegiao(home, 'formacoes-home-dots',
-    formacoes.map((f, i) =>
-      `<button aria-label="Ir para a formação ${i + 1}" class="services__dot${i === 0 ? ' services__dot--active' : ''}"></button>`
-    ).join('\n'));
+    formacoes.map((f, i) => cardFormacao(f, { posicao: i, numero: i + 1 })).join('\n'));
+  /* A região formacoes-home-dots saiu em 20/10/2026: no visual novo os
+     cards da Home ficam em pilha (cada um prende no topo e o próximo sobe
+     por cima), sem carrossel e portanto sem bolinhas. Continuar gerando
+     faria o build abortar por falta do marcador. */
   await salvar('index.html', home);
 
   // --- 5 e 6: catálogo e dados estruturados de formacoes.html ---
@@ -1223,9 +1389,9 @@ async function gerarFormacoes(cfg) {
   // ("As quatro formações do Instituto") e virou fixo. A região continua
   // gerada pra manter o marcador; EXTENSO fica pra outros usos.
   const titulo = 'Formações para diferentes contextos';
-  cat = trocarRegiao(cat, 'formacoes-catalogo-titulo', `<h2>${esc(titulo)}</h2>`);
+  cat = trocarRegiao(cat, 'formacoes-catalogo-titulo', `<h2 class="catalogo__titulo">${esc(titulo)}</h2>`);
   cat = trocarRegiao(cat, 'formacoes-catalogo',
-    formacoes.map((f, i) => cardFormacao(f, comAos(i))).join('\n'));
+    formacoes.map((f, i) => cardFormacao(f, { posicao: i, numero: i + 1, verTodas: false })).join('\n'));
   cat = trocarRegiao(cat, 'formacoes-jsonld', jsonldCatalogo(formacoes));
   await salvar('formacoes.html', cat);
 
@@ -1240,36 +1406,39 @@ async function gerarFormacoes(cfg) {
     // "Outras formações": todas as demais, na ordem do catálogo, até 3.
     const outras = formacoes.filter(o => o.slug !== f.slug).slice(0, 3);
 
+    const caps = capitulosDoCurso(f);
+    const hero = heroDoCurso(f);
+
     let html = molde
       .replaceAll('{{TITULO}}', () => esc(f.titulo))
       .replaceAll('{{SUBTITULO}}', () => esc(f.subtitulo || ''))
       .replaceAll('{{META_DESC}}', () => esc(f.meta_descricao || f.resumo || ''))
       .replaceAll('{{URL}}', () => esc(`${SITE}/${arquivo}`))
-      /* A foto do topo entra como endereço ABSOLUTO, e não relativo.
-         Motivo: ela é aplicada por uma variável CSS (--course-hero) que o
-         components.css usa dentro de um url(). O navegador resolve esse
-         url() em relação ao ARQUIVO .css, não à página — um caminho
-         "assets/images/x.jpg" viraria "assets/css/assets/images/x.jpg" e a
-         foto não carregaria. Conferido no navegador, não só no código. */
+      // og:image e twitter:image continuam ABSOLUTOS e no JPG: os robôs de
+      // prévia (WhatsApp, LinkedIn) não resolvem caminho relativo nem
+      // aceitam WebP em todo lugar.
       .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(f.imagem_hero_url || IMAGEM_PADRAO)))
-      .replaceAll('{{IMAGEM_WEB}}', () => esc(absoluto(web(f.imagem_hero_url || IMAGEM_PADRAO))))
+      .replaceAll('{{PRELOAD}}', () => hero.preload)
+      .replaceAll('{{HERO_FOTO}}', () => hero.foto)
       /* Placeholder da foto do topo (ver build/dev/lqip.py). Só existe pras
          fotos do repositório; foto enviada pelo painel cai em "none", e a
          página mostra o gradiente azul até a foto chegar, como antes. */
       .replaceAll('{{LQIP}}', () => lqipDe(f.imagem_hero_url || IMAGEM_PADRAO))
-      .replaceAll('{{META_AREA}}', () => f.area
-        ? `<span class="course-meta__item"><i aria-hidden="true" class="fa-solid ${esc(f.area_icone || 'fa-shapes')}"></i>${esc(f.area)}</span>\n`
-        : '')
+      .replaceAll('{{SELO_AREA}}', () => f.area ? `<span class="citacao-selo">${esc(f.area)}</span>\n` : '')
+      .replaceAll('{{ATALHOS}}', () => atalhosDoCurso(caps))
+      .replaceAll('{{INDICE}}', () => indiceDoCurso(caps))
+      .replaceAll('{{INDICE_PRIMEIRO}}', () => esc(caps.length ? caps[0].titulo : ''))
       /* Sem endereço da Hotmart, o botão NÃO vira um link pra "#": clicar e
          não acontecer nada é pior do que ver que ainda não está disponível,
          ainda mais no botão que fecha a venda. Mesmo tratamento que a Área
          do Aluno já dava ao "Entrar na plataforma". */
       .replaceAll('{{BOTAO_CURSO}}', () => urlSegura(f.link_curso)
-        ? `<a class="btn btn--dark" href="${esc(urlSegura(f.link_curso))}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
-        : '<button class="btn btn--dark is-pending" disabled type="button" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>')
+        ? `<a class="btn btn--dark curso-cartao__btn" href="${esc(urlSegura(f.link_curso))}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
+        : '<button class="btn btn--dark curso-cartao__btn" type="button" aria-disabled="true" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>')
       .replaceAll('{{JSONLD}}', () => jsonldCurso(f))
-      .replaceAll('{{BLOCOS}}', () => blocosDoCurso(f))
-      .replaceAll('{{OUTRAS}}', () => outras.map((o, i) => cardFormacao(o, comAos(i))).join('\n'));
+      .replaceAll('{{BLOCOS}}', () => caps.map(c => c.html).join('\n\n'))
+      .replaceAll('{{OUTRAS}}', () => outras.map((o, i) =>
+        cardFormacao(o, { posicao: i, numero: formacoes.indexOf(o) + 1 })).join('\n'));
 
     // Os menus desta página apontam pro curso atual (aria-current).
     html = aplicarMenus(html, formacoes, arquivo);
@@ -1318,36 +1487,160 @@ function textoRico(t) {
   return escConteudo(t).replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
 }
 
-/* O separador de sementes entre uma pessoa e outra. É decoração pura
-   (aria-hidden), por isso mora aqui e não no banco. */
-const DIVISOR_PESSOAS = `<div aria-hidden="true" class="founders__divider">
-<span class="founders__divider-line"></span>
-<span class="founders__seeds"><i></i><i></i><i></i></span>
-<span class="founders__divider-line"></span>
-</div>`;
+/* --- medidas das fotos (width/height no <img>) ----------------------
+   width/height no <img> não é estilo: é a reserva de espaço que impede a
+   página de "pular" enquanto a foto carrega (CLS). O build lê as medidas do
+   CABEÇALHO do arquivo, sem biblioteca (o build não tem dependências):
+   JPEG (marcador SOF), PNG (bloco IHDR) e WebP (VP8, VP8L, VP8X).
 
-/* Um retrato. `comTrajetoria` é falso na Home: lá a seção é prévia, e a
-   sanfona "Conheça a trajetória" só existe na página do Instituto. */
-function cartaoPessoa(p, comTrajetoria) {
-  /* width/height no HTML não são estilo: são a reserva de espaço que
-     impede a página de "pular" enquanto a foto carrega. Só saem quando o
-     banco tem as duas medidas. */
-  const medidas = (p.foto_largura && p.foto_altura)
-    ? ` height="${esc(p.foto_altura)}"` : '';
-  const largura = (p.foto_largura && p.foto_altura)
-    ? ` width="${esc(p.foto_largura)}"` : '';
+   Foto do repositório: lida do disco. Foto enviada pelo painel (Supabase
+   Storage, 20/10/2026): baixa só o começo do arquivo (até 256 KB, onde o
+   cabeçalho sempre está), com tempo curto; uma vez por endereço por rodada.
+   Qualquer falha (rede, arquivo estranho) devolve null e o <img> sai sem
+   medidas, como era antes: a foto aparece igual, só sem a reserva. */
+const MEDIDAS = new Map();
+const LIMITE_CABECALHO = 256 * 1024;
 
-  /* Pessoa sem foto mantém a moldura vazia em vez de sumir com o bloco:
-     o painel exige foto, então isto é rede de proteção, não caminho
-     normal. */
-  const foto = p.foto_url
-    ? `<img alt="${esc(p.foto_alt || p.nome)}" class="founder__photo" decoding="async"${medidas} loading="lazy" src="${esc(web(p.foto_url))}"${largura}/>`
-    : '';
+/* Medidas das fotos remotas já lidas, guardadas em build/medidas.json.
+   Por quê: se numa rodada o Storage não responder a tempo, a foto sairia
+   sem width/height e o robô commitaria a página "sem medidas", e na rodada
+   seguinte "com medidas" de novo, um vai e volta sem fim. Com o arquivo, a
+   medida lida uma vez vale pra sempre (a foto enviada pelo painel ganha nome
+   novo a cada envio, então o endereço nunca muda de conteúdo). */
+let MEDIDAS_SALVAS = {};
+try { MEDIDAS_SALVAS = JSON.parse(await readFile(path.join(RAIZ, 'build/medidas.json'), 'utf8')); } catch { MEDIDAS_SALVAS = {}; }
+let medidasNovas = false;
 
+function medidasDeBuffer(b) {
+  if (!b || b.length < 24) return null;
+  // PNG: assinatura de 8 bytes, depois o IHDR com largura e altura
+  if (b.readUInt32BE(0) === 0x89504e47 && b.toString('ascii', 12, 16) === 'IHDR') {
+    return { largura: b.readUInt32BE(16), altura: b.readUInt32BE(20) };
+  }
+  // WebP
+  if (b.length >= 30 && b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
+    const tipo = b.toString('ascii', 12, 16);
+    if (tipo === 'VP8X') return { largura: 1 + b.readUIntLE(24, 3), altura: 1 + b.readUIntLE(27, 3) };
+    if (tipo === 'VP8 ') return { largura: b.readUInt16LE(26) & 0x3fff, altura: b.readUInt16LE(28) & 0x3fff };
+    if (tipo === 'VP8L') {
+      const v = b.readUInt32LE(21);
+      return { largura: 1 + (v & 0x3fff), altura: 1 + ((v >> 14) & 0x3fff) };
+    }
+    return null;
+  }
+  // JPEG: anda de segmento em segmento até o SOF (o quadro com o tamanho)
+  if (b[0] === 0xff && b[1] === 0xd8) {
+    let i = 2;
+    while (i + 9 < b.length) {
+      if (b[i] !== 0xff) return null;
+      const m = b[i + 1];
+      if (m === 0xff) { i++; continue; }
+      if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) {
+        return { altura: b.readUInt16BE(i + 5), largura: b.readUInt16BE(i + 7) };
+      }
+      i += 2 + b.readUInt16BE(i + 2);
+    }
+  }
+  return null;
+}
+
+/* Caminho de foto do próprio site ("assets/images/x.jpg?v=2" vira
+   "assets/images/x.jpg"), ou null. Só pasta assets/, nunca "..": o build
+   não abre arquivo fora dela por causa de um texto vindo do banco. */
+function caminhoLocal(url) {
+  const rel = String(url || '').replace(/^\/+/, '').split('?')[0];
+  return /^assets\/[\w/.-]+$/.test(rel) && !rel.includes('..') ? rel : null;
+}
+
+function medidasLocal(rel) {
+  try { return medidasDeBuffer(readFileSync(path.join(RAIZ, rel))); } catch { return null; }
+}
+
+async function medidasRemota(url) {
+  try {
+    const resp = await fetch(url, {
+      headers: { Range: `bytes=0-${LIMITE_CABECALHO - 1}` },
+      signal: AbortSignal.timeout(6000)
+    });
+    if (!resp.ok || !resp.body) return null;
+    // lê no máximo LIMITE_CABECALHO, mesmo que o servidor ignore o Range
+    const pedacos = [];
+    let total = 0;
+    for await (const p of resp.body) {
+      pedacos.push(Buffer.from(p)); total += p.length;
+      if (total >= LIMITE_CABECALHO) break;
+    }
+    return medidasDeBuffer(Buffer.concat(pedacos));
+  } catch { return null; }
+}
+
+/* Mede de uma vez as fotos remotas que a etapa vai usar (as locais são
+   lidas na hora, do disco). Depois disso medidasDe() responde sem esperar. */
+async function prepararMedidas(urls) {
+  for (const u of new Set(urls.filter(Boolean).map(String))) {
+    if (MEDIDAS.has(u) || caminhoLocal(u)) continue;
+    if (MEDIDAS_SALVAS[u]) { MEDIDAS.set(u, MEDIDAS_SALVAS[u]); continue; }
+    const m = /^https:\/\//i.test(u) ? await medidasRemota(u) : null;
+    MEDIDAS.set(u, m);
+    if (m) { MEDIDAS_SALVAS[u] = m; medidasNovas = true; }
+  }
+}
+
+function medidasDe(url) {
+  const u = String(url || '');
+  if (!MEDIDAS.has(u)) {
+    const rel = caminhoLocal(u);
+    MEDIDAS.set(u, rel ? medidasLocal(rel) : null);
+  }
+  return MEDIDAS.get(u);
+}
+
+/* Os dois pedaços do <img>, na ordem alfabética de atributos que o site usa
+   (height depois de decoding, width depois de src). */
+function attrAltura(url)  { const m = medidasDe(url); return m ? ` height="${m.altura}"` : ''; }
+function attrLargura(url) { const m = medidasDe(url); return m ? ` width="${m.largura}"` : ''; }
+
+/* Retrato de corpo recortado (visual novo, 19/10/2026): pra cada foto local
+   "assets/images/fundadores/fulano.jpg" existe "fulano-recorte-900.webp" (o
+   recorte sem fundo, que encosta no arco do cartão) e "fulano-recorte-cel.webp"
+   (o mesmo, menor, pro celular). Foto enviada pelo painel não tem recorte
+   (é a foto com fundo): entra inteira, e o cartão ganha a marca
+   pessoa-cartao--foto-inteira, que no pessoas.css transforma a foto num
+   retrato emoldurado no formato do arco. Quando o recorte for feito e
+   salvo com o nome "-recorte-900.webp", ele passa a valer sozinho.
+   Devolve { html, inteira }. */
+function fotoPessoa(p) {
+  const alt = esc(p.foto_alt || p.nome);
+  const base = String(p.foto_url || '').replace(/^\/+/, '').split('?')[0].replace(/\.(jpe?g|png|webp)$/i, '');
+  // Só caminho do próprio site, sem "..": o build não abre arquivo fora da pasta de imagens.
+  const grande = /^assets\/images\/[a-z0-9/_-]+$/i.test(base) && !base.includes('..')
+    ? medidasLocal(`${base}-recorte-900.webp`) : null;
+  if (grande) {
+    const cel = medidasLocal(`${base}-recorte-cel.webp`);
+    const srcset = cel
+      ? ` srcset="${esc(base)}-recorte-cel.webp ${cel.largura}w, ${esc(base)}-recorte-900.webp ${grande.largura}w"`
+      : '';
+    return { inteira: false, html: `<img alt="${alt}" decoding="async" height="${grande.altura}" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="${esc(base)}-recorte-900.webp"${srcset} width="${grande.largura}"/>` };
+  }
+  if (!p.foto_url) return { inteira: false, html: '' };
+  /* Medidas: as que o banco guardou; sem elas, as lidas do arquivo. */
+  const src = web(p.foto_url);
+  const temBanco = p.foto_largura && p.foto_altura;
+  const altura = temBanco ? ` height="${esc(p.foto_altura)}"` : attrAltura(src);
+  const largura = temBanco ? ` width="${esc(p.foto_largura)}"` : attrLargura(src);
+  return { inteira: true, html: `<img alt="${alt}" decoding="async"${altura} loading="lazy" src="${esc(src)}"${largura}/>` };
+}
+
+/* Um cartão de pessoa (visual novo, 19/10/2026): texto de um lado, retrato
+   no arco do outro; um sim, um não, o cartão espelha (--invertido), e a
+   contagem recomeça em cada lista. `naHome` é a prévia: lá não há sanfona
+   da trajetória, e sim o link "Conhecer a trajetória" pra página do
+   Instituto. */
+function cartaoPessoa(p, i, naHome) {
   const cargo = p.cargo
-    ? `<p class="founder__credentials">${esc(p.cargo)}</p>\n` : '';
+    ? `<div class="fcard__selo"><span>${esc(p.cargo)}</span></div>\n` : '';
 
-  const paras = comTrajetoria ? lista(p.trajetoria).filter(Boolean) : [];
+  const paras = naHome ? [] : lista(p.trajetoria).filter(Boolean);
   const trajetoria = paras.length
     ? `\n<details class="accordion">
 <summary class="accordion__summary">Conheça a trajetória <i aria-hidden="true" class="fa-solid fa-chevron-down"></i></summary>
@@ -1356,25 +1649,30 @@ ${paras.map(t => `<p>${textoRico(t)}</p>`).join('\n')}
 </div>
 </details>`
     : '';
+  const link = naHome
+    ? `\n<a class="link-seta pessoa-cartao__link" href="o-instituto.html"><span>Conhecer a trajetória</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>`
+    : '';
 
-  return `<article class="founder" data-aos="fade-up">
-<div class="founder__portrait">
-<div class="founder__frame">
-${foto}
+  const foto = fotoPessoa(p);
+  // A linha em branco antes do </article> na Home é a que já estava no
+  // HTML aprovado; mantida pra que o build não reescreva a página à toa.
+  return `<article class="founder pessoa-cartao${foto.inteira ? ' pessoa-cartao--foto-inteira' : ''}${i % 2 ? ' pessoa-cartao--invertido' : ''}" data-aos="fade-up">
+<div class="pessoa-cartao__texto">
+${cargo}<h3 class="founder__name">${esc(p.nome)}</h3>
+<p class="founder__bio">${textoRico(p.bio)}</p>${trajetoria}${link}
 </div>
+<span aria-hidden="true" class="pessoa-cartao__arco"></span>
+<span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
+<div class="pessoa-cartao__foto">
+${foto.html}
 </div>
-<div class="founder__content">
-<h3 class="founder__name">${esc(p.nome)}</h3>
-${cargo}<p class="founder__bio">${textoRico(p.bio)}</p>${trajetoria}
-</div>
-</article>`;
+${naHome ? '\n' : ''}</article>`;
 }
 
-/* A lista com os separadores entre um e outro (nunca no fim). */
-function listaPessoas(pessoas, comTrajetoria) {
-  return pessoas
-    .map(p => cartaoPessoa(p, comTrajetoria))
-    .join('\n' + DIVISOR_PESSOAS + '\n');
+/* A lista. O separador de sementes entre uma pessoa e outra saiu no visual
+   novo: os cartões espelhados já separam um do outro. */
+function listaPessoas(pessoas, naHome) {
+  return pessoas.map((p, i) => cartaoPessoa(p, i, naHome)).join('\n');
 }
 
 async function gerarPessoas(cfg) {
@@ -1392,6 +1690,8 @@ async function gerarPessoas(cfg) {
     console.log('   (rode supabase/04-pessoas.sql e depois 04b-seed-pessoas.sql)');
     return;
   }
+
+  await prepararMedidas(pessoas.filter(p => !(p.foto_largura && p.foto_altura)).map(p => web(p.foto_url)));
 
   const direcao = pessoas.filter(p => p.grupo === 'direcao');
   const rede    = pessoas.filter(p => p.grupo === 'rede');
@@ -1418,12 +1718,12 @@ async function gerarPessoas(cfg) {
   const naHome = direcao.filter(p => p.destaque_home);
   let home = await ler('index.html');
   home = trocarRegiao(home, 'pessoas-home',
-    listaPessoas(naHome.length ? naHome : direcao, false));
+    listaPessoas(naHome.length ? naHome : direcao, true));
   await salvar('index.html', home);
 
   /* --- O Instituto: os dois blocos --- */
   let inst = await ler('o-instituto.html');
-  inst = trocarRegiao(inst, 'pessoas-direcao', listaPessoas(direcao, true));
+  inst = trocarRegiao(inst, 'pessoas-direcao', listaPessoas(direcao, false));
 
   /* O bloco da rede vem com o próprio título: sem ninguém nele, o título
      iria junto, em vez de sobrar sozinho em cima do vazio. */
@@ -1432,7 +1732,7 @@ async function gerarPessoas(cfg) {
 <h2 class="founders__titulo">Quem já se juntou a este propósito</h2>
 </div>
 <div class="founders__list">
-${listaPessoas(rede, true)}
+${listaPessoas(rede, false)}
 </div>`
     : '');
   await salvar('o-instituto.html', inst);
@@ -1469,6 +1769,125 @@ function trocarRegiaoInline(html, nome, miolo) {
 
   if (i === -1 || f === -1 || f < i) return null;
   return html.slice(0, i + abre.length) + miolo + html.slice(f);
+}
+
+/* O miolo atual de um marcador inline, ou null se ele não existe. */
+function trechoInline(html, nome) {
+  const abre = `<!-- CMS:${nome} -->`;
+  const i = html.indexOf(abre);
+  const f = html.indexOf(`<!-- /CMS:${nome} -->`);
+  return (i === -1 || f === -1 || f < i) ? null : html.slice(i + abre.length, f);
+}
+
+/* O texto que a pessoa lê: sem tags, com as entidades básicas desfeitas e
+   os espaços normalizados. É a régua pra saber se o banco mudou alguma coisa. */
+function textoVisivel(h) {
+  return String(h).replace(/<[^>]*>/g, '')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ').trim();
+}
+
+/* Reaplica no título novo os <span class="..__destaque"> do título antigo,
+   quando as palavras destacadas continuam lá. Só o texto puro do destaque
+   (sem tag dentro) é procurado, e só fora de tag, na 1ª ocorrência. A
+   classe vem do próprio HTML da página, nunca do banco. */
+function reaplicarDestaques(antigo, novo) {
+  for (const [, classe, trecho] of antigo.matchAll(/<span class="([a-z0-9_ -]*__destaque)">([^<]+)<\/span>/g)) {
+    const partes = novo.split(/(<[^>]*>)/);
+    const k = partes.findIndex((p, j) => j % 2 === 0 && p.includes(trecho));
+    if (k === -1) continue;
+    partes[k] = partes[k].replace(trecho, () => `<span class="${classe}">${trecho}</span>`);
+    novo = partes.join('');
+  }
+  return novo;
+}
+
+/* Títulos que o desenho quebra em linhas (20/10/2026): o "Da produção do
+   conhecimento / à transformação institucional" da Abordagem é escrito como
+   dois <span class="abordagem__linha-t">, um por linha, e a animação entra
+   linha a linha. Se o Instituto mudar o título, o texto novo é dividido no
+   mesmo número de linhas, no ponto natural mais perto do meio: depois de
+   vírgula, ou antes de " e ", " de ", " da(s) ", " do(s) ", " à(s) ", " ao(s) ",
+   " para " (o "à" é onde o título aprovado quebra). Sem
+   ponto natural perto, no espaço mais perto do meio. Texto bem mais longo que o
+   aprovado ganha uma linha a mais (ver a régua abaixo). Nenhuma palavra muda; o
+   espaço onde a linha quebra vira o espaço entre os dois <span>, como já era.
+   Nunca quebra dentro de uma tag ou de um destaque. */
+function reaplicarLinhas(antigo, novo) {
+  const m = /^\s*<span class="([a-z0-9_-]*__linha[a-z0-9_-]*)">/.exec(antigo);
+  if (!m) return novo;
+  const classe = m[1];
+  const linhasAntigas = antigo.split(`<span class="${classe}">`).slice(1);
+  if (linhasAntigas.length < 2) return novo;
+  /* A linha mais comprida do título aprovado é a régua: no computador cada
+     linha é "white-space: nowrap", então uma linha bem maior que ela vazaria
+     da coluna. Texto novo mais longo ganha mais linhas (mesma classe, mesma
+     estrutura), em vez de linhas compridas demais. */
+  const regua = Math.max(...linhasAntigas.map(l => textoVisivel(l.replace(/<\/span>\s*$/, '')).length));
+
+  // Espaços onde dá pra quebrar: fora de tag e fora de qualquer <span>/<em>.
+  const cortes = [];
+  let prof = 0;
+  for (let i = 0; i < novo.length; i++) {
+    if (novo[i] === '<') {
+      const fim = novo.indexOf('>', i);
+      const tag = novo.slice(i, fim + 1);
+      if (/^<\/(span|em)>/.test(tag)) prof--;
+      else if (/^<(span|em)\b/.test(tag)) prof++;
+      i = fim;
+      continue;
+    }
+    if (novo[i] === ' ' && prof === 0) {
+      const natural = novo[i - 1] === ',' || /^ (e|de|da|do|das|dos|à|às|ao|aos|para) /.test(novo.slice(i, i + 7));
+      cortes.push({ i, natural, pos: textoVisivel(novo.slice(0, i)).length });
+    }
+  }
+  const total = textoVisivel(novo).length;
+
+  const dividir = n => {
+    const escolhidos = [];
+    for (let k = 1; k < n; k++) {
+      const alvo = total * k / n;
+      const livres = cortes.filter(c => !escolhidos.length || c.i > escolhidos[escolhidos.length - 1].i);
+      const perto = lista => lista.sort((a, b) => Math.abs(a.pos - alvo) - Math.abs(b.pos - alvo))[0];
+      // ponto natural só vale se não desequilibrar demais (até 1/4 de uma linha do alvo)
+      const c = perto(livres.filter(x => x.natural && Math.abs(x.pos - alvo) <= total / n / 4)) || perto(livres);
+      if (!c) return null;   // texto curto demais pra tantas linhas
+      escolhidos.push(c);
+    }
+    const partes = [];
+    let ini = 0;
+    for (const c of escolhidos) { partes.push(novo.slice(ini, c.i)); ini = c.i + 1; }
+    partes.push(novo.slice(ini));
+    return partes;
+  };
+
+  let partes = dividir(linhasAntigas.length);
+  if (!partes) return novo;  // fica numa linha só, sem quebra
+  const limite = regua * 1.2;   // folga de 20%: a coluna tem sobra à direita
+  if (partes.some(p => textoVisivel(p).length > limite)) {
+    /* Não coube no número de linhas do desenho: enche cada linha até a
+       régua, quebrando no último ponto natural que caiba (ou no último
+       espaço que caiba, se o natural deixaria a linha curta demais). */
+    const escolhidos = [];
+    let inicio = 0;
+    while (total - inicio > limite) {
+      const cabem = cortes.filter(c => c.pos > inicio && c.pos - inicio <= limite);
+      if (!cabem.length) break;
+      const naturais = cabem.filter(c => c.natural && c.pos - inicio >= limite * 0.6);
+      const c = (naturais.length ? naturais : cabem)[(naturais.length ? naturais : cabem).length - 1];
+      escolhidos.push(c);
+      inicio = c.pos + 1;
+    }
+    if (escolhidos.length >= linhasAntigas.length - 1) {
+      partes = [];
+      let ini = 0;
+      for (const c of escolhidos) { partes.push(novo.slice(ini, c.i)); ini = c.i + 1; }
+      partes.push(novo.slice(ini));
+    }
+  }
+  return partes.map(p => `<span class="${classe}">${p}</span>`).join(' ');
 }
 
 async function gerarTextos(cfg) {
@@ -1509,7 +1928,22 @@ async function gerarTextos(cfg) {
             .map(p => `<p>${textoRico(p).replace(/\n/g, '<br/>')}</p>`).join('\n') + '\n'
         : textoRico(valor);
 
-      const novo = trocarRegiaoInline(html, `texto:${t.chave}`, miolo);
+      /* Destaques do visual novo (20/10/2026): alguns títulos ganharam, à
+         mão, um <span> que pinta parte da frase ("Conhecimento que <span
+         class="hero-interna__destaque">transforma a prática</span>."). O
+         banco guarda só o texto, então reescrever o título apagaria o
+         destaque a cada publicação. Duas regras, só pra título e linha
+         (prosa não tem destaque):
+           1. o texto do banco é o mesmo que já se lê na página: o trecho
+              fica como está, com o desenho que tiver;
+           2. o texto mudou: o título novo é escrito, e o destaque volta se
+              as palavras destacadas continuarem na frase. Se o Instituto
+              tirou essas palavras, o título sai sem destaque, sem erro. */
+      const atual = t.tipo === 'prosa' ? null : trechoInline(html, `texto:${t.chave}`);
+      if (atual !== null && textoVisivel(atual) === textoVisivel(miolo)) { trocados++; continue; }
+      const final = atual === null ? miolo : reaplicarLinhas(atual, reaplicarDestaques(atual, miolo));
+
+      const novo = trocarRegiaoInline(html, `texto:${t.chave}`, final);
       if (novo === null) { pulados.push(`${t.chave} (sem marcador em ${arquivo})`); continue; }
 
       html = novo;
@@ -1585,6 +2019,10 @@ try {
   const artigos = await gerarArtigos(cfg);
   await gerarNoticias(cfg, artigos);
   await gerarSitemap();
+  if (medidasNovas) {
+    const ordenado = Object.fromEntries(Object.keys(MEDIDAS_SALVAS).sort().map(k => [k, MEDIDAS_SALVAS[k]]));
+    await salvar('build/medidas.json', JSON.stringify(ordenado, null, 2) + '\n');
+  }
 
   console.log(`\nResumo: ${escritos.size} arquivo(s) ${CONFERIR ? 'mudariam' : 'escritos'}, ${apagados} apagado(s).`);
 } catch (erro) {

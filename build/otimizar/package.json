@@ -1,0 +1,14 @@
+{
+  "name": "ibpr-otimizar",
+  "private": true,
+  "description": "Gera a versão otimizada do site (pasta _site) que o GitHub Pages publica. Ver otimizar.cjs.",
+  "dependencies": {
+    "esbuild": "0.24.2",
+    "html-minifier-terser": "7.2.0",
+    "postcss": "8.5.31",
+    "purgecss": "6.0.0"
+  },
+  "allowScripts": {
+    "esbuild@0.24.2": true
+  }
+}
