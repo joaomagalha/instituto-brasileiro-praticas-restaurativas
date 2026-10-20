@@ -744,11 +744,15 @@ async function gerarArtigos(cfg) {
   const miolo = artigos.length
     // Cabeçalho igual ao da lista de notícias (14/10/2026): antes o h2 era só
     // pra leitor de tela e a lista abria com um "ARTIGOS" solto e um vão.
-    ? `<div class="section-header section__head" data-aos="fade-up">
+    // Visual novo (20/10/2026): mesma estrutura do cabeçalho de Artigos da IBPR
+    // em Movimento (texto à esquerda, botão à direita), que o CSS de #artigos espera.
+    ? `<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
 <p class="overline">IBPR em Movimento</p>
 <h2>Artigos.</h2>
 <p class="section-header__meta">${esc(`${artigos.length} ${artigos.length === 1 ? 'artigo' : 'artigos'}` +
       (dataCurta(artigos[0] && artigos[0].publicado_em) ? ` · mais recente em ${dataCurta(artigos[0].publicado_em)}` : ''))}</p>
+</div>
 <button class="btn btn--dark section-header__acao" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>
 </div>
 <div class="artigos__lista" data-aos="fade-up">

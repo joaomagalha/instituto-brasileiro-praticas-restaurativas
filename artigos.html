@@ -31,7 +31,7 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
 <link as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/><noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" rel="stylesheet"/></noscript>
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
@@ -39,8 +39,16 @@
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
 <link href="assets/css/components.css?v=p248" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p251" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p250" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p249" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp?v=2" imagesrcset="assets/images/ibpr-movimento-hero-1100.webp?v=2 1100w, assets/images/ibpr-movimento-hero.webp?v=2 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -62,12 +70,12 @@
      não serve pra nada e é invasivo. -->
 <script src="assets/js/cookies.js?v=p248" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="assets/css/mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p244" rel="stylesheet"/>
 <link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
 
 <!-- navbar -->
@@ -165,24 +173,39 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<section aria-label="Artigos" class="page-hero page-hero--ibpr-movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASACADASIAAhEBAxEB/8QAGgAAAgIDAAAAAAAAAAAAAAAAAAQCAwEFBv/EACcQAAIBAwQBAgcAAAAAAAAAAAECAwARIQQFEiITMWEUQVFxgbHw/8QAFwEAAwEAAAAAAAAAAAAAAAAAAQMEAv/EABcRAQEBAQAAAAAAAAAAAAAAAAEAAjH/2gAMAwEAAhEDEQA/ANJuG3NpJUlhcBWYWDH0NOxaiUc1Migg8QVuSceoFTlDbmqmaNkW44qDbOc0Q7bDNL4eTRuR1PMm9Smh7UOU5OBjHNB4o/Hcm7HLNj5n+FWjXBpTEGHMi3Y4xWNXs8sBhdDYmYC7k4Xja5+xvVOp2/UQR6h45bv8SOHS/S2WIv7HFEyvLLpKUWWW+e5/VKaxmUacqxB4+oPvRRSszWZ0rvJOnNma8ovc3viugOYnvm89vx9KKKoxyRu//9k=')">
-<div aria-hidden="true" class="page-hero__glow"></div>
-<div class="container">
-<h1 data-aos="fade-up"><!-- CMS:texto:artigos-hero-titulo -->Pesquisar, experimentar, refletir, compartilhar.<!-- /CMS:texto:artigos-hero-titulo --></h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100"><!-- CMS:texto:artigos-hero-sub -->Artigos científicos, textos de reflexão e artigos de opinião para aprofundar temas e colocar ideias em debate.<!-- /CMS:texto:artigos-hero-sub --></p>
+<!-- 20/10/2026: topo no padrão das páginas novas (cartão com a foto da IBPR em
+     Movimento, a mesma do topo antigo; selo, destaque dourado e atalhos) -->
+<section aria-label="Artigos" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAECAwUGBP/EACoQAAIBAwIFAQkAAAAAAAAAAAECAwAEESExBRITIkEVMjNRUnKBkaLB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAZEQEBAAMBAAAAAAAAAAAAAAAAAQIRMUH/2gAMAwEAAhEDEQA/AMvZx8wkA+WuhU6ZCue7G2RTLGVIUmZvKgD70trCkioWKoude72tvAoUokZWZMjABPKCPJ+FSNaP0UKxoCe7JYZIqf0xZbWzjtXPMZ3GCd8gYpYOH36JHK0QlQxbJjfJ0P4NTS3JSr7iX6f7TYCcEZO9FFOjF5wJmEuQxyEYjXY6VqYtbG0HjpA/qKKKPq3j/9k=')">
+<picture class="hero-interna__bg">
+<source media="(max-width: 899px)" srcset="assets/images/ibpr-movimento-hero-1100.webp?v=2" type="image/webp"/>
+<source srcset="assets/images/ibpr-movimento-hero.webp?v=2" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/ibpr-movimento-hero.jpg?v=2" width="1920"/>
+</picture>
+<div aria-hidden="true" class="hero-interna__overlay"></div>
+<div class="container hero-interna__conteudo">
+<span class="citacao-selo">IBPR em Movimento</span>
+<h1 class="hero-interna__titulo hero-interna__titulo--estreito"><!-- CMS:texto:artigos-hero-titulo -->Pesquisar, experimentar, <span class="hero-interna__destaque">refletir, compartilhar</span>.<!-- /CMS:texto:artigos-hero-titulo --></h1>
+<p class="hero-interna__sub"><!-- CMS:texto:artigos-hero-sub -->Artigos científicos, textos de reflexão e artigos de opinião para aprofundar temas e colocar ideias em debate.<!-- /CMS:texto:artigos-hero-sub --></p>
+<nav aria-label="Seções do IBPR em Movimento" class="hero-interna__atalhos">
+<a class="hero-interna__atalho" href="ibpr-em-movimento.html#noticias">Notícias</a>
+<a aria-current="page" class="hero-interna__atalho" href="#artigos">Artigos</a>
+</nav>
 </div>
 </section>
 
 <!-- Lista de artigos: o miolo entre CMS:artigos-lista é gerado pelo build
      (build/gerar.mjs, gerarArtigos) a partir da tabela public.artigos.
      NÃO EDITAR À MÃO. Enquanto não há artigo publicado, fica o estado vazio. -->
-<section aria-label="Artigos publicados" class="section section--paper" id="lista">
+<!-- 20/10/2026: id="artigos" pra lista usar as folhas de caderno da IBPR em Movimento (o CSS é preso a #artigos) -->
+<section aria-label="Artigos publicados" class="section section--white" id="artigos">
 <div class="container">
 <!-- CMS:artigos-lista -->
-<div class="section-header section__head" data-aos="fade-up">
+<div class="section-header formacoes__header" data-aos="fade-up">
+<div class="formacoes__header-text">
 <p class="overline">IBPR em Movimento</p>
 <h2>Artigos.</h2>
 <p class="section-header__meta">4 artigos · mais recente em 02 out 2026</p>
+</div>
 <button class="btn btn--dark section-header__acao" data-receber-publicacoes type="button"><i aria-hidden="true" class="fa-regular fa-bell"></i> Receber publicações</button>
 </div>
 <div class="artigos__lista" data-aos="fade-up">
@@ -248,16 +271,17 @@
 </section>
 
 <!-- cta final -->
-<section aria-label="Chamada final" class="cta-final" id="cta-final">
-<div aria-hidden="true" class="cta-final__glow"></div>
+<section aria-label="Chamada final" class="cta-final cta-final--pintura" id="cta-final">
 <div class="container">
-<p class="overline overline--light cta-final__eyebrow">Instituto Brasileiro de Práticas Restaurativas</p>
-<!-- 06/10/2026: texto do Decildo (04/10) no lugar de "As formações são a porta
-     de entrada do movimento", dividido em título + subtítulo; um link só, pro e-mail -->
-<h2 class="cta-final__title" data-aos="fade-up">Tem uma experiência, ideia ou reflexão que pode contribuir para esse debate?</h2>
-<p class="cta-final__sub" data-aos="fade-up" data-aos-delay="100">Compartilhe conosco.</p>
-<div class="cta-final__actions" data-aos="fade-up" data-aos-delay="200">
-<a class="btn btn--dark" href="mailto:ibpr@ibpr.com.br"><i aria-hidden="true" class="fa-regular fa-envelope"></i> ibpr@ibpr.com.br</a>
+<div class="citacao-cartao citacao-cartao--cta citacao-cartao--cta-artigos">
+<div class="citacao-cartao__miolo" data-aos="fade-up">
+<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<h2 class="cta-final__title">Tem uma experiência, ideia ou reflexão que pode contribuir para esse debate?</h2>
+<p class="cta-final__sub">Compartilhe conosco.</p>
+<div class="cta-final__actions">
+<a class="btn btn--white" href="mailto:ibpr@ibpr.com.br"><i aria-hidden="true" class="fa-regular fa-envelope"></i> ibpr@ibpr.com.br</a>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -340,6 +364,8 @@ AOS.init({
 <script src="assets/js/inscricao.js?v=20261019a"></script>
 <script src="assets/js/voltar.js?v=p211"></script>
 <script src="assets/js/site-interactions.js?v=p167"></script>
+<script defer src="assets/js/artigos-hub.js?v=p250"></script>
+<script defer src="assets/js/menu-vidro.js?v=p167"></script>
 <script defer src="assets/js/rolagem.js?v=p249"></script>
 </body>
 </html>
