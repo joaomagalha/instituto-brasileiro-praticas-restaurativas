@@ -160,3 +160,26 @@ html.mo .pessoa-cartao--foto-inteira.is-in .pessoa-cartao__foto img { translate:
 @media (max-width: 767px) {
   .pessoa-cartao--foto-inteira .pessoa-cartao__foto { width: 76%; }
 }
+
+/* ===== PESSOA EM BUSTO (21/10/2026) =====
+   A Fernanda pediu as fotos oficiais dela e do Decildo de volta (o corpo
+   estendido por IA mudou os dois). A foto oficial é de meio corpo: só o
+   fundo saiu ("-busto-900.webp"), e o build marca o cartão com
+   pessoa-cartao--busto. O arco de trás continua; a área da foto é recortada
+   (clip-path) no formato exato dele, e a pessoa entra um pouco mais larga
+   que o arco, pra que os cantos retos da foto fiquem fora e a cintura
+   termine na base do cartão. --arco-l e --arco-a repetem largura e altura
+   do .pessoa-cartao__arco. */
+.pessoa-cartao--busto { --arco-l: min(74%, 44rem); --arco-a: 84%; }
+.pessoa-cartao--busto .pessoa-cartao__foto {
+  clip-path: inset(calc(100% - var(--arco-a)) calc((100% - var(--arco-l)) / 2) 0 round 999px 999px 0 0);
+}
+.pessoa-cartao--busto .pessoa-cartao__foto::after { display: none; }
+.pessoa-cartao--busto .pessoa-cartao__foto img {
+  top: calc(100% - var(--arco-a) * 0.9); bottom: auto;
+  width: calc(var(--arco-l) * 1.1); height: auto;
+  filter: drop-shadow(0 18px 32px rgba(var(--navy-rgb), 0.2));
+}
+@media (max-width: 767px) {
+  .pessoa-cartao--busto { --arco-l: 76%; --arco-a: 92%; }
+}

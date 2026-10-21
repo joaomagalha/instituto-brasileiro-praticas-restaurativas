@@ -1612,19 +1612,25 @@ function attrLargura(url) { const m = medidasDe(url); return m ? ` width="${m.la
    pessoa-cartao--foto-inteira, que no pessoas.css transforma a foto num
    retrato emoldurado no formato do arco. Quando o recorte for feito e
    salvo com o nome "-recorte-900.webp", ele passa a valer sozinho.
-   Devolve { html, inteira }. */
+   Busto (21/10/2026): a Fernanda pediu as fotos oficiais de volta, sem o
+   corpo estendido por IA. A foto oficial só teve o fundo tirado e foi salva
+   como "-busto-900.webp" / "-busto-cel.webp"; o cartão ganha a marca
+   pessoa-cartao--busto (a pessoa da cintura pra cima, dentro do arco). O
+   recorte de corpo inteiro, se existir, vale antes do busto.
+   Devolve { html, inteira, busto }. */
 function fotoPessoa(p) {
   const alt = esc(p.foto_alt || p.nome);
   const base = String(p.foto_url || '').replace(/^\/+/, '').split('?')[0].replace(/\.(jpe?g|png|webp)$/i, '');
   // Só caminho do próprio site, sem "..": o build não abre arquivo fora da pasta de imagens.
-  const grande = /^assets\/images\/[a-z0-9/_-]+$/i.test(base) && !base.includes('..')
-    ? medidasLocal(`${base}-recorte-900.webp`) : null;
-  if (grande) {
-    const cel = medidasLocal(`${base}-recorte-cel.webp`);
+  const local = /^assets\/images\/[a-z0-9/_-]+$/i.test(base) && !base.includes('..');
+  for (const tipo of ['recorte', 'busto']) {
+    const grande = local ? medidasLocal(`${base}-${tipo}-900.webp`) : null;
+    if (!grande) continue;
+    const cel = medidasLocal(`${base}-${tipo}-cel.webp`);
     const srcset = cel
-      ? ` srcset="${esc(base)}-recorte-cel.webp ${cel.largura}w, ${esc(base)}-recorte-900.webp ${grande.largura}w"`
+      ? ` srcset="${esc(base)}-${tipo}-cel.webp ${cel.largura}w, ${esc(base)}-${tipo}-900.webp ${grande.largura}w"`
       : '';
-    return { inteira: false, html: `<img alt="${alt}" decoding="async" height="${grande.altura}" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="${esc(base)}-recorte-900.webp"${srcset} width="${grande.largura}"/>` };
+    return { inteira: false, busto: tipo === 'busto', html: `<img alt="${alt}" decoding="async" height="${grande.altura}" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="${esc(base)}-${tipo}-900.webp"${srcset} width="${grande.largura}"/>` };
   }
   if (!p.foto_url) return { inteira: false, html: '' };
   /* Medidas: as que o banco guardou; sem elas, as lidas do arquivo. */
@@ -1660,7 +1666,7 @@ ${paras.map(t => `<p>${textoRico(t)}</p>`).join('\n')}
   const foto = fotoPessoa(p);
   // A linha em branco antes do </article> na Home é a que já estava no
   // HTML aprovado; mantida pra que o build não reescreva a página à toa.
-  return `<article class="founder pessoa-cartao${foto.inteira ? ' pessoa-cartao--foto-inteira' : ''}${i % 2 ? ' pessoa-cartao--invertido' : ''}" data-aos="fade-up">
+  return `<article class="founder pessoa-cartao${foto.inteira ? ' pessoa-cartao--foto-inteira' : ''}${foto.busto ? ' pessoa-cartao--busto' : ''}${i % 2 ? ' pessoa-cartao--invertido' : ''}" data-aos="fade-up">
 <div class="pessoa-cartao__texto">
 ${cargo}<h3 class="founder__name">${esc(p.nome)}</h3>
 <p class="founder__bio">${textoRico(p.bio)}</p>${trajetoria}${link}
