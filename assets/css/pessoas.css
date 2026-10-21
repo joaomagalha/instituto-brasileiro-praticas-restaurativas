@@ -169,17 +169,23 @@ html.mo .pessoa-cartao--foto-inteira.is-in .pessoa-cartao__foto img { translate:
    (clip-path) no formato exato dele, e a pessoa entra um pouco mais larga
    que o arco, pra que os cantos retos da foto fiquem fora e a cintura
    termine na base do cartão. --arco-l e --arco-a repetem largura e altura
-   do .pessoa-cartao__arco. */
-.pessoa-cartao--busto { --arco-l: min(74%, 44rem); --arco-a: 84%; }
+   do .pessoa-cartao__arco. Mais tronco (João, 21/10): a pessoa só 4% mais
+   larga que o arco (--busto-l) e a cabeça mais perto do topo (--busto-t). */
+.pessoa-cartao--busto { --arco-l: min(74%, 44rem); --arco-a: 84%; --busto-l: 1.04; --busto-t: 0.95; }
 .pessoa-cartao--busto .pessoa-cartao__foto {
   clip-path: inset(calc(100% - var(--arco-a)) calc((100% - var(--arco-l)) / 2) 0 round 999px 999px 0 0);
 }
 .pessoa-cartao--busto .pessoa-cartao__foto::after { display: none; }
 .pessoa-cartao--busto .pessoa-cartao__foto img {
-  top: calc(100% - var(--arco-a) * 0.9); bottom: auto;
-  width: calc(var(--arco-l) * 1.1); height: auto;
+  top: calc(100% - var(--arco-a) * var(--busto-t)); bottom: auto;
+  width: calc(var(--arco-l) * var(--busto-l)); height: auto;
   filter: drop-shadow(0 18px 32px rgba(var(--navy-rgb), 0.2));
 }
+/* celular (Fernanda, 21/10/2026: "subir um pouco mais", "aparecer mais da
+   gente"): arco e pessoa maiores, área da foto mais alta que a do mobile.css
+   (que encolheu o retrato de corpo inteiro) e colada no link da trajetória */
 @media (max-width: 767px) {
-  .pessoa-cartao--busto { --arco-l: 76%; --arco-a: 92%; }
+  .pessoa-cartao--busto { --arco-l: 86%; --arco-a: 96%; }
+  .pessoa-cartao--busto .pessoa-cartao__arco { width: var(--arco-l); height: var(--arco-a); }
+  :root .pessoa-cartao--busto .pessoa-cartao__foto { height: clamp(34rem, 100vw, 41rem); }
 }
