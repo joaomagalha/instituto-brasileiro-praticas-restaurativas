@@ -31,7 +31,7 @@
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <!-- Font Awesome 6.5 Free — CDN, biblioteca aberta -->
 <link as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'" rel="preload"/><noscript><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" rel="stylesheet"/></noscript>
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
@@ -39,6 +39,17 @@
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
 <link href="assets/css/tokens.css?v=20260916a" rel="stylesheet"/>
 <link href="assets/css/components.css?v=p248" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p251" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p167" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p250" rel="stylesheet"/>
+<link href="assets/css/artigo.css?v=p252" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p249" rel="stylesheet"/>
+<!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
+<link as="image" fetchpriority="high" href="assets/images/o-instituto-hero.webp" imagesrcset="assets/images/o-instituto-hero-1100.webp 1100w, assets/images/o-instituto-hero.webp 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -60,12 +71,12 @@
      não serve pra nada e é invasivo. -->
 <script src="assets/js/cookies.js?v=p248" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
+<link href="assets/css/mobile.css?v=p244" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p244" rel="stylesheet"/>
 <link href="assets/css/voltar.css?v=p189" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p233" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p167" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
+<svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 <a class="skip-link" href="#conteudo">Pular para o conteúdo <i aria-hidden="true" class="fa-solid fa-arrow-down"></i></a>
 <!-- navbar -->
 <header class="navbar" id="navbar">
@@ -162,23 +173,34 @@
 <main id="conteudo" tabindex="-1">
 
 <!-- hero interno -->
-<section aria-label="Política de Privacidade" class="page-hero" id="topo">
-<div aria-hidden="true" class="page-hero__glow"></div>
-<div class="container">
-<h1 data-aos="fade-up">Política de Privacidade.</h1>
-<p class="page-hero__sub" data-aos="fade-up" data-aos-delay="100">O que este site coleta, por que coleta e como você recusa. Em português claro, sem letra miúda.</p>
+<!-- 20/10/2026: topo no cartão com foto, como as outras páginas (escolha do
+     João: a foto de O Instituto, porque a política é do Instituto) -->
+<section aria-label="Política de Privacidade" class="hero-interna" id="topo" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIG/8QAIxAAAgEDBAIDAQAAAAAAAAAAAQIDABExBBITQQVRIWFxof/EABcBAQEBAQAAAAAAAAAAAAAAAAIBAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIRITH/2gAMAwEAAhEDEQA/APK8e4gjIHVUtApmunGzMPXdc6GNGZeRlVfbYrasenm4eJthEY3EMASbn7rlbFKecE6iNkcIkd2uA27423rfwQeNjWeO5msbydjGPVIm0yQG0F3b7YfNTdfr5ixjmGwdDH9pTgL0mTMeUC5sBin6bI/KKK1jgqQE3zSvJAHcSAbYvRRUgt+H/9k=')">
+<picture class="hero-interna__bg">
+<source media="(max-width: 899px)" srcset="assets/images/o-instituto-hero-1100.webp" type="image/webp"/>
+<source srcset="assets/images/o-instituto-hero.webp" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/o-instituto-hero.jpg" width="1920"/>
+</picture>
+<div aria-hidden="true" class="hero-interna__overlay"></div>
+<div class="container hero-interna__conteudo">
+<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<h1 class="hero-interna__titulo hero-interna__titulo--estreito">Política de <span class="hero-interna__destaque">Privacidade</span>.</h1>
+<p class="hero-interna__sub">O que este site coleta, por que coleta e como você recusa. Em português claro, sem letra miúda.</p>
 </div>
 </section>
 
-<section aria-label="Conteúdo da política" class="section section--paper" id="politica">
+<!-- 20/10/2026: corpo no visual de leitura dos artigos (artigo.css): fundo
+     granulado claro, coluna de leitura e o resumo no cartão de vidro. O texto
+     da política é o de 06/10, sem nenhuma mudança. -->
+<section aria-label="Conteúdo da política" class="artigo-corpo-secao politica-secao" id="politica">
 <div class="container">
-<div class="prose measure-narrow" data-aos="fade-up">
-
-<p class="overline">Atualizada em 6 de outubro de 2026</p>
-
-<h2>O resumo, em três linhas</h2>
-<p>Este site <strong>só pede um dado seu se você quiser</strong>: o nome e o e-mail, quando você clica em "Receber publicações" para receber as novidades do Instituto. Não tem login de visitante. Além disso, ele mede <strong>como as pessoas navegam pelas páginas</strong>, e isso só acontece se você aceitar. Se recusar, o site funciona exatamente igual.</p>
-
+<div class="politica-coluna">
+<p class="politica-data">Atualizada em 6 de outubro de 2026</p>
+<div class="artigo-resumo">
+<h2 class="overline">O resumo, em três linhas</h2>
+<p class="artigo-resumo__texto">Este site <strong>só pede um dado seu se você quiser</strong>: o nome e o e-mail, quando você clica em "Receber publicações" para receber as novidades do Instituto. Não tem login de visitante. Além disso, ele mede <strong>como as pessoas navegam pelas páginas</strong>, e isso só acontece se você aceitar. Se recusar, o site funciona exatamente igual.</p>
+</div>
+<div class="prose prose--artigo">
 <h2>Quem é responsável</h2>
 <p>O Instituto Brasileiro de Práticas Restaurativas (IBPR) é o responsável pelo tratamento dos dados descritos aqui, na condição de controlador, nos termos da Lei nº 13.709/2018 (LGPD).</p>
 <p>O IBPR é nome fantasia de <strong>Azevedo Lopes Formação e Soluções Ltda</strong>, inscrita no CNPJ sob o nº <strong>60.147.864/0001-62</strong>, com sede na Av. Saturnino da Rocha Laranjeiras, nº 78, Loja B, Passagem de Areia, Parnamirim, RN, CEP 59.145-770.</p>
@@ -220,7 +242,7 @@
 
 <h2>Mudanças nesta política</h2>
 <p>Se o site passar a coletar algo diferente, esta página é atualizada e a data no topo muda junto. Alterações relevantes fazem o aviso de cookies aparecer de novo, para que você possa decidir outra vez.</p>
-
+</div>
 </div>
 </div>
 </section>
@@ -306,6 +328,7 @@ AOS.init({
     if (window.IBPR && window.IBPR.cookies) window.IBPR.cookies.reabrir();
   });
 </script>
+<script defer src="assets/js/menu-vidro.js?v=p167"></script>
 <script defer src="assets/js/rolagem.js?v=p249"></script>
 </body>
 </html>

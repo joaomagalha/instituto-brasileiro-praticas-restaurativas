@@ -214,3 +214,17 @@
 .artigo-corpo-secao .artigo-acesso__doi { padding-top: 1.4rem; border-top: 1px solid var(--a-fio); color: var(--a-cinza); font: 400 1.35rem/1.5 var(--font-body); }
 .artigo-corpo-secao .artigo-acesso__doi span { color: var(--a-navy); font-size: 1.3rem; }
 .artigo-corpo-secao .prose--artigo:empty { display: none; }
+
+/* ===== POLÍTICA DE PRIVACIDADE (20/10/2026): o mesmo corpo de leitura dos
+   artigos, sem a lateral; uma coluna só, centrada. A data vira o selo de
+   contorno e o "resumo em três linhas" fica no cartão de vidro. ===== */
+.politica-secao .politica-coluna { max-width: 76rem; margin-inline: auto; }
+.politica-secao .politica-data { display: inline-flex; align-items: center; width: fit-content; margin: 0 0 2.4rem; padding: 0.7rem 1.4rem; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3); color: var(--a-navy); font: 600 1.1rem/1.2 var(--font-body); letter-spacing: 0.14em; text-transform: uppercase; }
+.politica-secao .artigo-resumo h2.overline { font-size: 1.1rem; }
+.politica-secao .prose--artigo > h2:first-child { margin-top: 0; }
+.politica-secao .prose--artigo ul { margin-top: 1.6rem; padding-left: 2.2rem; }
+.politica-secao .prose--artigo li { color: var(--a-texto); font: 400 clamp(1.65rem, 1.2vw, 1.8rem)/1.7 var(--font-body); }
+.politica-secao .prose--artigo strong { color: var(--a-navy); font-weight: 600; }
+/* documento: o 1º parágrafo não vira abertura de artigo (sem capitular nem letra maior) */
+.politica-secao .prose--artigo > p:first-of-type { color: var(--a-texto); font: 400 clamp(1.75rem, 1.3vw, 1.9rem)/1.78 var(--font-body); letter-spacing: 0; }
+.politica-secao .prose--artigo > p:first-of-type::first-letter { float: none; margin: 0; color: inherit; font: inherit; }
