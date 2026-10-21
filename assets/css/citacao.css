@@ -97,6 +97,7 @@
 .citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-1920.webp"); }
 .citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-1920.webp"); }
 .citacao-cartao--cta-artigos { --cit-img: url("../images/cta-artigos-1920.webp"); }
+.citacao-cartao--cta-aluno { --cit-img: url("../images/cta-aluno-1920.webp"); }
 @media (max-width: 1279px) {
   .citacao-cartao--cta-praticas { --cit-img: url("../images/cta-praticas-1100.webp"); }
   .citacao-cartao--cta-instituto { --cit-img: url("../images/cta-instituto-1100.webp"); }
@@ -104,6 +105,7 @@
   .citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-1100.webp"); }
   .citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-1100.webp"); }
   .citacao-cartao--cta-artigos { --cit-img: url("../images/cta-artigos-1100.webp"); }
+  .citacao-cartao--cta-aluno { --cit-img: url("../images/cta-aluno-1100.webp"); }
 }
 @media (max-width: 640px) {
   .citacao-cartao--cta-praticas { --cit-img: url("../images/cta-praticas-cel.webp"); background-position: center; }
@@ -112,6 +114,7 @@
   .citacao-cartao--cta-formacoes { --cit-img: url("../images/cta-formacoes-cel.webp"); background-position: center; }
   .citacao-cartao--cta-movimento { --cit-img: url("../images/cta-movimento-cel.webp"); background-position: center; }
   .citacao-cartao--cta-artigos { --cit-img: url("../images/cta-artigos-cel.webp"); background-position: center; }
+  .citacao-cartao--cta-aluno { --cit-img: url("../images/cta-aluno-cel.webp"); background-position: center; }
 }
 .citacao-cartao--cta .citacao-selo { margin-bottom: 2.4rem; }
 .citacao-cartao--cta .cta-final__title { color: #fff; max-width: 72rem; margin: 0 0 1.6rem; text-wrap: balance; text-shadow: 0 1px 24px rgba(6, 26, 48, 0.35); }

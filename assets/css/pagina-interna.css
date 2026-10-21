@@ -1219,3 +1219,21 @@
   .js-rolagem .leitura__passo p { color: #66727F; transition: color 0.35s ease; }
   .js-rolagem .leitura__passo.no-meio p { color: #2E4157; }
 }
+
+/* Área do Aluno (20/10/2026): no celular o recorte do meio pegava só a janela; puxa pra pessoa no notebook */
+@media (max-width: 899px) { .hero-interna--aluno .hero-interna__bg img { object-position: 84% 50%; } }
+
+/* ===== ÁREA DO ALUNO (21/10): o cartão "Já é aluno" de Formações com o botão
+   desativado (a plataforma ainda não existe) e uma nota curta embaixo; os 3
+   passos de "Como funciona" nos eixos das páginas de formação (curso.css),
+   sem o índice lateral. ===== */
+.aluno__nota { display: flex; align-items: flex-start; gap: 0.8rem; margin: 1.4rem 0 0; max-width: 46ch; color: #5B6B7B; font-size: 1.4rem; line-height: 1.5; }
+.aluno__nota i { margin-top: 0.25em; color: #0F6B6D; }
+.aluno .aluno__nota { opacity: 0; }
+.aluno.is-visible .aluno__nota { animation: aluno-sobe 0.8s var(--curva-saida) 0.7s both; }
+@media (prefers-reduced-motion: reduce) { .aluno .aluno__nota { opacity: 1; } }
+.curso--aluno .curso-aluno__topo { margin: 0 0 clamp(3.2rem, 3.6vw, 4.8rem); }
+/* botão desativado com cara de desativado: a entrada do cartão leva a opacidade
+   a 1 e o botao.css pinta o navy por cima do .is-pending */
+:root .aluno .aluno__btn.btn.is-pending, :root .aluno .aluno__btn.btn.is-pending:hover { background: rgba(var(--navy-rgb), 0.07); color: rgba(var(--navy-rgb), 0.5); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1); cursor: not-allowed; transform: none; }
+:root .aluno .aluno__btn.btn.is-pending::before, :root .aluno .aluno__btn.btn.is-pending::after { display: none; }
