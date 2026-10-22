@@ -107,23 +107,64 @@ async function conferirQueda(tipo, prefixo, publicados) {
 }
 
 /* Consulta a API REST do Supabase. Sem biblioteca: o Node 24 já tem fetch,
-   e uma dependência a menos é uma coisa a menos pra quebrar no Action. */
+   e uma dependência a menos é uma coisa a menos pra quebrar no Action.
+
+   Tenta até 3 vezes (22/10/2026): numa rodada a consulta de artigos, que
+   leva 0,3 s, travou 30 s e derrubou a publicação inteira. Engasgo do banco
+   ou da rede (timeout, conexão caída, 5xx, 429) espera 5 s e depois 15 s e
+   tenta de novo; erro de verdade (4xx: chave ou coluna errada) falha na
+   hora, porque repetir não conserta. Pior caso ~2 min: com o banco fora do
+   ar de vez, a primeira consulta que esgota as 3 tentativas aborta o build
+   (medido: 110 s), o script sai com a mensagem do Supabase no log, a
+   rodada falha sem publicar e o site fica como estava. */
+const ESPERAS_SUPABASE = [5000, 15000];
+
 async function consultar({ url, chave }, caminho, { toleraAusente = false } = {}) {
-  const resp = await fetch(`${url}/rest/v1/${caminho}`, {
-    headers: { apikey: chave, Authorization: `Bearer ${chave}` },
-    signal: AbortSignal.timeout(30000)   // banco travado: aborta em 30 s em vez de segurar a fila
-  });
+  const nome = caminho.split('?')[0];
+  for (let tentativa = 1; ; tentativa++) {
+    let resp;
+    try {
+      resp = await fetch(`${url}/rest/v1/${caminho}`, {
+        headers: { apikey: chave, Authorization: `Bearer ${chave}` },
+        signal: AbortSignal.timeout(30000)   // banco travado: aborta em 30 s em vez de segurar a fila
+      });
+    } catch (erro) {
+      // TimeoutError/AbortError (travou) ou TypeError (rede caiu)
+      if (tentativa > ESPERAS_SUPABASE.length) throw erro;
+      await esperarSupabase(nome, tentativa, erro.message);
+      continue;
+    }
 
-  /* Tabela que ainda não foi criada devolve 404. Para uma etapa que ainda
-     não foi ligada no banco isso não é falha: é "essa parte ainda não
-     existe". Deixar o build inteiro quebrar aqui pararia também a
-     publicação de notícias, que não tem nada a ver. */
-  if (resp.status === 404 && toleraAusente) return null;
+    /* Tabela que ainda não foi criada devolve 404. Para uma etapa que ainda
+       não foi ligada no banco isso não é falha: é "essa parte ainda não
+       existe". Deixar o build inteiro quebrar aqui pararia também a
+       publicação de notícias, que não tem nada a ver. */
+    if (resp.status === 404 && toleraAusente) return null;
 
-  if (!resp.ok) {
-    throw new Error(`Supabase respondeu ${resp.status} em ${caminho}: ${await resp.text()}`);
+    if ((resp.status >= 500 || resp.status === 429) && tentativa <= ESPERAS_SUPABASE.length) {
+      await resp.body?.cancel().catch(() => {});   // solta a conexão já; se falhar, tanto faz
+      await esperarSupabase(nome, tentativa, `HTTP ${resp.status}`);
+      continue;
+    }
+
+    if (!resp.ok) {
+      throw new Error(`Supabase respondeu ${resp.status} em ${caminho}: ${await resp.text()}`);
+    }
+    try {
+      return await resp.json();
+    } catch (erro) {
+      // corpo travou no meio (o timeout de 30 s vale até o fim da leitura);
+      // JSON inválido (SyntaxError) não se conserta tentando de novo
+      if (erro.name === 'SyntaxError' || tentativa > ESPERAS_SUPABASE.length) throw erro;
+      await esperarSupabase(nome, tentativa, erro.message);
+    }
   }
-  return resp.json();
+}
+
+async function esperarSupabase(nome, tentativa, motivo) {
+  const ms = ESPERAS_SUPABASE[tentativa - 1];
+  console.log(`   Supabase lento em ${nome} (${motivo}); tentativa ${tentativa + 1} de ${ESPERAS_SUPABASE.length + 1} em ${ms / 1000} s.`);
+  await new Promise(r => setTimeout(r, ms));
 }
 
 

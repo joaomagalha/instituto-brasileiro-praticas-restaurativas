@@ -23,10 +23,12 @@ on:
   repository_dispatch:
     types: [cms]
 
-  # 2. Rede de segurança: se um aviso do Supabase se perder, o site se
-  #    corrige sozinho em no máximo 6 horas.
+  # 2. Rede de segurança: se um aviso do Supabase se perder (ou a rodada
+  #    dele falhar), o site se corrige sozinho em cerca de 1 hora (o GitHub
+  #    costuma atrasar o agendamento em até ~40 min). Era de 6 em 6 h até
+  #    22/10/2026; repo público, o Actions não cobra.
   schedule:
-    - cron: '17 */6 * * *'
+    - cron: '17 * * * *'
 
   # 3. Botão manual na aba Actions
   workflow_dispatch:
@@ -51,8 +53,12 @@ jobs:
     if: github.event_name != 'push' || !startsWith(github.event.head_commit.message, 'CMS:')
     runs-on: ubuntu-latest
     # Um build normal leva menos de 1 minuto. Sem limite, uma consulta
-    # travada seguraria a fila de publicações por até 6 horas.
-    timeout-minutes: 10
+    # travada seguraria a fila de publicações por até 6 horas. 15 min (era
+    # 10 até 22/10/2026): o gerar.mjs tenta cada consulta 3 vezes (até ~2
+    # min com o banco fora do ar, medido), e o passo de commit pode rodar o
+    # gerar.mjs de novo até 3 vezes se o push for rejeitado; com folga, quem
+    # encerra é o próprio script, com a mensagem do Supabase no log.
+    timeout-minutes: 15
     permissions:
       contents: write   # o GITHUB_TOKEN nativo já basta pra commitar
       pages: write      # publicar no Pages
