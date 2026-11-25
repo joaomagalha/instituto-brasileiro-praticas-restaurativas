@@ -131,5 +131,11 @@ jobs:
         with:
           path: _site
 
+      # 25/11/2026: o GitHub passou a devolver "Found 0 artifact(s)" logo
+      # depois do upload (issue actions/deploy-pages#451). Esperar um pouco
+      # antes do deploy dá tempo de o artefato aparecer na listagem.
+      - name: Esperar o GitHub enxergar o artefato
+        run: sleep 20
+
       - id: implantar
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
