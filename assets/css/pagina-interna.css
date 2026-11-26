@@ -1431,3 +1431,35 @@
 .sustenta--apoio .sustenta__num { display: flex; align-items: center; gap: 1rem; color: var(--cor); }
 .sustenta--apoio .sustenta__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
 @media (max-width: 899px) { .hero-interna--instituto .hero-interna__bg img { object-position: 97% 50%; } } /* letreiro inteiro no celular (26/11) */
+
+/* ===== MISSÃO E VISÃO NA IDENTIDADE NOVA (João, 27/11: "background igual nas
+   outras seções" e "melhorar o efeito de vidro dos cards"). Fundo claro granulado
+   com as manchas azul/lavanda (igual a Práticas e IBPR em Movimento); os 2 cards
+   em vidro como os do Propósito da Home (translúcidos, degradê suave vindo da
+   direita, contorno por sombra interna); quadro da ilustração em vidro leve e as
+   peças de dentro no branco fosco do .mi-card; chips da Missão nas cores da logo.
+   Antes: scratchpad instituto/pagina-interna-antes-mv2.css. ===== */
+.mv2 { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 6%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro); }
+.mv2-cartao { --tom: var(--teal-rgb); border: 0;
+  background: var(--grao), radial-gradient(ellipse 66% 125% at 100% 50%, rgba(var(--tom), 0.34) 0, rgba(var(--tom), 0.2) 30%, rgba(var(--tom), 0.08) 60%, transparent 86%), rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26); }
+.mv2-cartao--missao { --tom: var(--teal-rgb); }
+.mv2-cartao--visao { --tom: 237, 186, 44; }
+@media (hover: hover) { .mv2-cartao:hover { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.12), 0 1px 3px rgba(0, 33, 82, 0.05), 0 30px 60px -28px rgba(0, 33, 82, 0.32); } }
+/* quadro da ilustração: vidro leve, o tom do card passa por trás */
+.mv2-ilu { background: rgba(255, 255, 255, 0.42); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), inset 0 0 0 1px rgba(var(--navy-rgb), 0.04); }
+/* peças de dentro: branco fosco do Propósito */
+.mv2m-chip, .mv2m-resposta, .mv2m-no, .mv2v-card, .mv2v-rumo, .mv2v-chip { background: rgba(255, 255, 255, 0.95); }
+.mv2m-resposta, .mv2v-card, .mv2v-rumo, .mv2v-chip { border: 1px solid transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 1.4em 2.8em -1.5em rgba(0, 33, 82, 0.3); }
+.mv2m-chip { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 1em 2em -1.1em rgba(0, 33, 82, 0.3); }
+/* chips nas cores da logo: lavanda, amarelo, oliva */
+.mv2m-chip--0 { --quente: #6175D6; } .mv2m-chip--1 { --quente: #EDBA2C; } .mv2m-chip--2 { --quente: #7A7D34; }
+@media (max-width: 767px) {
+  .mv2 { background: var(--grao), radial-gradient(120% 300px at 100% 0%, rgba(10, 102, 200, 0.1), transparent 75%), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+  .mv2-cartao { background: var(--grao), radial-gradient(circle at 100% 22%, rgba(var(--tom), 0.3) 0, rgba(var(--tom), 0.16) 24%, transparent 60%), rgba(255, 255, 255, 0.38); }
+}
