@@ -39,19 +39,19 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/components.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/base.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/citacao.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/menu.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/pessoas.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/saida.css?v=p260" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/pessoas.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p261" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/o-instituto-hero.webp" imagesrcset="assets/images/o-instituto-hero-1100.webp 1100w, assets/images/o-instituto-hero.webp 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/o-instituto-hero.webp?v=p261" imagesrcset="assets/images/o-instituto-hero-1100.webp?v=p261 1100w, assets/images/o-instituto-hero.webp?v=p261 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -71,11 +71,11 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=p248" defer></script>
+<script src="assets/js/cookies.js?v=p261" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
-<link href="assets/css/mobile.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/menu-mobile.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/voltar.css?v=p260" rel="stylesheet"/>
+<link href="assets/css/mobile.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p261" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -177,15 +177,15 @@
 <!-- hero interno -->
 <!-- 18/10/2026: hero no padrão da Práticas (cartão, foto do Magnific, camada
      granulada suave, selo, destaque dourado); o "Voltar" saiu -->
-<section aria-label="O Instituto" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIG/8QAIxAAAgEDBAIDAQAAAAAAAAAAAQIDABExBBITQQVRIWFxof/EABcBAQEBAQAAAAAAAAAAAAAAAAIBAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIRITH/2gAMAwEAAhEDEQA/APK8e4gjIHVUtApmunGzMPXdc6GNGZeRlVfbYrasenm4eJthEY3EMASbn7rlbFKecE6iNkcIkd2uA27423rfwQeNjWeO5msbydjGPVIm0yQG0F3b7YfNTdfr5ixjmGwdDH9pTgL0mTMeUC5sBin6bI/KKK1jgqQE3zSvJAHcSAbYvRRUgt+H/9k=')">
+<section aria-label="O Instituto" class="hero-interna hero-interna--home hero-interna--instituto" style="--hero-lqip: url('data:image/jpeg;base64,/9j//gAPTGF2YzYzLjEuMTAxAP/bAEMACAwMDgwOEBAQEBAQExITFBQUExMTExQUFBUVFRkZGRUVFRQUFRUYGBkZGxwbGhoZGhwcHh4eJCQiIioqKzMzPv/EAH0AAAIDAQEBAAAAAAAAAAAAAAQGAQUHAAIDAQADAQEBAAAAAAAAAAAAAAAAAwQCAQUQAAIBAwIEBQMFAQAAAAAAAAECAxEEABIhQTEFcSIysVEzkRRzgdFyNEIjEQACAgICAwADAQAAAAAAAAABABECEjFBIcFxUTLwoQP/wAARCAASACADARIAAhIAAxIA/9oADAMBAAIRAxEAPwAC96eh8UdxrfW3gpUsBuCDuGJ788VYrhlUAXNabGi6uX+q78M8kEA7Fv3a21BP4/1oIlSLFv4+mfdqzHSgQbmtKOKAim1CDzG534597O0muYTJDcF6PU18ADDfVUBqnuRm8lJHWoWYy7rOwU9bxZEitoCXRCsYZ60Le540rUhRsOOVKRjpk8TXUkQ0sGbRqc0J5+UD3zdiS4kEiJ6d1EJljOUSfi1wWNq0qh5RPKx00o2lTw9hh639i41wyBSwDaqUDcPqvocYP87muWhtzM9Hh5nWfryRw4VOaOg4aRt+uRcfIn8B65YjIEDrtr/zjj0eHZPLtz7Z0HkTsnpiShaggQOuKv3MOw+MHlxo2euu/wBiH8Y9Gzz56PvyHh0ffkLL8Pb8KLMSFQg0Nef1yJ/Ivf8AfKaJTlkQv//Z')">
 <picture class="hero-interna__bg">
-<source media="(max-width: 899px)" srcset="assets/images/o-instituto-hero-1100.webp" type="image/webp"/>
-<source srcset="assets/images/o-instituto-hero.webp" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/o-instituto-hero.jpg" width="1920"/>
+<source media="(max-width: 899px)" srcset="assets/images/o-instituto-hero-1100.webp?v=p261" type="image/webp"/>
+<source srcset="assets/images/o-instituto-hero.webp?v=p261" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/o-instituto-hero.jpg?v=p261" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">O Instituto</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>O Instituto</span>
 <h1 class="hero-interna__titulo"><!-- CMS:texto:instituto-hero-titulo -->Pesquisa, formação e inovação em <span class="hero-interna__destaque">Justiça Restaurativa</span>.<!-- /CMS:texto:instituto-hero-titulo --></h1>
 <p class="hero-interna__sub"><!-- CMS:texto:instituto-hero-sub -->A forma como lidamos com conflitos e danos pode mudar relações e instituições.<!-- /CMS:texto:instituto-hero-sub --></p>
 </div>
@@ -401,7 +401,7 @@
 <span aria-hidden="true" class="pessoa-cartao__arco"></span>
 <span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
 <div class="pessoa-cartao__foto">
-<img alt="Fernanda Mariela Lopes" decoding="async" height="875" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/fernanda-mariela-lopes-busto-900.webp" srcset="assets/images/fundadores/fernanda-mariela-lopes-busto-cel.webp 440w, assets/images/fundadores/fernanda-mariela-lopes-busto-900.webp 700w" width="700"/>
+<img alt="Fernanda Mariela Lopes" decoding="async" height="1060" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/fernanda-mariela-lopes-busto-900.webp" srcset="assets/images/fundadores/fernanda-mariela-lopes-busto-cel.webp 528w, assets/images/fundadores/fernanda-mariela-lopes-busto-900.webp 799w" width="799"/>
 </div>
 </article>
 <article class="founder pessoa-cartao pessoa-cartao--busto pessoa-cartao--invertido" data-aos="fade-up">
@@ -422,7 +422,7 @@
 <span aria-hidden="true" class="pessoa-cartao__arco"></span>
 <span aria-hidden="true" class="pessoa-cartao__orbita"><i></i></span>
 <div class="pessoa-cartao__foto">
-<img alt="Decildo Lopes" decoding="async" height="875" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/decildo-lopes-busto-900.webp" srcset="assets/images/fundadores/decildo-lopes-busto-cel.webp 440w, assets/images/fundadores/decildo-lopes-busto-900.webp 700w" width="700"/>
+<img alt="Decildo Lopes" decoding="async" height="1041" loading="lazy" sizes="(max-width: 767px) 80vw, 40vw" src="assets/images/fundadores/decildo-lopes-busto-900.webp" srcset="assets/images/fundadores/decildo-lopes-busto-cel.webp 738w, assets/images/fundadores/decildo-lopes-busto-900.webp 1098w" width="1098"/>
 </div>
 </article>
 <!-- /CMS:pessoas-direcao -->
@@ -582,6 +582,6 @@ AOS.init({
 <script defer src="assets/js/abordagem.js?v=p167"></script>
 <script defer src="assets/js/orienta.js?v=p167"></script>
 <script defer src="assets/js/missao.js?v=p167"></script>
-<script defer src="assets/js/rolagem.js?v=p260"></script>
+<script defer src="assets/js/rolagem.js?v=p261"></script>
 </body>
 </html>

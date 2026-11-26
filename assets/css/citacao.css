@@ -123,3 +123,24 @@
 @media (max-width: 640px) {
   .citacao-cartao--cta .cta-final__actions { flex-direction: column; gap: 2rem; }
 }
+
+/* chamada final da Home no padrão novo (João, 26/11): selo de três traços, logo
+   pequena no pé (regra da citação em selo.css) e o secundário em vidro escuro
+   como na hero; os dois botões com a mesma altura */
+.citacao-cartao--cta .cta-final__actions { gap: 1.2rem; }
+.citacao-cartao--cta .cta-final__actions :is(.btn, .hero__vidro) { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; }
+@media (max-width: 640px) {
+  .citacao-cartao--cta .cta-final__actions { align-items: stretch; gap: 1.2rem; width: 100%; }
+  .citacao-cartao--cta .cta-final__actions :is(.btn, .hero__vidro) { width: 100%; }
+}
+/* botão de vidro escuro nas chamadas finais das páginas internas (o .hero__vidro do motion.css é só da Home; 26/11) */
+.citacao-cartao--cta .hero__vidro {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  color: #fff; font: 600 1.5rem/1 var(--font-body); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.citacao-cartao--cta .hero__vidro i { font-size: 1.3rem; transition: transform 0.4s var(--curva-suave, ease); }
+.citacao-cartao--cta .hero__vidro:hover { color: #fff; background: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
+.citacao-cartao--cta .hero__vidro:hover i { transform: translateX(3px); }

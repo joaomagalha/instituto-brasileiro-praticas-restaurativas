@@ -184,6 +184,12 @@ function esc(t) {
    trocou o btn--dark ou o link-arrow por ele ("Ver todas as publicações",
    "Ver todas as notícias"). Um lugar só pra que os blocos gerados saiam com
    o mesmo desenho das páginas. A faixa de artigos manteve o btn--dark. */
+/* Botão de vidro (padrão de 26/11/2026): o secundário do topo das seções da
+   Home, igual ao de Formações e Como atuamos ("Ver todas as publicações"). */
+function botaoVidro(href, rotulo) {
+  return `<a class="botao-vidro" href="${esc(href)}">${esc(rotulo)} <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`;
+}
+
 function linkSeta(href, rotulo, extra = '') {
   return `<a class="link-seta${extra ? ' ' + extra : ''}" href="${esc(href)}"><span>${esc(rotulo)}</span>` +
     `<span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>`;
@@ -375,7 +381,7 @@ function secaoMovimento(noticias, { kicker, titulo, sub, meta, kickerVazio, titu
 <h2>${esc(titulo)}</h2>
 <p class="section-header__sub">${esc(sub)}</p>
 </div>
-${linkSeta(linkTopo.href, linkTopo.rotulo)}
+${botaoVidro(linkTopo.href, linkTopo.rotulo)}
 </div>
 <div class="mov-d">
 ${cardMovimento(primeira, true)}

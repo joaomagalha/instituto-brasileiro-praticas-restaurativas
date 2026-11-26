@@ -85,12 +85,14 @@ window.IBPR.cookies = (function () {
     caixa.setAttribute('role', 'dialog');
     caixa.setAttribute('aria-label', 'Aviso sobre cookies');
     caixa.innerHTML =
-      '<span class="aviso-cookies__icone" aria-hidden="true"><i class="fa-solid fa-cookie-bite"></i></span>' +
       '<div class="aviso-cookies__texto">' +
-        '<p><strong>Este site usa cookies para entender como as pessoas navegam.</strong></p>' +
-        '<p>São dados de navegação, usados só para melhorar o site. Você pode recusar, e nada ' +
-          'muda no funcionamento das páginas. Detalhes na ' +
-          '<a href="' + POLITICA + '">política de privacidade</a>.</p>' +
+        '<div class="aviso-cookies__topo">' +
+          '<span class="aviso-cookies__icone" aria-hidden="true"><i class="fa-solid fa-cookie-bite"></i></span>' +
+          '<p><strong>Usamos cookies</strong>' +
+            '<button class="aviso-cookies__mais" type="button" aria-expanded="false" aria-controls="aviso-cookies-detalhe">Saiba mais</button></p>' +
+        '</div>' +
+        '<p id="aviso-cookies-detalhe" hidden>São dados de navegação, usados só para melhorar o site. Você pode recusar, ' +
+          'e nada muda no funcionamento das páginas. Detalhes na <a href="' + POLITICA + '">política de privacidade</a>.</p>' +
       '</div>' +
       '<div class="aviso-cookies__acoes">' +
         '<button class="btn btn--dark" type="button" data-cookies="aceito">Aceitar</button>' +
@@ -100,6 +102,14 @@ window.IBPR.cookies = (function () {
     caixa.addEventListener('click', function (e) {
       var b = e.target.closest('[data-cookies]');
       if (b) decidir(b.dataset.cookies);
+
+      var mais = e.target.closest('.aviso-cookies__mais');
+      if (mais) {
+        var detalhe = caixa.querySelector('#aviso-cookies-detalhe');
+        detalhe.hidden = !detalhe.hidden;
+        mais.setAttribute('aria-expanded', String(!detalhe.hidden));
+        mais.textContent = detalhe.hidden ? 'Saiba mais' : 'Mostrar menos';
+      }
     });
 
     /* Entra no COMEÇO do body, não no fim.

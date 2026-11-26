@@ -257,3 +257,109 @@
 :root #solucoes-preview .atua-andar__link { justify-self: start; align-self: flex-start; margin-top: 0.8rem; width: max-content; max-width: 100%; }
 :root #solucoes-preview .topo-secao > .botao-vidro { grid-area: cont; justify-self: end; align-self: end; margin: 0; }
 @media (max-width: 899px) { :root #solucoes-preview .topo-secao > .botao-vidro { justify-self: start; margin-top: 2rem; } }
+
+/* ===== AS PESSOAS POR TRÁS DO PROPÓSITO (26/11, João): logo do topo um pouco
+   menor, grão leve, selo de três traços sem pílula e botão de vidro. Só CSS:
+   os cartões são gerados pelo painel (build/gerar.mjs). ===== */
+:root .founders--cartoes .founders__header .founders__emblem { height: 3.2rem; width: auto; }
+:root .founders--cartoes .pessoa-cartao, :root .founders--cartoes .pessoa-cartao__arco { --grao: url("../images/grao-claro.png"); }
+:root .founders--cartoes .fcard__selo > span:first-child {
+  display: inline-flex; align-items: center; gap: 1.2rem; padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--color-navy) !important;
+}
+:root .founders--cartoes .fcard__selo > span:first-child::before {
+  content: "" !important; width: 18px; height: 1.6rem; flex: none;
+  background:
+    linear-gradient(var(--logo-lavanda), var(--logo-lavanda)) 0 0 / 4px 100% no-repeat,
+    linear-gradient(var(--logo-amarelo), var(--logo-amarelo)) 7px 0 / 4px 100% no-repeat,
+    linear-gradient(var(--logo-oliva), var(--logo-oliva)) 14px 0 / 4px 100% no-repeat;
+}
+:root .founders--cartoes .pessoa-cartao__link {
+  display: inline-flex; align-items: center; gap: 0.9rem; min-height: 50px; padding: 0 2.4rem; border-radius: 12px;
+  font: 600 1.5rem/1 var(--font-body); color: var(--color-navy); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+:root .founders--cartoes .pessoa-cartao__link:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
+:root .founders--cartoes .pessoa-cartao__link::before, :root .founders--cartoes .pessoa-cartao__link::after { content: none; }
+:root .founders--cartoes .pessoa-cartao__link .link-seta__circ { width: auto; height: auto; border: 0; background: none; box-shadow: none; color: inherit; }
+:root .founders--cartoes .pessoa-cartao__link .link-seta__circ::before, :root .founders--cartoes .pessoa-cartao__link .link-seta__circ::after { content: none; }
+:root .founders--cartoes .pessoa-cartao__link .link-seta__circ i { font-size: 1.3rem; }
+
+/* diferencial do card (26/11, João: "do jeito que o Rauny mandou, refinado"):
+   a logo atrás da pessoa e uma faixa azul na base, com
+   as mesmas peças ampliadas. O arco e o círculo saem; a foto pousa na faixa. */
+:root .founders--cartoes .pessoa-cartao {
+  --faixa: clamp(4.8rem, 5.6vw, 7.2rem); padding-bottom: var(--faixa);
+  background: var(--grao), linear-gradient(var(--ang), #FDFCFA 0%, #F7F4EE 55%, #EFEAE2 100%);
+}
+:root .founders--cartoes .pessoa-cartao::after {
+  content: ""; position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: var(--faixa); pointer-events: none;
+  background: url("../images/ibpr-faixa.svg") left center / auto 100% repeat-x, #003E8E;
+}
+:root .founders--cartoes .pessoa-cartao--invertido::after { background-position: calc(var(--faixa) * -8.4) center, 0 0; }
+:root .founders--cartoes .pessoa-cartao__arco { display: none; }
+:root .founders--cartoes .pessoa-cartao__orbita {
+  align-self: stretch; justify-self: stretch;
+  background: url("../images/ibpr-marca.svg") 50% 30% / auto 96% no-repeat; /* 26/11 (João): logo inteira, bem suave, só um detalhe */
+}
+:root .founders--cartoes .pessoa-cartao__orbita i { display: none; }
+:root .founders--cartoes .pessoa-cartao--busto:not(.pessoa-cartao--foto-inteira) .pessoa-cartao__foto { clip-path: none; }
+:root .founders--cartoes .pessoa-cartao--busto .pessoa-cartao__foto img { top: auto; bottom: 0; filter: drop-shadow(0 14px 28px rgba(var(--navy-rgb), 0.18)); }
+:root .founders--cartoes .pessoa-cartao--foto-inteira .pessoa-cartao__orbita { display: none; }
+@media (max-width: 767px) {
+}
+/* retrato dimensionado pela altura do cartão (26/11) */
+:root .founders--cartoes .pessoa-cartao--busto:not(.pessoa-cartao--foto-inteira) .pessoa-cartao__foto img {
+  height: 87%; width: auto; max-width: none; top: auto; bottom: 0; /* pela altura: a cabeça nunca passa do topo */
+}
+
+/* refino (26/11, João): pessoa maior, luz quente atrás da cabeça, faixa mais
+   baixa, borda e sombra suaves, texto com mais ar */
+:root .founders--cartoes .pessoa-cartao {
+  --faixa: clamp(4.4rem, 4.4vw, 5.6rem);
+  background:
+    var(--grao),
+    radial-gradient(30% 52% at var(--luz-x) 40%, rgba(237, 186, 44, 0.17) 0%, transparent 72%),
+    linear-gradient(var(--ang), #FFFEFC 0%, #F9F6F0 55%, #F1ECE4 100%);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 30px 60px -38px rgba(0, 33, 82, 0.34);
+}
+:root .founders--cartoes .pessoa-cartao--busto { --busto-l: 1.12; }
+:root .founders--cartoes .pessoa-cartao--busto:not(.pessoa-cartao--foto-inteira) .pessoa-cartao__foto img { filter: drop-shadow(0 10px 22px rgba(var(--navy-rgb), 0.12)); }
+:root .founders--cartoes .founder__bio { max-width: 42rem; line-height: 1.7; }
+:root .founders--cartoes .founder__name { letter-spacing: -0.02em; }
+:root .founders--cartoes .pessoa-cartao__link { margin-top: 3.2rem; }
+/* retratos recortados do original (26/11), com os braços inteiros: mais largos
+   que os de antes; o card limita a largura */
+:root .founders--cartoes .pessoa-cartao--busto:not(.pessoa-cartao--foto-inteira) .pessoa-cartao__foto img { max-width: 100%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 10px 22px rgba(var(--navy-rgb), 0.12)); }
+
+/* ===== PADRÃO ÚNICO DE SELO (26/11, João): três traços arredondados nas cores
+   da logo, como na hero, sem borda, sem pílula e sem número. Vale no site
+   inteiro. !important porque cada página tinha o seu selo, carregado depois.
+   Fica por último neste arquivo. */
+:root :is(.overline, .fcard__selo > span:first-child, .citacao-selo, .abordagem__selo, .aluno__selo, .atuar__selo,
+  .catalogo__selo, .fint__selo, .leitura__selo, .mv2__selo, .orienta__selo) {
+  display: inline-flex !important; align-items: center !important; gap: 1.2rem !important;
+  padding: 0 !important; border: 0 !important; border-radius: 0 !important; background: none !important; box-shadow: none !important;
+}
+:root :is(.overline, .fcard__selo > span:first-child, .citacao-selo, .abordagem__selo, .aluno__selo, .atuar__selo,
+  .catalogo__selo, .fint__selo, .leitura__selo, .mv2__selo, .orienta__selo):not(.selo-logo):not(.selo-logo-claro)::before {
+  content: "" !important; display: block !important; position: static !important; flex: none !important;
+  width: 18px !important; height: 16px !important; margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; opacity: 1 !important; transform: none !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='16'%3E%3Crect width='4' height='16' rx='2' fill='%236175d6'/%3E%3Crect x='7' width='4' height='16' rx='2' fill='%23edba2c'/%3E%3Crect x='14' width='4' height='16' rx='2' fill='%237a7d34'/%3E%3C/svg%3E") center / 18px 16px no-repeat !important;
+}
+:root :is(.overline, .fcard__selo > span:first-child, .citacao-selo, .abordagem__selo, .aluno__selo, .atuar__selo,
+  .catalogo__selo, .fint__selo, .leitura__selo, .mv2__selo, .orienta__selo)::after { content: none !important; }
+:root .hero__marca i { box-shadow: none !important; }
+
+/* cartões das pessoas com a mesma altura do card "Na prática" (João, 26/11):
+   a mesma conta do vídeo de lá (min(50rem, 100svh - 36rem)) mais o respiro */
+@media (min-width: 1024px) and (min-height: 700px) {
+  :root .founders--cartoes .pessoa-cartao { min-height: 0; height: calc(min(50rem, 100svh - 36rem) + 14rem); --faixa: clamp(3.4rem, 3.2vw, 4.4rem); }
+  :root .founders--cartoes .pessoa-cartao__orbita { background-position: 50% 55%; background-size: auto 86%; }
+}
+
+/* três traços da hero em qualquer página (o .hero__marca morava só no motion.css, da Home; 26/11) */
+.hero__marca { display: inline-flex; gap: 3px; flex: none; }
+.hero__marca i { width: 4px; height: 1.6rem; border-radius: 2px; background: var(--logo-lavanda); }
+.hero__marca i:nth-child(2) { background: var(--logo-amarelo); }
+.hero__marca i:nth-child(3) { background: var(--logo-oliva); }

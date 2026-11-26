@@ -145,7 +145,7 @@ body { background: var(--color-paper); }
     -webkit-backdrop-filter: blur(34px) saturate(1.5) brightness(0.64); backdrop-filter: blur(34px) saturate(1.5) brightness(0.64);
   }
   :root .navbar.scrolled .navbar__container::before {
-    background: rgba(255, 255, 255, 0.52);
+    background: rgba(255, 255, 255, 0.84); /* 26/11: mais branca, o azul das faixas apagava o menu */
     box-shadow: 0 10px 34px -18px rgba(0, 33, 82, 0.28);
     -webkit-backdrop-filter: blur(34px) saturate(1.7) brightness(1.12); backdrop-filter: blur(34px) saturate(1.7) brightness(1.12);
   }

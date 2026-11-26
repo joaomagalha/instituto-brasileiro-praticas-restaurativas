@@ -39,18 +39,18 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/components.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/base.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/citacao.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/menu.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/saida.css?v=p260" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p261" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/praticas-restaurativas-hero.webp" imagesrcset="assets/images/praticas-restaurativas-hero-1100.webp 1100w, assets/images/praticas-restaurativas-hero.webp 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/praticas-restaurativas-hero.webp?v=p261" imagesrcset="assets/images/praticas-restaurativas-hero-1100.webp?v=p261 1100w, assets/images/praticas-restaurativas-hero.webp?v=p261 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -70,11 +70,11 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=p248" defer></script>
+<script src="assets/js/cookies.js?v=p261" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
-<link href="assets/css/mobile.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/menu-mobile.css?v=p260" rel="stylesheet"/>
-<link href="assets/css/voltar.css?v=p260" rel="stylesheet"/>
+<link href="assets/css/mobile.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p261" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p261" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -175,26 +175,21 @@
 
 <!-- hero interno no visual da Home (17/10): cartão com foto do Magnific,
      camada granulada, selo de contorno e os atalhos das seções -->
-<section aria-label="Práticas Restaurativas" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQGAwX/xAAjEAACAQMEAgMBAAAAAAAAAAABAgMABBESEyExIkEFUWGR/8QAFwEBAQEBAAAAAAAAAAAAAAAAAAIBA//EABgRAQADAQAAAAAAAAAAAAAAAAABAjER/9oADAMBAAIRAxEAPwCdVViRWkOkHgE09DEp1DcAZQDj75xSU6tNbR6SxKZODnms4YpUuElYeJYDOr33XLV4oENpG8RkkXS+AM+znFM2b2xniRWBfZbPH43upu7hLbKo+rhjgkcc058fbzyW7aSQWOQDn1nmnIHIDttDyP8Aa3tAGkTUAfId0UVo6chKTIEJXvrij4x2LPlifBuz+UUVFVWf/9k=')">
+<section aria-label="Práticas Restaurativas" class="hero-interna hero-interna--home" style="--hero-lqip: url('data:image/jpeg;base64,/9j//gAPTGF2YzYzLjEuMTAxAP/bAEMACAwMDgwOEBAQEBAQExITFBQUExMTExQUFBUVFRkZGRUVFRQUFRUYGBkZGxwbGhoZGhwcHh4eJCQiIioqKzMzPv/EAH4AAAICAwEAAAAAAAAAAAAAAAUEAgYBAAgHAQEBAQEBAQAAAAAAAAAAAAADAAQCBQEQAAEDAgQEBgMBAAAAAAAAAAECAxEAEiExQQQyIgUUgXFyM7HBkRM0UREAAgIBAwIHAQAAAAAAAAAAAQACESEDQRLxEzIx0fDBUaFx/8AAEQgAEgAgAwESAAISAAMSAP/aAAwDAQACEQMRAD8APPOtLcUH4Xe2QCAEHi8QoedJOdPU+tIZcvCU8dhtM4cSjHikKrzDM+Zza3bDpACYwrbh3tHf1t3uNqItUSEhIJOGP+R+KIO9IdRa24+JTzYIEEgEamhMsXs9akRQH06Yxs0/NKVElZe3aUAFBS7wxa4JVdrhdrlFUhbL+wU01A5VhRWlA5gklQAyJibQJEaUQ0wTV1g3/b9FDm91OZG1vIx7/Exv9we3UFkNlUxzg3DUZDFOtecvKfLjQWbrFKUJmApcElWeGlAdMDwkn4d2OJx0XjM7gBx55DPV6Sb9xz0D5rDfuOegfNMyDIXqBPc5nL7NR6h/T4fZoZtJWLRUGsVEHERkcq1njPlWaTSXDBqO7SmTgMzpU93mfM0gYPLP/9k=')">
 <picture class="hero-interna__bg">
-<source media="(max-width: 899px)" srcset="assets/images/praticas-restaurativas-hero-1100.webp" type="image/webp"/>
-<source srcset="assets/images/praticas-restaurativas-hero.webp" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/praticas-restaurativas-hero.jpg" width="1920"/>
+<source media="(max-width: 899px)" srcset="assets/images/praticas-restaurativas-hero-1100.webp?v=p261" type="image/webp"/>
+<source srcset="assets/images/praticas-restaurativas-hero.webp?v=p261" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/praticas-restaurativas-hero.jpg?v=p261" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">Práticas Restaurativas</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Práticas Restaurativas</span>
 <h1 class="hero-interna__titulo"><!-- CMS:texto:praticas-hero-titulo -->Uma <span class="hero-interna__destaque">nova forma</span> de responder aos problemas, conflitos e danos.<!-- /CMS:texto:praticas-hero-titulo --></h1>
 <p class="hero-interna__sub"><!-- CMS:texto:praticas-hero-sub -->Sem ignorar a responsabilidade, a abordagem restaurativa desloca o foco para os danos e as necessidades que deles decorrem.<!-- /CMS:texto:praticas-hero-sub --></p>
 <div class="hero-interna__acoes">
 <a class="btn btn--white" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
+<a class="hero__vidro" href="como-atuamos.html">Como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
-<nav aria-label="Seções desta página" class="hero-interna__atalhos">
-<a class="hero-interna__atalho" href="#jr-praticas">Justiça Restaurativa e Práticas Restaurativas</a>
-<a class="hero-interna__atalho" href="#educacao">Na Educação</a>
-<a class="hero-interna__atalho" href="#justica-prisional">Justiça e Sistema Prisional</a>
-<a class="hero-interna__atalho" href="#empresas">Nas Empresas</a>
-</nav>
 </div>
 </section>
 
@@ -206,10 +201,11 @@
 <div class="encontro" data-aos="fade-up">
 <div class="citacao-cartao citacao-cartao--praticas">
 <div class="citacao-cartao__miolo">
-<span class="citacao-selo">Na voz dos autores</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Na voz dos autores</span>
 <blockquote class="encontro__texto"><!-- CMS:texto:praticas-citacao -->"Talvez um dos grandes empecilhos ao desenvolvimento da JR seja gastarmos mais tempo em explicá-la e compreendê-la do que em desenvolver o saber-fazer necessário para praticá-la."<!-- /CMS:texto:praticas-citacao --></blockquote>
 <cite class="citacao-cartao__credito"><strong>David B. Moore e Alikki Vernon</strong><em>Setting Relations Right in Restorative Practice</em></cite>
 </div>
+<img class="citacao-logo" width="62" height="30" loading="lazy" decoding="async" alt="" aria-hidden="true" src="assets/images/ibpr-logo-nova-branca.svg"/>
 </div>
 <!-- foto de Melbourne fora do ar desde 06/10/2026: o Decildo pediu pra tirar até o
      prof. David Moore autorizar a publicação. Pra voltar, é só descomentar o bloco
@@ -234,11 +230,12 @@
      efeito"). Fundo granulado da Home no lugar do quadriculado; título preso à
      esquerda; os 3 parágrafos viram 3 passos numerados, a ideia central de cada
      um em negrito (texto intacto); o passo no meio da tela fica cheio. -->
-<section aria-label="Justiça Restaurativa e Práticas Restaurativas" class="leitura" id="jr-praticas">
+<section aria-label="Justiça Restaurativa e Práticas Restaurativas" class="leitura" data-passo="1" id="jr-praticas">
 <div class="container leitura__grade">
 <div class="leitura__lado">
 <p class="leitura__selo">Conhecimento que se transforma em prática</p>
 <h2 class="leitura__titulo"><span class="leitura__linha">Justiça Restaurativa e </span><span class="leitura__linha"><span class="leitura__destaque">Práticas Restaurativas</span>.</span></h2>
+<div aria-hidden="true" class="leitura__tracos"><i></i><i></i><i></i></div>
 <div aria-hidden="true" class="leitura__contador"><span class="leitura__atual">01</span><span class="leitura__total">/ 03</span></div>
 <!-- Subtítulo removido a pedido do grupo (03/09): era reescrita quase
      literal do fecho do 1º parágrafo ("sem ignorar a responsabilidade,
@@ -309,11 +306,12 @@
 </section>
 
 <!-- 2. justiça restaurativa na educação -->
-<section aria-label="Práticas Restaurativas na Educação" class="leitura" id="educacao">
+<section aria-label="Práticas Restaurativas na Educação" class="leitura" data-passo="1" id="educacao">
 <div class="container leitura__grade">
 <div class="leitura__lado">
 <p class="leitura__selo">Na Educação</p>
 <h2 class="leitura__titulo"><span class="leitura__linha"><span class="leitura__destaque">Muito além</span> da </span><span class="leitura__linha">resolução de conflitos.</span></h2>
+<div aria-hidden="true" class="leitura__tracos"><i></i><i></i><i></i><i></i><i></i></div>
 <div aria-hidden="true" class="leitura__contador"><span class="leitura__atual">01</span><span class="leitura__total">/ 05</span></div>
 <!-- A frase "A convivência escolar produz..." saiu daqui e virou a 1ª frase
      do parágrafo abaixo, a pedido do grupo (03/09): ela não era subtítulo,
@@ -376,11 +374,12 @@
 
 
 <!-- 3. justiça, segurança pública e sistema prisional -->
-<section aria-label="Práticas Restaurativas no Sistema de Justiça e no Sistema Prisional" class="leitura" id="justica-prisional">
+<section aria-label="Práticas Restaurativas no Sistema de Justiça e no Sistema Prisional" class="leitura" data-passo="1" id="justica-prisional">
 <div class="container leitura__grade">
 <div class="leitura__lado">
 <p class="leitura__selo">Justiça e Sistema Prisional</p>
 <h2 class="leitura__titulo"><span class="leitura__linha">Dos casos ao <span class="leitura__destaque">cotidiano</span> </span><span class="leitura__linha"><span class="leitura__destaque">das instituições</span>.</span></h2>
+<div aria-hidden="true" class="leitura__tracos"><i></i><i></i><i></i><i></i><i></i></div>
 <div aria-hidden="true" class="leitura__contador"><span class="leitura__atual">01</span><span class="leitura__total">/ 05</span></div>
 <!-- Título e subtítulo fundidos num texto só, a pedido do grupo (05/09).
      A frase é deles: junta "resolução de casos" (que estava no título)
@@ -455,11 +454,12 @@
 </section>
 
 <!-- 4. práticas restaurativas nas empresas -->
-<section aria-label="Práticas Restaurativas nas Empresas" class="leitura" id="empresas">
+<section aria-label="Práticas Restaurativas nas Empresas" class="leitura" data-passo="1" id="empresas">
 <div class="container leitura__grade">
 <div class="leitura__lado">
 <p class="leitura__selo">Nas Empresas</p>
 <h2 class="leitura__titulo"><span class="leitura__linha">Lidar com conflitos </span><span class="leitura__linha">e <span class="leitura__destaque">trabalhar juntos</span>.</span></h2>
+<div aria-hidden="true" class="leitura__tracos"><i></i><i></i><i></i></div>
 <div aria-hidden="true" class="leitura__contador"><span class="leitura__atual">01</span><span class="leitura__total">/ 03</span></div>
 <!-- Título e subtítulo fundidos num texto só, a pedido do grupo (05/09),
      mesma lógica aplicada em "Justiça e Sistema Prisional". Frase deles. -->
@@ -511,14 +511,15 @@
 <div class="container">
 <div class="citacao-cartao citacao-cartao--cta citacao-cartao--cta-praticas">
 <div class="citacao-cartao__miolo" data-aos="fade-up">
-<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
 <h2 class="cta-final__title">Leve o ideal restaurativo para o cotidiano da sua instituição.</h2>
 <p class="cta-final__sub">Formações e soluções que transformam conhecimento em saber-fazer para os desafios concretos de cada contexto.</p>
 <div class="cta-final__actions">
 <a class="btn btn--white" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-seta link-seta--claro" href="como-atuamos.html"><span>Ver as soluções</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="hero__vidro" href="como-atuamos.html">Ver as soluções <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
+<img class="citacao-logo" width="62" height="30" loading="lazy" decoding="async" alt="" aria-hidden="true" src="assets/images/ibpr-logo-nova-branca.svg"/>
 </div>
 </div>
 </section>
@@ -598,8 +599,8 @@ AOS.init({
 <script src="assets/js/site-interactions.js?v=p167"></script>
 <script defer src="assets/js/citacao.js?v=p167"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
-<script defer src="assets/js/leitura.js?v=p250"></script>
+<script defer src="assets/js/leitura.js?v=p261"></script>
 <script defer src="assets/js/sustenta-abrir.js?v=p237"></script>
-<script defer src="assets/js/rolagem.js?v=p260"></script>
+<script defer src="assets/js/rolagem.js?v=p261"></script>
 </body>
 </html>

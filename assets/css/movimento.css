@@ -59,3 +59,56 @@
   .mov-d__lado .mcard__titulo { font-size: 1.7rem; }
   .mov-d__lado .mcard__cta { padding-top: 1rem; }
 }
+
+/* ===== PADRÃO NOVO (João, 26/11: "melhore com as coisas novas e melhore o
+   design dos cards"). Fundo claro granulado com as manchas da paleta da logo
+   (igual ao Como atuamos), botão de vidro no topo, cards no padrão dos de
+   Formações (grão leve, degradê suave vindo da direita, filete e sombra),
+   tipo com os três traços da logo e selo de vidro sobre a foto.
+   Antes: scratchpad mov/movimento.css. ===== */
+:root #ibpr-movimento-preview.movimento {
+  --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    radial-gradient(40vw 30vw at 100% 8%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.06) 45%, transparent 76%),
+    radial-gradient(40vw 24vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.05) 45%, transparent 76%),
+    var(--papel-claro, #FAFAF8);
+}
+/* botão do topo embaixo à direita, como em Formações */
+:root #ibpr-movimento-preview .formacoes__header.topo-secao > .botao-vidro { grid-area: cont; justify-self: end; align-self: end; margin: 0; }
+@media (max-width: 899px) { :root #ibpr-movimento-preview .formacoes__header.topo-secao > .botao-vidro { justify-self: start; margin-top: 2rem; } }
+
+/* cards */
+#ibpr-movimento-preview .mcard { --tom: rgba(10, 102, 200, 0.16); }
+#ibpr-movimento-preview .mov-d__lado .mcard:nth-child(1) { --tom: rgba(97, 117, 214, 0.17); }
+#ibpr-movimento-preview .mov-d__lado .mcard:nth-child(2) { --tom: rgba(237, 186, 44, 0.2); }
+#ibpr-movimento-preview .mcard__link {
+  padding: 1rem; border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 120% at 100% 100%, var(--tom) 0, transparent 78%), #FBFBFC;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -28px rgba(14, 24, 63, 0.24);
+  transition: box-shadow 0.45s var(--curva-suave, ease), translate 0.45s var(--curva-suave, ease);
+}
+#ibpr-movimento-preview .mcard__link:hover, #ibpr-movimento-preview .mcard__link:focus-visible {
+  translate: 0 -3px;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16), 0 1px 3px rgba(14, 24, 63, 0.05), 0 30px 60px -28px rgba(14, 24, 63, 0.32);
+}
+#ibpr-movimento-preview .mcard__media { border-radius: 1.6rem; }
+/* selo "Adicionada recentemente" em vidro sobre a foto */
+#ibpr-movimento-preview .mcard__selo {
+  top: 1.4rem; left: 1.4rem; padding: 0.7rem 1.2rem;
+  background: rgba(255, 255, 255, 0.72); color: var(--color-navy);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 6px 18px -8px rgba(14, 24, 63, 0.35);
+}
+/* tipo com os três traços da logo; data separada por ponto */
+#ibpr-movimento-preview .mcard__meta { gap: 0.6rem 0.9rem; }
+#ibpr-movimento-preview .mcard__frente {
+  display: inline-flex; align-items: center; gap: 0.9rem; padding: 0; border-radius: 0; background: none; color: var(--color-navy);
+}
+#ibpr-movimento-preview .mcard__frente::before {
+  content: ""; width: 14px; height: 12px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='16'%3E%3Crect width='4' height='16' rx='2' fill='%236175d6'/%3E%3Crect x='7' width='4' height='16' rx='2' fill='%23edba2c'/%3E%3Crect x='14' width='4' height='16' rx='2' fill='%237a7d34'/%3E%3C/svg%3E") center / 14px 12px no-repeat;
+}
+#ibpr-movimento-preview .mcard__frente + span::before { content: "·"; margin-right: 0.9rem; color: rgba(var(--navy-rgb), 0.35); }
+#ibpr-movimento-preview .mcard__corpo { padding: 2rem 1.4rem 1.2rem; }
+#ibpr-movimento-preview .mov-d__lado .mcard__corpo { padding: 1.4rem 1.4rem 1.2rem 2.4rem; }
+@media (prefers-reduced-motion: reduce) { #ibpr-movimento-preview .mcard__link:hover { translate: none; } }

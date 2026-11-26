@@ -72,3 +72,69 @@
   .footer.footer--rod .footer__bottom { margin-top: 2rem; padding-top: 1.4rem; }
   .footer.footer--rod :is(.footer__copy, .footer__legal) { font-size: 1.1rem; line-height: 1.5; }
 }
+
+/* ===== RODAPÉ NO PADRÃO NOVO (João, 26/11: "melhore a cor, o efeito de vidro
+   fosco e o que achar mais bonito"). Fundo no azul do site com as luzes da
+   paleta da logo (sai o petróleo e o dourado); atrás do cartão, a logo inteira
+   bem suave, pra o vidro ter o que desfocar; o cartão volta a ter blur (só
+   aqui: o rodapé é estático). Títulos das colunas com os três traços.
+   Antes: scratchpad mov/rodape-antes.css. ===== */
+.footer.footer--rod {
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(56rem 36rem at 92% 0%, rgba(10, 102, 200, 0.55), transparent 64%),
+    radial-gradient(48rem 32rem at 0% 100%, rgba(97, 117, 214, 0.38), transparent 64%),
+    linear-gradient(160deg, #003E8E 0%, #00347A 50%, #002152 100%);
+}
+/* a logo atrás do vidro */
+.footer.footer--rod::before {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  right: -4%; top: 50%; translate: 0 -50%; width: min(60rem, 56vw); aspect-ratio: 32.77 / 45.26;
+  background: url("../images/ibpr-marca.svg") center / contain no-repeat;
+  opacity: 1; filter: saturate(1.4) brightness(2.4);
+}
+:root .footer.footer--rod .footer__cartao {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 40%, rgba(255, 255, 255, 0.06) 100%),
+    radial-gradient(70% 90% at 0% 0%, rgba(255, 255, 255, 0.08), transparent 60%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 30px 70px -30px rgba(0, 20, 60, 0.6);
+  -webkit-backdrop-filter: blur(24px) saturate(1.5) !important; backdrop-filter: blur(24px) saturate(1.5) !important;
+}
+@media (min-width: 1024px) { .footer--rod .footer__brand { border-bottom-color: rgba(255, 255, 255, 0.1); } }
+.footer--rod .footer__bottom { border-top-color: rgba(255, 255, 255, 0.1); }
+/* títulos das colunas: os três traços da logo no lugar do risco dourado */
+.footer.footer--rod .footer__col-title::after {
+  width: 18px; height: 1rem; border-radius: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='16'%3E%3Crect width='4' height='16' rx='2' fill='%236175d6'/%3E%3Crect x='7' width='4' height='16' rx='2' fill='%23edba2c'/%3E%3Crect x='14' width='4' height='16' rx='2' fill='%237a7d34'/%3E%3C/svg%3E") left center / 11px 10px no-repeat;
+}
+/* redes: hover em vidro claro */
+.footer--rod .footer__social-link:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.4); }
+
+/* 26/11, 2ª versão (João: "o azul muito claro não ficou legal, mas gosto da
+   logo meio apagada no fundo"): volta o marinho escuro, luzes bem discretas,
+   vidro sem realçar cor; a logo apagada fica */
+.footer.footer--rod {
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(56rem 36rem at 92% 0%, rgba(10, 102, 200, 0.2), transparent 64%),
+    radial-gradient(48rem 32rem at 0% 100%, rgba(97, 117, 214, 0.14), transparent 64%),
+    linear-gradient(160deg, #002152 0%, #00285F 55%, #002F6E 100%);
+}
+.footer.footer--rod::before { filter: saturate(1.1) brightness(1.8); }
+:root .footer.footer--rod .footer__cartao {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 40%, rgba(255, 255, 255, 0.04) 100%),
+    radial-gradient(70% 90% at 0% 0%, rgba(255, 255, 255, 0.05), transparent 60%);
+  border-color: rgba(255, 255, 255, 0.11);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 30px 70px -30px rgba(0, 10, 35, 0.7);
+  -webkit-backdrop-filter: blur(20px) !important; backdrop-filter: blur(20px) !important;
+}
+
+/* três traços ao lado do título da coluna, como no selo (João, 26/11) */
+.footer.footer--rod .footer__col-title { display: flex; align-items: center; gap: 1rem; padding-bottom: 0; }
+.footer.footer--rod .footer__col-title::after { content: none; }
+.footer.footer--rod .footer__col-title::before {
+  content: ""; width: 14px; height: 12px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='16'%3E%3Crect width='4' height='16' rx='2' fill='%236175d6'/%3E%3Crect x='7' width='4' height='16' rx='2' fill='%23edba2c'/%3E%3Crect x='14' width='4' height='16' rx='2' fill='%237a7d34'/%3E%3C/svg%3E") center / 14px 12px no-repeat;
+}

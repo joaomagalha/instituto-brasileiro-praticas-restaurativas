@@ -178,3 +178,76 @@ html.mo .pratica-palco.is-in .pv-palco__texto > :nth-child(n+4) { transition-del
 @media not all and (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
   .pv-palco__etiqueta { display: none; }
 }
+
+/* ===== REFINO 26/11 (João: "melhorar o granulado no fundo, os botões e o vídeo
+   na direita"). Grão leve como nas pessoas; os 3 tons na paleta da logo nova
+   (sai o bege dourado), mancha suave vindo da direita; "Como atuamos" vira o
+   botão de vidro do padrão; órbita do computador igual à do celular (2 anéis,
+   ponto azul), sombra do arco mais macia e etiqueta no vidro da nav. Vídeo
+   reencodado do original do Decildo (576x1024, era 480x854 a 414 kbps).
+   Antes: scratchpad pv/pratica.css. ===== */
+.pratica-palco { --grao: url("../images/grao-claro.png"); }
+.pv-palco__fundo i:nth-child(1) { background: var(--grao),
+  radial-gradient(58% 82% at 100% 62%, rgba(10, 102, 200, 0.16), transparent 74%),
+  linear-gradient(135deg, #EDF1F6 0%, #E7EDF4 55%, #DCE5F0 100%); }
+.pv-palco__fundo i:nth-child(2) { background: var(--grao),
+  radial-gradient(58% 82% at 100% 62%, rgba(97, 117, 214, 0.17), transparent 74%),
+  linear-gradient(135deg, #EFF0F7 0%, #E9EBF5 55%, #DFE2F2 100%); }
+.pv-palco__fundo i:nth-child(3) { background: var(--grao),
+  radial-gradient(58% 82% at 100% 62%, rgba(237, 186, 44, 0.16), transparent 74%),
+  linear-gradient(135deg, #F1F1EC 0%, #ECEBE2 55%, #E5E3D5 100%); }
+
+/* botões: navy + vidro, mesma altura */
+.pv-palco__acoes { gap: 1.2rem; }
+.pv-palco__acoes .btn, .pv-palco__acoes .botao-vidro { min-height: 50px; }
+
+/* vídeo: arco com sombra macia e filete claro */
+.pv-palco__arco { box-shadow: 0 2px 4px rgba(var(--navy-rgb), 0.06), 0 24px 48px -12px rgba(var(--navy-rgb), 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.35); }
+.pv-palco__orbita { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.14); }
+.pv-palco__orbita::before { content: ""; position: absolute; inset: -9%; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06); pointer-events: none; }
+.pv-palco__orbita::after { background: #0A66C8; box-shadow: 0 0 0 0.5rem rgba(10, 102, 200, 0.14); }
+.pv-palco__etiqueta {
+  background: rgba(255, 255, 255, 0.62);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 10px 28px -10px rgba(var(--navy-rgb), 0.25);
+}
+
+/* card visível na borda esquerda (João, 26/11: "meio invisível no canto esquerdo"):
+   sem o brilho branco no canto, tom desde a borda, filete e sombra macia */
+.pv-palco__cartao { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 2px rgba(var(--navy-rgb), 0.04), 0 24px 60px -30px rgba(var(--navy-rgb), 0.22); }
+
+/* ===== CARA DO INSTITUTO (João, 26/11: "mais bonito e mais com a cara do
+   instituto"). A mesma linguagem dos cards das pessoas: a logo inteira bem
+   suave atrás do vídeo (no lugar dos anéis da órbita) e a faixa azul com as
+   peças da logo na base do card. Antes: scratchpad pv/pratica-antes-cara.css. ===== */
+.pv-palco__cartao { --faixa: clamp(3.4rem, 3.2vw, 4.4rem); padding-bottom: calc(clamp(4.8rem, 7vh, 7.2rem) + var(--faixa)); }
+.pv-palco__cartao::after {
+  content: ""; position: absolute; z-index: 0; left: 0; right: 0; bottom: 0; height: var(--faixa); pointer-events: none;
+  background: url("../images/ibpr-faixa.svg") left center / auto 100% repeat-x, #003E8E;
+}
+.pv-palco__orbita { display: none; }
+.pv-palco__midia::before {
+  content: ""; position: absolute; z-index: 0; left: 50%; top: 50%; translate: -50% -50%;
+  width: 140%; height: 112%; pointer-events: none;
+  background: url("../images/ibpr-marca.svg") center / contain no-repeat;
+}
+@media (max-width: 1023px) {
+  .pv-palco__cartao { padding-bottom: calc(4rem + var(--faixa)); }
+  .pv-palco__midia::before { top: calc(50% + var(--arco-w, 0px) * 0.1); width: 120%; height: 88%; }
+}
+
+/* seção um pouco menor no computador (João, 26/11): o card deixa de ocupar a
+   tela inteira; altura pelo conteúdo, centralizado, vídeo e respiros menores */
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .pv-palco, .pv-palco > .container { align-items: center; }
+  .pv-palco__cartao { padding-block: clamp(3.6rem, 5vh, 5.6rem) calc(clamp(3.6rem, 5vh, 5.6rem) + var(--faixa)); }
+  .pv-palco__arco { height: min(50rem, calc(100svh - 36rem)); }
+  .pv-palco__midia::before { top: 47%; height: 100%; }
+}
+
+/* sem a faixa azul (João, 26/11: "quero ela só nos cards das pessoas") */
+.pv-palco__cartao::after { content: none; }
+.pv-palco__cartao { --faixa: 0px; }
+@media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+  .pv-palco__cartao { padding-block: calc(clamp(3.6rem, 5vh, 5.6rem) + 2.2rem); } /* mesma altura dos cards das pessoas */
+}

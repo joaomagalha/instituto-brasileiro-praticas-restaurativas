@@ -10,6 +10,7 @@
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
         var n = ('0' + (passos.indexOf(e.target) + 1)).slice(-2);
+        sec.dataset.passo = String(passos.indexOf(e.target) + 1); /* os três traços da logo acendem (26/11) */
         if (atual.textContent === n) return;
         atual.textContent = n;
         atual.classList.remove('troca'); void atual.offsetWidth; atual.classList.add('troca');

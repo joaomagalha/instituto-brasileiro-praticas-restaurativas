@@ -35,34 +35,65 @@
     '.artigo-corpo-secao .artigo-citar', '.noticia-corpo .noticia-figura', '.noticia-corpo .prose p', '.noticia-corpo .noticia-fonte'
   ].join(',');
 
-  var LINHA = 0.06;          // a saída começa quando o meio do bloco passa de 6% da tela
-  var SAI = { duration: 450, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' };
-  var passos = []; for (var i = 0; i <= 20; i++) passos.push(i / 20);
+  /* SAÍDA E VOLTA, 2ª versão (26/11, João: "travado ao scrollar para cima").
+     Antes: 21 medições por bloco a cada pedacinho de rolagem, e o bloco só
+     voltava quando o MEIO dele cruzava a linha; num cartão alto, metade dele já
+     estava na tela, invisível, e aparecia de uma vez ao subir.
+     Agora: a posição de cada bloco é medida uma vez (e de novo só quando a
+     página muda de altura); na rolagem é só conta. O bloco sai quando sobra
+     pouco dele na tela e volta assim que a borda de baixo reaparece, com uma
+     folga entre as duas linhas pra não ficar liga-desliga. */
+  var SAI = { duration: 650, easing: 'cubic-bezier(.45,0,.55,1)', fill: 'forwards' };
+  var VOLTA = { duration: 520, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' };
+  var blocos = [];
 
-  /* toca a saída ou a volta, sem empilhar animações no mesmo elemento */
-  function sair(el, fora) {
-    if (!!el.__fora === fora) return;
-    el.__fora = fora;
-    if (!el.__anim) {
-      el.__anim = el.animate([{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '0 -5vh' }], SAI);
-      el.__anim.pause();
-      el.__anim.currentTime = 0;
-    }
-    el.__anim.playbackRate = fora ? 1 : -1;
-    el.__anim.play();
+  function sair(b, fora) {
+    if (b.fora === fora) return;
+    b.fora = fora;
+    var el = b.el, cs = getComputedStyle(el);
+    var de = { opacity: cs.opacity, translate: cs.translate === 'none' ? '0 0' : cs.translate };
+    if (b.anim) b.anim.cancel();
+    b.anim = el.animate([de, fora ? { opacity: 0, translate: '0 -4vh' } : { opacity: 1, translate: '0 0' }], fora ? SAI : VOLTA);
+    /* de volta ao lugar, solta a animação: o bloco deixa de ser camada à parte */
+    if (!fora) { var a = b.anim; a.onfinish = function () { if (b.anim === a) { a.cancel(); b.anim = null; } }; }
   }
 
-  var obsSaida = new IntersectionObserver(function (entradas) {
-    var linha = innerHeight * LINHA;
-    entradas.forEach(function (e) {
-      var r = e.boundingClientRect;
-      sair(e.target, r.top + r.height / 2 < linha);
-    });
-  }, { threshold: passos });
+  function topo(el) { var y = 0; for (var e = el; e; e = e.offsetParent) y += e.offsetTop; return y; } // ignora o translate da animação
+  /* bloco preso na tela (position: sticky, ex.: título da leitura em Práticas): só sai
+     quando o pai termina, então mede pela posição final dele no fim do pai (26/11) */
+  function mede() { blocos.forEach(function (b) {
+    b.h = b.el.offsetHeight;
+    var p = b.el.parentElement;
+    b.y = (getComputedStyle(b.el).position === 'sticky' && p) ? topo(p) + p.offsetHeight - b.h : topo(b.el);
+  }); }
+
+  var vh = innerHeight, pedido = false;
+  function confere() {
+    pedido = false;
+    var y = scrollY, linha = vh * 0.06;
+    for (var i = 0; i < blocos.length; i++) {
+      var b = blocos[i]; if (!b.h) continue;
+      var base = b.y + b.h - y;                        // borda de baixo, na tela
+      var limite = linha + Math.min(b.h * 0.5, vh * 0.22);
+      sair(b, b.fora ? base < limite + vh * 0.05 : base < limite);
+    }
+  }
+  function agenda() { if (!pedido) { pedido = true; requestAnimationFrame(confere); } }
+
   document.querySelectorAll(SAIDA).forEach(function (el) {
     if (el.closest('.cta-final, footer, .fpilha')) return; // a chamada final, a pilha de Formações e o rodapé ficam de fora (como antes)
-    obsSaida.observe(el);
+    blocos.push({ el: el, fora: false });
   });
+  if (blocos.length) {
+    mede(); confere();
+    addEventListener('scroll', agenda, { passive: true });
+    addEventListener('resize', function () { vh = innerHeight; mede(); agenda(); });
+    /* fotos que carregam, sanfonas que abrem: a página muda de altura, mede de novo */
+    if ('ResizeObserver' in window) {
+      var ultima = 0;
+      new ResizeObserver(function () { var h = document.body.offsetHeight; if (h !== ultima) { ultima = h; mede(); agenda(); } }).observe(document.body);
+    }
+  }
 
   /* topo da Home (26/11, João: saída refinada, volta suave, sem escurecer).
      Ida: itens sobem um a um e o véu clareia. Volta: o véu escurece primeiro e os

@@ -1237,3 +1237,197 @@
    a 1 e o botao.css pinta o navy por cima do .is-pending */
 :root .aluno .aluno__btn.btn.is-pending, :root .aluno .aluno__btn.btn.is-pending:hover { background: rgba(var(--navy-rgb), 0.07); color: rgba(var(--navy-rgb), 0.5); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1); cursor: not-allowed; transform: none; }
 :root .aluno .aluno__btn.btn.is-pending::before, :root .aluno .aluno__btn.btn.is-pending::after { display: none; }
+
+/* ===== TOPO INTERNO IGUAL AO DA HOME (João, 26/11: "header faça igual no
+   index", começando por Práticas; as outras páginas recebem a classe
+   .hero-interna--home quando chegar a vez delas). Véu neutro que nasce no
+   canto de baixo à esquerda e vai só até o texto (a nav fica limpa, sem o
+   azul), altura da tela como a Home, selo de três traços e o par de botões
+   branco + vidro. Antes: scratchpad internas/. ===== */
+.hero-interna--home { --veu: 16, 18, 22; min-height: calc(100dvh - 2 * var(--respiro-bloco)); }
+.hero-interna--home .hero-interna__overlay {
+  background: radial-gradient(96% 86% at 0% 100%,
+    rgba(var(--veu), 0.88) 0%, rgba(var(--veu), 0.86) 22%, rgba(var(--veu), 0.81) 42%,
+    rgba(var(--veu), 0.74) 56%, rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.47) 79%,
+    rgba(var(--veu), 0.28) 88%, rgba(var(--veu), 0.11) 95%, rgba(var(--veu), 0) 100%);
+}
+@media (max-width: 1279px) {
+  .hero-interna--home .hero-interna__overlay {
+    background: radial-gradient(135% 86% at 0% 100%,
+      rgba(var(--veu), 0.9) 0%, rgba(var(--veu), 0.86) 28%, rgba(var(--veu), 0.77) 52%,
+      rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.44) 81%, rgba(var(--veu), 0.17) 91%, rgba(var(--veu), 0) 100%);
+  }
+}
+/* botão de vidro escuro (cópia do .hero__vidro do motion.css, que é só da Home) */
+.hero-interna .hero__vidro {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  min-height: 50px; padding: 0 2.4rem; border-radius: 12px;
+  color: #fff; font: 600 1.5rem/1 var(--font-body); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-interna .hero__vidro i { font-size: 1.3rem; transition: transform 0.4s var(--curva-suave, ease); }
+.hero-interna .hero__vidro:hover { color: #fff; background: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
+.hero-interna .hero__vidro:hover i { transform: translateX(3px); }
+.hero-interna--home .hero-interna__acoes { gap: 1.2rem; }
+.hero-interna--home .hero-interna__acoes .btn { min-height: 50px; padding: 0 2.4rem; }
+/* atalhos em vidro leve, combinando com o botão */
+.hero-interna--home .hero-interna__atalho { background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2); }
+/* sem os atalhos das seções no topo novo (João, 26/11: "tire esses bullets"), como na Home */
+.hero-interna--home .hero-interna__atalhos { display: none; }
+.hero-interna--home .hero-interna__acoes { margin-bottom: 0; }
+
+/* ===== "CONHECIMENTO QUE SE TRANSFORMA EM PRÁTICA" NA IDENTIDADE NOVA (João,
+   26/11: "mais bonita e interessante"). Os 3 passos são os 3 traços da logo:
+   cada passo tem a cor de um traço (lavanda, amarelo, oliva) e, à esquerda,
+   três traços grandes acendem conforme a leitura (leitura.js marca data-passo).
+   Os parágrafos viram cards claros no padrão de Formações; sai a linha navy
+   com bolinhas e a aurora dourada. Só #jr-praticas: Educação, Justiça e
+   Empresas seguem como estavam. Antes: scratchpad internas/. ===== */
+#jr-praticas {
+  --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 6%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro);
+}
+/* os três traços grandes */
+#jr-praticas .leitura__tracos { display: flex; gap: 1rem; margin-top: clamp(3.6rem, 4.4vw, 6rem); }
+#jr-praticas .leitura__tracos i {
+  width: 1.4rem; height: clamp(8rem, 9vw, 11rem); border-radius: 99px;
+  background: var(--traco); opacity: 0.18; transform-origin: 50% 100%; transform: scaleY(0.72);
+  transition: opacity 0.6s var(--curva-saida, ease), transform 0.7s var(--curva-saida, ease);
+}
+#jr-praticas .leitura__tracos i:nth-child(1) { --traco: #6175D6; }
+#jr-praticas .leitura__tracos i:nth-child(2) { --traco: #EDBA2C; }
+#jr-praticas .leitura__tracos i:nth-child(3) { --traco: #7A7D34; }
+#jr-praticas[data-passo="1"] .leitura__tracos i:nth-child(-n+1),
+#jr-praticas[data-passo="2"] .leitura__tracos i:nth-child(-n+2),
+#jr-praticas[data-passo="3"] .leitura__tracos i:nth-child(-n+3) { opacity: 1; transform: none; }
+#jr-praticas .leitura__contador { margin-top: 1.6rem; }
+#jr-praticas .leitura__atual { font: 600 1.4rem/1 var(--font-body); letter-spacing: 0.06em; color: var(--color-navy); }
+
+/* passos como cards, cada um na cor do seu traço */
+#jr-praticas .leitura__passos { padding-left: 0; gap: clamp(2rem, 2.4vw, 3.2rem); }
+#jr-praticas .leitura__passos::before, #jr-praticas .leitura__passos::after, #jr-praticas .leitura__num::before { display: none; }
+#jr-praticas .leitura__passo { --tom: 97, 117, 214; --cor: #6175D6;
+  padding: clamp(2.8rem, 3vw, 4rem); border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 130% at 100% 50%, rgba(var(--tom), 0.16) 0, transparent 78%), #FBFBFC;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -28px rgba(14, 24, 63, 0.24);
+}
+#jr-praticas .leitura__passo:nth-child(2) { --tom: 237, 186, 44; --cor: #B8890F; }
+#jr-praticas .leitura__passo:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+#jr-praticas .leitura__num { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; color: var(--cor); }
+#jr-praticas .leitura__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
+#jr-praticas .leitura__passo p { max-width: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-rolagem #jr-praticas .leitura__passo.is-in { transition: opacity 0.7s var(--curva-saida, ease), transform 0.6s var(--curva-saida, ease), box-shadow 0.5s ease; }
+  .js-rolagem #jr-praticas .leitura__passo.is-in.no-meio { transform: translate3d(0, -4px, 0); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.12), 0 1px 3px rgba(14, 24, 63, 0.05), 0 30px 60px -28px rgba(14, 24, 63, 0.32); }
+}
+@media (prefers-reduced-motion: reduce) { #jr-praticas .leitura__tracos i { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 1023px) { #jr-praticas .leitura__tracos { display: none; } }
+@media (max-width: 767px) {
+  #jr-praticas { background: var(--grao), radial-gradient(120% 300px at 100% 0%, rgba(10, 102, 200, 0.1), transparent 75%), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+  #jr-praticas .leitura__passos { padding-left: 0; }
+  #jr-praticas .leitura__passo { padding: 2.4rem 2rem; }
+}
+#jr-praticas .leitura__lado { top: 17rem; } /* folga do botão Voltar */
+
+/* ===== "O QUE SUSTENTA" NO REFINO NOVO (João, 26/11: "faça esse refino novo
+   também"). Mesma linguagem do #jr-praticas: fundo claro com grão leve e manchas
+   azul/lavanda, selo de três traços e os 4 pilares nas 4 cores da logo
+   (lavanda, amarelo, oliva e o azul do site; o marinho da logo "puxava pro roxo").
+   Só a faixa principal; Educação, Justiça e Empresas (.sustenta--apoio) seguem
+   como estavam. Antes: scratchpad internas/pagina-interna-antes-sustenta.css. ===== */
+.sustenta:not(.sustenta--apoio) { --grao: url("../images/grao-claro.png"); }
+.sustenta:not(.sustenta--apoio) .sustenta__cartao {
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 0%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 1px 3px rgba(14, 24, 63, 0.04), 0 24px 56px -32px rgba(14, 24, 63, 0.28);
+}
+:root .sustenta:not(.sustenta--apoio) .sustenta__topo .citacao-selo { box-shadow: none; padding: 0; background: none; }
+.sustenta:not(.sustenta--apoio) .sustenta__fundo { opacity: 0.42; }
+/* pilares: um por cor da logo */
+.sustenta:not(.sustenta--apoio) .sustenta__pilar { --tom: 97, 117, 214; --cor: #4F62C4;
+  border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 130% at 100% 0%, rgba(var(--tom), 0.15) 0, transparent 72%), #FBFBFC;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -28px rgba(14, 24, 63, 0.24);
+}
+.sustenta:not(.sustenta--apoio) .sustenta__pilar:nth-child(2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.sustenta:not(.sustenta--apoio) .sustenta__pilar:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.sustenta:not(.sustenta--apoio) .sustenta__pilar:nth-child(4) { --tom: 0, 62, 142; --cor: #003E8E; }
+.sustenta:not(.sustenta--apoio) .sustenta__cab { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+.sustenta:not(.sustenta--apoio) .sustenta__num { display: flex; align-items: center; gap: 1rem; color: var(--cor); }
+.sustenta:not(.sustenta--apoio) .sustenta__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
+.sustenta:not(.sustenta--apoio) .sustenta__agora i { background: var(--cor); }
+.sustenta:not(.sustenta--apoio) .sustenta__agora .sustenta__rot { color: var(--cor); }
+.sustenta:not(.sustenta--apoio) .sustenta__texto { border-top-color: rgba(var(--navy-rgb), 0.07); }
+
+/* ===== AS OUTRAS LEITURAS E FAIXAS DE PRÁTICAS NO MESMO REFINO (João, 26/11:
+   "faça o mesmo nas próximas"). Educação, Justiça e Empresas: leitura com os
+   traços que acendem (3 ou 5, um por passo) e passos em cards, e as faixas de
+   apoio com os cards nas cores da logo. Ordem das cores, repetindo: lavanda,
+   amarelo, oliva, azul do site. Antes: scratchpad internas/*-antes-faixas.*. ===== */
+.leitura { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 6%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro); }
+.leitura .leitura__lado { top: 17rem; }
+.leitura .leitura__tracos { display: flex; gap: 1rem; margin-top: clamp(3.6rem, 4.4vw, 6rem); }
+.leitura .leitura__tracos i { width: 1.4rem; height: clamp(8rem, 9vw, 11rem); border-radius: 99px; background: var(--traco); opacity: 0.18; transform-origin: 50% 100%; transform: scaleY(0.72); transition: opacity 0.6s var(--curva-saida, ease), transform 0.7s var(--curva-saida, ease); }
+.leitura .leitura__tracos i:nth-child(4n+1) { --traco: #6175D6; }
+.leitura .leitura__tracos i:nth-child(4n+2) { --traco: #EDBA2C; }
+.leitura .leitura__tracos i:nth-child(4n+3) { --traco: #7A7D34; }
+.leitura .leitura__tracos i:nth-child(4n+4) { --traco: #003E8E; }
+.leitura[data-passo="1"] .leitura__tracos i:nth-child(-n+1), .leitura[data-passo="2"] .leitura__tracos i:nth-child(-n+2),
+.leitura[data-passo="3"] .leitura__tracos i:nth-child(-n+3), .leitura[data-passo="4"] .leitura__tracos i:nth-child(-n+4),
+.leitura[data-passo="5"] .leitura__tracos i:nth-child(-n+5) { opacity: 1; transform: none; }
+.leitura .leitura__contador { margin-top: 1.6rem; }
+.leitura .leitura__atual { font: 600 1.4rem/1 var(--font-body); letter-spacing: 0.06em; color: var(--color-navy); }
+.leitura .leitura__passos { padding-left: 0; gap: clamp(2rem, 2.4vw, 3.2rem); }
+.leitura .leitura__passos::before, .leitura .leitura__passos::after, .leitura .leitura__num::before { display: none; }
+.leitura .leitura__passo { --tom: 97, 117, 214; --cor: #4F62C4;
+  padding: clamp(2.8rem, 3vw, 4rem); border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 130% at 100% 50%, rgba(var(--tom), 0.16) 0, transparent 78%), #FBFBFC;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -28px rgba(14, 24, 63, 0.24); }
+.leitura .leitura__passo:nth-child(4n+2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.leitura .leitura__passo:nth-child(4n+3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.leitura .leitura__passo:nth-child(4n+4) { --tom: 0, 62, 142; --cor: #003E8E; }
+.leitura .leitura__num { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.6rem; color: var(--cor); }
+.leitura .leitura__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
+.leitura .leitura__passo p { max-width: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-rolagem .leitura .leitura__passo.is-in { transition: opacity 0.7s var(--curva-saida, ease), transform 0.6s var(--curva-saida, ease), box-shadow 0.5s ease; }
+  .js-rolagem .leitura .leitura__passo.is-in.no-meio { transform: translate3d(0, -4px, 0); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.12), 0 1px 3px rgba(14, 24, 63, 0.05), 0 30px 60px -28px rgba(14, 24, 63, 0.32); }
+}
+@media (prefers-reduced-motion: reduce) { .leitura .leitura__tracos i { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 1023px) { .leitura .leitura__tracos { display: none; } }
+@media (max-width: 767px) {
+  .leitura { background: var(--grao), radial-gradient(120% 300px at 100% 0%, rgba(10, 102, 200, 0.1), transparent 75%), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+  .leitura .leitura__passo { padding: 2.4rem 2rem; }
+}
+
+/* faixas de apoio (Educação, Justiça, Empresas) */
+.sustenta--apoio { --grao: url("../images/grao-claro.png"); }
+.sustenta--apoio .sustenta__cartao {
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 0%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 1px 3px rgba(14, 24, 63, 0.04), 0 24px 56px -32px rgba(14, 24, 63, 0.28); }
+:root .sustenta--apoio .sustenta__topo .citacao-selo { box-shadow: none; padding: 0; background: none; }
+.sustenta--apoio .sustenta__fundo { opacity: 0.42; }
+.sustenta--apoio .sustenta__pilar { --tom: 97, 117, 214; --cor: #4F62C4;
+  border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 130% at 100% 0%, rgba(var(--tom), 0.15) 0, transparent 72%), #FBFBFC;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -28px rgba(14, 24, 63, 0.24); }
+.sustenta--apoio .sustenta__pilar:nth-child(4n+2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.sustenta--apoio .sustenta__pilar:nth-child(4n+3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.sustenta--apoio .sustenta__pilar:nth-child(4n+4) { --tom: 0, 62, 142; --cor: #003E8E; }
+.sustenta--apoio .sustenta__num { display: flex; align-items: center; gap: 1rem; color: var(--cor); }
+.sustenta--apoio .sustenta__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
+@media (max-width: 899px) { .hero-interna--instituto .hero-interna__bg img { object-position: 97% 50%; } } /* letreiro inteiro no celular (26/11) */
