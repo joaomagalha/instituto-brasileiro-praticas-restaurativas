@@ -8,7 +8,7 @@
    enquanto a roda gira; só quando algo cruza a linha.
    - Saída perto do topo: quando o meio do bloco passa da linha de 6% da tela, ele
      some subindo um pouco; ao voltar a rolar pra cima, volta.
-   - Topo da Home: depois de ~15% da tela rolada, o texto sai e o vídeo escurece.
+   - Topo da Home: depois de ~15% da tela rolada, os itens sobem em sequência e o véu clareia; na volta, reaparecem devagar.
    - Blocos grandes da Home encaixam (0,94 → 1) ao aparecer.
    - Passos da leitura (Práticas): sobem ao aparecer; o do meio da tela fica cheio.
    Quem pediu menos movimento no sistema não vê nada disso. ===== */
@@ -64,19 +64,37 @@
     obsSaida.observe(el);
   });
 
-  /* topo da Home: texto sai e o vídeo escurece depois de ~15% da tela rolada */
+  /* topo da Home (26/11, João: saída refinada, volta suave, sem escurecer).
+     Ida: itens sobem um a um e o véu clareia. Volta: o véu escurece primeiro e os
+     itens reaparecem de cima pra baixo, mais devagar. Cada animação parte do valor
+     que está na tela, então inverter no meio do caminho não dá salto. */
   var hero = document.querySelector('.hero');
-  var heroTexto = hero && hero.querySelector('.hero__content');
-  if (hero && heroTexto) {
-    var textoAnim = heroTexto.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translate3d(0,-8vh,0)' }], { duration: 500, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
-    var veuAnim = hero.animate([{ opacity: 0 }, { opacity: 0.45 }], { duration: 600, easing: 'ease', fill: 'forwards', pseudoElement: '::after' });
-    textoAnim.pause(); veuAnim.pause();
-    var heroFora = false;
+  var itens = hero ? Array.prototype.slice.call(hero.querySelectorAll('.hero__eyebrow, .hero__linha, .hero__destaque, .hero__subtitle, .hero__actions')) : [];
+  if (itens.length) {
+    var veu = hero.querySelector('.hero__overlay');
+    var emCurso = new Map(), capaAnim = null, heroFora = false;
+    var toca = function (el, fora, alvo, tempo, atraso, curva) {
+      var cs = getComputedStyle(el);
+      var de = { opacity: cs.opacity }, para = { opacity: alvo.opacity };
+      if (alvo.translate) { de.translate = cs.translate === 'none' ? '0 0' : cs.translate; para.translate = alvo.translate; }
+      if (emCurso.has(el)) emCurso.get(el).cancel();
+      var a = el.animate([de, para], { duration: tempo, delay: atraso, easing: curva, fill: 'both' });
+      emCurso.set(el, a);
+      /* de volta ao topo, solta o estilo: quem manda é o CSS de novo */
+      if (!fora) a.onfinish = function () { a.cancel(); emCurso.delete(el); };
+    };
     var olhaHero = function () {
       var fora = scrollY > innerHeight * 0.15;
       if (fora === heroFora) return;
       heroFora = fora;
-      [textoAnim, veuAnim].forEach(function (a) { a.playbackRate = fora ? 1 : -1; a.play(); });
+      itens.forEach(function (el, i) {
+        if (fora) toca(el, true, { opacity: 0, translate: '0 -3.5vh' }, 620, i * 65, 'cubic-bezier(.45,0,.25,1)');
+        else toca(el, false, { opacity: 1, translate: '0 0' }, 900, 180 + i * 110, 'cubic-bezier(.22,.7,.25,1)');
+      });
+      if (veu) toca(veu, fora, { opacity: fora ? 0.25 : 1 }, fora ? 900 : 1100, 0, 'ease-in-out');
+      var de = getComputedStyle(hero, '::after').opacity;
+      if (capaAnim) capaAnim.cancel();
+      capaAnim = hero.animate([{ opacity: de }, { opacity: fora ? 0.1 : 0 }], { duration: fora ? 900 : 1100, easing: 'ease-in-out', fill: 'forwards', pseudoElement: '::after' });
     };
     addEventListener('scroll', olhaHero, { passive: true });
     olhaHero();

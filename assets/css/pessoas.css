@@ -16,14 +16,14 @@
   background:
     radial-gradient(34% 58% at var(--luz-x) 66%, rgba(237, 186, 44, 0.3) 0%, rgba(237, 186, 44, 0.1) 45%, rgba(237, 186, 44, 0) 72%),
     radial-gradient(70% 90% at 8% 6%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
-    linear-gradient(128deg, #F4EFE6 0%, #ECE9E0 46%, #DCDEE7 100%);
+    linear-gradient(128deg, #F4EFE6 0%, #ECE9E0 46%, #DCE1E7 100%);
   box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06);
 }
 .pessoa-cartao--invertido { --luz-x: 26%; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   background:
     radial-gradient(34% 58% at var(--luz-x) 66%, rgba(237, 186, 44, 0.3) 0%, rgba(237, 186, 44, 0.1) 45%, rgba(237, 186, 44, 0) 72%),
     radial-gradient(70% 90% at 92% 6%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
-    linear-gradient(232deg, #F4EFE6 0%, #ECE9E0 46%, #DCDEE7 100%);
+    linear-gradient(232deg, #F4EFE6 0%, #ECE9E0 46%, #DCE1E7 100%);
 }
 .pessoa-cartao--invertido .pessoa-cartao__foto { order: -1; }
 /* o components.css alterna as colunas com .founder:nth-of-type(even) (30rem
@@ -33,7 +33,7 @@
 .pessoa-cartao__texto { align-self: center; padding: clamp(4rem, 6vw, 8.8rem); display: flex; flex-direction: column; align-items: flex-start; }
 .pessoa-cartao .fcard__selo { margin-bottom: 2.4rem; }
 .pessoa-cartao .founder__name { font-size: clamp(3.4rem, 3.8vw, 5.2rem); line-height: 1.04; margin: 0; max-width: 14ch; }
-.pessoa-cartao .founder__bio { margin: 2rem 0 0; padding: 0; max-width: 46rem; font-size: clamp(1.6rem, 1.2vw, 1.8rem); line-height: 1.6; color: #454E78; }
+.pessoa-cartao .founder__bio { margin: 2rem 0 0; padding: 0; max-width: 46rem; font-size: clamp(1.6rem, 1.2vw, 1.8rem); line-height: 1.6; color: #3F5675; }
 .pessoa-cartao .founder__bio::before { display: none; }
 .pessoa-cartao__foto { position: relative; min-height: 100%; }
 .pessoa-cartao__foto img {
@@ -60,7 +60,7 @@ html.mo .pessoa-cartao.is-in .pessoa-cartao__foto img { opacity: 1; translate: -
     background:
       radial-gradient(60% 34% at 50% 80%, rgba(237, 186, 44, 0.3) 0%, rgba(237, 186, 44, 0.1) 45%, rgba(237, 186, 44, 0) 72%),
       radial-gradient(90% 50% at 10% 4%, rgba(255, 253, 248, 0.9) 0%, rgba(255, 253, 248, 0) 60%),
-      linear-gradient(170deg, #F4EFE6 0%, #ECE9E0 46%, #DCDEE7 100%); }
+      linear-gradient(170deg, #F4EFE6 0%, #ECE9E0 46%, #DCE1E7 100%); }
   .pessoa-cartao--invertido .pessoa-cartao__foto { order: 0; }
   .pessoa-cartao__texto { padding: 4rem 2.4rem 1.6rem; }
   .pessoa-cartao .founder__name { font-size: clamp(3rem, 8.4vw, 3.6rem); }
@@ -95,7 +95,7 @@ html.mo .pessoa-cartao.is-in .pessoa-cartao__foto img { opacity: 1; translate: -
     radial-gradient(36% 62% at var(--luz-x) 64%, rgba(237, 186, 44, 0.3) 0%, transparent 72%),
     radial-gradient(46% 70% at var(--oposto-x) 110%, rgba(var(--teal-rgb), 0.22), transparent 72%),
     radial-gradient(70% 90% at var(--brilho-x) 6%, rgba(255, 253, 248, 0.85) 0%, rgba(255, 253, 248, 0) 60%),
-    linear-gradient(var(--ang), #F6F3EC 0%, #EAEBEE 50%, #CFD2E3 100%);
+    linear-gradient(var(--ang), #F6F3EC 0%, #EAECEE 50%, #CFD8E3 100%);
 }
 
 /* círculo fino atrás da cabeça (o mesmo traço dos círculos do selo) */
@@ -123,7 +123,7 @@ html.mo .pessoa-cartao.is-in .pessoa-cartao__arco { scale: 1 1; opacity: 1; }
       radial-gradient(70% 34% at 50% 82%, rgba(237, 186, 44, 0.3) 0%, transparent 72%),
       radial-gradient(80% 40% at 50% 110%, rgba(var(--teal-rgb), 0.22), transparent 72%),
       radial-gradient(90% 50% at 10% 4%, rgba(255, 253, 248, 0.85) 0%, rgba(255, 253, 248, 0) 60%),
-      linear-gradient(170deg, #F6F3EC 0%, #EAEBEE 50%, #CFD2E3 100%); }
+      linear-gradient(170deg, #F6F3EC 0%, #EAECEE 50%, #CFD8E3 100%); }
   .pessoa-cartao__arco { width: 76%; height: 92%; }
   .pessoa-cartao__orbita i { width: 72%; }
 }

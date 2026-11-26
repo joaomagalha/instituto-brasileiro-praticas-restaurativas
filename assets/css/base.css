@@ -79,22 +79,27 @@ body { background: var(--color-paper); }
   transition: max-width var(--transition-slow), margin var(--transition-slow), padding var(--transition-slow), background var(--transition-slow), box-shadow var(--transition-slow), border-color var(--transition-slow);
 }
 .navbar.scrolled .navbar__container { border-radius: 1.8rem; } /* a rolada tinha pílula no components.css */
+/* 26/11: o cartão do hero começa em --respiro-bloco; a nav rolada desce mais um tanto
+   pra não encostar na borda de cima dele */
+.navbar.scrolled .navbar__container { margin-top: calc(var(--respiro-bloco) + 1.2rem); }
 /* no topo, sobre o hero: vidro escuro em pílula */
 .navbar:not(.scrolled) .navbar__container {
   max-width: calc(100vw - (var(--nav-offset) * 2)); margin-left: auto; margin-right: auto;
   padding: 1rem clamp(1.6rem, 4vw, 2.4rem); /* igual à rolada: simétrico (João, 16/10) */
   margin-top: calc(var(--respiro-bloco) + clamp(1.6rem, 2.4vw, 3.2rem)); /* respiro da borda do cartão do hero */
-  background: linear-gradient(180deg, rgba(14, 24, 63, 0.6), rgba(14, 24, 63, 0.48));
-  -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 30px -14px rgba(0, 0, 0, 0.45);
+  /* 26/11 (João): vidro fosco sem borda, quase transparente, azul sem puxar pro roxo.
+     O brightness escurece o que passa atrás pra os links continuarem legíveis. */
+  background: rgba(0, 62, 142, 0.12);
+  -webkit-backdrop-filter: blur(34px) saturate(1.5) brightness(0.64); backdrop-filter: blur(34px) saturate(1.5) brightness(0.64);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.3);
 }
-/* rolada: vidro claro com borda de luz e halo */
+/* rolada: o mesmo vidro fosco, claro e sem borda (João, 26/11) */
 .navbar.scrolled .navbar__container {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
-  -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(14, 24, 63, 0.05), 0 10px 34px -14px rgba(14, 24, 63, 0.3);
+  background: rgba(255, 255, 255, 0.52);
+  -webkit-backdrop-filter: blur(34px) saturate(1.7) brightness(1.12); backdrop-filter: blur(34px) saturate(1.7) brightness(1.12);
+  border: 1px solid transparent;
+  box-shadow: 0 10px 34px -18px rgba(0, 33, 82, 0.28);
 }
 /* Menu mobile e iPad mais baixo (João, 16/10: "muito grande"): 66px → ~50px.
    O ☰ mantém 44px de toque, mas encosta na borda com margem negativa. */
@@ -106,7 +111,7 @@ body { background: var(--color-paper); }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .navbar.scrolled .navbar__container { background: rgba(255, 255, 255, 0.92); }
-  .navbar:not(.scrolled) .navbar__container { background: rgba(14, 24, 63, 0.55); }
+  .navbar:not(.scrolled) .navbar__container { background: rgba(0, 33, 82, 0.55); }
 }
 
 /* ===== ITEM ATIVO DA NAVBAR: pílula suave (João, 18/10, escolhida entre
@@ -122,3 +127,26 @@ body { background: var(--color-paper); }
 .navbar:not(.scrolled) .navbar__link:not(.is-active):hover { background: rgba(255, 255, 255, 0.07); }
 .navbar.scrolled .navbar__link.is-active { background: rgba(var(--navy-rgb), 0.07); }
 .navbar.scrolled .navbar__link:not(.is-active):hover { background: rgba(var(--navy-rgb), 0.04); }
+
+/* 26/11: o vidro da nav mora num ::before. Com backdrop-filter na própria pílula,
+   o menu suspenso (filho dela) não conseguia desfocar a página atrás. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root .navbar .navbar__container {
+    position: relative; z-index: 0;
+    background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: none;
+  }
+  :root .navbar .navbar__container::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  :root .navbar:not(.scrolled) .navbar__container::before {
+    background: rgba(0, 62, 142, 0.12);
+    box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(34px) saturate(1.5) brightness(0.64); backdrop-filter: blur(34px) saturate(1.5) brightness(0.64);
+  }
+  :root .navbar.scrolled .navbar__container::before {
+    background: rgba(255, 255, 255, 0.52);
+    box-shadow: 0 10px 34px -18px rgba(0, 33, 82, 0.28);
+    -webkit-backdrop-filter: blur(34px) saturate(1.7) brightness(1.12); backdrop-filter: blur(34px) saturate(1.7) brightness(1.12);
+  }
+}

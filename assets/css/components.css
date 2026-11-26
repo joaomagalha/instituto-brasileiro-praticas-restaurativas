@@ -879,15 +879,15 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   background:
     linear-gradient(
       180deg,
-      rgba(14, 24, 63, 0.34) 0%,
-      rgba(14, 24, 63, 0.12) 40%,
-      rgba(14, 24, 63, 0.50) 100%
+      rgba(0, 33, 82, 0.34) 0%,
+      rgba(0, 33, 82, 0.12) 40%,
+      rgba(0, 33, 82, 0.50) 100%
     ),
     linear-gradient(
       105deg,
-      rgba(14, 24, 63, 0.55) 0%,
-      rgba(14, 24, 63, 0.30) 55%,
-      rgba(14, 24, 63, 0.08) 100%
+      rgba(0, 33, 82, 0.55) 0%,
+      rgba(0, 33, 82, 0.30) 55%,
+      rgba(0, 33, 82, 0.08) 100%
     );
 }
 
@@ -927,7 +927,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 2px 20px rgba(14, 24, 63, 0.5));
+  filter: drop-shadow(0 2px 20px rgba(0, 33, 82, 0.5));
   white-space: nowrap;
 }
 @media (max-width: 359px) { .hero__accent { white-space: normal; } }
@@ -3000,7 +3000,7 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
    contra ele — aqui o foco é dourado, como no skip link. */
 .back-fab {
   --color-focus: var(--color-gold);
-  --color-focus-halo: rgba(14, 24, 63, 0.9);
+  --color-focus-halo: rgba(0, 33, 82, 0.9);
   position: fixed;
   left: var(--container-pad);
   bottom: 2.4rem;
@@ -3010,13 +3010,13 @@ button { border: none; background: none; cursor: pointer; font-family: inherit; 
   gap: var(--space-xs);
   padding: 1.1rem 1.9rem 1.1rem 1.5rem;
   border-radius: var(--radius-pill);
-  background: rgba(14, 24, 63, 0.94);
+  background: rgba(0, 33, 82, 0.94);
   border: 1px solid rgba(var(--gold-rgb), 0.32);
   color: var(--color-paper);
   font-size: 1.3rem;
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  box-shadow: 0 0.8rem 2.4rem rgba(14, 24, 63, 0.14);
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 33, 82, 0.14);
   backdrop-filter: blur(8px);
   opacity: 0;
   visibility: hidden;
@@ -4568,7 +4568,7 @@ a.tag-pill:hover { border-color: var(--color-navy); color: var(--color-navy); ba
 /* ===================================
    FOCO VISÍVEL E SALTO DE CONTEÚDO
    O site não tinha nenhuma regra de foco, então valia o anel padrão do
-   Chrome (azul #0C30C0). Medido contra os fundos reais: 2.93:1 sobre
+   Chrome (azul #0C5BC0). Medido contra os fundos reais: 2.93:1 sobre
    navy-900 e 2.42:1 sobre navy — abaixo do mínimo de 3:1 que a WCAG 2.2
    pede pra indicador de foco (SC 1.4.11). E como boa parte do site é
    escura (Propósito, Soluções, Notícias, rodapé, todos os heros), quem
@@ -4696,7 +4696,7 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
   background: var(--color-white);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
-  box-shadow: 0 1rem 2.8rem rgba(21, 37, 97, 0.12);
+  box-shadow: 0 1rem 2.8rem rgba(0, 62, 142, 0.12);
   padding: var(--space-md) var(--space-lg);
   opacity: 0;
   transform: translateY(1.2rem);
@@ -5041,7 +5041,7 @@ html.sem-aos [data-aos] { opacity: 1 !important; transform: none !important; }
 
 /* -- leitura: corpo 17/1.75, medida ~66ch, abertura maior -- */
 .artigo-corpo .prose--artigo { max-width: 66ch; }
-.artigo-corpo .prose--artigo p { font-size: 1.7rem; line-height: 1.75; color: #303755; }
+.artigo-corpo .prose--artigo p { font-size: 1.7rem; line-height: 1.75; color: #293F5C; }
 .artigo-corpo .prose--artigo > p:first-child { font-size: 1.9rem; line-height: 1.65; color: var(--color-navy); }
 .artigo-corpo .prose--artigo p + p { margin-top: var(--space-lg); }
 .artigo-corpo .prose--artigo h2 { font-size: clamp(2.1rem, 2.4vw, 2.5rem); margin: var(--space-3xl) 0 var(--space-md); padding-top: var(--space-lg); border-top: 1px solid var(--color-border-light); }
@@ -5269,8 +5269,8 @@ i.fa-solid, i.fa-regular, i.fa-brands { display: inline-block; min-width: 1em; t
       pessoa rolava, o que dá a sensação de item "travando". Agora sobe
       24 px em 0,6 s: o bloco ainda aparece com suavidade, sem pular.
    ===================================================================== */
-.navbar.scrolled .navbar__container { background: rgba(var(--white-rgb), 0.97); backdrop-filter: none; -webkit-backdrop-filter: none; }
-.back-fab { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(14, 24, 63); }
+/* a nav rolada era sólida pra rolagem não travar; 26/11 o João pediu o vidro (base.css) */
+.back-fab { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgb(0, 33, 82); }
 .footer__cartao { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 .service-card__category { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(var(--navy900-rgb), 0.62); }
 .proj-card__badge, .proj-card__arrow, .pillar-chip, .encontro__legenda,
@@ -5310,23 +5310,23 @@ body:has(.mobile-menu.active) .aviso-cookies { visibility: hidden; }
   left: 2.4rem; right: auto; bottom: 2.4rem; max-width: 44rem; margin: 0;
   display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.2rem 1.4rem; align-items: start;
   padding: 2rem 2rem 1.8rem; border: 0; border-radius: 20px;
-  font-family: "Instrument Sans", system-ui, sans-serif; color: #152561;
+  font-family: "Instrument Sans", system-ui, sans-serif; color: #003E8E;
   background:
     url("../images/grao.png"),
     radial-gradient(90% 60% at 100% 0%, rgba(var(--teal-rgb), 0.14), transparent 70%),
     linear-gradient(180deg, rgba(249, 249, 250, 0.9), rgba(244, 245, 247, 0.94));
   -webkit-backdrop-filter: blur(18px) saturate(1.3); backdrop-filter: blur(18px) saturate(1.3);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(21, 37, 97, 0.07), 0 24px 48px -24px rgba(21, 37, 97, 0.45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(0, 62, 142, 0.07), 0 24px 48px -24px rgba(0, 62, 142, 0.45);
 }
 :root .aviso-cookies__icone {
   display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 50%;
-  background: rgba(var(--teal-rgb), 0.12); color: #485FD0; font-size: 1.6rem;
+  background: rgba(var(--teal-rgb), 0.12); color: #0A66C8; font-size: 1.6rem;
 }
 :root .aviso-cookies__texto { flex: none; }
-:root .aviso-cookies__texto p { font-size: 1.4rem; line-height: 1.55; color: #4A516B; }
+:root .aviso-cookies__texto p { font-size: 1.4rem; line-height: 1.55; color: #435872; }
 :root .aviso-cookies__texto p:first-child { margin: 0.4rem 0 0.6rem; }
-:root .aviso-cookies__texto strong { font: 600 1.55rem/1.35 "Plus Jakarta Sans", system-ui, sans-serif; letter-spacing: -0.01em; color: #152561; }
-:root .aviso-cookies__texto a { color: #485FD0; text-underline-offset: 2px; }
+:root .aviso-cookies__texto strong { font: 600 1.55rem/1.35 "Plus Jakarta Sans", system-ui, sans-serif; letter-spacing: -0.01em; color: #003E8E; }
+:root .aviso-cookies__texto a { color: #0A66C8; text-underline-offset: 2px; }
 :root .aviso-cookies__acoes { grid-column: 2; display: flex; gap: 1rem; flex-wrap: wrap; }
 :root .aviso-cookies__acoes :is(.btn, .fcard__btn) { flex: 1 1 0; min-height: 44px; padding: 0 1.8rem; justify-content: center; }
 @media (max-width: 559px) {

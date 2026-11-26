@@ -6,7 +6,7 @@
 .footer.footer--rod {
   animation: none;
   padding: clamp(4rem, 6vw, 6.4rem) 0 clamp(2.4rem, 3vw, 3.2rem);
-  background: url("../images/grao-hero.png"), radial-gradient(60rem 40rem at 90% 10%, rgba(var(--teal-rgb), 0.3), transparent 62%), radial-gradient(50rem 30rem at 0% 100%, rgba(237, 186, 44, 0.14), transparent 62%), linear-gradient(160deg, #0E183F 0%, #132158 60%, #1A2B70 100%);
+  background: url("../images/grao-hero.png"), radial-gradient(60rem 40rem at 90% 10%, rgba(var(--teal-rgb), 0.3), transparent 62%), radial-gradient(50rem 30rem at 0% 100%, rgba(237, 186, 44, 0.14), transparent 62%), linear-gradient(160deg, #002152 0%, #052F66 60%, #093D81 100%);
 }
 .footer--rod .rodape__fale { display: inline-flex; margin-top: 2rem; }
 .footer--rod .footer__legal { color: rgba(255, 255, 255, 0.74); } /* 0,55 dava 4,2 sobre o petróleo */

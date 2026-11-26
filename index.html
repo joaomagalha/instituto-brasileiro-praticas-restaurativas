@@ -58,7 +58,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
-<meta name="theme-color" content="#152561"/>
+<meta name="theme-color" content="#003E8E"/>
 <!-- Dados estruturados: ajudam o Google a entender que isto é uma
      instituição de ensino (e quais formações ela oferece), em vez de
      uma página institucional qualquer. Sem "url" e sem "offers" porque
@@ -164,7 +164,7 @@
 <!-- mobile-menu -->
 <div aria-hidden="true" aria-label="Menu de navegação" class="mobile-menu" id="mobileMenu" role="dialog">
 <div class="mobile-menu__header">
-<img width="120" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-logo-icone-sm.webp"/>
+<img width="100" height="132" alt="IBPR" class="mobile-menu__logo" src="assets/images/ibpr-simbolo.svg"/>
 <button aria-label="Fechar menu" class="mobile-menu__close" id="closeBtn"><i aria-hidden="true" class="fa-solid fa-xmark"></i></button>
 </div>
 <nav class="mobile-menu__nav">
@@ -222,16 +222,16 @@
 <div aria-hidden="true" class="hero__bg-grid"></div>
 </div>
 <div class="hero__content container">
-<p class="overline overline--light hero__eyebrow"><span class="hero__selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="hero__selo-curto">IBPR</span></p>
-<h1 class="hero__title">Ciência, prática e inovação em <span class="hero__accent">Justiça Restaurativa</span>.</h1>
+<p class="hero__eyebrow"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><span class="hero__selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="hero__selo-curto">IBPR</span></p>
+<h1 class="hero__title"><span class="hero__linha">Ciência, prática e inovação em</span> <span class="hero__destaque"><span class="hero__accent">Justiça Restaurativa</span>.</span></h1>
 <p class="hero__subtitle"><!-- CMS:texto:home-hero-sub -->Problemas, conflitos e danos são inevitáveis em qualquer sociedade. A forma como respondemos a eles é uma escolha.<!-- /CMS:texto:home-hero-sub --></p>
 <div class="hero__actions">
 <a class="btn btn--white hero__cta" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-seta link-seta--claro" href="o-instituto.html"><span>Conhecer o Instituto</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="hero__vidro" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <!-- 06/10/2026: saíram o link "Sou uma instituição" e o "+500 profissionais formados"
-     (número que ainda não era real); a frase é do Decildo (05/10) -->
-<p class="hero__trust">Construindo caminhos para que o ideal restaurativo se traduza em prática</p>
+     (número que ainda não era real). 26/11: saiu também a frase de apoio do Decildo
+     ("Construindo caminhos...", 05/10), a pedido do João -->
 </div>
 </section>
 <div class="lencol" id="lencol">
@@ -241,7 +241,7 @@
 <div aria-hidden="true" class="proposito__glow"></div>
 <div class="container">
 <div class="section-header topo-secao proposito__topo" data-aos="fade-up">
-<p class="overline">Nosso propósito</p>
+<p class="overline selo-logo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Nosso propósito</p>
 <h2><!-- CMS:texto:home-proposito-titulo -->Pesquisa, formação e inovação, juntas.<!-- /CMS:texto:home-proposito-titulo --></h2>
 <p class="section-header__sub"><!-- CMS:texto:home-proposito-sub -->No IBPR, esses três caminhos andam juntos.<!-- /CMS:texto:home-proposito-sub --></p>
 <p aria-hidden="true" class="proposito__contador"><span class="proposito__contador-num">01</span> / 03</p>
@@ -272,10 +272,9 @@
 <div class="mi-chip mi-chip--pesquisa" style="--o:2"><span class="mi-chip__icone"><i class="fa-solid fa-flask"></i></span>Pesquisa aplicada</div>
 </div>
 </div>
-<p class="proposito-card__num">01</p>
 <h3 class="proposito-card__title">Pesquisa</h3>
 <p class="proposito-card__desc">Transformar evidências científicas em conhecimento útil para pessoas e instituições.</p>
-<a class="proposito-card__link link-seta" href="artigos.html"><span>Ler os artigos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="proposito-card__link botao-vidro" href="artigos.html">Ler os artigos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </article>
 
 <article aria-label="2 de 3: Formação" class="proposito-card proposito-card--formacao">
@@ -299,10 +298,9 @@
 </div>
 </div>
 </div>
-<p class="proposito-card__num">02</p>
 <h3 class="proposito-card__title">Formação</h3>
 <p class="proposito-card__desc">Capacitar gestores, profissionais e equipes para desenvolver respostas mais qualificadas.</p>
-<a class="proposito-card__link link-seta" href="formacoes.html"><span>Conhecer as formações</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="proposito-card__link botao-vidro" href="formacoes.html">Conhecer as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </article>
 
 <article aria-label="3 de 3: Inovação" class="proposito-card proposito-card--inovacao">
@@ -314,17 +312,16 @@
 <path class="mi-elo" pathLength="1" d="M150 100 C 115 100, 95 166, 66 166"/><path class="mi-elo" pathLength="1" d="M150 100 C 185 100, 205 166, 234 166"/>
 <circle class="mi-luz" cx="150" cy="100" r="2.4" style="--sx:-1;--sy:-1;--i:0"/><circle class="mi-luz" cx="150" cy="100" r="2.4" style="--sx:1;--sy:-1;--i:1"/><circle class="mi-luz" cx="150" cy="100" r="2.4" style="--sx:-1;--sy:1;--i:2"/><circle class="mi-luz" cx="150" cy="100" r="2.4" style="--sx:1;--sy:1;--i:3"/>
 </svg>
-<div class="mi-centro"><img width="120" height="132" alt="" src="assets/images/ibpr-logo-icone-navy-sm.webp"/></div>
+<div class="mi-centro"><svg class="mi-simbolo" viewBox="608 354 236 312" aria-hidden="true"><path class="mi-peca mi-peca--0" fill="#edba2c" fill-rule="evenodd" d="M790,456.31 L753,456.49 L748.04,456 L751,455.56 L752,454.65 L754,454.36 L758,452.36 L761,449.64 L762,449.36 L763,448.50 L766,445.46 L766.64,444 L768.36,442 L771.35,436 L771.65,434 L772.35,433 L772.35,408 L771.65,407 L771.35,405 L770.65,404 L770.35,402 L769.36,400 L767.64,398 L767,396.54 L760.46,390 L757,388.36 L755,386.65 L753,386.35 L752,385.65 L750,385.35 L749,384.65 L748,384.50 L670,384.30 L669.50,383 L669.70,359 L671,358.50 L756,358.50 L757,358.65 L758,359.35 L761,359.65 L762,360.35 L765,360.65 L773,364.64 L776,367.36 L777.46,368 L787,377.54 L787.64,379 L789.36,381 L790.64,384 L792.36,386 L793.35,388 L793.65,390 L795.35,393 L795.65,395 L796.35,396 L796.65,399 L797.35,400 L797.65,403 L798.35,404 L798.50,405 L798.50,411 L799.50,414 L799.50,426 L798.50,429 L798.35,435 L797.65,436 L797.35,439 L796.65,440 L796.35,443 L795.65,444 L795.35,446 L790,456.31 Z"/><path class="mi-peca mi-peca--1" fill="#6175d6" fill-rule="evenodd" d="M684,593.30 L659,593.50 L658,593.35 L657,592.65 L654,592.35 L653,591.65 L650,591.35 L649,590.65 L647,590.35 L639,586.36 L637,584.64 L636,584.36 L634,582.64 L632.54,582 L622.50,572 L621.64,571 L621.36,570 L619.64,568 L615.65,560 L615.35,558 L614.65,557 L614.35,555 L613.65,554 L613.50,549 L613.35,548 L612.65,547 L612.50,545 L612.65,542 L613.35,541 L613.50,540 L613.65,535 L614.35,534 L614.65,532 L615.35,531 L615.65,529 L618.64,523 L620.36,521 L621,519.54 L623.36,517 L624,515.54 L630,509.45 L630.35,509 L630.35,508 L624,501.46 L623.36,500 L621,497.46 L620.36,496 L618.64,494 L615.65,488 L615.35,486 L614.65,485 L614.35,483 L613.65,482 L613.35,479 L612.65,478 L612.50,475 L612.50,463 L612.65,462 L613.35,461 L613.65,457 L614.35,456 L614.65,454 L615.35,453 L615.65,451 L617.64,447 L621.36,442 L621.64,441 L625,437.46 L625.64,436 L628,433.50 L630.46,432 L634,428.64 L635,428.36 L640,424.64 L642,423.65 L644,423.35 L647,421.65 L652,420.35 L653,419.65 L657,419.35 L658,418.65 L659,418.50 L736,418.70 L736.50,420 L736.50,422 L736.50,455 L736,456.30 L711,456.30 L710.50,455 L710.50,445 L710.30,444 L709,443.50 L666,443.50 L665,443.65 L664,444.35 L660,444.65 L659,445.35 L657,445.65 L656,446.35 L654,446.65 L652,447.64 L650,449.36 L649,449.64 L643.64,455 L643.36,456 L641.64,458 L639.65,462 L639.35,465 L638.65,466 L638.50,467 L638.65,473 L639.35,474 L639.65,477 L643,483.46 L648.54,489 L650,489.64 L652,491.36 L656,493.35 L658,493.65 L659,494.35 L662,494.65 L663,495.35 L664,495.50 L669,495.70 L669.50,497 L669.35,520 L668,521.35 L663,521.50 L662,521.65 L661,522.35 L658,522.65 L650,526.64 L643.50,533 L642.64,534 L640.65,538 L640.35,541 L639.65,542 L639.50,546 L639.65,547 L640.35,548 L640.65,551 L642.64,555 L646,559.50 L647,560.36 L648,560.64 L651,563.36 L657,566.35 L659,566.65 L660,567.35 L666,567.65 L667,568.35 L668,568.50 L684,568.70 L684.50,570 L684.50,572 L684.50,592 L684,593.30 Z"/><path class="mi-peca mi-peca--2" fill="#7a7d34" fill-rule="evenodd" d="M736,662.30 L712,662.50 L711,662.30 L710.50,661 L710.70,457 L712,456.50 L797,456.50 L798,456.65 L799,457.35 L802,457.65 L803,458.35 L805,458.65 L806,459.35 L808,459.65 L814,462.64 L817,465.36 L818,465.64 L826.50,474 L827.36,475 L827.64,476 L830.36,479 L835.35,489 L835.65,491 L836.35,492 L836.65,494 L837.35,495 L837.65,497 L838.35,498 L838.65,503 L839.35,504 L839.50,505 L839.50,531 L839.35,532 L838.65,533 L838.35,537 L837.65,538 L837.35,540 L836.65,541 L836.35,543 L835.65,544 L835.35,546 L832.36,552 L830.64,554 L830.36,555 L828.64,557 L828,558.46 L817,569.36 L816,569.64 L814,571.36 L811,572.64 L809,574.36 L807,575.35 L805,575.65 L802,577.35 L799,577.65 L798,578.35 L795,578.65 L794,579.35 L789,579.50 L788,579.65 L787,580.35 L785.70,580 L785.50,556 L786,554.70 L788,554.35 L789,553.65 L792,553.35 L793,552.65 L795,552.35 L799,550.36 L801,548.64 L802.46,548 L807.36,543 L807.64,542 L809.36,540 L812.35,534 L812.65,531 L813.35,530 L813.50,529 L813.50,507 L813.35,506 L812.65,505 L812.35,503 L811.65,502 L811.35,500 L810.36,498 L808.64,496 L808.36,495 L801,487.64 L800,487.36 L798,485.64 L796,484.65 L794,484.35 L793,483.65 L791,483.35 L790,482.65 L738,482.50 L736.70,483 L736.50,660 L736.30,662 L736,662.30 Z"/></svg></div>
 <div class="mi-chip mi-ctx mi-ctx--0" style="--i:0"><span class="mi-chip__icone"><i class="fa-solid fa-graduation-cap"></i></span>Escolas</div>
 <div class="mi-chip mi-ctx mi-ctx--1" style="--i:1"><span class="mi-chip__icone"><i class="fa-solid fa-briefcase"></i></span>Empresas</div>
 <div class="mi-chip mi-ctx mi-ctx--2" style="--i:2"><span class="mi-chip__icone"><i class="fa-solid fa-landmark"></i></span>Órgãos públicos</div>
 <div class="mi-chip mi-ctx mi-ctx--3" style="--i:3"><span class="mi-chip__icone"><i class="fa-solid fa-scale-balanced"></i></span>Justiça</div>
 </div>
 </div>
-<p class="proposito-card__num">03</p>
 <h3 class="proposito-card__title">Inovação</h3>
 <p class="proposito-card__desc">Explorar novas possibilidades de levar o olhar restaurativo a situações concretas.</p>
-<a class="proposito-card__link link-seta" href="como-atuamos.html"><span>Ver como atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="proposito-card__link botao-vidro" href="como-atuamos.html">Ver como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </article>
 </div>
 <button aria-label="Caminho anterior" class="palco__seta palco__seta--ant" type="button"><i aria-hidden="true" class="fa-solid fa-arrow-left"></i></button>
@@ -348,9 +345,10 @@
 <div class="container">
 <div class="citacao-cartao">
 <div class="citacao-cartao__miolo quote-mark">
-<span class="citacao-selo">Nosso caminho</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Nosso caminho</span>
 <blockquote class="quote-mark__text"><!-- CMS:texto:home-citacao -->Entre compreender o ideal restaurativo e colocá-lo em prática há um caminho. Desenvolver as habilidades necessárias para percorrê-lo é parte do que fazemos.<!-- /CMS:texto:home-citacao --></blockquote>
 </div>
+<img class="citacao-logo" width="62" height="30" loading="lazy" decoding="async" alt="" aria-hidden="true" src="assets/images/ibpr-logo-nova-branca.svg"/>
 </div>
 </div>
 </section>
@@ -360,11 +358,11 @@
 <div class="container">
 <div class="section-header formacoes__header topo-secao" data-aos="fade-up">
 <div class="formacoes__header-text">
-<p class="overline">Formações</p>
+<p class="overline selo-logo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Formações</p>
 <h2>Conhecimento que transforma a prática.</h2>
 <p class="section-header__sub">As formações do IBPR combinam pesquisa científica, experiência prática e aprendizagem aplicada, para desenvolver competências que se incorporam de imediato ao exercício profissional.</p>
 </div>
-<a class="link-seta" href="formacoes.html"><span>Ver todas as formações</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="botao-vidro" href="formacoes.html">Ver todas as formações <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <!-- Carrossel em loop: o JS (site-interactions.js) clona os cards uma vez
      pra dar continuidade ao trilho, então qualquer card pode assumir a
@@ -440,10 +438,10 @@
 <section aria-label="Como Atuamos" class="solucoes solucoes--clara" id="solucoes-preview">
 <div class="container">
 <div class="section-header topo-secao" data-aos="fade-up">
-<p class="overline">Como Atuamos</p>
+<p class="overline selo-logo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Como Atuamos</p>
 <h2><!-- CMS:texto:home-atuamos-titulo -->O olhar restaurativo aplicado a situações concretas.<!-- /CMS:texto:home-atuamos-titulo --></h2>
 <p class="section-header__sub"><!-- CMS:texto:home-atuamos-sub -->Partimos do que aconteceu e de como as pessoas são afetadas, para reduzir danos, reparar o possível e seguir em frente.<!-- /CMS:texto:home-atuamos-sub --></p>
-<a class="link-seta" href="como-atuamos.html"><span>Conhecer como atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="botao-vidro" href="como-atuamos.html">Conhecer como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <!-- 15/10/2026: Como Atuamos em andares (referência devin.ai, escolha do
      João). Zigue-zague: texto de um lado, painel do outro. O fundo do painel
@@ -452,10 +450,9 @@
 <div class="atua">
 <article class="atua-andar" data-aos="fade-up">
 <div class="atua-andar__texto">
-<p aria-hidden="true" class="atua-andar__num">01</p>
 <h3 class="atua-andar__titulo">Fortalecendo relações</h3>
 <p class="atua-andar__desc">Construir vínculos mais saudáveis entre pessoas, equipes e instituições, para além dos papéis que cada um ocupa.</p>
-<a class="atua-andar__link link-seta link-seta--menor" href="como-atuamos.html#solucao-relacoes"><span>Ver na página Como Atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="atua-andar__link botao-vidro" href="como-atuamos.html#solucao-relacoes">Ver na página Como Atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="atua-painel">
 <div class="atua-ui">
@@ -469,10 +466,9 @@
 </article>
 <article class="atua-andar atua-andar--inv" data-aos="fade-up">
 <div class="atua-andar__texto">
-<p aria-hidden="true" class="atua-andar__num">02</p>
 <h3 class="atua-andar__titulo">Compreendendo necessidades</h3>
 <p class="atua-andar__desc">Olhar para as situações pelo modo como afetam as pessoas, revelando danos, perspectivas e necessidades.</p>
-<a class="atua-andar__link link-seta link-seta--menor" href="como-atuamos.html#solucao-necessidades"><span>Ver na página Como Atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="atua-andar__link botao-vidro" href="como-atuamos.html#solucao-necessidades">Ver na página Como Atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="atua-painel">
 <div class="atua-ui">
@@ -486,10 +482,9 @@
 </article>
 <article class="atua-andar" data-aos="fade-up">
 <div class="atua-andar__texto">
-<p aria-hidden="true" class="atua-andar__num">03</p>
 <h3 class="atua-andar__titulo">Mobilizando para a ação</h3>
 <p class="atua-andar__desc">Reconhecer quem pode contribuir para reparar os danos e o que precisa mudar nas relações.</p>
-<a class="atua-andar__link link-seta link-seta--menor" href="como-atuamos.html#solucao-acao"><span>Ver na página Como Atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="atua-andar__link botao-vidro" href="como-atuamos.html#solucao-acao">Ver na página Como Atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="atua-painel">
 <div class="atua-ui">
@@ -503,10 +498,9 @@
 </article>
 <article class="atua-andar atua-andar--inv" data-aos="fade-up">
 <div class="atua-andar__texto">
-<p aria-hidden="true" class="atua-andar__num">04</p>
 <h3 class="atua-andar__titulo">Incorporando novas práticas</h3>
 <p class="atua-andar__desc">Incorporar ao cotidiano o que foi construído no processo, para que a mudança se sustente.</p>
-<a class="atua-andar__link link-seta link-seta--menor" href="como-atuamos.html#solucao-incorporar"><span>Ver na página Como Atuamos</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="atua-andar__link botao-vidro" href="como-atuamos.html#solucao-incorporar">Ver na página Como Atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 <div class="atua-painel">
 <div class="atua-ui">
@@ -556,7 +550,7 @@
 <section aria-label="As pessoas por trás do propósito" class="founders founders--cartoes" id="fundadores-preview">
 <div class="container">
 <div class="section-header founders__header topo-secao topo-secao--centro" data-aos="fade-up">
-<img width="120" height="132" loading="lazy" decoding="async" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-logo-icone-navy-sm.webp"/>
+<img width="100" height="132" loading="lazy" decoding="async" alt="" aria-hidden="true" class="founders__emblem" src="assets/images/ibpr-simbolo.svg"/>
 <h2 class="founders__titulo">As pessoas por trás do propósito</h2>
 </div>
 
@@ -720,7 +714,7 @@
 <div class="footer__cartao">
 <div class="footer__grid">
 <div class="footer__brand">
-<img width="200" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-full-sm.webp"/>
+<img width="206" height="100" loading="lazy" decoding="async" alt="IBPR" class="footer__logo" src="assets/images/ibpr-logo-nova-branca.svg"/>
 <p class="footer__brand-desc">Pesquisa, formação e inovação em Justiça Restaurativa. Conhecimento que se transforma em prática, em escolas, empresas, órgãos públicos e no sistema de Justiça.</p>
 <a class="btn btn--white rodape__fale" href="mailto:ibpr@ibpr.com.br">Fale com o IBPR <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 <div class="footer__social">

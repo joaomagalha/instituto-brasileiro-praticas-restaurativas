@@ -632,7 +632,7 @@ body.painel {
     z-index: 5;
     margin: 0 calc(-1 * clamp(1.6rem, 4vw, 3.2rem)) var(--space-lg);
     padding: 0.6rem clamp(1.6rem, 4vw, 3.2rem);
-    background: rgba(246, 246, 248, 0.96);   /* --color-paper com leve transparência */
+    background: rgba(246, 247, 248, 0.96);   /* --color-paper com leve transparência */
     backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--color-border-light);
   }
@@ -759,7 +759,7 @@ body.painel {
   z-index: 5;
   margin: 0;
   padding: var(--space-sm) 0;
-  background: rgba(246, 246, 248, 0.94);
+  background: rgba(246, 247, 248, 0.94);
   backdrop-filter: blur(8px);
   border-top: 1px solid var(--color-border-light);
 }

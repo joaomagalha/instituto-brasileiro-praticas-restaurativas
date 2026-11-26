@@ -6,11 +6,11 @@
    ponto de luz. ===== */
 
 /* some com os círculos de fora e a margem que guardava espaço pra eles */
-:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo)::after { content: none !important; }
-:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo) {
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .citacao-selo)::after { content: none !important; }
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .citacao-selo) {
   display: inline-flex; align-items: center; gap: 1rem; margin-right: 0; text-shadow: none;
 }
-:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .hero .hero__eyebrow, .citacao-selo)::before { content: none; }
+:root :is(.topo-secao .overline, .fcard__selo > span:first-child, .citacao-selo)::before { content: none; }
 
 /* claro: contorno navy */
 :root :is(.topo-secao .overline:not(.overline--light), .fcard__selo > span:first-child) {
@@ -18,7 +18,7 @@
   box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.3);
 }
 /* escuro: contorno branco */
-:root :is(.hero .hero__eyebrow, .topo-secao .overline--light, .citacao-selo) {
+:root :is(.topo-secao .overline--light, .citacao-selo) {
   background: transparent; color: #fff !important; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
 }
 
@@ -29,3 +29,231 @@
   width: 2.6rem; height: 2.6rem; border-radius: 50%;
   background: var(--color-navy); color: #fff; font: 600 1.05rem/1 var(--font-body); letter-spacing: 0;
 }
+
+/* selo no padrão do hero (26/11): três traços nas cores da logo, sem pílula nem número */
+:root .topo-secao .overline.selo-logo {
+  display: inline-flex; align-items: center; gap: 1.2rem; margin: 0 0 2rem; padding: 0;
+  border-radius: 0; background: none; box-shadow: none; color: var(--color-navy) !important;
+}
+:root .topo-secao .overline.selo-logo::before, :root .topo-secao .overline.selo-logo::after { content: none !important; }
+:root .selo-logo .hero__marca i { box-shadow: none; }
+
+/* Propósito: granulado mais suave (João, 26/11) */
+:root #proposito {
+  --grao: url("../images/grao-claro.png");
+  --fundo-granulado: var(--grao), var(--mancha-verde), var(--mancha-ouro), var(--papel-claro);
+}
+
+/* Propósito: cards em vidro fosco, bem transparentes e sem borda, como a nav (João, 26/11) */
+:root .mi .mi-card, :root .mi .mi-chip {
+  background: rgba(255, 255, 255, 0.95); border: 1px solid transparent; /* 26/11: o degradê fica atrás do motion, não "por cima" */
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 1.4em 2.8em -1.5em rgba(0, 33, 82, 0.3);
+}
+:root .mi .mi-linha { background: rgba(var(--navy-rgb), 0.14); }
+:root #proposito .palco .proposito-card {
+  border: 0; /* contorno por sombra interna: borda de verdade repetia o degradê do fundo nela */
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26);
+}
+:root .mi .mi-card :is(.mi-rodape, .mi-rotulo, .mi-selo:not(.mi-selo--ouro)) { color: var(--color-navy); }
+:root .mi .mi-card .mi-rodape i { color: inherit; }
+
+/* Propósito: degradê dos cards mais suave (João, 26/11: "tá muito forte") */
+:root #proposito .palco .proposito-card--pesquisa {
+  background: var(--grao), radial-gradient(ellipse 66% 125% at 100% 50%, rgba(var(--teal-rgb), 0.5) 0, rgba(82, 133, 198, 0.4) 22%, rgba(127, 157, 196, 0.27) 44%, rgba(210, 220, 234, 0.16) 66%, transparent 86%), rgba(255, 255, 255, 0.38);
+}
+:root #proposito .palco .proposito-card--formacao {
+  background: var(--grao), radial-gradient(ellipse 66% 125% at 100% 50%, rgba(196, 150, 32, 0.46) 0, rgba(237, 186, 44, 0.4) 22%, rgba(238, 214, 150, 0.3) 44%, rgba(248, 238, 212, 0.18) 66%, transparent 86%), rgba(255, 255, 255, 0.38);
+}
+:root #proposito .palco .proposito-card--inovacao {
+  background: var(--grao), radial-gradient(ellipse 66% 125% at 100% 50%, rgba(21, 71, 135, 0.46) 0, rgba(76, 112, 159, 0.38) 22%, rgba(154, 179, 211, 0.28) 44%, rgba(223, 232, 243, 0.17) 66%, transparent 86%), rgba(255, 255, 255, 0.38);
+}
+@media (max-width: 767px) {
+  :root #proposito .palco .proposito-card--pesquisa { background: var(--grao), radial-gradient(circle at 100% 22%, rgba(var(--teal-rgb), 0.4) 0, rgba(80, 115, 160, 0.27) 18%, rgba(170, 189, 214, 0.2) 34%, transparent 60%), rgba(255, 255, 255, 0.38); background-size: auto, 100% 100%, auto; }
+  :root #proposito .palco .proposito-card--formacao { background: var(--grao), radial-gradient(circle at 100% 22%, rgba(237, 186, 44, 0.42) 0, rgba(237, 186, 44, 0.3) 18%, rgba(238, 217, 160, 0.22) 34%, transparent 60%), rgba(255, 255, 255, 0.38); background-size: auto, 100% 100%, auto; }
+  :root #proposito .palco .proposito-card--inovacao { background: var(--grao), radial-gradient(circle at 100% 22%, rgba(21, 71, 135, 0.38) 0, rgba(95, 128, 170, 0.27) 18%, rgba(160, 182, 211, 0.2) 34%, transparent 60%), rgba(255, 255, 255, 0.38); background-size: auto, 100% 100%, auto; }
+}
+
+/* Propósito: card grande fosco, com o degradê da seção maior passando por trás (João, 26/11) */
+:root #proposito {
+  --mancha-verde: radial-gradient(36vw 30vw at 100% 36%, rgba(var(--teal-rgb), 0.15), rgba(127, 157, 196, 0.07) 45%, transparent 76%);
+  --mancha-ouro: radial-gradient(40vw 24vw at 0% 90%, rgba(237, 186, 44, 0.17), rgba(237, 186, 44, 0.07) 45%, transparent 76%);
+}
+
+/* Propósito: sem o número no card; botão secundário igual ao do hero, na versão pra fundo claro (João, 26/11) */
+:root #proposito .palco .proposito-card { grid-template-areas: ". ilu" "tit ilu" "desc ilu" "link ilu" ". ilu"; grid-template-rows: 1fr auto auto auto 1fr; } /* texto no meio da altura */
+.botao-vidro {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  min-height: 50px; padding: 0 2.4rem; border-radius: 12px; font: 600 1.5rem/1 var(--font-body);
+  color: var(--color-navy); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.botao-vidro i { font-size: 1.3rem; transition: transform 0.4s var(--curva-suave, ease); }
+.botao-vidro:hover { color: var(--color-navy); background: rgba(255, 255, 255, 0.85); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
+.botao-vidro:hover i { transform: translateX(3px); }
+@media (max-width: 767px) {
+  :root #proposito .palco .proposito-card { grid-template-areas: "ilu" "tit" "desc" "link"; grid-template-rows: auto; }
+  :root #proposito .palco .botao-vidro { justify-self: stretch; }
+}
+
+/* Propósito: com o card do centro em vidro, o vizinho que espiava na borda aparecia
+   através dele como um véu. Vizinhos somem; a troca segue pelas setas e pontos (26/11) */
+:root #proposito .palco .proposito-card:is([data-pos="1"], [data-pos="-1"]) { opacity: 0; pointer-events: none; }
+
+/* Propósito: troca de card em camadas (26/11, João: "bonito, suave, sem travar").
+   Só opacity, translate, scale e transform, que a placa de vídeo faz sozinha.
+   O card que sai apaga rápido; o que entra assenta, e o conteúdo vem depois, em ordem. */
+@media (prefers-reduced-motion: no-preference) {
+  :root #proposito .palco .proposito-card {
+    transition: opacity 0.34s cubic-bezier(0.4, 0, 1, 1), transform 0.5s cubic-bezier(0.4, 0, 0.6, 1) !important;
+  }
+  :root #proposito .palco .proposito-card[data-pos="0"] {
+    transition: opacity 0.8s cubic-bezier(0.25, 0.6, 0.3, 1) 0.2s, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s !important;
+  }
+  :root #proposito .palco .proposito-card.salta { transition: none !important; }
+  :root #proposito .palco.is-in .proposito-card[data-pos="1"] { transform: translate3d(3.5%, 0, 0) scale(0.985); }
+  :root #proposito .palco.is-in .proposito-card[data-pos="-1"] { transform: translate3d(-3.5%, 0, 0) scale(0.985); }
+
+  :root #proposito .palco .proposito-card.chegou > :is(.proposito-card__title, .proposito-card__desc, .proposito-card__link) {
+    animation: palco-sobe 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  :root #proposito .palco .proposito-card.chegou > .proposito-card__title { animation-delay: 0.3s; }
+  :root #proposito .palco .proposito-card.chegou > .proposito-card__desc { animation-delay: 0.39s; }
+  :root #proposito .palco .proposito-card.chegou > .proposito-card__link { animation-delay: 0.48s; }
+  :root #proposito .palco .proposito-card.is-visible :is(.mi-card, .mi-chip--pesquisa) {
+    animation: palco-assenta 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(0.34s + var(--o, 0) * 0.13s);
+  }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible :is(.mi-card, .mi-chip--pesquisa) {
+    animation: palco-assenta 1.2s cubic-bezier(0.16, 1, 0.3, 1) both, mi-flutua 6s ease-in-out infinite;
+    animation-delay: calc(0.34s + var(--o, 0) * 0.13s), calc(2.2s + var(--o, 0) * 1.4s);
+  }
+}
+@keyframes palco-sobe { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+@keyframes palco-assenta { from { opacity: 0; translate: 0 22px; scale: 0.965; } to { opacity: 1; translate: 0 0; scale: 1; } }
+
+/* ===== MOTIONS DO PROPÓSITO, 2ª versão (26/11, João). Só translate/scale/rotate/
+   transform e opacity (a placa de vídeo faz sozinha). ===== */
+:root #proposito .mi-simbolo { width: 2.5em; height: auto; position: relative; overflow: visible; }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Pesquisa: o artigo "se escreve", o DOI chega no fim e as barras sobem em ordem */
+  :root #proposito .palco .proposito-card.is-visible .mi-linha { transform-origin: left; animation: mi2-escreve 0.9s cubic-bezier(0.65, 0, 0.35, 1) both; }
+  :root #proposito .palco .proposito-card.is-visible .mi-linha:nth-of-type(1) { animation-delay: 0.85s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-linha:nth-of-type(2) { animation-delay: 1.15s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-linha:nth-of-type(3) { animation-delay: 1.45s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-rodape { animation: palco-sobe 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.1s both; }
+  :root #proposito .palco .proposito-card.is-visible .mi-barras i { animation: mi-cresce 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(0.8s + var(--k) * 0.14s); }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-barras i:last-child { animation: mi-cresce 1.1s cubic-bezier(0.16, 1, 0.3, 1) 1.36s both, mi2-destaque 3.6s ease-in-out 3s infinite; }
+
+  /* Formação: módulos entram um a um, o selo de concluído "carimba" e a palavra roda o círculo */
+  :root #proposito .palco .proposito-card.is-visible .mi-modulos li { animation: mi2-lado 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(0.7s + var(--k) * 0.16s); }
+  :root #proposito .palco .proposito-card.is-visible .mi-modulos li i { animation: mi2-carimbo 0.6s cubic-bezier(0.34, 1.5, 0.5, 1) both; animation-delay: calc(1s + var(--k) * 0.16s); }
+  :root #proposito .palco .proposito-card.is-visible .mi-av { animation: mi2-chega 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(0.8s + var(--i) * 0.1s); }
+  /* um de cada vez fala: acende, cresce um pouco e solta uma onda; os outros escutam */
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-av { animation: mi2-chega 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, mi2-vez 9s ease-in-out infinite; animation-delay: calc(0.8s + var(--i) * 0.1s), calc(2.2s + var(--i) * 1.5s); }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-av::after { animation: mi2-onda 9s ease-out infinite; animation-delay: calc(2.2s + var(--i) * 1.5s); }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-roda__centro { animation: mi2-centro 1.5s ease-in-out 2.2s infinite; }
+
+  /* Inovação: o símbolo se monta, os elos se desenham e os contextos chegam na ponta */
+  :root #proposito .palco .proposito-card.is-visible .mi-centro { animation: mi2-surge 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+  :root #proposito .palco .proposito-card.is-visible .mi-peca { animation: mi2-peca 1.1s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  :root #proposito .palco .proposito-card.is-visible .mi-peca--0 { --de: 0 -90px; animation-delay: 0.65s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-peca--1 { --de: -90px 0; animation-delay: 0.82s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-peca--2 { --de: 0 90px; animation-delay: 0.99s; }
+  :root #proposito .palco .proposito-card.is-visible .mi-elo { animation: mi-desenha 1.2s cubic-bezier(0.65, 0, 0.35, 1) 1.2s both; }
+  :root #proposito .palco .proposito-card.is-visible .mi-ctx { animation: mi2-surge 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(1.9s + var(--i) * 0.14s); }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-ctx { animation: mi2-surge 0.8s cubic-bezier(0.16, 1, 0.3, 1) both, mi-chega 3.2s ease-out infinite; animation-delay: calc(1.9s + var(--i) * 0.14s), calc(3.2s + var(--i) * 0.8s); }
+  :root #proposito .palco .proposito-card[data-pos="0"].is-visible .mi-luz { animation-delay: calc(3.2s + var(--i) * 0.8s); }
+}
+@keyframes mi2-escreve { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes mi2-destaque { 0%, 100% { scale: 1 1; } 50% { scale: 1 1.09; } }
+@keyframes mi2-lado { from { opacity: 0; translate: -0.9em 0; } to { opacity: 1; translate: 0 0; } }
+@keyframes mi2-carimbo { from { opacity: 0; scale: 0.2; } to { opacity: 1; scale: 1; } }
+@keyframes mi2-surge { from { opacity: 0; scale: 0.82; } to { opacity: 1; scale: 1; } }
+@keyframes mi2-peca { from { opacity: 0; translate: var(--de); } to { opacity: 1; translate: 0 0; } }
+
+/* uma regra antiga limitava o svg dos elos a 30rem e as linhas não chegavam nos botões */
+:root #proposito .palco .proposito-card__illustration svg.mi-rede { max-height: none; height: 100%; }
+
+/* círculo restaurativo, 2ª versão (26/11): uma cor só, sem anel girando */
+:root #proposito .mi .mi-av { background: var(--color-teal); opacity: 0.32; }
+:root #proposito .mi .mi-av::after { content: ""; position: absolute; inset: -2px; border-radius: 50%; border: 1.5px solid var(--color-teal); opacity: 0; pointer-events: none; }
+:root #proposito .mi .mi-av--0 { opacity: 1; }
+@keyframes mi2-chega { from { opacity: 0; scale: 0.7; } to { opacity: 0.32; scale: 1; } }
+@keyframes mi2-vez { 0% { opacity: 0.32; scale: 1; } 4%, 13% { opacity: 1; scale: 1.16; } 18%, 100% { opacity: 0.32; scale: 1; } }
+@keyframes mi2-onda { 0%, 3% { opacity: 0; scale: 1; } 5% { opacity: 0.55; } 17%, 100% { opacity: 0; scale: 1.7; } }
+@keyframes mi2-centro { 0%, 100% { scale: 1; } 50% { scale: 1.2; } }
+
+/* "Nosso caminho": selo no padrão do hero e a logo no pé da pintura (João, 26/11) */
+:root .citacao-selo.selo-logo-claro {
+  display: inline-flex; align-items: center; gap: 1.2rem; padding: 0; border-radius: 0; background: none; box-shadow: none;
+  color: #fff !important; letter-spacing: 0.16em; text-transform: uppercase; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+}
+:root .citacao-selo.selo-logo-claro::before, :root .citacao-selo.selo-logo-claro::after { content: none !important; }
+:root .citacao-cartao .citacao-logo {
+  position: absolute; z-index: 2; left: 50%; bottom: 3.6rem; translate: -50% 0; width: auto; height: 3rem; /* só enfeite: com cor e nome, 30 px de altura (João, 26/11) */
+  filter: drop-shadow(0 2px 10px rgba(0, 20, 50, 0.45));
+}
+@media (max-width: 767px) { :root .citacao-cartao .citacao-logo { height: 2.8rem; bottom: 2.4rem; } }
+
+/* ===== FORMAÇÕES DA HOME no padrão do hero e do Propósito (26/11, João).
+   Só CSS nos cards: eles são gerados pelo painel (build/gerar.mjs). ===== */
+/* selo do card: três traços nas cores da logo, sem pílula */
+:root #formacoes .fcard__selo > span:first-child {
+  display: inline-flex; align-items: center; gap: 1.2rem; padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--color-navy) !important;
+}
+:root #formacoes .fcard__selo > span:first-child::before {
+  content: "" !important; width: 18px; height: 1.6rem; flex: none;
+  background:
+    linear-gradient(var(--logo-lavanda), var(--logo-lavanda)) 0 0 / 4px 100% no-repeat,
+    linear-gradient(var(--logo-amarelo), var(--logo-amarelo)) 7px 0 / 4px 100% no-repeat,
+    linear-gradient(var(--logo-oliva), var(--logo-oliva)) 14px 0 / 4px 100% no-repeat;
+}
+/* botão secundário igual ao do hero, versão clara */
+:root #formacoes .fcard .fcard__btn.fcard__btn--claro {
+  min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy);
+  background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16);
+}
+:root #formacoes .fcard .fcard__btn.fcard__btn--claro:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
+:root #formacoes .fcard .fcard__btn:not(.fcard__btn--claro) { min-height: 50px; padding: 0 2.4rem; }
+/* cards: degradê suave vindo da direita, grão leve, borda e sombra como no Propósito */
+:root #formacoes .fcard { --grao: url("../images/grao-claro.png"); --tom-mancha: rgba(var(--teal-rgb), 0.24); --tom-base: #FAFAFB; }
+:root #formacoes .fcard:nth-of-type(4n+2) { --tom-mancha: rgba(237, 186, 44, 0.3); }
+:root #formacoes .fcard:nth-of-type(4n+3) { --tom-mancha: rgba(21, 71, 135, 0.22); }
+:root #formacoes[data-formato="a"] .fcard {
+  background: var(--grao), radial-gradient(ellipse 82% 130% at 100% 50%, var(--tom-mancha) 0, var(--tom-mancha) 38%, transparent 82%), var(--tom-base);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -26px rgba(14, 24, 63, 0.26);
+}
+:root #formacoes .fcard__foto::after { display: none; } /* sem granulado em cima das fotos */
+/* o botão do topo fica onde o link ficava: embaixo à direita */
+:root #formacoes .formacoes__header.topo-secao > .botao-vidro { grid-area: cont; justify-self: end; align-self: end; margin: 0; }
+@media (max-width: 899px) { :root #formacoes .formacoes__header.topo-secao > .botao-vidro { justify-self: start; margin-top: 2rem; } }
+:root #formacoes .fcard .fcard__btn.fcard__btn--claro::after { content: "\f061" !important; position: static; font: 900 1.3rem/1 "Font Awesome 6 Free"; background: none; width: auto; height: auto; opacity: 1; animation: none; }
+
+/* ===== COMO ATUAMOS DA HOME no mesmo padrão (26/11, João) ===== */
+:root #solucoes-preview {
+  --grao: url("../images/grao-claro.png");
+  --mancha-verde: radial-gradient(36vw 30vw at 100% 12%, rgba(var(--teal-rgb), 0.15), rgba(127, 157, 196, 0.07) 45%, transparent 76%);
+  --mancha-ouro: radial-gradient(40vw 24vw at 0% 100%, rgba(237, 186, 44, 0.17), rgba(237, 186, 44, 0.07) 45%, transparent 76%);
+  background: var(--grao), var(--mancha-verde), var(--mancha-ouro), var(--papel-claro);
+}
+/* painéis: degradê suave vindo da direita, borda fina e sombra; interface em vidro claro */
+:root #solucoes-preview .atua-painel {
+  --tom: rgba(var(--teal-rgb), 0.28);
+  border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 80% 125% at 100% 50%, var(--tom) 0, var(--tom) 22%, transparent 80%), #FAFAFB;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 22px 50px -26px rgba(14, 24, 63, 0.26);
+}
+:root #solucoes-preview .atua-andar:nth-of-type(2) .atua-painel { --tom: rgba(21, 71, 135, 0.28); }
+:root #solucoes-preview .atua-andar:nth-of-type(3) .atua-painel { --tom: rgba(237, 186, 44, 0.34); }
+:root #solucoes-preview .atua-ui__etapa, :root #solucoes-preview .atua-ui__corpo {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 18px 36px -22px rgba(14, 24, 63, 0.3);
+}
+:root #solucoes-preview .atua-ui__etapa { border-radius: 1.2rem; }
+:root #solucoes-preview .atua-ui__corpo { border-radius: 1.2rem 0 0 0; }
+:root #solucoes-preview .atua-andar { align-items: center; }
+:root #solucoes-preview .atua-andar__link { justify-self: start; align-self: flex-start; margin-top: 0.8rem; width: max-content; max-width: 100%; }
+:root #solucoes-preview .topo-secao > .botao-vidro { grid-area: cont; justify-self: end; align-self: end; margin: 0; }
+@media (max-width: 899px) { :root #solucoes-preview .topo-secao > .botao-vidro { justify-self: start; margin-top: 2rem; } }

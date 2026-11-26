@@ -122,16 +122,16 @@ html.mo .fio.is-in path { stroke-dashoffset: 0; }
 /* hover não mexe no fundo (o granulado tem várias camadas; um "background"
    aqui apagava tudo, João 15/10): só a sombra cresce no card do centro */
 .palco .proposito-card:hover { transform: none; border-color: rgba(var(--navy-rgb), 0.08); }
-.proposito-card--pesquisa { --tom: #DCDEEB; }
+.proposito-card--pesquisa { --tom: #DCE3EB; }
 .proposito-card--formacao { --tom: #F3EAD2; }
-.proposito-card--inovacao { --tom: #E0E3ED; }
+.proposito-card--inovacao { --tom: #E0E6ED; }
 .palco .proposito-card__grain { display: none; }
 .palco .proposito-card__illustration { grid-area: ilu; align-self: center; margin: 0; }
 .palco .proposito-card__illustration { height: auto; padding: 0; background: none; border: 0; }
 .palco .proposito-card__illustration svg { width: 100%; height: auto; max-height: 30rem; display: block; }
 .palco .proposito-card__num { grid-area: num; font: 600 1.3rem/1 var(--font-body); letter-spacing: 0.14em; color: var(--color-teal); margin: 0 0 var(--space-md); }
 .palco .proposito-card__title { grid-area: tit; font-family: var(--font-titulo); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(3.2rem, 4.4vw, 5.2rem); line-height: 1.04; color: var(--color-navy); margin: 0 0 var(--space-md); }
-.palco .proposito-card__desc { grid-area: desc; font-size: clamp(1.7rem, 1.6vw, 2.1rem); line-height: 1.5; color: #2F3652; max-width: 44rem; margin: 0; }
+.palco .proposito-card__desc { grid-area: desc; font-size: clamp(1.7rem, 1.6vw, 2.1rem); line-height: 1.5; color: #283D59; max-width: 44rem; margin: 0; }
 /* link do card: .link-seta padrão (João, 16/10, padronização dos botões) */
 .palco .proposito-card__link { grid-area: link; justify-self: start; margin-top: var(--space-lg); }
 
@@ -222,7 +222,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 
 .proposito .section-header--dark h2 { color: var(--color-navy); }
 .proposito .section-header--dark .section-header__sub { color: var(--color-navy-mid); }
-.palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.1); box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 24px 48px -28px rgba(14, 24, 63, 0.35); }
+.palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.1); box-shadow: 0 1px 2px rgba(0, 33, 82, 0.06), 0 24px 48px -28px rgba(0, 33, 82, 0.35); }
 .palco__dot::after { background: rgba(var(--navy-rgb), 0.25); }
 .palco__dot.is-active::after { background: var(--color-navy); }
 
@@ -238,7 +238,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   width: 48px; height: 48px; border-radius: 12px; border: 0;
   background: var(--color-navy); color: #fff; font-size: 1.6rem;
   display: grid; place-items: center; cursor: pointer;
-  box-shadow: 0 6px 18px -6px rgba(14, 24, 63, 0.45);
+  box-shadow: 0 6px 18px -6px rgba(0, 33, 82, 0.45);
   transform: translate3d(0, -50%, 0);
   transition: background 0.3s ease, transform 0.3s var(--curva-saida);
 }
@@ -281,7 +281,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-card {
   position: absolute; background: #fff; border-radius: 1.2em; padding: 1.1em 1.25em;
   border: 1px solid rgba(var(--navy-rgb), 0.08);
-  box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 1.6em 3em -1.4em rgba(14, 24, 63, 0.28);
+  box-shadow: 0 1px 2px rgba(0, 33, 82, 0.06), 0 1.6em 3em -1.4em rgba(0, 33, 82, 0.28);
 }
 .mi-selo { display: inline-block; font-size: 0.8em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-teal); background: rgba(var(--teal-rgb), 0.11); padding: 0.35em 0.7em; border-radius: 99px; }
 .mi-selo--ouro { color: var(--color-navy); background: #F6E7B5; }
@@ -290,7 +290,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-linha { display: block; height: 0.42em; width: var(--w); border-radius: 99px; background: rgba(var(--navy-rgb), 0.11); margin-bottom: 0.5em; }
 .mi-rodape { font-size: 0.82em; font-weight: 500; color: var(--color-navy-mid); margin-top: 0.85em !important; padding-top: 0.75em !important; border-top: 1px solid rgba(var(--navy-rgb), 0.08); }
 .mi-rodape i { color: var(--color-teal); margin-right: 0.35em; }
-.mi-chip { position: absolute; display: inline-flex; align-items: center; gap: 0.55em; white-space: nowrap; padding: 0.45em 0.95em 0.45em 0.45em; background: #fff; border-radius: 99px; font-weight: 600; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 1em 2em -1em rgba(14, 24, 63, 0.3); }
+.mi-chip { position: absolute; display: inline-flex; align-items: center; gap: 0.55em; white-space: nowrap; padding: 0.45em 0.95em 0.45em 0.45em; background: #fff; border-radius: 99px; font-weight: 600; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1px 2px rgba(0, 33, 82, 0.06), 0 1em 2em -1em rgba(0, 33, 82, 0.3); }
 .mi-chip__icone { width: 2em; height: 2em; border-radius: 50%; display: grid; place-items: center; background: rgba(var(--teal-rgb), 0.12); color: var(--color-teal); font-size: 0.9em; }
 
 /* Pesquisa */
@@ -315,14 +315,14 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-roda::before { content: ""; position: absolute; inset: 14%; border-radius: 50%; border: 1px dashed rgba(var(--navy-rgb), 0.22); }
 .mi-av { position: absolute; left: 50%; top: 50%; width: 2.3em; height: 2.3em; margin: -1.15em 0 0 -1.15em; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 0.92em; border: 2px solid #fff; transform: rotate(calc(var(--i) * 60deg)) translateY(-3.55em) rotate(calc(var(--i) * -60deg)); }
 .mi-av--0 { background: var(--color-teal); } .mi-av--1 { background: var(--color-navy); } .mi-av--2 { background: #EDBA2C; }
-.mi-av--3 { background: var(--color-navy-mid); } .mi-av--4 { background: #5769C1; } .mi-av--5 { background: #5B6486; }
+.mi-av--3 { background: var(--color-navy-mid); } .mi-av--4 { background: #5785C1; } .mi-av--5 { background: #5B6E86; }
 .mi-roda__centro { position: absolute; left: 50%; top: 50%; width: 0.9em; height: 0.9em; margin: -0.45em 0 0 -0.45em; border-radius: 50%; background: var(--color-gold); box-shadow: 0 0 0 0.35em rgba(237, 186, 44, 0.15); }
 
 /* Inovação */
 .mi-rede { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mi-elo { fill: none; stroke: rgba(var(--navy-rgb), 0.32); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .mi-luz { fill: var(--color-teal); opacity: 0; }
-.mi-centro { position: absolute; left: 50%; top: 50%; width: 5.6em; height: 5.6em; margin: -2.8em 0 0 -2.8em; font-size: max(8.5px, 2.8cqw); border-radius: 50%; background: #fff; display: grid; place-items: center; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1.2em 2.4em -1.2em rgba(14, 24, 63, 0.35); }
+.mi-centro { position: absolute; left: 50%; top: 50%; width: 5.6em; height: 5.6em; margin: -2.8em 0 0 -2.8em; font-size: max(8.5px, 2.8cqw); border-radius: 50%; background: #fff; display: grid; place-items: center; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1.2em 2.4em -1.2em rgba(0, 33, 82, 0.35); }
 .mi-centro::before { content: ""; position: absolute; inset: -0.9em; border-radius: 50%; border: 1px solid rgba(237, 186, 44, 0.4); background: rgba(237, 186, 44, 0.06); }
 .mi-centro img { width: 3em; height: auto; position: relative; }
 .mi-ctx { transform: translate(-50%, -50%); }
@@ -393,9 +393,9 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   padding-top: 0.1px;
   background: var(--color-paper);
   border-radius: var(--raio-bloco) var(--raio-bloco) 0 0;
-  box-shadow: 0 -24px 48px -28px rgba(14, 24, 63, 0.45);
+  box-shadow: 0 -24px 48px -28px rgba(0, 33, 82, 0.45);
 }
-.hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--color-navy-900); opacity: 0; pointer-events: none; }
+.hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: rgb(16, 18, 22); opacity: 0; pointer-events: none; } /* neutro: o marinho deixava o topo roxo (26/11) */
 /* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 @media (prefers-reduced-motion: reduce) { .hero, .hero::after { animation: none !important; } }
 
@@ -405,7 +405,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   background:
     radial-gradient(ellipse 55% 40% at 50% 62%, rgba(var(--gold-rgb), 0.22), transparent 70%),
     radial-gradient(ellipse 60% 50% at 85% 10%, rgba(var(--teal-rgb), 0.08), transparent 70%),
-    linear-gradient(180deg, #F7F2E8 0%, #EFF0F2 60%, #E3E5EF 100%);
+    linear-gradient(180deg, #F7F2E8 0%, #EFF0F2 60%, #E3E8EF 100%);
 }
 
 /* ===== TOPO PADRÃO DE SEÇÃO (João, 15/10: topo editorial do Propósito, um
@@ -493,15 +493,15 @@ html.mo .topo-secao.is-in > :nth-child(n+4) { transition-delay: 0.28s; }
 .atua { display: grid; gap: clamp(8rem, 10vw, 14rem); margin-top: clamp(4rem, 6vw, 8rem); }
 .atua-andar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(3rem, 5vw, 7rem); align-items: end; }
 .atua-andar--inv .atua-andar__texto { order: 2; }
-.atua-andar__num { font: 300 clamp(4.4rem, 4.2vw, 5.8rem)/1 var(--font-titulo); letter-spacing: -0.04em; color: #8A8FA3; margin: 0 0 1.6rem; }
+.atua-andar__num { font: 300 clamp(4.4rem, 4.2vw, 5.8rem)/1 var(--font-titulo); letter-spacing: -0.04em; color: #8A95A3; margin: 0 0 1.6rem; }
 .atua-andar__titulo { font: 500 clamp(2.8rem, 3vw, 4rem)/1.08 var(--font-titulo); letter-spacing: -0.03em; color: var(--color-navy); margin: 0 0 1.4rem; }
-.atua-andar__desc { font-size: clamp(1.7rem, 1.35vw, 1.9rem); line-height: 1.55; color: #4A516B; margin: 0 0 2rem; max-width: 48rem; }
+.atua-andar__desc { font-size: clamp(1.7rem, 1.35vw, 1.9rem); line-height: 1.55; color: #435872; margin: 0 0 2rem; max-width: 48rem; }
 /* link da etapa: .link-seta--menor (João, 16/10, padronização dos botões) */
 
 /* painel: foto da etapa desfocada + interface */
 .atua-painel {
   position: relative; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;
-  background-color: #DDDEE3; background-position: center; background-size: cover; background-repeat: no-repeat;
+  background-color: #DDE0E3; background-position: center; background-size: cover; background-repeat: no-repeat;
   display: flex; align-items: flex-start; justify-content: flex-end; padding: 7% 0 0 9%;
 }
 .atua-painel::before { /* véu claro pra interface respirar */
@@ -510,19 +510,19 @@ html.mo .topo-secao.is-in > :nth-child(n+4) { transition-delay: 0.28s; }
 .atua-ui { position: relative; width: 100%; display: grid; gap: 1.2rem; font-size: clamp(1.2rem, 0.95vw, 1.4rem); color: var(--color-navy); }
 .atua-ui__etapa {
   justify-self: start; display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.8rem 1.2rem 1.2rem;
-  background: rgba(255, 255, 255, 0.94); border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(14, 24, 63, 0.35);
+  background: rgba(255, 255, 255, 0.94); border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(0, 33, 82, 0.35);
   font-weight: 600; line-height: 1.3;
 }
 .atua-ui__etapa small { display: block; font-weight: 500; font-size: 0.85em; color: #6B7085; }
 .atua-ui__icone { width: 3.6rem; height: 3.6rem; border-radius: 9px; display: grid; place-items: center; background: rgba(var(--teal-rgb), 0.12); color: var(--color-teal); font-size: 1.5rem; flex: none; }
 .atua-ui__corpo {
   display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); min-height: 0;
-  background: #fff; border-radius: 10px 0 0 0; box-shadow: 0 18px 40px -18px rgba(14, 24, 63, 0.4);
+  background: #fff; border-radius: 10px 0 0 0; box-shadow: 0 18px 40px -18px rgba(0, 33, 82, 0.4);
 }
 .atua-ui__lista { list-style: none; margin: 0; padding: 1.4rem 1rem; border-right: 1px solid rgba(var(--navy-rgb), 0.08); display: grid; gap: 0.4rem; align-content: start; }
-.atua-ui__item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: 6px; line-height: 1.35; color: #4A516B; transition: background 0.5s ease, color 0.5s ease; }
+.atua-ui__item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: 6px; line-height: 1.35; color: #435872; transition: background 0.5s ease, color 0.5s ease; }
 .atua-ui__item i { color: rgba(var(--teal-rgb), 0.45); margin-top: 0.15em; transition: color 0.5s ease; }
-.atua-ui__item.is-on { background: #EEEFF2; color: var(--color-navy); font-weight: 600; }
+.atua-ui__item.is-on { background: #EEF0F2; color: var(--color-navy); font-weight: 600; }
 .atua-ui__item.is-on i { color: var(--color-teal); }
 .atua-ui__ver { padding: 1.4rem 0 1.4rem 1.4rem; display: grid; gap: 1rem; align-content: start; }
 .atua-ui__ver img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px 0 0 6px; display: block; }
@@ -569,7 +569,7 @@ html.mo .atua-andar.is-in .atua-ui > :last-child { opacity: 1; transform: none; 
    Propósito e o Como Atuamos. Manchas medidas em vw (não %), pra não
    esticarem numa seção alta: verde-água no alto à direita, dourado no pé. */
 :root {
-  --mancha-verde: radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.22), rgba(127, 138, 196, 0.1) 45%, transparent 75%);
+  --mancha-verde: radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.22), rgba(127, 157, 196, 0.1) 45%, transparent 75%);
   --mancha-ouro: radial-gradient(42vw 22vw at 8% 100%, rgba(237, 186, 44, 0.22), transparent 70%);
   --fundo-granulado: var(--grao), var(--mancha-verde), var(--mancha-ouro), var(--papel-claro);
 }
@@ -585,7 +585,7 @@ html.mo .atua-andar.is-in .atua-ui > :last-child { opacity: 1; transform: none; 
 .palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.08); }
 .palco .proposito-card--pesquisa {
   background: var(--grao),
-    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(var(--teal-rgb), 0.92) 0, rgba(82, 102, 198, 0.78) 22%, rgba(127, 138, 196, 0.55) 44%, rgba(210, 214, 234, 0.3) 66%, transparent 86%),
+    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(var(--teal-rgb), 0.92) 0, rgba(82, 133, 198, 0.78) 22%, rgba(127, 157, 196, 0.55) 44%, rgba(210, 220, 234, 0.3) 66%, transparent 86%),
     var(--papel-claro);
 }
 .palco .proposito-card--formacao {
@@ -595,24 +595,24 @@ html.mo .atua-andar.is-in .atua-ui > :last-child { opacity: 1; transform: none; 
 }
 .palco .proposito-card--inovacao {
   background: var(--grao),
-    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(37, 54, 119, 0.9) 0, rgba(76, 92, 159, 0.76) 22%, rgba(154, 165, 211, 0.55) 44%, rgba(223, 227, 243, 0.3) 66%, transparent 86%),
+    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(21, 71, 135, 0.9) 0, rgba(76, 112, 159, 0.76) 22%, rgba(154, 179, 211, 0.55) 44%, rgba(223, 232, 243, 0.3) 66%, transparent 86%),
     var(--papel-claro);
 }
-.palco .proposito-card[data-pos="0"]:hover { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 2px 4px rgba(14, 24, 63, 0.06), 0 36px 64px -30px rgba(14, 24, 63, 0.42); }
+.palco .proposito-card[data-pos="0"]:hover { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 2px 4px rgba(0, 33, 82, 0.06), 0 36px 64px -30px rgba(0, 33, 82, 0.42); }
 @media (max-width: 767px) {
   .palco .proposito-card--pesquisa, .palco .proposito-card--formacao, .palco .proposito-card--inovacao { background-size: auto, 100% 100%, auto; }
-  .palco .proposito-card--pesquisa { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(var(--teal-rgb), 0.75) 0, rgba(80, 93, 160, 0.5) 18%, rgba(170, 177, 214, 0.38) 34%, transparent 60%), var(--papel-claro); }
+  .palco .proposito-card--pesquisa { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(var(--teal-rgb), 0.75) 0, rgba(80, 115, 160, 0.5) 18%, rgba(170, 189, 214, 0.38) 34%, transparent 60%), var(--papel-claro); }
   .palco .proposito-card--formacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(237, 186, 44, 0.78) 0, rgba(237, 186, 44, 0.55) 18%, rgba(238, 217, 160, 0.4) 34%, transparent 60%), var(--papel-claro); }
-  .palco .proposito-card--inovacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(37, 54, 119, 0.72) 0, rgba(95, 110, 170, 0.5) 18%, rgba(160, 170, 211, 0.38) 34%, transparent 60%), var(--papel-claro); }
+  .palco .proposito-card--inovacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(21, 71, 135, 0.72) 0, rgba(95, 128, 170, 0.5) 18%, rgba(160, 182, 211, 0.38) 34%, transparent 60%), var(--papel-claro); }
 }
 
 /* painéis do Como Atuamos: mesmo granulado, cor alternando por etapa */
 .atua-painel { background: var(--grao), var(--mancha), var(--papel-claro); }
 .atua-painel::before { display: none; }
-.atua-andar:nth-of-type(1) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 93, 160, 0.55) 18%, rgba(170, 177, 214, 0.4) 36%, transparent 66%); }
-.atua-andar:nth-of-type(2) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(37, 54, 119, 0.75) 0, rgba(95, 110, 170, 0.55) 18%, rgba(160, 170, 211, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(1) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 115, 160, 0.55) 18%, rgba(170, 189, 214, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(2) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(21, 71, 135, 0.75) 0, rgba(95, 128, 170, 0.55) 18%, rgba(160, 182, 211, 0.4) 36%, transparent 66%); }
 .atua-andar:nth-of-type(3) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(237, 186, 44, 0.8) 0, rgba(237, 186, 44, 0.58) 18%, rgba(238, 217, 160, 0.42) 36%, transparent 66%); }
-.atua-andar:nth-of-type(4) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 93, 160, 0.55) 18%, rgba(170, 177, 214, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(4) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 115, 160, 0.55) 18%, rgba(170, 189, 214, 0.4) 36%, transparent 66%); }
 
 /* ===== LARGURA (João, 15/10): o carrossel do Propósito fica dentro da
    linha do container, alinhado com o título e as outras seções. O card
@@ -684,27 +684,41 @@ main { counter-reset: secao; }
    escuro; título com 3 versões pra comparar (data-titulo); subtítulo em
    largura de leitura; botão no formato dos cards + link com seta; a frase
    do Decildo vira linha fina com traço, sem o check dourado. ===== */
+/* 26/11 (João: "mais clean"): sem pílula nem círculos; três traços nas cores da logo */
 .hero .hero__eyebrow {
-  position: relative; z-index: 0; display: inline-flex; align-items: center; margin: 0 4.6rem 2.4rem 0;
-  padding: 1.05rem 1.5rem; border-radius: 99px; background: rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
-  color: #fff !important; font: 700 1.1rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; text-shadow: none;
+  display: flex; align-items: center; gap: 1.2rem; margin: 0 0 2.2rem; padding: 0;
+  color: rgba(255, 255, 255, 0.94); font: 600 var(--text-hero-selo)/1.3 var(--font-body);
+  letter-spacing: 0.16em; text-transform: uppercase; text-shadow: 0 1px 12px rgba(0, 0, 0, 0.65);
 }
-.hero .hero__eyebrow::before { content: none; }
-.hero .hero__eyebrow::after { content: ""; position: absolute; z-index: -1; top: 50%; right: -2.7rem; width: 3.6rem; height: 3.6rem; margin-top: -1.8rem; border-radius: 50%; background: rgba(255, 255, 255, 0.18); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 1.8rem 0 0 0 rgba(255, 255, 255, 0.09); }
+.hero__marca { display: inline-flex; gap: 3px; flex: none; }
+.hero__marca i { width: 4px; height: 1.6rem; border-radius: 2px; background: var(--logo-lavanda); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 0 8px rgba(0, 0, 0, 0.45); }
+.hero__marca i:nth-child(2) { background: var(--logo-amarelo); }
+.hero__marca i:nth-child(3) { background: var(--logo-oliva); }
 .hero__selo-curto { display: none; }
 @media (max-width: 520px) { .hero__selo-longo { display: none; } .hero__selo-curto { display: inline; } }
-/* celular: selo menor (João, 16/10), 32px → 26px, círculos na mesma proporção */
-@media (max-width: 520px) {
-  .hero .hero__eyebrow { padding: 0.8rem 1.2rem; font-size: 1rem; margin: 0 3.6rem 2rem 0; }
-  .hero .hero__eyebrow::after { right: -2.1rem; width: 2.8rem; height: 2.8rem; margin-top: -1.4rem; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3), 1.4rem 0 0 0 rgba(255, 255, 255, 0.09); }
+/* título em dois níveis: "Justiça Restaurativa" maior (tamanhos nos tokens) */
+.hero .hero__title { max-width: none; margin-bottom: 2rem; }
+.hero__linha { display: block; font-size: var(--text-hero-linha); line-height: 1.2; letter-spacing: -0.02em; }
+.hero__destaque { display: block; font-size: var(--text-hero-destaque); line-height: 1.08; margin-top: 0.4rem; }
+
+/* destaque (26/11): sem enfeite, só peso (o João recusou o traço em curva) */
+.hero .hero__destaque { font-weight: 600; } /* 600 é o maior peso da fonte carregado */
+
+.hero .hero__subtitle { max-width: 48ch; color: rgba(255, 255, 255, 0.86); font-size: clamp(1.6rem, 1.3vw, 1.8rem); line-height: 1.6; margin-bottom: 3.2rem; text-wrap: pretty; }
+
+/* par de botões: o branco (padrão) e um de vidro, mesma altura e raio */
+.hero .hero__actions { gap: 1.2rem; }
+:root .hero .hero__actions .hero__cta, .hero__vidro { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; }
+.hero__vidro {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  color: #fff; font: 600 1.5rem/1 var(--font-body); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
-
-.hero .hero__title { max-width: 18ch; }
-
-.hero .hero__subtitle { max-width: 52ch; color: rgba(255, 255, 255, 0.84); font-size: clamp(1.7rem, 1.4vw, 1.9rem); line-height: 1.55; margin-bottom: 3.2rem; }
-
-.hero .hero__actions { gap: 2.8rem; }
+.hero__vidro i { font-size: 1.3rem; transition: transform 0.4s var(--curva-suave, ease); }
+.hero__vidro:hover { color: #fff; background: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
+.hero__vidro:hover i { transform: translateX(3px); }
 .link-seta--claro { color: #fff; }
 .link-seta--claro .link-seta__circ { color: #fff; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85); }
 .link-seta--claro:hover .link-seta__circ { background: #fff; color: var(--color-navy); }
@@ -712,7 +726,6 @@ main { counter-reset: secao; }
 .hero .hero__trust { display: flex; align-items: center; gap: 1.4rem; margin-top: 4rem; font-size: 1.4rem; color: rgba(255, 255, 255, 0.78); }
 .hero .hero__trust::before { content: ""; width: 3rem; height: 1px; background: rgba(255, 255, 255, 0.6); flex: none; }
 @media (max-width: 599px) {
-  .hero .hero__actions { gap: 2rem; }
   .hero .hero__trust { margin-top: 3rem; align-items: flex-start; }
   .hero .hero__trust::before { margin-top: 0.8em; }
 }
@@ -729,20 +742,19 @@ main { counter-reset: secao; }
    O anterior está em prototipo/backups/motion-antes-overlay-2026-11-25.css. */
 .hero--video { --veu: 16, 18, 22; }
 .hero--video .hero__overlay {
-  /* curva suave (várias paradas), sem degrau visível onde o véu termina */
-  background:
-    linear-gradient(90deg,
-      rgba(var(--veu), 0.68) 0%, rgba(var(--veu), 0.66) 16%, rgba(var(--veu), 0.61) 28%,
-      rgba(var(--veu), 0.52) 38%, rgba(var(--veu), 0.39) 46%, rgba(var(--veu), 0.25) 53%,
-      rgba(var(--veu), 0.13) 59%, rgba(var(--veu), 0.05) 65%, rgba(var(--veu), 0) 72%),
-    linear-gradient(180deg, rgba(var(--veu), 0.28) 0%, rgba(var(--veu), 0.1) 9%, rgba(var(--veu), 0) 18%, rgba(var(--veu), 0) 84%, rgba(var(--veu), 0.16) 100%);
+  /* 26/11 (João): o véu nasce no canto de baixo à esquerda e vai só até o texto,
+     sem chegar na nav. Muitas paradas pra não aparecer degrau. */
+  background: radial-gradient(96% 86% at 0% 100%,
+    rgba(var(--veu), 0.88) 0%, rgba(var(--veu), 0.86) 22%, rgba(var(--veu), 0.81) 42%,
+    rgba(var(--veu), 0.74) 56%, rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.47) 79%,
+    rgba(var(--veu), 0.28) 88%, rgba(var(--veu), 0.11) 95%, rgba(var(--veu), 0) 100%);
 }
 @media (max-width: 1279px) {
-  /* tablet: o texto ocupa mais largura, o véu vai mais longe */
+  /* tablet: o texto ocupa mais largura */
   .hero--video .hero__overlay {
-    background:
-      linear-gradient(90deg, rgba(var(--veu), 0.76) 0%, rgba(var(--veu), 0.64) 45%, rgba(var(--veu), 0.3) 72%, rgba(var(--veu), 0.1) 100%),
-      linear-gradient(180deg, rgba(var(--veu), 0.38) 0%, rgba(var(--veu), 0) 22%, rgba(var(--veu), 0) 70%, rgba(var(--veu), 0.4) 100%);
+    background: radial-gradient(135% 86% at 0% 100%,
+      rgba(var(--veu), 0.9) 0%, rgba(var(--veu), 0.86) 28%, rgba(var(--veu), 0.77) 52%,
+      rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.44) 81%, rgba(var(--veu), 0.17) 91%, rgba(var(--veu), 0) 100%);
   }
 }
 

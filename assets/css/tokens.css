@@ -6,7 +6,7 @@
 =================================== */
 :root {
   /* CORES DA LOGO NOVA (SVG do designer, 25/11/2026) — fonte da verdade.
-     Marinho #152561 · Lavanda #6175D6 · Amarelo #EDBA2C · Oliva #7A7D34.
+     Marinho #003E8E · Lavanda #6194D6 · Amarelo #EDBA2C · Oliva #7A7D34.
      A paleta antiga (marinho #0A2A4D, verde-água #0F6B6D, dourado #C9A22B)
      saiu em 26/11/2026; os nomes dos tokens ficaram pra não quebrar o CSS. */
   --logo-marinho: #152561;
@@ -15,18 +15,18 @@
   --logo-oliva:   #7A7D34;
 
   /* MARINHO — primária */
-  --color-navy-900: #0E183F; /* derivado, mais fundo — seções escuras e rodapé */
-  --color-navy:     var(--logo-marinho); /* botões, títulos, marca */
-  --color-navy-700: #1F3388; /* derivado — hover e superfície escura secundária */
-  --color-navy-mid: #454E78; /* derivado — texto secundário em fundo claro (8,4:1) */
+  --color-navy-900: #002152; /* derivado, mais fundo — seções escuras e rodapé */
+  --color-navy:     #003E8E; /* 26/11: o azul da nav; o marinho da logo (#152561) "puxava pro roxo" */ /* botões, títulos, marca */
+  --color-navy-700: #0050B3; /* derivado — hover e superfície escura secundária */
+  --color-navy-mid: #3F5675; /* derivado — texto secundário em fundo claro (8,4:1) */
 
   /* OLIVA — secundária (era o verde); escurecido pra passar AA como texto */
   --color-green: #6E712F;
 
   /* LAVANDA — destaque em fundo claro (era o "teal"/verde-água).
      A lavanda pura da logo (4,2:1) não passa como texto pequeno: o token
-     usa a versão escurecida #485FD0 (5,5:1); a pura fica em --logo-lavanda. */
-  --color-teal: #485FD0;
+     usa a versão escurecida #0A66C8 (5,5:1); a pura fica em --logo-lavanda. */
+  --color-teal: #0A66C8;
 
   /* AMARELO — destaque em fundo escuro (7,9:1 no marinho).
      Nunca como texto em fundo claro (1,8:1): lá vale --color-accent. */
@@ -34,12 +34,12 @@
 
   /* NEUTROS CLAROS */
   --color-white:        #FFFFFF;
-  --color-paper:        #F6F6F8;
-  --color-mist-bg:      #E9EAEE;
-  --color-border-light: #D7D9DF;
+  --color-paper:        #F6F7F8;
+  --color-mist-bg:      #E9EBEE;
+  --color-border-light: #D7DADF;
 
   /* TEXTO */
-  --color-ink:  #171C2E;
+  --color-ink:  #122033;
   --color-mist: #565B6D;
 
   /* FUNCIONAIS — extensão derivada, NÃO existe no manual.
@@ -58,13 +58,13 @@
   --color-accent: var(--color-teal);
 
   /* RGB tuples — pra opacidade via rgba(var(--x-rgb), alpha) sem hardcode */
-  --navy-rgb:     21, 37, 97;
-  --navy900-rgb:   14, 24, 63;
+  --navy-rgb:     0, 62, 142;
+  --navy900-rgb:   0, 33, 82;
   --gold-rgb:    237, 186, 44;
-  --teal-rgb:     40, 55, 140; /* lavanda escura: em brilho e borda transparente fica discreta como o verde-água era; o texto usa --color-teal */
+  --teal-rgb:     20, 80, 160; /* lavanda escura: em brilho e borda transparente fica discreta como o verde-água era; o texto usa --color-teal */
   --green-rgb:    110, 113, 47;
   --white-rgb:   255, 255, 255;
-  --ink-rgb:      23, 28, 46;
+  --ink-rgb:      18, 32, 51;
   --accent-rgb:  var(--teal-rgb); /* acompanha --color-accent (lavanda no claro / amarelo no escuro) */
 
   /* TIPOGRAFIA — sem definição do cliente; escolha do design system
@@ -79,6 +79,10 @@
      (estável), só encolhe abaixo disso (tablet/celular). Evita o mesmo texto
      renderizar em tamanhos diferentes conforme o monitor. */
   --text-h1:   clamp(3.2rem, 5.6vw, 5.6rem);
+  /* hero da Home em dois níveis (26/11, pedido do João) */
+  --text-hero-selo:     clamp(1.05rem, 0.9vw, 1.2rem);
+  --text-hero-linha:    clamp(2.2rem, 3vw, 4.3rem);
+  --text-hero-destaque: clamp(2.9rem, 3.9vw, 5.6rem);
   --text-h2:   clamp(2.8rem, 4.8vw, 4.8rem);
   --text-h3:   clamp(2rem, 3.2vw, 3.2rem);
   --text-h4:   clamp(1.6rem, 2vw, 2rem);
@@ -174,7 +178,7 @@
   --color-accent: var(--color-gold);
   --accent-rgb: var(--gold-rgb);
   --color-focus: var(--color-gold);
-  --color-focus-halo: rgba(14, 24, 63, 0.9);
+  --color-focus-halo: rgba(0, 33, 82, 0.9);
 }
 
 /* Exceções dentro de contêiner escuro que na verdade são superfícies
