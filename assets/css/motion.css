@@ -724,44 +724,25 @@ main { counter-reset: secao; }
 /* 16/10 manhã: João achou forte ainda; manchas ~10% mais leves no desktop e
    ~15% no iPad/celular (mais que isso o texto perde contraste), grão pela metade (grao-hero*.png). */
 .hero--video { --grao-hero: url("../images/grao-hero.png"), url("../images/grao-hero-suave.png"); }
+/* Overlay simples (João, 25/11): um véu neutro só atrás do texto, que some antes
+   da logo, e uma faixa leve no topo pra nav. Sem manchas azuis, teal nem grão.
+   O anterior está em prototipo/backups/motion-antes-overlay-2026-11-25.css. */
+.hero--video { --veu: 16, 18, 22; }
 .hero--video .hero__overlay {
+  /* curva suave (várias paradas), sem degrau visível onde o véu termina */
   background:
-    var(--grao-hero),
-    radial-gradient(56% 72% at 22% 54%, rgba(6, 26, 48, 0.8) 0%, rgba(6, 26, 48, 0.66) 40%, rgba(6, 26, 48, 0.36) 68%, rgba(6, 26, 48, 0.1) 86%, rgba(6, 26, 48, 0) 100%),
-    radial-gradient(46% 52% at 30% 78%, rgba(10, 52, 68, 0.62) 0%, rgba(15, 107, 109, 0.28) 50%, rgba(15, 107, 109, 0.06) 80%, rgba(15, 107, 109, 0) 100%),
-    radial-gradient(38% 48% at 10% 30%, rgba(6, 26, 48, 0.5) 0%, rgba(6, 26, 48, 0.2) 60%, rgba(6, 26, 48, 0) 100%),
-    radial-gradient(42% 34% at 18% 100%, rgba(217, 183, 79, 0.15) 0%, rgba(217, 183, 79, 0) 100%),
-    linear-gradient(180deg, rgba(6, 26, 48, 0.18) 0%, rgba(6, 26, 48, 0.03) 26%, rgba(6, 26, 48, 0.03) 74%, rgba(6, 26, 48, 0.28) 100%);
+    linear-gradient(90deg,
+      rgba(var(--veu), 0.68) 0%, rgba(var(--veu), 0.66) 16%, rgba(var(--veu), 0.61) 28%,
+      rgba(var(--veu), 0.52) 38%, rgba(var(--veu), 0.39) 46%, rgba(var(--veu), 0.25) 53%,
+      rgba(var(--veu), 0.13) 59%, rgba(var(--veu), 0.05) 65%, rgba(var(--veu), 0) 72%),
+    linear-gradient(180deg, rgba(var(--veu), 0.28) 0%, rgba(var(--veu), 0.1) 9%, rgba(var(--veu), 0) 18%, rgba(var(--veu), 0) 84%, rgba(var(--veu), 0.16) 100%);
 }
 @media (max-width: 1279px) {
+  /* tablet: o texto ocupa mais largura, o véu vai mais longe */
   .hero--video .hero__overlay {
     background:
-      var(--grao-hero),
-      radial-gradient(70% 68% at 28% 54%, rgba(6, 26, 48, 0.76) 0%, rgba(6, 26, 48, 0.66) 46%, rgba(6, 26, 48, 0.4) 76%, rgba(6, 26, 48, 0.16) 100%),
-      radial-gradient(55% 50% at 40% 75%, rgba(10, 52, 68, 0.6) 0%, rgba(15, 107, 109, 0.25) 60%, rgba(15, 107, 109, 0) 100%),
-      radial-gradient(40% 30% at 15% 100%, rgba(217, 183, 79, 0.14) 0%, rgba(217, 183, 79, 0) 100%),
-      linear-gradient(180deg, rgba(6, 26, 48, 0.2) 0%, rgba(6, 26, 48, 0.06) 30%, rgba(6, 26, 48, 0.06) 70%, rgba(6, 26, 48, 0.32) 100%);
-  }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  /* iPad em pé: a linha do Decildo cai sobre a parte clara do vídeo; o pé escurece um pouco mais */
-  .hero--video .hero__overlay {
-    background:
-      var(--grao-hero),
-      radial-gradient(70% 68% at 28% 54%, rgba(6, 26, 48, 0.76) 0%, rgba(6, 26, 48, 0.66) 46%, rgba(6, 26, 48, 0.4) 76%, rgba(6, 26, 48, 0.16) 100%),
-      radial-gradient(55% 50% at 40% 75%, rgba(10, 52, 68, 0.6) 0%, rgba(15, 107, 109, 0.25) 60%, rgba(15, 107, 109, 0) 100%),
-      radial-gradient(40% 30% at 15% 100%, rgba(217, 183, 79, 0.14) 0%, rgba(217, 183, 79, 0) 100%),
-      linear-gradient(180deg, rgba(6, 26, 48, 0.2) 0%, rgba(6, 26, 48, 0.06) 30%, rgba(6, 26, 48, 0.14) 60%, rgba(6, 26, 48, 0.44) 100%);
-  }
-}
-@media (max-width: 767px) {
-  .hero--video .hero__overlay {
-    background:
-      var(--grao-hero),
-      radial-gradient(110% 62% at 40% 52%, rgba(6, 26, 48, 0.74) 0%, rgba(6, 26, 48, 0.62) 45%, rgba(6, 26, 48, 0.42) 75%, rgba(6, 26, 48, 0.28) 100%),
-      radial-gradient(80% 40% at 60% 78%, rgba(15, 107, 109, 0.34) 0%, rgba(15, 107, 109, 0) 100%),
-      radial-gradient(70% 30% at 10% 100%, rgba(217, 183, 79, 0.13) 0%, rgba(217, 183, 79, 0) 100%),
-      linear-gradient(180deg, rgba(6, 26, 48, 0.3) 0%, rgba(6, 26, 48, 0.16) 55%, rgba(6, 26, 48, 0.3) 100%);
+      linear-gradient(90deg, rgba(var(--veu), 0.76) 0%, rgba(var(--veu), 0.64) 45%, rgba(var(--veu), 0.3) 72%, rgba(var(--veu), 0.1) 100%),
+      linear-gradient(180deg, rgba(var(--veu), 0.38) 0%, rgba(var(--veu), 0) 22%, rgba(var(--veu), 0) 70%, rgba(var(--veu), 0.4) 100%);
   }
 }
 
