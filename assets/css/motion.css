@@ -122,16 +122,16 @@ html.mo .fio.is-in path { stroke-dashoffset: 0; }
 /* hover não mexe no fundo (o granulado tem várias camadas; um "background"
    aqui apagava tudo, João 15/10): só a sombra cresce no card do centro */
 .palco .proposito-card:hover { transform: none; border-color: rgba(var(--navy-rgb), 0.08); }
-.proposito-card--pesquisa { --tom: #DCEBE9; }
+.proposito-card--pesquisa { --tom: #DCDEEB; }
 .proposito-card--formacao { --tom: #F3EAD2; }
-.proposito-card--inovacao { --tom: #DFE6EE; }
+.proposito-card--inovacao { --tom: #E0E3ED; }
 .palco .proposito-card__grain { display: none; }
 .palco .proposito-card__illustration { grid-area: ilu; align-self: center; margin: 0; }
 .palco .proposito-card__illustration { height: auto; padding: 0; background: none; border: 0; }
 .palco .proposito-card__illustration svg { width: 100%; height: auto; max-height: 30rem; display: block; }
 .palco .proposito-card__num { grid-area: num; font: 600 1.3rem/1 var(--font-body); letter-spacing: 0.14em; color: var(--color-teal); margin: 0 0 var(--space-md); }
 .palco .proposito-card__title { grid-area: tit; font-family: var(--font-titulo); font-weight: 500; letter-spacing: -0.03em; font-size: clamp(3.2rem, 4.4vw, 5.2rem); line-height: 1.04; color: var(--color-navy); margin: 0 0 var(--space-md); }
-.palco .proposito-card__desc { grid-area: desc; font-size: clamp(1.7rem, 1.6vw, 2.1rem); line-height: 1.5; color: #2A3B4F; max-width: 44rem; margin: 0; }
+.palco .proposito-card__desc { grid-area: desc; font-size: clamp(1.7rem, 1.6vw, 2.1rem); line-height: 1.5; color: #2F3652; max-width: 44rem; margin: 0; }
 /* link do card: .link-seta padrão (João, 16/10, padronização dos botões) */
 .palco .proposito-card__link { grid-area: link; justify-self: start; margin-top: var(--space-lg); }
 
@@ -160,22 +160,22 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 /* ilustração recolorida pro card claro (o original é branco/dourado no escuro) */
 .palco .il-line, .palco .il-ring, .palco .il-caminho { stroke: rgba(var(--navy-rgb), 0.6); }
 .palco .il-ring--externo { stroke: rgba(var(--navy-rgb), 0.3); }
-.palco .il-spoke, .palco .il-line--saida { stroke: rgba(217, 183, 79, 0.6); }
+.palco .il-spoke, .palco .il-line--saida { stroke: rgba(237, 186, 44, 0.6); }
 .palco .il-dot, .palco .il-dot--contexto, .palco .il-cabeca { fill: var(--color-navy); }
-.palco .il-node--centro { fill: #D9B74F; }
-.palco .il-halo { fill: rgba(217, 183, 79, 0.14); stroke: rgba(217, 183, 79, 0.5); }
+.palco .il-node--centro { fill: #EDBA2C; }
+.palco .il-halo { fill: rgba(237, 186, 44, 0.14); stroke: rgba(237, 186, 44, 0.5); }
 .palco .il-rotulo { fill: rgba(var(--navy-rgb), 0.85); }
 .palco .il-pagina { stroke: rgba(var(--navy-rgb), 0.55); fill: #fff; }
 .palco .il-texto { stroke: rgba(var(--navy-rgb), 0.3); }
 .palco .il-texto--titulo { stroke: rgba(var(--navy-rgb), 0.7); }
 .palco .il-lente-fundo { fill: #fff; }
-.palco .il-lente, .palco .il-cabo, .palco .il-livro__lombada { stroke: #D9B74F; }
+.palco .il-lente, .palco .il-cabo, .palco .il-livro__lombada { stroke: #EDBA2C; }
 .palco .il-barra { fill: rgba(var(--teal-rgb), 0.85); }
 .palco .il-ombros { stroke: rgba(var(--navy-rgb), 0.75); }
-.palco .il-livro__pag { stroke: #D9B74F; fill: rgba(217, 183, 79, 0.14); }
+.palco .il-livro__pag { stroke: #EDBA2C; fill: rgba(237, 186, 44, 0.14); }
 .palco .proposito-card.is-visible:hover .il-cabeca, .palco .proposito-card.is-visible:hover .il-dot--contexto { fill: var(--color-teal); }
 .palco .proposito-card.is-visible:hover .il-caminho { stroke: var(--color-teal); }
-.palco .proposito-card.is-visible:hover .il-livro__pag { fill: rgba(217, 183, 79, 0.28); }
+.palco .proposito-card.is-visible:hover .il-livro__pag { fill: rgba(237, 186, 44, 0.28); }
 
 /* celular e tablet estreito: ilustração em cima, texto embaixo; vizinhos espiam */
 @media (max-width: 767px) {
@@ -216,13 +216,13 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 /* Cartão claro encaixado (escolha do João, 15/10), como os pastel sobre creme da referência */
 .proposito {
   background: #F3EEE3;
-  --color-accent: var(--color-gold); --accent-rgb: 217, 183, 79;
+  --color-accent: var(--color-gold); --accent-rgb: 237, 186, 44;
   --color-focus: var(--color-navy); --color-focus-halo: rgba(255, 255, 255, 0.95);
 }
 
 .proposito .section-header--dark h2 { color: var(--color-navy); }
 .proposito .section-header--dark .section-header__sub { color: var(--color-navy-mid); }
-.palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.1); box-shadow: 0 1px 2px rgba(6, 26, 48, 0.06), 0 24px 48px -28px rgba(6, 26, 48, 0.35); }
+.palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.1); box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 24px 48px -28px rgba(14, 24, 63, 0.35); }
 .palco__dot::after { background: rgba(var(--navy-rgb), 0.25); }
 .palco__dot.is-active::after { background: var(--color-navy); }
 
@@ -238,7 +238,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   width: 48px; height: 48px; border-radius: 12px; border: 0;
   background: var(--color-navy); color: #fff; font-size: 1.6rem;
   display: grid; place-items: center; cursor: pointer;
-  box-shadow: 0 6px 18px -6px rgba(6, 26, 48, 0.45);
+  box-shadow: 0 6px 18px -6px rgba(14, 24, 63, 0.45);
   transform: translate3d(0, -50%, 0);
   transition: background 0.3s ease, transform 0.3s var(--curva-saida);
 }
@@ -281,7 +281,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-card {
   position: absolute; background: #fff; border-radius: 1.2em; padding: 1.1em 1.25em;
   border: 1px solid rgba(var(--navy-rgb), 0.08);
-  box-shadow: 0 1px 2px rgba(6, 26, 48, 0.06), 0 1.6em 3em -1.4em rgba(6, 26, 48, 0.28);
+  box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 1.6em 3em -1.4em rgba(14, 24, 63, 0.28);
 }
 .mi-selo { display: inline-block; font-size: 0.8em; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-teal); background: rgba(var(--teal-rgb), 0.11); padding: 0.35em 0.7em; border-radius: 99px; }
 .mi-selo--ouro { color: var(--color-navy); background: #F6E7B5; }
@@ -290,7 +290,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-linha { display: block; height: 0.42em; width: var(--w); border-radius: 99px; background: rgba(var(--navy-rgb), 0.11); margin-bottom: 0.5em; }
 .mi-rodape { font-size: 0.82em; font-weight: 500; color: var(--color-navy-mid); margin-top: 0.85em !important; padding-top: 0.75em !important; border-top: 1px solid rgba(var(--navy-rgb), 0.08); }
 .mi-rodape i { color: var(--color-teal); margin-right: 0.35em; }
-.mi-chip { position: absolute; display: inline-flex; align-items: center; gap: 0.55em; white-space: nowrap; padding: 0.45em 0.95em 0.45em 0.45em; background: #fff; border-radius: 99px; font-weight: 600; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1px 2px rgba(6, 26, 48, 0.06), 0 1em 2em -1em rgba(6, 26, 48, 0.3); }
+.mi-chip { position: absolute; display: inline-flex; align-items: center; gap: 0.55em; white-space: nowrap; padding: 0.45em 0.95em 0.45em 0.45em; background: #fff; border-radius: 99px; font-weight: 600; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1px 2px rgba(14, 24, 63, 0.06), 0 1em 2em -1em rgba(14, 24, 63, 0.3); }
 .mi-chip__icone { width: 2em; height: 2em; border-radius: 50%; display: grid; place-items: center; background: rgba(var(--teal-rgb), 0.12); color: var(--color-teal); font-size: 0.9em; }
 
 /* Pesquisa */
@@ -298,7 +298,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-grafico { right: 2%; top: 30%; width: 40%; }
 .mi-barras { display: flex; align-items: flex-end; gap: 0.45em; height: 6.4em; margin-top: 0.9em; border-bottom: 1px solid rgba(var(--navy-rgb), 0.12); }
 .mi-barras i { flex: 1; height: var(--h); border-radius: 0.3em 0.3em 0 0; background: var(--color-teal); transform-origin: bottom; }
-.mi-barras i:last-child { background: #D9B74F; }
+.mi-barras i:last-child { background: #EDBA2C; }
 .mi-chip--pesquisa { left: 9%; bottom: 3%; }
 
 /* Formação */
@@ -306,7 +306,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-modulos li { display: flex; align-items: center; gap: 0.55em; font-size: 0.9em; font-weight: 500; padding: 0.42em 0; border-top: 1px solid rgba(var(--navy-rgb), 0.07); }
 .mi-modulos i { color: rgba(var(--navy-rgb), 0.28); font-size: 1.05em; }
 .mi-modulos .feito i { color: var(--color-teal); }
-.mi-modulos .atual i { color: #D9B74F; }
+.mi-modulos .atual i { color: #EDBA2C; }
 .mi-modulos .atual span { margin-left: auto; font-size: 0.8em; font-weight: 600; color: var(--color-navy); background: #F6E7B5; padding: 0.2em 0.6em; border-radius: 99px; }
 .mi-progresso { display: block; height: 0.42em; border-radius: 99px; background: rgba(var(--navy-rgb), 0.1); margin-top: 0.8em; overflow: hidden; }
 .mi-progresso i { display: block; height: 100%; width: 100%; background: var(--color-teal); border-radius: 99px; transform-origin: left; transform: scaleX(0.38); }
@@ -314,16 +314,16 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
 .mi-roda { position: relative; width: 82%; aspect-ratio: 1; margin: 0.9em auto 0.2em; }
 .mi-roda::before { content: ""; position: absolute; inset: 14%; border-radius: 50%; border: 1px dashed rgba(var(--navy-rgb), 0.22); }
 .mi-av { position: absolute; left: 50%; top: 50%; width: 2.3em; height: 2.3em; margin: -1.15em 0 0 -1.15em; border-radius: 50%; display: grid; place-items: center; color: #fff; font-size: 0.92em; border: 2px solid #fff; transform: rotate(calc(var(--i) * 60deg)) translateY(-3.55em) rotate(calc(var(--i) * -60deg)); }
-.mi-av--0 { background: var(--color-teal); } .mi-av--1 { background: var(--color-navy); } .mi-av--2 { background: #D9B74F; }
-.mi-av--3 { background: var(--color-navy-mid); } .mi-av--4 { background: #2F7F80; } .mi-av--5 { background: #5B6F86; }
-.mi-roda__centro { position: absolute; left: 50%; top: 50%; width: 0.9em; height: 0.9em; margin: -0.45em 0 0 -0.45em; border-radius: 50%; background: var(--color-gold); box-shadow: 0 0 0 0.35em rgba(217, 183, 79, 0.15); }
+.mi-av--0 { background: var(--color-teal); } .mi-av--1 { background: var(--color-navy); } .mi-av--2 { background: #EDBA2C; }
+.mi-av--3 { background: var(--color-navy-mid); } .mi-av--4 { background: #5769C1; } .mi-av--5 { background: #5B6486; }
+.mi-roda__centro { position: absolute; left: 50%; top: 50%; width: 0.9em; height: 0.9em; margin: -0.45em 0 0 -0.45em; border-radius: 50%; background: var(--color-gold); box-shadow: 0 0 0 0.35em rgba(237, 186, 44, 0.15); }
 
 /* Inovação */
 .mi-rede { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mi-elo { fill: none; stroke: rgba(var(--navy-rgb), 0.32); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 0; }
 .mi-luz { fill: var(--color-teal); opacity: 0; }
-.mi-centro { position: absolute; left: 50%; top: 50%; width: 5.6em; height: 5.6em; margin: -2.8em 0 0 -2.8em; font-size: max(8.5px, 2.8cqw); border-radius: 50%; background: #fff; display: grid; place-items: center; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1.2em 2.4em -1.2em rgba(6, 26, 48, 0.35); }
-.mi-centro::before { content: ""; position: absolute; inset: -0.9em; border-radius: 50%; border: 1px solid rgba(217, 183, 79, 0.4); background: rgba(217, 183, 79, 0.06); }
+.mi-centro { position: absolute; left: 50%; top: 50%; width: 5.6em; height: 5.6em; margin: -2.8em 0 0 -2.8em; font-size: max(8.5px, 2.8cqw); border-radius: 50%; background: #fff; display: grid; place-items: center; border: 1px solid rgba(var(--navy-rgb), 0.08); box-shadow: 0 1.2em 2.4em -1.2em rgba(14, 24, 63, 0.35); }
+.mi-centro::before { content: ""; position: absolute; inset: -0.9em; border-radius: 50%; border: 1px solid rgba(237, 186, 44, 0.4); background: rgba(237, 186, 44, 0.06); }
 .mi-centro img { width: 3em; height: auto; position: relative; }
 .mi-ctx { transform: translate(-50%, -50%); }
 .mi-ctx--0 { left: 22%; top: 17%; } .mi-ctx--1 { left: 78%; top: 17%; }
@@ -393,7 +393,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   padding-top: 0.1px;
   background: var(--color-paper);
   border-radius: var(--raio-bloco) var(--raio-bloco) 0 0;
-  box-shadow: 0 -24px 48px -28px rgba(6, 26, 48, 0.45);
+  box-shadow: 0 -24px 48px -28px rgba(14, 24, 63, 0.45);
 }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--color-navy-900); opacity: 0; pointer-events: none; }
 /* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
@@ -405,7 +405,7 @@ html.mo .palco.is-in .proposito-card[data-pos="-1"] { transition-delay: 0.22s !i
   background:
     radial-gradient(ellipse 55% 40% at 50% 62%, rgba(var(--gold-rgb), 0.22), transparent 70%),
     radial-gradient(ellipse 60% 50% at 85% 10%, rgba(var(--teal-rgb), 0.08), transparent 70%),
-    linear-gradient(180deg, #F7F2E8 0%, #EEF3EE 60%, #E3EFEC 100%);
+    linear-gradient(180deg, #F7F2E8 0%, #EFF0F2 60%, #E3E5EF 100%);
 }
 
 /* ===== TOPO PADRÃO DE SEÇÃO (João, 15/10: topo editorial do Propósito, um
@@ -476,8 +476,8 @@ html.mo .topo-secao.is-in > :nth-child(n+4) { transition-delay: 0.28s; }
    João): cartão claro com linhas verticais finas, etapas em zigue-zague,
    painel com a foto desfocada e uma interface com os subpontos reais. ===== */
 .solucoes--clara {
-  background: #F5F6F3; color: var(--color-navy);
-  --color-accent: var(--color-gold); --accent-rgb: 217, 183, 79;
+  background: #F4F4F5; color: var(--color-navy);
+  --color-accent: var(--color-gold); --accent-rgb: 237, 186, 44;
   --color-focus: var(--color-navy); --color-focus-halo: rgba(255, 255, 255, 0.95);
 }
 .solucoes--clara::before { display: none; }
@@ -493,15 +493,15 @@ html.mo .topo-secao.is-in > :nth-child(n+4) { transition-delay: 0.28s; }
 .atua { display: grid; gap: clamp(8rem, 10vw, 14rem); margin-top: clamp(4rem, 6vw, 8rem); }
 .atua-andar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); gap: clamp(3rem, 5vw, 7rem); align-items: end; }
 .atua-andar--inv .atua-andar__texto { order: 2; }
-.atua-andar__num { font: 300 clamp(4.4rem, 4.2vw, 5.8rem)/1 var(--font-titulo); letter-spacing: -0.04em; color: #8A96A3; margin: 0 0 1.6rem; }
+.atua-andar__num { font: 300 clamp(4.4rem, 4.2vw, 5.8rem)/1 var(--font-titulo); letter-spacing: -0.04em; color: #8A8FA3; margin: 0 0 1.6rem; }
 .atua-andar__titulo { font: 500 clamp(2.8rem, 3vw, 4rem)/1.08 var(--font-titulo); letter-spacing: -0.03em; color: var(--color-navy); margin: 0 0 1.4rem; }
-.atua-andar__desc { font-size: clamp(1.7rem, 1.35vw, 1.9rem); line-height: 1.55; color: #4A5A6B; margin: 0 0 2rem; max-width: 48rem; }
+.atua-andar__desc { font-size: clamp(1.7rem, 1.35vw, 1.9rem); line-height: 1.55; color: #4A516B; margin: 0 0 2rem; max-width: 48rem; }
 /* link da etapa: .link-seta--menor (João, 16/10, padronização dos botões) */
 
 /* painel: foto da etapa desfocada + interface */
 .atua-painel {
   position: relative; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;
-  background-color: #DDE3E3; background-position: center; background-size: cover; background-repeat: no-repeat;
+  background-color: #DDDEE3; background-position: center; background-size: cover; background-repeat: no-repeat;
   display: flex; align-items: flex-start; justify-content: flex-end; padding: 7% 0 0 9%;
 }
 .atua-painel::before { /* véu claro pra interface respirar */
@@ -510,19 +510,19 @@ html.mo .topo-secao.is-in > :nth-child(n+4) { transition-delay: 0.28s; }
 .atua-ui { position: relative; width: 100%; display: grid; gap: 1.2rem; font-size: clamp(1.2rem, 0.95vw, 1.4rem); color: var(--color-navy); }
 .atua-ui__etapa {
   justify-self: start; display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.8rem 1.2rem 1.2rem;
-  background: rgba(255, 255, 255, 0.94); border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(6, 26, 48, 0.35);
+  background: rgba(255, 255, 255, 0.94); border-radius: 10px; box-shadow: 0 10px 30px -14px rgba(14, 24, 63, 0.35);
   font-weight: 600; line-height: 1.3;
 }
-.atua-ui__etapa small { display: block; font-weight: 500; font-size: 0.85em; color: #6B7785; }
+.atua-ui__etapa small { display: block; font-weight: 500; font-size: 0.85em; color: #6B7085; }
 .atua-ui__icone { width: 3.6rem; height: 3.6rem; border-radius: 9px; display: grid; place-items: center; background: rgba(var(--teal-rgb), 0.12); color: var(--color-teal); font-size: 1.5rem; flex: none; }
 .atua-ui__corpo {
   display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); min-height: 0;
-  background: #fff; border-radius: 10px 0 0 0; box-shadow: 0 18px 40px -18px rgba(6, 26, 48, 0.4);
+  background: #fff; border-radius: 10px 0 0 0; box-shadow: 0 18px 40px -18px rgba(14, 24, 63, 0.4);
 }
 .atua-ui__lista { list-style: none; margin: 0; padding: 1.4rem 1rem; border-right: 1px solid rgba(var(--navy-rgb), 0.08); display: grid; gap: 0.4rem; align-content: start; }
-.atua-ui__item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: 6px; line-height: 1.35; color: #4A5A6B; transition: background 0.5s ease, color 0.5s ease; }
+.atua-ui__item { display: flex; gap: 0.9rem; align-items: flex-start; padding: 0.9rem 1rem; border-radius: 6px; line-height: 1.35; color: #4A516B; transition: background 0.5s ease, color 0.5s ease; }
 .atua-ui__item i { color: rgba(var(--teal-rgb), 0.45); margin-top: 0.15em; transition: color 0.5s ease; }
-.atua-ui__item.is-on { background: #EEF2F1; color: var(--color-navy); font-weight: 600; }
+.atua-ui__item.is-on { background: #EEEFF2; color: var(--color-navy); font-weight: 600; }
 .atua-ui__item.is-on i { color: var(--color-teal); }
 .atua-ui__ver { padding: 1.4rem 0 1.4rem 1.4rem; display: grid; gap: 1rem; align-content: start; }
 .atua-ui__ver img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 6px 0 0 6px; display: block; }
@@ -569,8 +569,8 @@ html.mo .atua-andar.is-in .atua-ui > :last-child { opacity: 1; transform: none; 
    Propósito e o Como Atuamos. Manchas medidas em vw (não %), pra não
    esticarem numa seção alta: verde-água no alto à direita, dourado no pé. */
 :root {
-  --mancha-verde: radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.22), rgba(127, 196, 188, 0.1) 45%, transparent 75%);
-  --mancha-ouro: radial-gradient(42vw 22vw at 8% 100%, rgba(217, 183, 79, 0.22), transparent 70%);
+  --mancha-verde: radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.22), rgba(127, 138, 196, 0.1) 45%, transparent 75%);
+  --mancha-ouro: radial-gradient(42vw 22vw at 8% 100%, rgba(237, 186, 44, 0.22), transparent 70%);
   --fundo-granulado: var(--grao), var(--mancha-verde), var(--mancha-ouro), var(--papel-claro);
 }
 .proposito { background: var(--fundo-granulado); }
@@ -585,34 +585,34 @@ html.mo .atua-andar.is-in .atua-ui > :last-child { opacity: 1; transform: none; 
 .palco .proposito-card { border-color: rgba(var(--navy-rgb), 0.08); }
 .palco .proposito-card--pesquisa {
   background: var(--grao),
-    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(15, 107, 109, 0.92) 0, rgba(46, 140, 138, 0.78) 22%, rgba(127, 196, 188, 0.55) 44%, rgba(210, 234, 230, 0.3) 66%, transparent 86%),
+    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(var(--teal-rgb), 0.92) 0, rgba(82, 102, 198, 0.78) 22%, rgba(127, 138, 196, 0.55) 44%, rgba(210, 214, 234, 0.3) 66%, transparent 86%),
     var(--papel-claro);
 }
 .palco .proposito-card--formacao {
   background: var(--grao),
-    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(196, 150, 32, 0.92) 0, rgba(217, 183, 79, 0.8) 22%, rgba(238, 214, 150, 0.58) 44%, rgba(248, 238, 212, 0.3) 66%, transparent 86%),
+    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(196, 150, 32, 0.92) 0, rgba(237, 186, 44, 0.8) 22%, rgba(238, 214, 150, 0.58) 44%, rgba(248, 238, 212, 0.3) 66%, transparent 86%),
     var(--papel-claro);
 }
 .palco .proposito-card--inovacao {
   background: var(--grao),
-    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(31, 78, 122, 0.9) 0, rgba(70, 115, 165, 0.76) 22%, rgba(150, 180, 215, 0.55) 44%, rgba(222, 232, 244, 0.3) 66%, transparent 86%),
+    radial-gradient(ellipse 62% 85% at 80% 55%, rgba(37, 54, 119, 0.9) 0, rgba(76, 92, 159, 0.76) 22%, rgba(154, 165, 211, 0.55) 44%, rgba(223, 227, 243, 0.3) 66%, transparent 86%),
     var(--papel-claro);
 }
-.palco .proposito-card[data-pos="0"]:hover { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 2px 4px rgba(6, 26, 48, 0.06), 0 36px 64px -30px rgba(6, 26, 48, 0.42); }
+.palco .proposito-card[data-pos="0"]:hover { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 2px 4px rgba(14, 24, 63, 0.06), 0 36px 64px -30px rgba(14, 24, 63, 0.42); }
 @media (max-width: 767px) {
   .palco .proposito-card--pesquisa, .palco .proposito-card--formacao, .palco .proposito-card--inovacao { background-size: auto, 100% 100%, auto; }
-  .palco .proposito-card--pesquisa { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(15, 107, 109, 0.75) 0, rgba(80, 160, 156, 0.5) 18%, rgba(170, 214, 208, 0.38) 34%, transparent 60%), var(--papel-claro); }
-  .palco .proposito-card--formacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(204, 160, 40, 0.78) 0, rgba(217, 183, 79, 0.55) 18%, rgba(238, 217, 160, 0.4) 34%, transparent 60%), var(--papel-claro); }
-  .palco .proposito-card--inovacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(31, 78, 122, 0.72) 0, rgba(90, 130, 175, 0.5) 18%, rgba(157, 183, 214, 0.38) 34%, transparent 60%), var(--papel-claro); }
+  .palco .proposito-card--pesquisa { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(var(--teal-rgb), 0.75) 0, rgba(80, 93, 160, 0.5) 18%, rgba(170, 177, 214, 0.38) 34%, transparent 60%), var(--papel-claro); }
+  .palco .proposito-card--formacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(237, 186, 44, 0.78) 0, rgba(237, 186, 44, 0.55) 18%, rgba(238, 217, 160, 0.4) 34%, transparent 60%), var(--papel-claro); }
+  .palco .proposito-card--inovacao { background: var(--grao), radial-gradient(circle at 50% 24%, rgba(37, 54, 119, 0.72) 0, rgba(95, 110, 170, 0.5) 18%, rgba(160, 170, 211, 0.38) 34%, transparent 60%), var(--papel-claro); }
 }
 
 /* painéis do Como Atuamos: mesmo granulado, cor alternando por etapa */
 .atua-painel { background: var(--grao), var(--mancha), var(--papel-claro); }
 .atua-painel::before { display: none; }
-.atua-andar:nth-of-type(1) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(15, 107, 109, 0.8) 0, rgba(80, 160, 156, 0.55) 18%, rgba(170, 214, 208, 0.4) 36%, transparent 66%); }
-.atua-andar:nth-of-type(2) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(31, 78, 122, 0.75) 0, rgba(90, 130, 175, 0.55) 18%, rgba(157, 183, 214, 0.4) 36%, transparent 66%); }
-.atua-andar:nth-of-type(3) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(204, 160, 40, 0.8) 0, rgba(217, 183, 79, 0.58) 18%, rgba(238, 217, 160, 0.42) 36%, transparent 66%); }
-.atua-andar:nth-of-type(4) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(15, 107, 109, 0.8) 0, rgba(80, 160, 156, 0.55) 18%, rgba(170, 214, 208, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(1) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 93, 160, 0.55) 18%, rgba(170, 177, 214, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(2) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(37, 54, 119, 0.75) 0, rgba(95, 110, 170, 0.55) 18%, rgba(160, 170, 211, 0.4) 36%, transparent 66%); }
+.atua-andar:nth-of-type(3) .atua-painel { --mancha: radial-gradient(circle at 18% 78%, rgba(237, 186, 44, 0.8) 0, rgba(237, 186, 44, 0.58) 18%, rgba(238, 217, 160, 0.42) 36%, transparent 66%); }
+.atua-andar:nth-of-type(4) .atua-painel { --mancha: radial-gradient(circle at 82% 78%, rgba(var(--teal-rgb), 0.8) 0, rgba(80, 93, 160, 0.55) 18%, rgba(170, 177, 214, 0.4) 36%, transparent 66%); }
 
 /* ===== LARGURA (João, 15/10): o carrossel do Propósito fica dentro da
    linha do container, alinhado com o título e as outras seções. O card

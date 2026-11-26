@@ -18,13 +18,13 @@
       linear-gradient(125deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.14) 100%),
       url("../images/grao-suave.png"),
       radial-gradient(60% 55% at 0% 0%, rgba(var(--teal-rgb), 0.1), transparent 70%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.58) 0%, rgba(248, 251, 250, 0.5) 100%);
+      linear-gradient(180deg, rgba(255, 255, 255, 0.58) 0%, rgba(248, 248, 251, 0.5) 100%);
     border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow:
       inset 1px 1px 0 rgba(255, 255, 255, 0.95),
       inset -1px -1px 0 rgba(255, 255, 255, 0.25),
-      inset 0 -10px 24px -18px rgba(6, 26, 48, 0.18),
-      0 24px 60px -12px rgba(6, 26, 48, 0.3), 0 2px 8px rgba(6, 26, 48, 0.06);
+      inset 0 -10px 24px -18px rgba(14, 24, 63, 0.18),
+      0 24px 60px -12px rgba(14, 24, 63, 0.3), 0 2px 8px rgba(14, 24, 63, 0.06);
     border-radius: 2rem;
     padding: 0.9rem;
     -webkit-backdrop-filter: blur(16px) saturate(160%) brightness(1.85);
@@ -38,7 +38,7 @@
   .navbar__dropdown-link::before { border-radius: 1.3rem; background: rgba(255, 255, 255, 0.5); box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.6); }
   .navbar__dropdown-icon { background: rgba(255, 255, 255, 0.42); color: var(--color-navy); border-radius: 1.1rem; box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(255, 255, 255, 0.55); }
   .navbar__dropdown-title { color: var(--color-navy); }
-  .navbar__dropdown-desc { color: #1D3957; }
+  .navbar__dropdown-desc { color: #232E5A; }
   .navbar__dropdown-seta { color: var(--color-navy); }
-  .navbar__dropdown-link--all { color: #123F3C; border-top-color: rgba(var(--navy-rgb), 0.1); }
+  .navbar__dropdown-link--all { color: #24337E; border-top-color: rgba(var(--navy-rgb), 0.1); }
 }

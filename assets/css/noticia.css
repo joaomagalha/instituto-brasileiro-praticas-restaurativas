@@ -10,19 +10,19 @@
   --font-body: "Instrument Sans", system-ui, sans-serif;
   --font-titulo: "Plus Jakarta Sans", system-ui, sans-serif;
   --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
-  --n-navy: var(--color-navy, #0A2A4D);
-  --n-teal: #0F6B6D;
-  --n-texto: #2C4158;
-  --n-cinza: #5B6B7C;
+  --n-navy: var(--color-navy, #152561);
+  --n-teal: #485FD0;
+  --n-texto: #31395A;
+  --n-cinza: #5B627C;
   --n-curva: cubic-bezier(0.22, 1, 0.36, 1);
   position: relative;
   padding: clamp(6.4rem, 7vw, 10.4rem) 0 clamp(7.2rem, 8vw, 11.2rem);
   background:
     url("../images/grao.png"),
-    linear-gradient(180deg, transparent calc(100% - 7vw), #FAFBF8 100%),
-    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    linear-gradient(180deg, transparent calc(100% - 7vw), #F9F9FA 100%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 138, 196, 0.07) 45%, transparent 75%),
     radial-gradient(40vw 30vw at 0% 70%, rgba(var(--teal-rgb), 0.07), transparent 72%),
-    #FAFBF8;
+    #F9F9FA;
   font-family: var(--font-body);
   color: var(--n-texto);
 }
@@ -31,7 +31,7 @@
 /* ---- foto ---- */
 .noticia-corpo .noticia-figura { margin: 0 0 clamp(4.4rem, 5vw, 6.4rem); }
 .noticia-corpo .noticia-figura__moldura {
-  border-radius: 2.4rem; overflow: clip; background: #DDE5E6;
+  border-radius: 2.4rem; overflow: clip; background: #DDDEE6;
   box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06), 0 30px 60px -40px rgba(var(--navy-rgb), 0.5);
 }
 .noticia-corpo .noticia-figura img { max-height: min(72vh, 62rem); }
@@ -95,7 +95,7 @@
   --curva-saida: cubic-bezier(0.22, 1, 0.36, 1);
   --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
   --grao: url("../images/grao.png");
-  --papel-claro: #FAFBF8;
+  --papel-claro: #F9F9FA;
   font-family: var(--font-body);
 }
 /* "Ver todas as notícias" no lugar da ação do topo, como o "Ver todas" da Home */
@@ -115,16 +115,16 @@
   padding-top: clamp(2.4rem, 3vw, 4rem);
   background: var(--grao),
     linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
-    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(217, 183, 79, 0.14), transparent 76%),
+    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(237, 186, 44, 0.14), transparent 76%),
     radial-gradient(56vw 18vw at 78% calc(100% - 6vw), rgba(var(--teal-rgb), 0.12), transparent 78%),
     var(--papel-claro);
 }
 .section--paper + .mov-noticias {
-  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 248, 247, 0) 8vw),
+  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 246, 248, 0) 8vw),
     var(--grao),
     linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
-    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(217, 183, 79, 0.14), transparent 76%),
+    radial-gradient(60vw 20vw at 22% calc(100% - 8vw), rgba(237, 186, 44, 0.14), transparent 76%),
     radial-gradient(56vw 18vw at 78% calc(100% - 6vw), rgba(var(--teal-rgb), 0.12), transparent 78%),
-    radial-gradient(37vw 31vw at calc(100% - 2vw) 14vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 14vw, rgba(var(--teal-rgb), 0.16), rgba(127, 138, 196, 0.07) 45%, transparent 75%),
     var(--papel-claro);
 }

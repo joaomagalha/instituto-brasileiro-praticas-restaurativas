@@ -13,10 +13,10 @@
   --respiro-bloco: 12px;
   --curva-saida: cubic-bezier(0.22, 1, 0.36, 1);
   --curva-suave: cubic-bezier(0.45, 0, 0.2, 1); /* entra e sai devagar: troca do carrossel */
-  /* Dourado mais claro (João, 15/10): #C9A22B (L 48%) virou #D9B74F (L 58%),
+  /* Dourado mais claro (João, 15/10): #EDBA2C (L 48%) virou #EDBA2C (L 58%),
      mesmo tom. Sobre o navy o contraste sobe de 7,3 pra 9,0:1. */
-  --color-gold: #D9B74F;
-  --gold-rgb: 217, 183, 79;
+  --color-gold: #EDBA2C;
+  --gold-rgb: 237, 186, 44;
 }
 
 /* Na pílula branca do menu, dourado claro como texto some (1,9:1). João,
@@ -59,7 +59,7 @@ body { background: var(--color-paper); }
 
 :root {
   --grao: url("../images/grao.png"); /* PNG, não SVG com feTurbulence: o filtro custava caro a cada repintura (16/10) */
-  --papel-claro: #FAFBF8;
+  --papel-claro: #F9F9FA;
 }
 
 :root {
@@ -84,7 +84,7 @@ body { background: var(--color-paper); }
   max-width: calc(100vw - (var(--nav-offset) * 2)); margin-left: auto; margin-right: auto;
   padding: 1rem clamp(1.6rem, 4vw, 2.4rem); /* igual à rolada: simétrico (João, 16/10) */
   margin-top: calc(var(--respiro-bloco) + clamp(1.6rem, 2.4vw, 3.2rem)); /* respiro da borda do cartão do hero */
-  background: linear-gradient(180deg, rgba(6, 26, 48, 0.6), rgba(6, 26, 48, 0.48));
+  background: linear-gradient(180deg, rgba(14, 24, 63, 0.6), rgba(14, 24, 63, 0.48));
   -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 10px 30px -14px rgba(0, 0, 0, 0.45);
@@ -94,7 +94,7 @@ body { background: var(--color-paper); }
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
   -webkit-backdrop-filter: var(--nav-blur); backdrop-filter: var(--nav-blur);
   border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(6, 26, 48, 0.05), 0 10px 34px -14px rgba(6, 26, 48, 0.3);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(255, 255, 255, 0.25), 0 0 0 1px rgba(14, 24, 63, 0.05), 0 10px 34px -14px rgba(14, 24, 63, 0.3);
 }
 /* Menu mobile e iPad mais baixo (João, 16/10: "muito grande"): 66px → ~50px.
    O ☰ mantém 44px de toque, mas encosta na borda com margem negativa. */
@@ -106,7 +106,7 @@ body { background: var(--color-paper); }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .navbar.scrolled .navbar__container { background: rgba(255, 255, 255, 0.92); }
-  .navbar:not(.scrolled) .navbar__container { background: rgba(6, 26, 48, 0.55); }
+  .navbar:not(.scrolled) .navbar__container { background: rgba(14, 24, 63, 0.55); }
 }
 
 /* ===== ITEM ATIVO DA NAVBAR: pílula suave (João, 18/10, escolhida entre

@@ -5,58 +5,67 @@
    a justificativa de cada escolha (sobretudo contraste).
 =================================== */
 :root {
-  /* AZUL MARINHO — primária (manual: confiança, seriedade, credibilidade) */
-  --color-navy-900: #061A30; /* derivado, mais escuro — fundo de seções escuras/footer */
-  --color-navy:     #0A2A4D; /* oficial do manual — botões, headings, marca */
-  --color-navy-700: #123A63; /* derivado — hover/superfície escura secundária */
-  --color-navy-mid: #3D5773; /* derivado — texto secundário em fundo claro (AAA) */
+  /* CORES DA LOGO NOVA (SVG do designer, 25/11/2026) — fonte da verdade.
+     Marinho #152561 · Lavanda #6175D6 · Amarelo #EDBA2C · Oliva #7A7D34.
+     A paleta antiga (marinho #0A2A4D, verde-água #0F6B6D, dourado #C9A22B)
+     saiu em 26/11/2026; os nomes dos tokens ficaram pra não quebrar o CSS. */
+  --logo-marinho: #152561;
+  --logo-lavanda: #6175D6;
+  --logo-amarelo: #EDBA2C;
+  --logo-oliva:   #7A7D34;
 
-  /* VERDE — secundária (manual: vida, esperança, renovação) */
-  --color-green: #2E7D32;
+  /* MARINHO — primária */
+  --color-navy-900: #0E183F; /* derivado, mais fundo — seções escuras e rodapé */
+  --color-navy:     var(--logo-marinho); /* botões, títulos, marca */
+  --color-navy-700: #1F3388; /* derivado — hover e superfície escura secundária */
+  --color-navy-mid: #454E78; /* derivado — texto secundário em fundo claro (8,4:1) */
 
-  /* AZUL PETRÓLEO — terciária (manual: equilíbrio, harmonia, profundidade) */
-  --color-teal: #0F6B6D;
+  /* OLIVA — secundária (era o verde); escurecido pra passar AA como texto */
+  --color-green: #6E712F;
 
-  /* DOURADO — accent (manual: excelência, valor, reconhecimento)
-     Manual impresso traz "#CS9A2B" — "S" não é dígito hex, é typo.
-     G(9A) e B(2B) são certos; só o 1º dígito do R é ambíguo (5 ou 9).
-     Usando #C9A22B — conferir com quem fez o manual antes de produção. */
-  --color-gold: #C9A22B;
+  /* LAVANDA — destaque em fundo claro (era o "teal"/verde-água).
+     A lavanda pura da logo (4,2:1) não passa como texto pequeno: o token
+     usa a versão escurecida #485FD0 (5,5:1); a pura fica em --logo-lavanda. */
+  --color-teal: #485FD0;
+
+  /* AMARELO — destaque em fundo escuro (7,9:1 no marinho).
+     Nunca como texto em fundo claro (1,8:1): lá vale --color-accent. */
+  --color-gold: var(--logo-amarelo);
 
   /* NEUTROS CLAROS */
   --color-white:        #FFFFFF;
-  --color-paper:        #F6F8F7;
-  --color-mist-bg:      #E9EEEC;
-  --color-border-light: #D7DFDC;
+  --color-paper:        #F6F6F8;
+  --color-mist-bg:      #E9EAEE;
+  --color-border-light: #D7D9DF;
 
   /* TEXTO */
-  --color-ink:  #101823;
-  --color-mist: #56616D;
+  --color-ink:  #171C2E;
+  --color-mist: #565B6D;
 
   /* FUNCIONAIS — extensão derivada, NÃO existe no manual.
      Feitas pra manter contraste AA (ver contexto-*.md). */
   --color-success:    var(--color-green);
-  --color-warning:    #8A6A1A; /* dourado escurecido — legível como texto em fundo claro */
+  --color-warning:    #8E6C0C; /* dourado escurecido — legível como texto em fundo claro */
   --color-warning-bg: var(--color-gold);
   --color-danger:     #A6432E; /* terracota derivado, harmoniza com a paleta */
 
   /* ACCENT CONTEXTUAL
-     Dourado reprova contraste em fundo claro (2.27:1) — então o "accent"
-     usado em kickers/links/ícones/bordas é o Azul Petróleo por padrão,
+     Amarelo reprova contraste em fundo claro (1,8:1) — então o "accent"
+     usado em kickers/links/ícones/bordas é a Lavanda escurecida por padrão,
      e vira Dourado dentro de qualquer contêiner de fundo escuro (ver
      escopo no fim deste arquivo). Nunca usar --color-gold direto como
      cor de TEXTO pequeno em fundo claro — use --color-accent. */
   --color-accent: var(--color-teal);
 
   /* RGB tuples — pra opacidade via rgba(var(--x-rgb), alpha) sem hardcode */
-  --navy-rgb:     10, 42, 77;
-  --navy900-rgb:   6, 26, 48;
-  --gold-rgb:    201, 162, 43;
-  --teal-rgb:     15, 107, 109;
-  --green-rgb:    46, 125, 50;
+  --navy-rgb:     21, 37, 97;
+  --navy900-rgb:   14, 24, 63;
+  --gold-rgb:    237, 186, 44;
+  --teal-rgb:     40, 55, 140; /* lavanda escura: em brilho e borda transparente fica discreta como o verde-água era; o texto usa --color-teal */
+  --green-rgb:    110, 113, 47;
   --white-rgb:   255, 255, 255;
-  --ink-rgb:      16, 24, 35;
-  --accent-rgb:  var(--teal-rgb); /* acompanha --color-accent (petróleo claro / dourado escuro) */
+  --ink-rgb:      23, 28, 46;
+  --accent-rgb:  var(--teal-rgb); /* acompanha --color-accent (lavanda no claro / amarelo no escuro) */
 
   /* TIPOGRAFIA — sem definição do cliente; escolha do design system
      (Google Fonts gratuitas, tom institucional/científico). */
@@ -165,7 +174,7 @@
   --color-accent: var(--color-gold);
   --accent-rgb: var(--gold-rgb);
   --color-focus: var(--color-gold);
-  --color-focus-halo: rgba(6, 26, 48, 0.9);
+  --color-focus-halo: rgba(14, 24, 63, 0.9);
 }
 
 /* Exceções dentro de contêiner escuro que na verdade são superfícies

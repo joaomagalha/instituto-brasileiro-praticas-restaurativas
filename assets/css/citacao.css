@@ -3,7 +3,7 @@
    baixo (Magnific, Nano Banana Pro): Home de manhã, Práticas à tarde.
    Texto branco no centro sobre uma mancha navy suave + grão leve.
    Arquivo próprio porque a página de Práticas ainda não carrega o motion.css. ===== */
-.quotes--pintura { background: var(--color-paper, #f6f7f5); padding: clamp(1.6rem, 3vw, 4rem) 0; overflow: clip; }
+.quotes--pintura { background: var(--color-paper, #F5F6F7); padding: clamp(1.6rem, 3vw, 4rem) 0; overflow: clip; }
 .quotes--pintura .encontro { max-width: none; }
 .quotes--pintura .grid-overlay, .quotes--pintura .quotes__texture, .quotes--pintura .fio { display: none; }
 .citacao-cartao {
@@ -13,7 +13,7 @@
   min-height: clamp(52rem, 78vh, 76rem);
   display: grid; place-items: center;
   padding: clamp(8rem, 12vw, 14rem) var(--container-pad, 2.4rem);
-  background: #3f7f86 var(--cit-img) center / cover no-repeat;
+  background: #6371B6 var(--cit-img) center / cover no-repeat;
 }
 .citacao-cartao--praticas { --cit-img: url("../images/citacao-praticas-1920.webp"); }
 @media (max-width: 1279px) {
@@ -29,21 +29,21 @@
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
     url("../images/grao-hero.png"),
-    radial-gradient(52% 58% at 50% 52%, rgba(6, 26, 48, 0.68) 0%, rgba(6, 26, 48, 0.5) 50%, rgba(6, 26, 48, 0.12) 85%, rgba(6, 26, 48, 0) 100%),
-    linear-gradient(180deg, rgba(6, 26, 48, 0.08), rgba(6, 26, 48, 0.12));
+    radial-gradient(52% 58% at 50% 52%, rgba(14, 24, 63, 0.68) 0%, rgba(14, 24, 63, 0.5) 50%, rgba(14, 24, 63, 0.12) 85%, rgba(14, 24, 63, 0) 100%),
+    linear-gradient(180deg, rgba(14, 24, 63, 0.08), rgba(14, 24, 63, 0.12));
 }
 @media (min-width: 641px) and (max-width: 1279px) {
   .citacao-cartao::before {
     background:
       url("../images/grao-hero.png"),
-      radial-gradient(68% 58% at 50% 52%, rgba(6, 26, 48, 0.72) 0%, rgba(6, 26, 48, 0.54) 50%, rgba(6, 26, 48, 0.2) 85%, rgba(6, 26, 48, 0.06) 100%);
+      radial-gradient(68% 58% at 50% 52%, rgba(14, 24, 63, 0.72) 0%, rgba(14, 24, 63, 0.54) 50%, rgba(14, 24, 63, 0.2) 85%, rgba(14, 24, 63, 0.06) 100%);
   }
 }
 @media (max-width: 640px) {
   .citacao-cartao::before {
     background:
       url("../images/grao-hero.png"),
-      radial-gradient(95% 60% at 50% 50%, rgba(6, 26, 48, 0.7) 0%, rgba(6, 26, 48, 0.5) 60%, rgba(6, 26, 48, 0.22) 100%);
+      radial-gradient(95% 60% at 50% 50%, rgba(14, 24, 63, 0.7) 0%, rgba(14, 24, 63, 0.5) 60%, rgba(14, 24, 63, 0.22) 100%);
   }
 }
 .citacao-cartao__miolo { position: relative; max-width: 78rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -61,7 +61,7 @@
   margin: 0; color: #fff;
   font-family: var(--font-titulo, inherit); font-weight: 500;
   font-size: clamp(2.3rem, 2.5vw, 3.4rem); line-height: 1.3; letter-spacing: -0.015em;
-  text-wrap: balance; text-shadow: 0 1px 24px rgba(6, 26, 48, 0.35);
+  text-wrap: balance; text-shadow: 0 1px 24px rgba(14, 24, 63, 0.35);
 }
 .citacao-cartao .quote-mark__text .destaque { color: #F1D98A; font-weight: 600; }
 .citacao-cartao__credito { margin-top: 2.8rem; display: flex; flex-direction: column; gap: 0.4rem; font-style: normal; color: rgba(255, 255, 255, 0.94); font-size: 1.5rem; }
@@ -82,7 +82,7 @@
    "Galhos pendentes" (a 4ª opção da 1ª rodada), céu petróleo no meio pro
    texto branco. No celular a pintura é uma montagem com os galhos nos cantos
    de cima, porque o recorte do meio perdia os galhos. ===== */
-.cta-final--pintura { background: var(--color-paper, #f6f7f5); padding: clamp(1.6rem, 3vw, 4rem) 0 clamp(4rem, 6vw, 8rem); overflow: clip; text-align: center; }
+.cta-final--pintura { background: var(--color-paper, #F5F6F7); padding: clamp(1.6rem, 3vw, 4rem) 0 clamp(4rem, 6vw, 8rem); overflow: clip; text-align: center; }
 .cta-final--pintura .container { display: block; }
 .citacao-cartao--cta { --cit-img: url("../images/cta-galhos-1920.webp"); min-height: clamp(48rem, 66vh, 64rem); background-position: center 30%; }
 @media (max-width: 1279px) { .citacao-cartao--cta { --cit-img: url("../images/cta-galhos-1100.webp"); } }
@@ -117,8 +117,8 @@
   .citacao-cartao--cta-aluno { --cit-img: url("../images/cta-aluno-cel.webp"); background-position: center; }
 }
 .citacao-cartao--cta .citacao-selo { margin-bottom: 2.4rem; }
-.citacao-cartao--cta .cta-final__title { color: #fff; max-width: 72rem; margin: 0 0 1.6rem; text-wrap: balance; text-shadow: 0 1px 24px rgba(6, 26, 48, 0.35); }
-.citacao-cartao--cta .cta-final__sub { color: rgba(255, 255, 255, 0.86); max-width: 54rem; margin: 0 0 3.2rem; text-wrap: pretty; text-shadow: 0 1px 16px rgba(6, 26, 48, 0.4); }
+.citacao-cartao--cta .cta-final__title { color: #fff; max-width: 72rem; margin: 0 0 1.6rem; text-wrap: balance; text-shadow: 0 1px 24px rgba(14, 24, 63, 0.35); }
+.citacao-cartao--cta .cta-final__sub { color: rgba(255, 255, 255, 0.86); max-width: 54rem; margin: 0 0 3.2rem; text-wrap: pretty; text-shadow: 0 1px 16px rgba(14, 24, 63, 0.4); }
 .citacao-cartao--cta .cta-final__actions { display: flex; flex-wrap: wrap; gap: 1.6rem 2.8rem; justify-content: center; align-items: center; }
 @media (max-width: 640px) {
   .citacao-cartao--cta .cta-final__actions { flex-direction: column; gap: 2rem; }

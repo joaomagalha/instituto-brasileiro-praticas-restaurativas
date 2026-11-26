@@ -12,10 +12,10 @@
   --font-body: "Instrument Sans", system-ui, sans-serif;
   --font-titulo: "Plus Jakarta Sans", system-ui, sans-serif;
   --curva-suave: cubic-bezier(0.45, 0, 0.2, 1);
-  --a-navy: var(--color-navy, #0A2A4D);
-  --a-teal: #0F6B6D;
-  --a-texto: #2C4158;
-  --a-cinza: #5B6B7C;
+  --a-navy: var(--color-navy, #152561);
+  --a-teal: #485FD0;
+  --a-texto: #31395A;
+  --a-cinza: #5B627C;
   --a-fio: rgba(var(--navy-rgb), 0.09);
   --a-curva: cubic-bezier(0.22, 1, 0.36, 1);
   --a-vidro: radial-gradient(46% 70% at 88% 20%, rgba(var(--teal-rgb), 0.1), transparent 75%), rgba(255, 255, 255, 0.58);
@@ -24,10 +24,10 @@
   padding: clamp(6.4rem, 7vw, 10.4rem) 0 clamp(7.2rem, 8vw, 11.2rem);
   background:
     url("../images/grao.png"),
-    linear-gradient(180deg, transparent calc(100% - 7vw), #FAFBF8 100%),
-    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 196, 188, 0.07) 45%, transparent 75%),
+    linear-gradient(180deg, transparent calc(100% - 7vw), #F9F9FA 100%),
+    radial-gradient(37vw 31vw at calc(100% - 2vw) 9vw, rgba(var(--teal-rgb), 0.16), rgba(127, 138, 196, 0.07) 45%, transparent 75%),
     radial-gradient(40vw 30vw at 0% 60%, rgba(var(--teal-rgb), 0.07), transparent 72%),
-    #FAFBF8;
+    #F9F9FA;
   font-family: var(--font-body);
   color: var(--a-texto);
 }
@@ -45,7 +45,7 @@
 /* ---- autores: iniciais dos cartões de Artigos ---- */
 .artigo-corpo-secao .artigo-autores { gap: 2.4rem 3.2rem; margin-bottom: clamp(3.2rem, 3.6vw, 4.4rem); }
 .artigo-corpo-secao .artigo-autor { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 1.4rem; align-items: start; }
-.artigo-autor__inicial { grid-row: 1 / 3; display: grid; place-items: center; width: 4.4rem; height: 4.4rem; border-radius: 50%; background: var(--a-navy); color: #fff; font: 600 1.6rem/1 var(--font-titulo); box-shadow: 0 0 0 3px #FAFBF8; }
+.artigo-autor__inicial { grid-row: 1 / 3; display: grid; place-items: center; width: 4.4rem; height: 4.4rem; border-radius: 50%; background: var(--a-navy); color: #fff; font: 600 1.6rem/1 var(--font-titulo); box-shadow: 0 0 0 3px #F9F9FA; }
 .artigo-corpo-secao .artigo-autor:nth-child(2n) .artigo-autor__inicial { background: var(--a-teal); }
 .artigo-corpo-secao .artigo-autor__nome { margin: 0.2rem 0 0.4rem; color: var(--a-navy); font: 500 1.75rem/1.3 var(--font-titulo); letter-spacing: -0.01em; }
 .artigo-corpo-secao .artigo-autor__cred { margin: 0; color: var(--a-cinza); font: 400 1.4rem/1.55 var(--font-body); }
@@ -69,7 +69,7 @@
 /* falas em itálico: pausa de reflexão das autoras, com fio fino de uma cor */
 .artigo-corpo-secao .prose--artigo blockquote { margin: 2.4rem 0 0; padding: 0.2rem 0 0.2rem 2.4rem; border: 0; border-left: 2px solid rgba(var(--teal-rgb), 0.45); background: none; border-radius: 0; }
 .artigo-corpo-secao .prose--artigo blockquote + blockquote { margin-top: 1.6rem; }
-.artigo-corpo-secao .prose--artigo blockquote p { color: #3D5068; font-style: italic; }
+.artigo-corpo-secao .prose--artigo blockquote p { color: #3D4668; font-style: italic; }
 
 /* ---- como citar: cartão de vidro ---- */
 .artigo-corpo-secao .artigo-citar { margin: clamp(4.8rem, 5vw, 6.4rem) 0 0; padding: clamp(2.6rem, 3vw, 3.6rem); border: 0; border-radius: 2.4rem; background: var(--a-vidro); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); box-shadow: var(--a-vidro-borda); }
@@ -95,13 +95,13 @@
 /* "Receber publicações": o Botão padrão navy (botao.css), por cima das regras acima */
 :root .artigo-corpo-secao .artigo-acao--destaque {
   position: relative; isolation: isolate; overflow: hidden; justify-content: center; gap: 0.9rem; min-height: 48px; margin-bottom: 0.8rem; padding: 0 2rem; border-radius: 12px;
-  background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); color: #fff; font: 600 1.45rem/1 var(--font-body);
+  background: linear-gradient(180deg, #1F3388 0%, #152561 100%); color: #fff; font: 600 1.45rem/1 var(--font-body);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px -10px rgba(var(--navy-rgb), 0.55); transition: box-shadow 0.5s var(--curva-suave);
 }
 :root .artigo-corpo-secao .artigo-acao--destaque i { width: auto; height: auto; background: none; color: inherit; }
 :root .artigo-corpo-secao .artigo-acao--destaque::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 48%, transparent 66%); transform: translateX(-120%); }
 @media (hover: hover) {
-  :root .artigo-corpo-secao .artigo-acao--destaque:hover { background: linear-gradient(180deg, #163F6B 0%, #0A2A4D 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 14px 28px -10px rgba(var(--navy-rgb), 0.65); }
+  :root .artigo-corpo-secao .artigo-acao--destaque:hover { background: linear-gradient(180deg, #1F3388 0%, #152561 100%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 14px 28px -10px rgba(var(--navy-rgb), 0.65); }
   :root .artigo-corpo-secao .artigo-acao--destaque:hover::before { transform: translateX(120%); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
 }
 .artigo-corpo-secao .artigo-acoes--mobile { margin: 0 0 3.2rem; }
@@ -156,15 +156,15 @@
   padding-top: clamp(2.4rem, 3vw, 4rem);
   background: var(--grao),
     linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
-    radial-gradient(50vw 18vw at 12% 70%, rgba(217, 183, 79, 0.13), transparent 76%),
+    radial-gradient(50vw 18vw at 12% 70%, rgba(237, 186, 44, 0.13), transparent 76%),
     var(--papel-claro);
 }
 .section--paper + #artigos {
-  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 248, 247, 0) 8vw),
+  background: linear-gradient(180deg, var(--color-paper) 0, rgba(246, 246, 248, 0) 8vw),
     var(--grao),
     linear-gradient(180deg, transparent calc(100% - 7vw), var(--papel-claro) 100%),
     radial-gradient(56vw 22vw at 84% 24%, rgba(var(--teal-rgb), 0.14), transparent 74%),
-    radial-gradient(50vw 18vw at 12% 70%, rgba(217, 183, 79, 0.13), transparent 76%),
+    radial-gradient(50vw 18vw at 12% 70%, rgba(237, 186, 44, 0.13), transparent 76%),
     var(--papel-claro);
 }
 
@@ -178,8 +178,8 @@
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
   color: #fff; font: 500 1.4rem/1.2 "Instrument Sans", system-ui, sans-serif;
 }
-.artigo-hero__inicial { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--color-navy, #0A2A4D); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); color: #fff; font: 600 1.2rem/1 "Plus Jakarta Sans", system-ui, sans-serif; }
-.hero-interna .artigo-hero__autor:nth-child(2n) .artigo-hero__inicial { background: #0F6B6D; }
+.artigo-hero__inicial { display: grid; place-items: center; flex: none; width: 2.8rem; height: 2.8rem; border-radius: 50%; background: var(--color-navy, #152561); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35); color: #fff; font: 600 1.2rem/1 "Plus Jakarta Sans", system-ui, sans-serif; }
+.hero-interna .artigo-hero__autor:nth-child(2n) .artigo-hero__inicial { background: #485FD0; }
 @media (max-width: 767px) { .hero-interna .artigo-hero__autor { font-size: 1.3rem; } }
 
 /* ===== SUMÁRIO "NESTE ARTIGO" (artigos com intertítulos): mesmo cartão de vidro
