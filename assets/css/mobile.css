@@ -544,3 +544,19 @@
   :root #pratica-viva .pv-palco__acoes { margin-top: 1.6rem; gap: 0.8rem; }
   :root #pratica-viva .pv-palco__acoes > a { min-height: 48px; }
 }
+
+/* Como Atuamos da Home no celular: os cartões lado a lado, passando com o dedo
+   (João, 27/11). O próximo aparece na borda, pra mostrar que tem mais. */
+@media (max-width: 767px) {
+  :root #solucoes-preview .atua {
+    display: flex; flex-direction: row; align-items: stretch; gap: 1.2rem; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; margin-inline: -2rem; padding: 0 2rem 3.2rem; scroll-padding-inline: 2rem; scrollbar-width: none;
+  }
+  :root #solucoes-preview .atua::-webkit-scrollbar { display: none; }
+  :root #solucoes-preview .atua-andar { flex: 0 0 92%; min-width: 0; scroll-snap-align: start; grid-template-rows: minmax(19rem, 1fr) auto; }
+  :root #solucoes-preview .atua-andar__texto { align-self: end; }
+  :root #solucoes-preview .atua-andar:last-of-type { scroll-snap-align: end; }
+  /* quem está fora da tela de lado não pode esperar a animação de entrada */
+  :root.mo #solucoes-preview .atua-painel { clip-path: none; }
+  :root.mo #solucoes-preview :is(.atua-andar__texto > *, .atua-ui > *) { opacity: 1; transform: none; }
+}
