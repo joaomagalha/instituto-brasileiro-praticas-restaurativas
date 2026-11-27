@@ -194,3 +194,18 @@ html.mo .pessoa-cartao--foto-inteira.is-in .pessoa-cartao__foto img { translate:
 @media (max-width: 767px) {
   :root .founders--cartoes .founders__header:not(.founders__subhead) h2.founders__titulo { font-family: var(--font-titulo); text-transform: none; color: var(--color-navy); }
 }
+
+/* celular, Home: cartão compacto com a foto em cima e resumo de 2 linhas
+   (João, 27/11: "quero mais cara de card"). A biografia inteira fica no
+   O Instituto, pelo botão. */
+@media (max-width: 767px) {
+  :root #fundadores-preview .pessoa-cartao { --faixa: 2.8rem; grid-template-columns: 1fr; grid-template-areas: "foto" "texto"; min-height: 0; height: auto; }
+  :root #fundadores-preview .pessoa-cartao__orbita { background-position: 50% 1.6rem; background-size: auto 100%; }
+  :root #fundadores-preview .pessoa-cartao__foto { height: 24rem; clip-path: none; overflow: hidden; border-bottom: 1px solid rgba(var(--navy-rgb), 0.08); }
+  :root #fundadores-preview .pessoa-cartao__foto img { top: 1.2rem; bottom: auto; height: 118%; width: auto; max-width: none; object-fit: contain; }
+  :root #fundadores-preview .pessoa-cartao__texto { order: 0; align-items: stretch; padding: 1.6rem 1.8rem 1.8rem; }
+  :root #fundadores-preview .fcard__selo { margin: 0 0 0.8rem; }
+  :root #fundadores-preview .founder__name { font-size: 2.2rem; line-height: 1.15; max-width: none; }
+  :root #fundadores-preview .founder__bio { margin: 0.8rem 0 0; font-size: 1.45rem; line-height: 1.55; max-width: none; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+  :root #fundadores-preview .pessoa-cartao__link { margin-top: 1.4rem; min-height: 46px; justify-content: center; }
+}
