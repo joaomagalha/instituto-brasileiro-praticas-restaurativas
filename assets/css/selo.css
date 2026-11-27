@@ -379,10 +379,10 @@
    o degradê suave vindo da direita, a borda e a sombra do Propósito e os
    botões novos, mas as regras estavam presas a #formacoes (a seção da Home).
    Aqui as mesmas regras valem pro #catalogo de formacoes.html. ===== */
-:root #catalogo .fcard__selo > span:first-child {
+:root :is(#catalogo, #outras-formacoes) .fcard__selo > span:first-child {
   display: inline-flex; align-items: center; gap: 1.2rem; padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--color-navy) !important;
 }
-:root #catalogo .fcard__selo > span:first-child::before {
+:root :is(#catalogo, #outras-formacoes) .fcard__selo > span:first-child::before {
   content: "" !important; width: 18px; height: 1.6rem; flex: none;
   background:
     linear-gradient(var(--logo-lavanda), var(--logo-lavanda)) 0 0 / 4px 100% no-repeat,
@@ -390,19 +390,25 @@
     linear-gradient(var(--logo-oliva), var(--logo-oliva)) 14px 0 / 4px 100% no-repeat;
 }
 /* botão secundário igual ao do hero, versão clara */
-:root #catalogo .fcard .fcard__btn.fcard__btn--claro {
+:root :is(#catalogo, #outras-formacoes) .fcard .fcard__btn.fcard__btn--claro {
   min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy);
   background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16);
 }
-:root #catalogo .fcard .fcard__btn.fcard__btn--claro:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
-:root #catalogo .fcard .fcard__btn:not(.fcard__btn--claro) { min-height: 50px; padding: 0 2.4rem; }
+:root :is(#catalogo, #outras-formacoes) .fcard .fcard__btn.fcard__btn--claro:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
+:root :is(#catalogo, #outras-formacoes) .fcard .fcard__btn:not(.fcard__btn--claro) { min-height: 50px; padding: 0 2.4rem; }
 /* cards: degradê suave vindo da direita, grão leve, borda e sombra como no Propósito */
-:root #catalogo .fcard { --grao: url("../images/grao-claro.png"); --tom-mancha: rgba(var(--teal-rgb), 0.24); --tom-base: #FAFAFB; }
-:root #catalogo .fcard:nth-of-type(4n+2) { --tom-mancha: rgba(237, 186, 44, 0.3); }
-:root #catalogo .fcard:nth-of-type(4n+3) { --tom-mancha: rgba(21, 71, 135, 0.22); }
-:root #catalogo[data-formato="a"] .fcard {
+:root :is(#catalogo, #outras-formacoes) .fcard { --grao: url("../images/grao-claro.png"); --tom-mancha: rgba(var(--teal-rgb), 0.24); --tom-base: #FAFAFB; }
+:root :is(#catalogo, #outras-formacoes) .fcard:nth-of-type(4n+2) { --tom-mancha: rgba(237, 186, 44, 0.3); }
+:root :is(#catalogo, #outras-formacoes) .fcard:nth-of-type(4n+3) { --tom-mancha: rgba(21, 71, 135, 0.22); }
+:root :is(#catalogo, #outras-formacoes)[data-formato="a"] .fcard {
   background: var(--grao), radial-gradient(ellipse 82% 130% at 100% 50%, var(--tom-mancha) 0, var(--tom-mancha) 38%, transparent 82%), var(--tom-base);
   box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -26px rgba(14, 24, 63, 0.26);
 }
-:root #catalogo .fcard__foto::after { display: none; } /* sem granulado em cima das fotos */
-:root #catalogo .fcard .fcard__btn.fcard__btn--claro::after { content: "\f061" !important; position: static; font: 900 1.3rem/1 "Font Awesome 6 Free"; background: none; width: auto; height: auto; opacity: 1; animation: none; } /* tipografia-ok: ícone de seta (Font Awesome), cópia da regra da Home pro catálogo */
+:root :is(#catalogo, #outras-formacoes) .fcard__foto::after { display: none; } /* sem granulado em cima das fotos */
+:root :is(#catalogo, #outras-formacoes) .fcard .fcard__btn.fcard__btn--claro::after { content: "\f061" !important; position: static; font: 900 1.3rem/1 "Font Awesome 6 Free"; background: none; width: auto; height: auto; opacity: 1; animation: none; } /* tipografia-ok: ícone de seta (Font Awesome), cópia da regra da Home pro catálogo */
+
+/* celular: o selo do card fica em cima da foto escurecida, então vai em
+   branco e sem moldura (27/11) */
+@media (max-width: 899px) {
+  :root :is(#formacoes, #catalogo, #outras-formacoes) .fcard__selo > span:first-child { color: #fff !important; background: none !important; box-shadow: none !important; border: 0 !important; outline: 0 !important; }
+}

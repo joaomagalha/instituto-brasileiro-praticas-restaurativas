@@ -36,9 +36,9 @@
 <link href="assets/css/citacao.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/rodape.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p273" rel="stylesheet"/>
 <link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p271" rel="stylesheet"/>
 <link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
 {{PRELOAD}}
@@ -67,6 +67,7 @@
 <script>document.documentElement.classList.add('mo')</script>
 <link href="assets/css/pilha.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/curso.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/curso-novo.css?v=p276" rel="stylesheet"/>
 <script>document.documentElement.classList.add('js-curso')</script>
 <link href="assets/css/mobile.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/menu-mobile.css?v=p263" rel="stylesheet"/>
@@ -173,50 +174,19 @@
 <!-- 19/10/2026: hero no padrão das páginas internas (cartão, foto nova do
      Magnific, camada granulada suave, selo com a área); o "Voltar" saiu, a
      navbar já marca Formações. Atalhos com os nomes das seções da página. -->
-<section aria-label="{{TITULO}}" class="hero-interna hero-interna--curso" style="--hero-lqip: {{LQIP}}">
+<section aria-label="{{TITULO}}" class="hero-interna hero-interna--home hero-interna--curso{{HERO_CLASSE}}" style="--hero-lqip: {{LQIP}}">
 {{HERO_FOTO}}
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
 {{SELO_AREA}}<h1 class="hero-interna__titulo">{{TITULO}}</h1>
 <p class="hero-interna__sub">{{SUBTITULO}}</p>
-<p class="hero-interna__formato"><i aria-hidden="true" class="fa-solid fa-circle-play"></i>On-line, no seu ritmo</p>
-{{ATALHOS}}</div>
+</div>
 </section>
 
-<!-- conteúdo + card de proposta -->
-<section aria-label="Sobre a formação" class="curso">
-<div class="container curso__grade">
-
+<!-- 27/11/2026: miolo em faixas, montado pelo gerar.mjs -->
+<section aria-label="Sobre a formação" class="curso curso--faixas">
 <div class="curso__main">
 {{BLOCOS}}
-</div>
-
-<aside class="curso__aside" aria-label="Acessar a formação">
-<div class="curso-cartao">
-<nav class="curso-indice" aria-label="Nesta página">
-<div class="curso-indice__atual" aria-hidden="true">
-<svg class="curso-indice__anel" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="curso-indice__progresso" cx="22" cy="22" r="19" pathLength="1"/></svg>
-<span class="curso-indice__num"><span>01</span></span>
-<span class="curso-indice__nome">{{INDICE_PRIMEIRO}}</span>
-</div>
-<ol class="curso-indice__lista">
-{{INDICE}}
-</ol>
-</nav>
-<div class="curso-cartao__corpo">
-<h2 class="curso-cartao__titulo">Acesse a formação completa</h2>
-<p class="curso-cartao__nota">Conteúdo gravado, no seu ritmo.</p>
-<ul class="curso-cartao__lista">
-<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-circle-play"></i></span>Aulas gravadas, no seu ritmo</li>
-<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-file-arrow-down"></i></span>Materiais e roteiros para download</li>
-<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></span>Acesso no computador e no celular</li>
-</ul>
-{{BOTAO_CURSO}}
-<p class="curso-cartao__garantia"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i>Garantia de 7 dias</p>
-</div>
-</div>
-</aside>
-
 </div>
 </section>
 
@@ -320,6 +290,7 @@ AOS.init({
 <script src="assets/js/site-interactions.js?v=p167"></script>
 <script defer src="assets/js/pilha.js?v=p172"></script>
 <script defer src="assets/js/curso.js?v=p197"></script>
+<script defer src="assets/js/curso-abas.js?v=p267"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
 <script>
 /* Conteúdo do programa: botão "Expandir todos / Recolher todos".

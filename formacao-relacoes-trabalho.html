@@ -36,12 +36,12 @@
 <link href="assets/css/citacao.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/rodape.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p273" rel="stylesheet"/>
 <link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p271" rel="stylesheet"/>
 <link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/formacoes/relacoes-trabalho.webp" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/formacoes/relacoes-trabalho-hero.webp?v=p266" imagesrcset="assets/images/formacoes/relacoes-trabalho-hero-1100.webp?v=p266 1100w, assets/images/formacoes/relacoes-trabalho-hero.webp?v=p266 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -98,6 +98,7 @@
 <script>document.documentElement.classList.add('mo')</script>
 <link href="assets/css/pilha.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/curso.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/curso-novo.css?v=p276" rel="stylesheet"/>
 <script>document.documentElement.classList.add('js-curso')</script>
 <link href="assets/css/mobile.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/menu-mobile.css?v=p263" rel="stylesheet"/>
@@ -204,34 +205,58 @@
 <!-- 19/10/2026: hero no padrão das páginas internas (cartão, foto nova do
      Magnific, camada granulada suave, selo com a área); o "Voltar" saiu, a
      navbar já marca Formações. Atalhos com os nomes das seções da página. -->
-<section aria-label="Práticas Restaurativas nas Relações de Trabalho" class="hero-interna hero-interna--curso" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAgMBAAAAAAAAAAAAAAAAAAYCAwUE/8QAJRAAAgICAQMDBQAAAAAAAAAAAQIDEQAEEgUTITFBsSMyUYHB/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQMC/8QAFxEBAQEBAAAAAAAAAAAAAAAAAQACEf/aAAwDAQACEQMRAD8AXteN1RT27W6DZsaeu8tfSJ/eL56hsdkwx0Yy3KuPkGq9c6It/YhjZ3d1IriFAqx7+fxknK2zQTTq6XIF3EUSA0SzZHT6c3UJNpZZAqwsBXHldkj3OL2v1xnXjJ3no3fNR/MtPUtyJmEUSyrKQWaj8gjAw9l0WICQPU5GQkjycMMrTr+nKDMLAPnG6AAxPYH2n5wwzOpL/9k=')">
+<section aria-label="Práticas Restaurativas nas Relações de Trabalho" class="hero-interna hero-interna--home hero-interna--curso hero-interna--foto-relacoes-trabalho" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAkAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCa1WGNVSVeNu4ce9W0S3PKs6+gqs9v50kMagbiuAT+NSLYyB2Up93qe1cTOtFwJEeTJk+9PlhjlxtMS1Clg3l+YHGOOhq4dM8tRulOSfX2pXHYq+RAgw0i7vY/0FTRw4jJ84KO2/8A+vQLNVdwWcgF++M4Ax/OrbLY2pAlhZnbOPzoTuJ6GQ8w37UmVcNgkRZP4c4pssQmXDC4n9mbaPyFStAouNwQDNye/biuiluljuY0UbcZJAHWqjruKWhx+oapBp62crRs53EkL7GobjxRZymcRpIBKm0gjkZHWspp5bkbDAhTcG2s2cn8Kg/sO/knkkhWOISHO0KcD8xWqhHqZcz6Gudfg+yxR20syspBYoMbscd/WpZdZumYXYtJiyDameUBI5J75rNs/Dl0hJe9jiU8kdfwo1d289tu54oVJZy+QfXrSUILRDc5vVmtDd6vcYebTgNz53GbGc+1WnbUQ7O0AkUNwVOTj1wTXn6XDtMMStGGbrk8D8K1UkEKNvnM+GySj5LD2zVumiVNm/NrAiuB5sU3Llz5aAlTwOc+9PufENkZSpursSJkEhN2T3xzWPdM11A/2MSo023LOACAPp15qpbeHdTkYSRkoF/j5H60RpxtqEpvoaH2ua3gBibHsBj+VVzqN3JyZSPpRRVpIhtkDXc+M+Yc+p5NVJWaXIkdmB65NFFVYVyJLSIsp+b8619PsoHlUsuSTiiik9gW500cMVt5rRxqTGAQW5ps95OtnFPvzJJ3P8P0HaiisIavU3lotD//2Q==')">
 <picture class="hero-interna__bg">
-<source srcset="assets/images/formacoes/relacoes-trabalho.webp" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="781" src="assets/images/formacoes/relacoes-trabalho.jpg" width="1400"/>
+<source media="(max-width: 899px)" srcset="assets/images/formacoes/relacoes-trabalho-hero-1100.webp?v=p266" type="image/webp"/>
+<source srcset="assets/images/formacoes/relacoes-trabalho-hero.webp?v=p266" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/formacoes/relacoes-trabalho-hero.jpg?v=p266" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">Relações de Trabalho</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Relações de Trabalho</span>
 <h1 class="hero-interna__titulo">Práticas Restaurativas nas Relações de Trabalho</h1>
 <p class="hero-interna__sub">Desenvolver capacidades para prevenir conflitos, enfrentar situações de desgaste nas relações e construir ambientes de trabalho mais seguros e saudáveis.</p>
-<p class="hero-interna__formato"><i aria-hidden="true" class="fa-solid fa-circle-play"></i>On-line, no seu ritmo</p>
-<nav aria-label="Seções desta página" class="hero-interna__atalhos">
-<a class="hero-interna__atalho" href="#para-quem">Para quem é</a>
-<a class="hero-interna__atalho" href="#eixos">Os eixos da formação</a>
-<a class="hero-interna__atalho" href="#conteudo-programa">Conteúdo do programa</a>
-<a class="hero-interna__atalho" href="#fundamento">Fundamento da formação</a>
-</nav>
 </div>
 </section>
 
-<!-- conteúdo + card de proposta -->
-<section aria-label="Sobre a formação" class="curso">
-<div class="container curso__grade">
-
+<!-- 27/11/2026: miolo em faixas, montado pelo gerar.mjs -->
+<section aria-label="Sobre a formação" class="curso curso--faixas">
 <div class="curso__main">
-<section class="curso-cap" id="desenvolver" data-cap aria-label="O que você vai desenvolver">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>01</span></span><span class="curso-cap__txt">O que você vai desenvolver</span></h2>
-<ul class="curso-checks curso-checks--2col">
+<section class="faixa faixa--porque curso-cap" id="fundamento" data-cap aria-label="Por que esta formação">
+<div class="container faixa__dupla">
+<figure class="faixa__foto"><picture><source srcset="assets/images/formacoes/relacoes-trabalho-porque.webp?v=p267" type="image/webp"/><img alt="Profissionais conversando em volta de uma mesa redonda numa sala de formação" decoding="async" height="824" width="1100" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-porque.jpg?v=p267"/></picture></figure>
+<div class="faixa__texto">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Por que esta formação</h2></header>
+<div class="curso-fundamento">
+<p class="curso-cartao__titulo faixa__destaque">Ambientes de trabalho raramente se deterioram de uma vez.</p>
+<p>As relações se desgastam no dia a dia: na forma como lideranças respondem a erros, como divergências são tratadas e como as pessoas reagem quando se sentem desrespeitadas ou injustiçadas. Quando esses padrões se repetem, geram afastamento, desconfiança, silenciamento e conflitos recorrentes.</p>
+<p>A formação traz princípios e práticas restaurativas para atuar sobre essas dinâmicas, combinando prevenção, manejo de conflitos, responsabilização e reconstrução das relações.</p>
+</div>
+</div>
+</div>
+<div class="container faixa__publico" id="para-quem">
+<h3 class="faixa__rotulo">Para quem é</h3>
+<ul class="curso-publico">
+<li style="--i:0"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-user-tie"></i></span>Lideranças e gestores</li>
+<li style="--i:1"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-people-group"></i></span>Equipes de gestão de pessoas e RH</li>
+<li style="--i:2"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-building-columns"></i></span>Comitês de ética e integridade</li>
+<li style="--i:3"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-users"></i></span>Áreas de saúde e segurança do trabalho</li>
+<li style="--i:4"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-people-group"></i></span>Equipes e times de projeto</li>
+</ul>
+</div>
+</section>
+
+<section class="faixa faixa--muda curso-cap" id="resultados" data-cap aria-label="O que muda">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">O que muda</h2></header>
+<div class="faixa__abas" data-abas>
+<div class="faixa__botoes" role="tablist" aria-label="O que muda">
+<button type="button" role="tab" id="aba-voce" aria-controls="desenvolver">Você</button>
+<button type="button" role="tab" id="aba-instituicao" aria-controls="implementar">Sua instituição</button>
+</div>
+<article class="faixa__cartao" id="desenvolver">
+<h3 class="curso-cartao__titulo">O que você vai desenvolver</h3>
+<ul class="curso-checks">
 <li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Identificar padrões de interação que favorecem conflitos, desgaste e riscos psicossociais.</span></li>
 <li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Reconhecer sinais de deterioração das relações antes que se agravem.</span></li>
 <li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Compreender conflitos a partir das pessoas, das relações e do contexto organizacional.</span></li>
@@ -239,43 +264,44 @@
 <li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Usar práticas restaurativas para lidar com conflitos, danos e rupturas.</span></li>
 <li style="--i:5"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Construir respostas que unam responsabilização, reparação e prevenção de recorrências.</span></li>
 </ul>
-</section>
-
-<section class="curso-cap" id="para-quem" data-cap aria-label="Para quem é">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>02</span></span><span class="curso-cap__txt">Para quem é</span></h2>
-<ul class="curso-publico">
-<li style="--i:0">Lideranças e gestores</li>
-<li style="--i:1">Equipes de gestão de pessoas e RH</li>
-<li style="--i:2">Comitês de ética e integridade</li>
-<li style="--i:3">Áreas de saúde e segurança do trabalho</li>
-<li style="--i:4">Equipes e times de projeto</li>
+</article>
+<article class="faixa__cartao faixa__cartao--ouro" id="implementar">
+<h3 class="curso-cartao__titulo">O que sua instituição será capaz de implementar</h3>
+<p class="curso-resultado__intro">Ao final da formação, a instituição estará mais preparada para:</p>
+<ul class="curso-checks">
+<li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Estabelecer fluxos para lidar com conflitos e situações de dano nas relações de trabalho.</span></li>
+<li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Preparar lideranças para conduzir conversas difíceis de forma estruturada.</span></li>
+<li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Desenvolver cuidados que reduzam a recorrência de padrões que desgastam as relações.</span></li>
+<li style="--i:3"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Integrar práticas restaurativas às rotinas de gestão de pessoas.</span></li>
+<li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Formar uma equipe interna capaz de sustentar e ampliar essas práticas ao longo do tempo.</span></li>
 </ul>
+</article>
+</div>
+</div>
 </section>
 
-<section class="curso-cap" id="eixos" data-cap aria-label="Os eixos da formação">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>03</span></span><span class="curso-cap__txt">Os eixos da formação</span></h2>
-<div class="curso-eixos-palco">
-<svg class="curso-eixos__fio" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-<path class="curso-eixos__base" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-<path class="curso-eixos__tinta" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-</svg>
+<section class="faixa faixa--eixos curso-cap" id="eixos" data-cap aria-label="Os eixos da formação">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Os eixos da formação</h2></header>
 <ol class="curso-eixos">
-<li class="curso-eixo" style="--i:0"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">01</span><span class="curso-eixo__chave">Compreender</span><span class="curso-eixo__frase">Relações e ambiente de trabalho</span><span class="curso-eixo__desc">Reconhecer como interações cotidianas, liderança, comunicação e práticas organizacionais produzem proteção ou desgaste nas relações.</span></div></li>
-<li class="curso-eixo" style="--i:1"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">02</span><span class="curso-eixo__chave">Intervir</span><span class="curso-eixo__frase">Conflitos, tensões e danos</span><span class="curso-eixo__desc">Abordar conversas difíceis e situações de dano de maneira estruturada, sem omissão e sem respostas que agravem o problema.</span></div></li>
-<li class="curso-eixo" style="--i:2"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">03</span><span class="curso-eixo__chave">Transformar</span><span class="curso-eixo__frase">Práticas restaurativas no cotidiano</span><span class="curso-eixo__desc">Incorporar escuta, diálogo, responsabilização e construção de acordos às práticas da organização.</span></div></li>
+<li class="curso-eixo" style="--i:0"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></span><span class="curso-eixo__num" aria-hidden="true">01</span><span class="curso-eixo__chave">Compreender</span><span class="curso-eixo__frase">Relações e ambiente de trabalho</span><span class="curso-eixo__desc">Reconhecer como interações cotidianas, liderança, comunicação e práticas organizacionais produzem proteção ou desgaste nas relações.</span></div></li>
+<li class="curso-eixo" style="--i:1"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-comments"></i></span><span class="curso-eixo__num" aria-hidden="true">02</span><span class="curso-eixo__chave">Intervir</span><span class="curso-eixo__frase">Conflitos, tensões e danos</span><span class="curso-eixo__desc">Abordar conversas difíceis e situações de dano de maneira estruturada, sem omissão e sem respostas que agravem o problema.</span></div></li>
+<li class="curso-eixo" style="--i:2"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-seedling"></i></span><span class="curso-eixo__num" aria-hidden="true">03</span><span class="curso-eixo__chave">Transformar</span><span class="curso-eixo__frase">Práticas restaurativas no cotidiano</span><span class="curso-eixo__desc">Incorporar escuta, diálogo, responsabilização e construção de acordos às práticas da organização.</span></div></li>
 </ol>
 </div>
 </section>
 
-<section class="curso-cap" id="conteudo-programa" data-cap aria-label="Conteúdo do programa">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>04</span></span><span class="curso-cap__txt">Conteúdo do programa</span></h2>
+<section class="faixa faixa--programa curso-cap" id="conteudo-programa" data-cap aria-label="Conteúdo do programa">
+<div class="container faixa__programa">
+<div>
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Conteúdo do programa</h2></header>
 <div class="course-modules curso-modulos" id="course-modules">
 <div class="course-modules__bar">
 <p class="course-modules__count">4 módulos</p>
 <button type="button" class="course-modules__toggle" data-accordion-toggle aria-expanded="false">Expandir todos</button>
 </div>
 <div class="curso-modulos__pilha">
-<details class="accordion curso-modulo" style="--i:0">
+<details class="accordion curso-modulo" style="--i:0" open>
 <summary class="accordion__summary"><span class="curso-modulo__num" aria-hidden="true">01</span><span class="accordion__label">Relações de trabalho e a origem dos conflitos</span><span class="accordion__meta">3 tópicos</span><span class="curso-modulo__mais" aria-hidden="true"></span></summary>
 <div class="accordion__content">
 <ul class="curso-topicos">
@@ -317,59 +343,9 @@
 </details>
 </div>
 </div>
-</section>
-
-<section class="curso-cap" id="fundamento" data-cap aria-label="Fundamento da formação">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>05</span></span><span class="curso-cap__txt">Fundamento da formação</span></h2>
-<div class="curso-fundamento">
-<p>Ambientes de trabalho raramente se deterioram de uma vez. As relações se desgastam no dia a dia: na forma como lideranças respondem a erros, como divergências são tratadas e como as pessoas reagem quando se sentem desrespeitadas ou injustiçadas. Quando esses padrões se repetem, geram afastamento, desconfiança, silenciamento e conflitos recorrentes.</p>
-<p>A formação traz princípios e práticas restaurativas para atuar sobre essas dinâmicas, combinando prevenção, manejo de conflitos, responsabilização e reconstrução das relações.</p>
 </div>
-</section>
-
-<section class="curso-cap curso-cap--resultado" id="resultados" data-cap aria-label="O que sua instituição será capaz de implementar">
-<div class="curso-resultado">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>06</span></span><span class="curso-cap__txt">O que sua instituição será capaz de implementar</span></h2>
-<p class="curso-resultado__intro">Ao final da formação, a instituição estará mais preparada para:</p>
-<ul class="curso-checks">
-<li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Estabelecer fluxos para lidar com conflitos e situações de dano nas relações de trabalho.</span></li>
-<li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Preparar lideranças para conduzir conversas difíceis de forma estruturada.</span></li>
-<li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Desenvolver cuidados que reduzam a recorrência de padrões que desgastam as relações.</span></li>
-<li style="--i:3"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Integrar práticas restaurativas às rotinas de gestão de pessoas.</span></li>
-<li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Formar uma equipe interna capaz de sustentar e ampliar essas práticas ao longo do tempo.</span></li>
-</ul>
-</div>
-</section>
-
-<section class="curso-cap" id="temas" data-cap aria-label="Temas relacionados">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>07</span></span><span class="curso-cap__txt">Temas relacionados</span></h2>
-<ul class="curso-temas">
-<li style="--i:0"><a class="curso-tema" href="praticas-restaurativas.html#empresas"><span>Práticas Restaurativas nas Empresas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:1"><a class="curso-tema" href="praticas-restaurativas.html#jr-praticas"><span>Justiça Restaurativa e Práticas Restaurativas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:2"><a class="curso-tema" href="praticas-restaurativas.html#educacao"><span>Práticas Restaurativas na Educação</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:3"><a class="curso-tema" href="como-atuamos.html"><span>Como o IBPR atua</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-</ul>
-</section>
-</div>
-
 <aside class="curso__aside" aria-label="Acessar a formação">
 <div class="curso-cartao">
-<nav class="curso-indice" aria-label="Nesta página">
-<div class="curso-indice__atual" aria-hidden="true">
-<svg class="curso-indice__anel" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="curso-indice__progresso" cx="22" cy="22" r="19" pathLength="1"/></svg>
-<span class="curso-indice__num"><span>01</span></span>
-<span class="curso-indice__nome">O que você vai desenvolver</span>
-</div>
-<ol class="curso-indice__lista">
-<li><a href="#desenvolver" data-indice="0" aria-label="01 · O que você vai desenvolver"></a></li>
-<li><a href="#para-quem" data-indice="1" aria-label="02 · Para quem é"></a></li>
-<li><a href="#eixos" data-indice="2" aria-label="03 · Os eixos da formação"></a></li>
-<li><a href="#conteudo-programa" data-indice="3" aria-label="04 · Conteúdo do programa"></a></li>
-<li><a href="#fundamento" data-indice="4" aria-label="05 · Fundamento da formação"></a></li>
-<li><a href="#resultados" data-indice="5" aria-label="06 · O que sua instituição será capaz de implementar"></a></li>
-<li><a href="#temas" data-indice="6" aria-label="07 · Temas relacionados"></a></li>
-</ol>
-</nav>
 <div class="curso-cartao__corpo">
 <h2 class="curso-cartao__titulo">Acesse a formação completa</h2>
 <p class="curso-cartao__nota">Conteúdo gravado, no seu ritmo.</p>
@@ -383,7 +359,20 @@
 </div>
 </div>
 </aside>
+</div>
+</section>
 
+<section class="faixa faixa--temas curso-cap" id="temas" data-cap aria-label="Temas relacionados">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Temas relacionados</h2></header>
+<ul class="curso-temas">
+<li style="--i:0"><a class="curso-tema" href="praticas-restaurativas.html#empresas"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span><span>Práticas Restaurativas nas Empresas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:1"><a class="curso-tema" href="praticas-restaurativas.html#jr-praticas"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span><span>Justiça Restaurativa e Práticas Restaurativas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:2"><a class="curso-tema" href="praticas-restaurativas.html#educacao"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span><span>Práticas Restaurativas na Educação</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:3"><a class="curso-tema" href="como-atuamos.html"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-compass"></i></span><span>Como o IBPR atua</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+</ul>
+</div>
+</section>
 </div>
 </section>
 
@@ -411,7 +400,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/execucao-penal-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/execucao-penal-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <article class="fcard" style="--i:1">
@@ -423,7 +412,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>13 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-pena-justa.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Corredor de uma unidade prisional com uma sala de aula ao fundo e uma abertura para o jardim externo" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/pena-justa-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Corredor de uma unidade prisional com uma sala de aula ao fundo e uma abertura para o jardim externo" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/pena-justa-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <article class="fcard" style="--i:2">
@@ -435,7 +424,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>10 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-ambiente-escolar.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Roda de conversa com estudantes no pátio de uma escola pública ao fim da tarde" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/ambiente-escolar-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Estudantes e professora sentados em roda num pátio coberto, com luz da manhã" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/ambiente-escolar-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <!-- /CMS:outras-formacoes -->
@@ -522,6 +511,7 @@ AOS.init({
 <script src="assets/js/site-interactions.js?v=p167"></script>
 <script defer src="assets/js/pilha.js?v=p172"></script>
 <script defer src="assets/js/curso.js?v=p197"></script>
+<script defer src="assets/js/curso-abas.js?v=p267"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
 <script>
 /* Conteúdo do programa: botão "Expandir todos / Recolher todos".

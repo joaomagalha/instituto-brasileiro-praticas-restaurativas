@@ -1001,90 +1001,188 @@ function contagem(f) {
 
 /* --- os blocos da página do curso ---------------------------------- */
 
-/* Visual novo (19/10/2026): cada bloco é um "capítulo" numerado (01, 02...)
-   com um anel que se desenha no scroll (curso.js), e o cartão lateral tem
-   um índice com os mesmos capítulos. Por isso cada bloco aqui devolve, além
-   do HTML, o id e o título: a numeração e o índice saem da lista dos blocos
-   que EXISTEM nesta formação. Bloco sem conteúdo some, e os números dos
-   seguintes sobem junto, sem buraco ("01, 02, 04").
+/* Desenho em faixas (27/11/2026, aprovado pelo João na página de Ambiente
+   Escolar): faixas de largura cheia no lugar dos capítulos numerados. Faixa
+   sem conteúdo some. Estilo em curso-novo.css, abas em curso-abas.js. */
 
-   Os títulos dos capítulos são fixos, do desenho, como já eram antes. */
-
-const ANEL = '<svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg>';
 const CHECK = '<svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true">' +
   '<circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/>' +
   '<path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg>';
 const TRACO_TOPICO = '<svg class="curso-topicos__traco" viewBox="0 0 16 6" aria-hidden="true"><path d="M1 3.5 C 5 1.5, 10 5, 15 2.5" pathLength="1"/></svg>';
+const TRACOS = '<span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>';
+
+/* Fotos que o repositório troca em cima do cadastro, por curso. `troca` é o
+   caminho que está no banco: se alguém enviar outra foto pelo painel, o
+   caminho muda e a do painel passa a valer. */
+const FOTOS_DO_CURSO = {
+  'formacao-execucao-penal': {
+    troca: 'assets/images/formacoes/execucao-penal.jpg',
+    hero: 'assets/images/formacoes/execucao-penal-hero',
+    classe: 'hero-interna--foto-execucao-penal',
+    porque: { base: 'assets/images/formacoes/execucao-penal-porque', largura: 1100, altura: 824,
+      alt: 'Policiais penais em roda conversando no pátio de uma unidade prisional' }
+  },
+  'formacao-pena-justa': {
+    troca: 'assets/images/formacoes/pena-justa.jpg',
+    hero: 'assets/images/formacoes/pena-justa-hero',
+    classe: 'hero-interna--foto-pena-justa',
+    porque: { base: 'assets/images/formacoes/pena-justa-porque', largura: 1100, altura: 824,
+      alt: 'Equipe reunida em torno de mesas planejando a implementação de um plano' }
+  },
+  'formacao-relacoes-trabalho': {
+    troca: 'assets/images/formacoes/relacoes-trabalho.jpg',
+    hero: 'assets/images/formacoes/relacoes-trabalho-hero',
+    classe: 'hero-interna--foto-relacoes-trabalho',
+    porque: { base: 'assets/images/formacoes/relacoes-trabalho-porque', largura: 1100, altura: 824,
+      alt: 'Profissionais conversando em volta de uma mesa redonda numa sala de formação' }
+  },
+  'formacao-ambiente-escolar': {
+    troca: 'assets/images/formacoes/ambiente-escolar.jpg',
+    hero: 'assets/images/formacoes/ambiente-escolar-hero',
+    classe: 'hero-interna--foto-escolar',
+    porque: { base: 'assets/images/formacoes/ambiente-escolar-porque', largura: 1100, altura: 909,
+      alt: 'Estudantes e professora sentados em roda numa conversa' }
+  }
+};
+const VERSAO_FOTOS = '?v=p267';
 
 function dois(n) { return String(n).padStart(2, '0'); }
-
-function tituloCapitulo(n, titulo) {
-  return `<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true">${ANEL}<span>${dois(n)}</span></span>` +
-    `<span class="curso-cap__txt">${esc(titulo)}</span></h2>`;
-}
 
 function checks(itens) {
   return itens.map((t, i) => `<li style="--i:${i}">${CHECK}<span class="curso-checks__txt">${esc(t)}</span></li>`).join('\n');
 }
 
-/* Cada bloco recebe a formação e o número do capítulo, e devolve o HTML ou
-   '' quando não tem o que mostrar. */
+function icone(nome) { return `<span class="faixa__ico" aria-hidden="true"><i class="fa-solid ${nome}"></i></span>`; }
+
+/* Ícone de "Para quem é" pelas palavras do público; a ordem importa. */
+const ICONES_PUBLICO = [
+  [/psic[óo]log|assistente[s]? socia/i, 'fa-hand-holding-heart'],
+  [/professor|educacion|docente/i, 'fa-chalkboard-user'],
+  [/magistr|ju[íi]z|promotor|defensor|advogad|judici/i, 'fa-scale-balanced'],
+  [/polic|penitenc|agente/i, 'fa-shield-halved'],
+  [/secretaria|[óo]rg[ãa]o|institui|comit[êe]|poder p[úu]blico|administra/i, 'fa-building-columns'],
+  [/diretor|gestor|coordena|lideran|chefia|gerent/i, 'fa-user-tie'],
+  [/equipe|rh\b|recursos humanos|servidor|profissiona/i, 'fa-people-group']
+];
+function iconePublico(t) { const par = ICONES_PUBLICO.find(([re]) => re.test(t)); return par ? par[1] : 'fa-users'; }
+
+function topoFaixa(titulo) { return `<header class="faixa__topo">${TRACOS}<h2 class="catalogo__titulo">${esc(titulo)}</h2></header>`; }
+
+function faixa(classe, id, rotulo, miolo) {
+  return `<section class="faixa faixa--${classe} curso-cap" id="${id}" data-cap aria-label="${esc(rotulo)}">\n${miolo}\n</section>`;
+}
+
 /* As páginas de formação publicadas nesta rodada (preenchido em gerarFormacoes). */
 let FORMACOES_NO_AR = null;
 
-const CAPITULOS = [
-  { id: 'desenvolver', titulo: 'O que você vai desenvolver', bloco(f, n) {
-    const itens = lista(f.desenvolver);
-    if (!itens.length) return '';
-    return `<section class="curso-cap" id="desenvolver" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
-<ul class="curso-checks curso-checks--2col">
-${checks(itens)}
-</ul>
-</section>`;
-  } },
-
-  { id: 'para-quem', titulo: 'Para quem é', atalho: true, bloco(f, n) {
-    const itens = lista(f.para_quem);
-    if (!itens.length) return '';
-    return `<section class="curso-cap" id="para-quem" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
-<ul class="curso-publico">
-${itens.map((t, i) => `<li style="--i:${i}">${esc(t)}</li>`).join('\n')}
-</ul>
-</section>`;
-  } },
-
-  /* O fio desenhado liga até 3 eixos (é o desenho de 3 colunas); com outra
-     quantidade os cartões aparecem igual, só o fio fica de fora. */
-  { id: 'eixos', titulo: 'Os eixos da formação', atalho: true, bloco(f, n) {
-    const itens = lista(f.eixos).filter(e => e && e.chave);
-    if (!itens.length) return '';
-    const fio = itens.length === 3
-      ? `<svg class="curso-eixos__fio" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-<path class="curso-eixos__base" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-<path class="curso-eixos__tinta" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-</svg>\n`
+/* A. Por que esta formação (fundamento) + Para quem é */
+function faixaPorque(f) {
+  const paras = String(f.fundamento || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+  const publico = lista(f.para_quem);
+  if (!paras.length && !publico.length) return '';
+  let texto = '';
+  if (paras.length) {
+    /* a 1ª frase vira o destaque, com as mesmas palavras */
+    const corte = /^([^\n]+?[.!?])\s+(?=\p{Lu})([\s\S]+)$/u.exec(paras[0]);
+    const ps = corte && corte[1].length <= 180 ? [corte[1], corte[2], ...paras.slice(1)] : [null, ...paras];
+    const corpo = ps.slice(1).map(p => `<p>${esc(p).replace(/\n/g, '<br/>')}</p>`).join('\n');
+    const destaque = ps[0] ? `<p class="curso-cartao__titulo faixa__destaque">${esc(ps[0])}</p>\n` : '';
+    const foto = FOTOS_DO_CURSO[f.slug]?.porque;
+    const figura = foto
+      ? `<figure class="faixa__foto"><picture><source srcset="${foto.base}.webp${VERSAO_FOTOS}" type="image/webp"/><img alt="${esc(foto.alt)}" decoding="async" height="${foto.altura}" width="${foto.largura}" loading="lazy" src="${foto.base}.jpg${VERSAO_FOTOS}"/></picture></figure>\n`
       : '';
-    return `<section class="curso-cap" id="eixos" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
-<div class="curso-eixos-palco">
-${fio}<ol class="curso-eixos">
-${itens.map((e, i) => `<li class="curso-eixo" style="--i:${i}"><div class="curso-eixo__face">` +
-      `<span class="curso-eixo__num" aria-hidden="true">${dois(i + 1)}</span>` +
-      `<span class="curso-eixo__chave">${esc(e.chave)}</span>` +
-      `<span class="curso-eixo__frase">${esc(e.frase || '')}</span>` +
-      `<span class="curso-eixo__desc">${esc(e.desc || '')}</span></div></li>`).join('\n')}
-</ol>
+    texto = `<div class="container faixa__dupla${foto ? '' : ' faixa__dupla--sem-foto'}">
+${figura}<div class="faixa__texto">
+${topoFaixa('Por que esta formação')}
+<div class="curso-fundamento">
+${destaque}${corpo}
 </div>
-</section>`;
-  } },
+</div>
+</div>`;
+  }
+  const placas = publico.length
+    ? `<div class="container faixa__publico" id="para-quem">
+<h3 class="faixa__rotulo">Para quem é</h3>
+<ul class="curso-publico">
+${publico.map((t, i) => `<li style="--i:${i}">${icone(iconePublico(t))}${esc(t)}</li>`).join('\n')}
+</ul>
+</div>`
+    : '';
+  return faixa('porque', 'fundamento', paras.length ? 'Por que esta formação' : 'Para quem é', [texto, placas].filter(Boolean).join('\n'));
+}
 
-  { id: 'conteudo-programa', titulo: 'Conteúdo do programa', atalho: true, bloco(f, n) {
-    const itens = lista(f.modulos).filter(m => m && m.titulo);
-    if (!itens.length) return '';
-    return `<section class="curso-cap" id="conteudo-programa" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
+/* B. O que muda: o participante e a instituição, um de cada vez */
+function faixaMuda(f) {
+  const voce = lista(f.desenvolver), inst = lista(f.resultados);
+  if (!voce.length && !inst.length) return '';
+  const botoes = voce.length && inst.length
+    ? `<div class="faixa__botoes" role="tablist" aria-label="O que muda">
+<button type="button" role="tab" id="aba-voce" aria-controls="desenvolver">Você</button>
+<button type="button" role="tab" id="aba-instituicao" aria-controls="implementar">Sua instituição</button>
+</div>\n`
+    : '';
+  const cartoes = [
+    voce.length ? `<article class="faixa__cartao" id="desenvolver">
+<h3 class="curso-cartao__titulo">O que você vai desenvolver</h3>
+<ul class="curso-checks">
+${checks(voce)}
+</ul>
+</article>` : '',
+    inst.length ? `<article class="faixa__cartao faixa__cartao--ouro" id="implementar">
+<h3 class="curso-cartao__titulo">O que sua instituição será capaz de implementar</h3>
+${f.resultados_intro ? `<p class="curso-resultado__intro">${esc(f.resultados_intro)}</p>\n` : ''}<ul class="curso-checks">
+${checks(inst)}
+</ul>
+</article>` : ''
+  ].filter(Boolean).join('\n');
+  return faixa('muda', 'resultados', 'O que muda', `<div class="container">
+${topoFaixa('O que muda')}
+<div class="faixa__abas"${botoes ? ' data-abas' : ''}>
+${botoes}${cartoes}
+</div>
+</div>`);
+}
+
+/* C. Os eixos */
+const ICONES_EIXO = ['fa-lightbulb', 'fa-comments', 'fa-seedling', 'fa-compass'];
+function faixaEixos(f) {
+  const itens = lista(f.eixos).filter(e => e && e.chave);
+  if (!itens.length) return '';
+  return faixa('eixos', 'eixos', 'Os eixos da formação', `<div class="container">
+${topoFaixa('Os eixos da formação')}
+<ol class="curso-eixos">
+${itens.map((e, i) => `<li class="curso-eixo" style="--i:${i}"><div class="curso-eixo__face">${icone(ICONES_EIXO[i % ICONES_EIXO.length])}` +
+    `<span class="curso-eixo__num" aria-hidden="true">${dois(i + 1)}</span>` +
+    `<span class="curso-eixo__chave">${esc(e.chave)}</span>` +
+    `<span class="curso-eixo__frase">${esc(e.frase || '')}</span>` +
+    `<span class="curso-eixo__desc">${esc(e.desc || '')}</span></div></li>`).join('\n')}
+</ol>
+</div>`);
+}
+
+/* D. Conteúdo do programa, com o cartão de acesso ao lado */
+function cartaoAcesso(botao) {
+  return `<aside class="curso__aside" aria-label="Acessar a formação">
+<div class="curso-cartao">
+<div class="curso-cartao__corpo">
+<h2 class="curso-cartao__titulo">Acesse a formação completa</h2>
+<p class="curso-cartao__nota">Conteúdo gravado, no seu ritmo.</p>
+<ul class="curso-cartao__lista">
+<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-circle-play"></i></span>Aulas gravadas, no seu ritmo</li>
+<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-file-arrow-down"></i></span>Materiais e roteiros para download</li>
+<li><span class="curso-cartao__ic" aria-hidden="true"><i class="fa-solid fa-mobile-screen-button"></i></span>Acesso no computador e no celular</li>
+</ul>
+${botao}
+<p class="curso-cartao__garantia"><i aria-hidden="true" class="fa-solid fa-shield-halved"></i>Garantia de 7 dias</p>
+</div>
+</div>
+</aside>`;
+}
+
+function faixaPrograma(f, botao) {
+  const itens = lista(f.modulos).filter(m => m && m.titulo);
+  const modulos = itens.length ? `<div>
+${topoFaixa('Conteúdo do programa')}
 <div class="course-modules curso-modulos" id="course-modules">
 <div class="course-modules__bar">
 <p class="course-modules__count">${plural(itens.length, 'módulo', 'módulos')}</p>
@@ -1092,100 +1190,55 @@ ${tituloCapitulo(n, this.titulo)}
 </div>
 <div class="curso-modulos__pilha">
 ${itens.map((m, i) => {
-      const tops = lista(m.topicos);
-      return `<details class="accordion curso-modulo" style="--i:${i}">
+    const tops = lista(m.topicos);
+    return `<details class="accordion curso-modulo" style="--i:${i}"${i === 0 ? ' open' : ''}>
 <summary class="accordion__summary"><span class="curso-modulo__num" aria-hidden="true">${dois(i + 1)}</span>` +
-        `<span class="accordion__label">${esc(m.titulo)}</span><span class="accordion__meta">${plural(tops.length, 'tópico', 'tópicos')}</span>` +
-        `<span class="curso-modulo__mais" aria-hidden="true"></span></summary>
+      `<span class="accordion__label">${esc(m.titulo)}</span><span class="accordion__meta">${plural(tops.length, 'tópico', 'tópicos')}</span>` +
+      `<span class="curso-modulo__mais" aria-hidden="true"></span></summary>
 <div class="accordion__content">
 <ul class="curso-topicos">
 ${tops.map((t, j) => `<li style="--i:${j}">${TRACO_TOPICO}${esc(t)}</li>`).join('\n')}
 </ul>
 </div>
 </details>`;
-    }).join('\n')}
+  }).join('\n')}
 </div>
 </div>
-</section>`;
-  } },
+</div>\n` : '';
+  /* sem módulos, o cartão de acesso continua na página */
+  return faixa('programa', 'conteudo-programa', itens.length ? 'Conteúdo do programa' : 'Acessar a formação',
+    `<div class="container faixa__programa${itens.length ? '' : ' faixa__programa--so-acesso'}">
+${modulos}${cartaoAcesso(botao)}
+</div>`);
+}
 
-  { id: 'fundamento', titulo: 'Fundamento da formação', atalho: true, bloco(f, n) {
-    const paras = String(f.fundamento || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
-    if (!paras.length) return '';
-    return `<section class="curso-cap" id="fundamento" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
-<div class="curso-fundamento">
-${paras.map(p => `<p>${esc(p).replace(/\n/g, '<br/>')}</p>`).join('\n')}
-</div>
-</section>`;
-  } },
-
-  { id: 'resultados', titulo: 'O que sua instituição será capaz de implementar', bloco(f, n) {
-    const itens = lista(f.resultados);
-    if (!itens.length) return '';
-    const intro = f.resultados_intro ? `<p class="curso-resultado__intro">${esc(f.resultados_intro)}</p>\n` : '';
-    return `<section class="curso-cap curso-cap--resultado" id="resultados" data-cap aria-label="${esc(this.titulo)}">
-<div class="curso-resultado">
-${tituloCapitulo(n, this.titulo)}
-${intro}<ul class="curso-checks">
-${checks(itens)}
-</ul>
-</div>
-</section>`;
-  } },
-
-  /* Tema com link vira o cartão com seta; sem link (ou com link recusado
-     pelo urlSegura), o mesmo cartão sem a seta e sem ser clicável. Link pra
-     uma formação que não está publicada (despublicada no painel) também perde
-     o link: a página dela foi apagada e o tema levaria pra um 404. */
-  { id: 'temas', titulo: 'Temas relacionados', bloco(f, n) {
-    const itens = lista(f.temas_relacionados).filter(t => t && t.texto);
-    if (!itens.length) return '';
-    const destino = t => {
-      const h = urlSegura(t.href);
-      const curso = /^(formacao-[a-z0-9-]+\.html)(#.*)?$/.exec(h);
-      return curso && FORMACOES_NO_AR && !FORMACOES_NO_AR.has(curso[1]) ? '' : h;
-    };
-    return `<section class="curso-cap" id="temas" data-cap aria-label="${esc(this.titulo)}">
-${tituloCapitulo(n, this.titulo)}
+/* E. Temas relacionados. Tema com link vira o cartão com seta; sem link (ou
+   com link recusado pelo urlSegura), o mesmo cartão sem a seta e sem ser
+   clicável. Link pra uma formação que não está publicada também perde o link:
+   a página dela foi apagada e o tema levaria pra um 404. */
+function faixaTemas(f) {
+  const itens = lista(f.temas_relacionados).filter(t => t && t.texto);
+  if (!itens.length) return '';
+  const destino = t => {
+    const h = urlSegura(t.href);
+    const curso = /^(formacao-[a-z0-9-]+\.html)(#.*)?$/.exec(h);
+    return curso && FORMACOES_NO_AR && !FORMACOES_NO_AR.has(curso[1]) ? '' : h;
+  };
+  const ico = h => icone(/^formacao-/.test(h) ? 'fa-graduation-cap'
+    : /^praticas-restaurativas/.test(h) ? 'fa-scale-balanced'
+    : /^como-atuamos/.test(h) ? 'fa-compass' : 'fa-book-open');
+  return faixa('temas', 'temas', 'Temas relacionados', `<div class="container">
+${topoFaixa('Temas relacionados')}
 <ul class="curso-temas">
 ${itens.map((t, i) => destino(t)
-      ? `<li style="--i:${i}"><a class="curso-tema" href="${esc(destino(t))}"><span>${esc(t.texto)}</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>`
-      : `<li style="--i:${i}"><span class="curso-tema"><span>${esc(t.texto)}</span></span></li>`).join('\n')}
+    ? `<li style="--i:${i}"><a class="curso-tema" href="${esc(destino(t))}">${ico(destino(t))}<span>${esc(t.texto)}</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>`
+    : `<li style="--i:${i}"><span class="curso-tema">${ico('')}<span>${esc(t.texto)}</span></span></li>`).join('\n')}
 </ul>
-</section>`;
-  } }
-];
-
-/* Bloco que ficou sem conteúdo simplesmente não aparece na página.
-   Ordem (14/10/2026): o que decide a inscrição vem primeiro ("Para quem é"
-   logo depois do "O que você vai desenvolver"; antes era o 6º de 7 blocos)
-   e "Temas relacionados", que são links pra fora da página, vai pro fim.
-   Devolve os capítulos que existem, já numerados: { id, titulo, atalho, html }. */
-function capitulosDoCurso(f) {
-  const saida = [];
-  for (const c of CAPITULOS) {
-    const html = c.bloco(f, saida.length + 1);
-    if (html) saida.push({ id: c.id, titulo: c.titulo, atalho: !!c.atalho, html });
-  }
-  return saida;
+</div>`);
 }
 
-/* Índice do cartão lateral: um ponto por capítulo, com o número e o nome
-   pro leitor de tela (o curso.js mostra o nome do capítulo atual). */
-function indiceDoCurso(caps) {
-  return caps.map((c, i) =>
-    `<li><a href="#${c.id}" data-indice="${i}" aria-label="${dois(i + 1)} · ${esc(c.titulo)}"></a></li>`).join('\n');
-}
-
-/* Atalhos no topo: os capítulos do meio da página (o primeiro já aparece
-   logo abaixo do topo; o resultado e os temas ficam pro fim da leitura). */
-function atalhosDoCurso(caps) {
-  const itens = caps.filter(c => c.atalho);
-  if (!itens.length) return '';
-  return `<nav aria-label="Seções desta página" class="hero-interna__atalhos">
-${itens.map(c => `<a class="hero-interna__atalho" href="#${c.id}">${esc(c.titulo)}</a>`).join('\n')}
-</nav>\n`;
+function faixasDoCurso(f, botao) {
+  return [faixaPorque(f), faixaMuda(f), faixaEixos(f), faixaPrograma(f, botao), faixaTemas(f)].filter(Boolean).join('\n\n');
 }
 
 /* Foto do topo (visual novo): <picture> com a WebP e o JPG, em caminho
@@ -1195,7 +1248,27 @@ ${itens.map(c => `<a class="hero-interna__atalho" href="#${c.id}">${esc(c.titulo
    Foto do repositório perde o "?v=2" do banco: o visual novo trocou as
    fotos de nome e não depende mais dele. Foto do painel (Supabase) passa
    como veio, sem WebP, com as medidas lidas do começo do arquivo. */
+function fotoNovaDoCurso(f) {
+  const nova = FOTOS_DO_CURSO[f.slug];
+  const atual = String(f.imagem_hero_url || '').replace(/^\/+/, '').split('?')[0];
+  return nova && atual === nova.troca ? nova : null;
+}
+
 function heroDoCurso(f) {
+  const nova = fotoNovaDoCurso(f);
+  if (nova) {
+    const b = nova.hero, v = VERSAO_FOTOS.replace('p267', 'p266');
+    return {
+      classe: ` ${nova.classe}`,
+      lqip: `${b}.jpg`,
+      foto: `<picture class="hero-interna__bg">
+<source media="(max-width: 899px)" srcset="${b}-1100.webp${v}" type="image/webp"/>
+<source srcset="${b}.webp${v}" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="${b}.jpg${v}" width="1920"/>
+</picture>`,
+      preload: `<link as="image" fetchpriority="high" href="${b}.webp${v}" imagesrcset="${b}-1100.webp${v} 1100w, ${b}.webp${v} 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>`
+    };
+  }
   const bruta = String(f.imagem_hero_url || IMAGEM_PADRAO);
   const local = !/^https?:\/\//i.test(bruta);
   const jpg = local ? bruta.replace(/^\/+/, '').split('?')[0] : bruta;
@@ -1203,6 +1276,8 @@ function heroDoCurso(f) {
   const temWebp = local && webp !== jpg;
   const medidas = medidasDe(jpg);
   return {
+    classe: '',
+    lqip: f.imagem_hero_url || IMAGEM_PADRAO,
     foto: `<picture class="hero-interna__bg">
 ${temWebp ? `<source srcset="${esc(webp)}" type="image/webp"/>\n` : ''}<img alt="" decoding="async" fetchpriority="high"${medidas ? ` height="${medidas.altura}"` : ''} src="${esc(jpg)}"${medidas ? ` width="${medidas.largura}"` : ''}/>
 </picture>`,
@@ -1210,6 +1285,22 @@ ${temWebp ? `<source srcset="${esc(webp)}" type="image/webp"/>\n` : ''}<img alt=
   };
 }
 
+
+/* Foto do card: a luz nova de 27/11 no lugar da antiga, enquanto o cadastro
+   apontar pra antiga (foto enviada pelo painel continua mandando). */
+const CARDS_NOVOS = ['ambiente-escolar', 'execucao-penal', 'pena-justa', 'relacoes-trabalho'];
+function fotoDoCard(f) {
+  const atual = String(f.imagem_card_url || '').replace(/^\/+/, '').split('?')[0];
+  const nova = CARDS_NOVOS.find(n => atual === `assets/images/formacoes/${n}-card.jpg`);
+  return nova ? `assets/images/formacoes/${nova}-card-luz.jpg` : f.imagem_card_url;
+}
+
+/* a foto nova de Ambiente Escolar é outra cena: o texto alternativo do cadastro não serve */
+function altDoCard(f) {
+  return fotoDoCard(f) === 'assets/images/formacoes/ambiente-escolar-card-luz.jpg'
+    ? 'Estudantes e professora sentados em roda num pátio coberto, com luz da manhã'
+    : (f.imagem_card_alt || '');
+}
 
 /* --- o card, usado na Home, no catálogo e em "outras formações" ----- */
 
@@ -1242,7 +1333,7 @@ function cardFormacao(f, { posicao, numero, verTodas = true }) {
 ${f.publico_curto ? `<p class="fcard__publico">${esc(f.publico_curto)}</p>\n` : ''}<p class="fcard__desc">${esc(f.resumo || '')}</p>
 ${meta}<div class="fcard__acoes"><a class="fcard__btn" href="${arq}">Conhecer a formação ${seta}</a>${verTodas ? '<a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a>' : ''}</div>
 </div>
-<div class="fcard__foto"><img alt="${esc(f.imagem_card_alt || '')}" decoding="async"${attrAltura(web(f.imagem_card_url))} loading="lazy" src="${esc(web(f.imagem_card_url || ''))}"${attrLargura(web(f.imagem_card_url))}/></div>
+<div class="fcard__foto"><img alt="${esc(altDoCard(f))}" decoding="async"${attrAltura(web(fotoDoCard(f)))} loading="lazy" src="${esc(web(fotoDoCard(f) || ''))}"${attrLargura(web(fotoDoCard(f)))}/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>`;
 }
@@ -1412,7 +1503,7 @@ async function gerarFormacoes(cfg) {
     }
   }
 
-  await prepararMedidas(formacoes.flatMap(f => [f.imagem_card_url, f.imagem_hero_url]));
+  await prepararMedidas(formacoes.flatMap(f => [fotoDoCard(f), f.imagem_hero_url]));
   FORMACOES_NO_AR = new Set(formacoes.map(arquivoFormacao));
 
   /* --- 1, 2, 3: menus e rodapé das páginas fixas ---
@@ -1457,8 +1548,12 @@ async function gerarFormacoes(cfg) {
     // "Outras formações": todas as demais, na ordem do catálogo, até 3.
     const outras = formacoes.filter(o => o.slug !== f.slug).slice(0, 3);
 
-    const caps = capitulosDoCurso(f);
     const hero = heroDoCurso(f);
+    /* Sem endereço da Hotmart, o botão NÃO vira um link pra "#": clicar e não
+       acontecer nada é pior do que ver que ainda não está disponível. */
+    const botao = urlSegura(f.link_curso)
+      ? `<a class="btn btn--dark curso-cartao__btn" href="${esc(urlSegura(f.link_curso))}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
+      : '<button class="btn btn--dark curso-cartao__btn" type="button" aria-disabled="true" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>';
 
     let html = molde
       .replaceAll('{{TITULO}}', () => esc(f.titulo))
@@ -1474,20 +1569,11 @@ async function gerarFormacoes(cfg) {
       /* Placeholder da foto do topo (ver build/dev/lqip.py). Só existe pras
          fotos do repositório; foto enviada pelo painel cai em "none", e a
          página mostra o gradiente azul até a foto chegar, como antes. */
-      .replaceAll('{{LQIP}}', () => lqipDe(f.imagem_hero_url || IMAGEM_PADRAO))
-      .replaceAll('{{SELO_AREA}}', () => f.area ? `<span class="citacao-selo">${esc(f.area)}</span>\n` : '')
-      .replaceAll('{{ATALHOS}}', () => atalhosDoCurso(caps))
-      .replaceAll('{{INDICE}}', () => indiceDoCurso(caps))
-      .replaceAll('{{INDICE_PRIMEIRO}}', () => esc(caps.length ? caps[0].titulo : ''))
-      /* Sem endereço da Hotmart, o botão NÃO vira um link pra "#": clicar e
-         não acontecer nada é pior do que ver que ainda não está disponível,
-         ainda mais no botão que fecha a venda. Mesmo tratamento que a Área
-         do Aluno já dava ao "Entrar na plataforma". */
-      .replaceAll('{{BOTAO_CURSO}}', () => urlSegura(f.link_curso)
-        ? `<a class="btn btn--dark curso-cartao__btn" href="${esc(urlSegura(f.link_curso))}">Ir para o curso <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>`
-        : '<button class="btn btn--dark curso-cartao__btn" type="button" aria-disabled="true" title="Inscrições ainda não abertas para esta formação">Inscrições em breve</button>')
+      .replaceAll('{{LQIP}}', () => lqipDe(hero.lqip))
+      .replaceAll('{{HERO_CLASSE}}', () => hero.classe)
+      .replaceAll('{{SELO_AREA}}', () => f.area ? `<span class="citacao-selo selo-logo-claro">${TRACOS}${esc(f.area)}</span>\n` : '')
       .replaceAll('{{JSONLD}}', () => jsonldCurso(f))
-      .replaceAll('{{BLOCOS}}', () => caps.map(c => c.html).join('\n\n'))
+      .replaceAll('{{BLOCOS}}', () => faixasDoCurso(f, botao))
       .replaceAll('{{OUTRAS}}', () => outras.map((o, i) =>
         cardFormacao(o, { posicao: i, numero: formacoes.indexOf(o) + 1 })).join('\n'));
 

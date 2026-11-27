@@ -36,12 +36,12 @@
 <link href="assets/css/citacao.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/rodape.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p273" rel="stylesheet"/>
 <link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p271" rel="stylesheet"/>
 <link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/formacoes/ambiente-escolar.webp" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/formacoes/ambiente-escolar-hero.webp?v=p266" imagesrcset="assets/images/formacoes/ambiente-escolar-hero-1100.webp?v=p266 1100w, assets/images/formacoes/ambiente-escolar-hero.webp?v=p266 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -98,6 +98,7 @@
 <script>document.documentElement.classList.add('mo')</script>
 <link href="assets/css/pilha.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/curso.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/curso-novo.css?v=p276" rel="stylesheet"/>
 <script>document.documentElement.classList.add('js-curso')</script>
 <link href="assets/css/mobile.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/menu-mobile.css?v=p263" rel="stylesheet"/>
@@ -204,34 +205,58 @@
 <!-- 19/10/2026: hero no padrão das páginas internas (cartão, foto nova do
      Magnific, camada granulada suave, selo com a área); o "Voltar" saiu, a
      navbar já marca Formações. Atalhos com os nomes das seções da página. -->
-<section aria-label="Implementação de Práticas Restaurativas no Ambiente Escolar" class="hero-interna hero-interna--curso" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFAgP/xAArEAACAQMCBAMJAAAAAAAAAAABAgMABBEFIRITIjEjYXIyMzRBQlFxgZH/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAYEQEBAAMAAAAAAAAAAAAAAAABABExQf/aAAwDAQACEQMRAD8AlwTrAZeHlyFW34HIB9P3pmO/hWI8yBsM2d3BINSbKGeRnWCJ5CuCQq5/tdWimkBZoAuNsD5eZqEKhazb6rcwafCweBoC7KqFiWU+dJ6pqLz2khYpxMOEgD6cjFLRWnNUMHgG+Ovsf2KzqNvFFaMyyZIwML270AzHNxgYrOSpIPlVPWPEsLV36m5LdR3PtCiis7OU3TvdP6q3qPwjfkUUVRux1f/Z')">
+<section aria-label="Implementação de Práticas Restaurativas no Ambiente Escolar" class="hero-interna hero-interna--home hero-interna--curso hero-interna--foto-escolar" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAAkAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCO5bzLNY32krja464HofxpYi8SKZSDE/yBx0HOcH8qbceXPvcL5TkglQMdxSwq6ui7VZHdsgdehrjWyNCp5W+GNXTI+b8uOaz5Ygjso5wSK0VO2KDYQRz8jdunSkvYyZHdo2Ulud3XpWc37x10l7pbEf7tPoKqz2zyskcfduT6CtTaPLXHoKq3CMVwhI+lapGTI08q0Qx2w3N1Z6oT3AYt5Y81xnk/dz/WpDGc7GJKj8s+9RwxAeaDtI545b9BUO7dilZGl5juoDI38I34680tuy/bhGqHJdiT68Gq0RncIQr+UoAyw+9yOla8StsQyNsUknGOcc/lVQps5lsZJiZ7JMDDncQSegGKqmUqDHNIpI569K6hfLitolSUKCCAD3FNljDxkkRvjndtyf505U7vU3hOyKYnVoFMckYAAJLeg61XNyHVi+EGSU7ll/vYrWazjdABCBxzjPFU5NKhdlO9gVXbyQePTrVEmW3DrIXiWNgcuTjae2R2Bqx9kleNmTay56+awzT00mNGeQOeT/EDT/sxV2eNmAWMphT0PrUST6FprqaV4fs9u6oAwzzu5zg0wzM1vEr4YEd+30oorpkc8SKUZih+hqrKSMgHvRRUPctbCrNIvAc+tPS8m34O1geuRmiikxoc5DSbgAvsvSmxkszKT2ooqSup/9k=')">
 <picture class="hero-interna__bg">
-<source srcset="assets/images/formacoes/ambiente-escolar.webp" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="781" src="assets/images/formacoes/ambiente-escolar.jpg" width="1400"/>
+<source media="(max-width: 899px)" srcset="assets/images/formacoes/ambiente-escolar-hero-1100.webp?v=p266" type="image/webp"/>
+<source srcset="assets/images/formacoes/ambiente-escolar-hero.webp?v=p266" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/formacoes/ambiente-escolar-hero.jpg?v=p266" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">Educação</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Educação</span>
 <h1 class="hero-interna__titulo">Implementação de Práticas Restaurativas no Ambiente Escolar</h1>
 <p class="hero-interna__sub">Desenvolver uma cultura de convivência capaz de prevenir, enfrentar e aprender com os conflitos e danos presentes na escola.</p>
-<p class="hero-interna__formato"><i aria-hidden="true" class="fa-solid fa-circle-play"></i>On-line, no seu ritmo</p>
-<nav aria-label="Seções desta página" class="hero-interna__atalhos">
-<a class="hero-interna__atalho" href="#para-quem">Para quem é</a>
-<a class="hero-interna__atalho" href="#eixos">Os eixos da formação</a>
-<a class="hero-interna__atalho" href="#conteudo-programa">Conteúdo do programa</a>
-<a class="hero-interna__atalho" href="#fundamento">Fundamento da formação</a>
-</nav>
 </div>
 </section>
 
-<!-- conteúdo + card de proposta -->
-<section aria-label="Sobre a formação" class="curso">
-<div class="container curso__grade">
-
+<!-- 27/11/2026: miolo em faixas, montado pelo gerar.mjs -->
+<section aria-label="Sobre a formação" class="curso curso--faixas">
 <div class="curso__main">
-<section class="curso-cap" id="desenvolver" data-cap aria-label="O que você vai desenvolver">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>01</span></span><span class="curso-cap__txt">O que você vai desenvolver</span></h2>
-<ul class="curso-checks curso-checks--2col">
+<section class="faixa faixa--porque curso-cap" id="fundamento" data-cap aria-label="Por que esta formação">
+<div class="container faixa__dupla">
+<figure class="faixa__foto"><picture><source srcset="assets/images/formacoes/ambiente-escolar-porque.webp?v=p267" type="image/webp"/><img alt="Estudantes e professora sentados em roda numa conversa" decoding="async" height="909" width="1100" loading="lazy" src="assets/images/formacoes/ambiente-escolar-porque.jpg?v=p267"/></picture></figure>
+<div class="faixa__texto">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Por que esta formação</h2></header>
+<div class="curso-fundamento">
+<p class="curso-cartao__titulo faixa__destaque">Escolas convivem diariamente com desafios que vão além do processo de ensino-aprendizagem.</p>
+<p>Bullying, violência, conflitos interpessoais, dificuldades de comunicação, danos ao patrimônio e afastamento das famílias fazem parte da realidade de muitas instituições.</p>
+<p>A formação prepara gestores, professores e equipes para incorporar práticas restaurativas ao cotidiano da escola, fortalecendo a convivência, qualificando a gestão dos conflitos e transformando problemas em oportunidades de aprendizagem coletiva.</p>
+</div>
+</div>
+</div>
+<div class="container faixa__publico" id="para-quem">
+<h3 class="faixa__rotulo">Para quem é</h3>
+<ul class="curso-publico">
+<li style="--i:0"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-user-tie"></i></span>Diretores e coordenadores pedagógicos</li>
+<li style="--i:1"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-chalkboard-user"></i></span>Professores e orientadores educacionais</li>
+<li style="--i:2"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-hand-holding-heart"></i></span>Psicólogos escolares e assistentes sociais</li>
+<li style="--i:3"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-people-group"></i></span>Equipes técnicas</li>
+<li style="--i:4"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-building-columns"></i></span>Secretarias de Educação</li>
+</ul>
+</div>
+</section>
+
+<section class="faixa faixa--muda curso-cap" id="resultados" data-cap aria-label="O que muda">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">O que muda</h2></header>
+<div class="faixa__abas" data-abas>
+<div class="faixa__botoes" role="tablist" aria-label="O que muda">
+<button type="button" role="tab" id="aba-voce" aria-controls="desenvolver">Você</button>
+<button type="button" role="tab" id="aba-instituicao" aria-controls="implementar">Sua instituição</button>
+</div>
+<article class="faixa__cartao" id="desenvolver">
+<h3 class="curso-cartao__titulo">O que você vai desenvolver</h3>
+<ul class="curso-checks">
 <li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Compreender os fundamentos da Justiça Restaurativa e sua aplicação no contexto escolar.</span></li>
 <li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Diferenciar práticas restaurativas de abordagens disciplinares tradicionais.</span></li>
 <li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Identificar situações em que as práticas ajudam a prevenir ou responder a conflitos.</span></li>
@@ -239,43 +264,44 @@
 <li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Estruturar protocolos institucionais para uso de práticas restaurativas.</span></li>
 <li style="--i:5"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Integrar as práticas ao projeto político-pedagógico da instituição.</span></li>
 </ul>
-</section>
-
-<section class="curso-cap" id="para-quem" data-cap aria-label="Para quem é">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>02</span></span><span class="curso-cap__txt">Para quem é</span></h2>
-<ul class="curso-publico">
-<li style="--i:0">Diretores e coordenadores pedagógicos</li>
-<li style="--i:1">Professores e orientadores educacionais</li>
-<li style="--i:2">Psicólogos escolares e assistentes sociais</li>
-<li style="--i:3">Equipes técnicas</li>
-<li style="--i:4">Secretarias de Educação</li>
+</article>
+<article class="faixa__cartao faixa__cartao--ouro" id="implementar">
+<h3 class="curso-cartao__titulo">O que sua instituição será capaz de implementar</h3>
+<p class="curso-resultado__intro">Ao final da formação, a escola ou rede de ensino estará mais preparada para:</p>
+<ul class="curso-checks">
+<li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Desenvolver um programa institucional de práticas restaurativas.</span></li>
+<li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Incorporar estratégias restaurativas ao cotidiano escolar.</span></li>
+<li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Estruturar protocolos para prevenção e enfrentamento de conflitos.</span></li>
+<li style="--i:3"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Fortalecer a participação de estudantes, professores e famílias nas soluções.</span></li>
+<li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Capacitar equipes para dar continuidade às práticas de forma autônoma.</span></li>
 </ul>
+</article>
+</div>
+</div>
 </section>
 
-<section class="curso-cap" id="eixos" data-cap aria-label="Os eixos da formação">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>03</span></span><span class="curso-cap__txt">Os eixos da formação</span></h2>
-<div class="curso-eixos-palco">
-<svg class="curso-eixos__fio" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
-<path class="curso-eixos__base" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-<path class="curso-eixos__tinta" d="M167 100 C 167 34, 255 10, 333 24 S 480 58, 500 100 C 500 34, 588 10, 667 24 S 813 58, 833 100"/>
-</svg>
+<section class="faixa faixa--eixos curso-cap" id="eixos" data-cap aria-label="Os eixos da formação">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Os eixos da formação</h2></header>
 <ol class="curso-eixos">
-<li class="curso-eixo" style="--i:0"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">01</span><span class="curso-eixo__chave">Compreender</span><span class="curso-eixo__frase">Convivência e clima escolar</span><span class="curso-eixo__desc">Reconhecer como as relações do dia a dia produzem convivência ou conflito, e o que diferencia a resposta restaurativa da disciplinar.</span></div></li>
-<li class="curso-eixo" style="--i:1"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">02</span><span class="curso-eixo__chave">Intervir</span><span class="curso-eixo__frase">Conflitos, bullying e danos</span><span class="curso-eixo__desc">Conduzir processos restaurativos nas situações concretas da escola, entre estudantes e na relação com as famílias.</span></div></li>
-<li class="curso-eixo" style="--i:2"><div class="curso-eixo__face"><span class="curso-eixo__num" aria-hidden="true">03</span><span class="curso-eixo__chave">Transformar</span><span class="curso-eixo__frase">Práticas no projeto da escola</span><span class="curso-eixo__desc">Incorporar protocolos e estratégias permanentes ao projeto político-pedagógico e à rotina da instituição.</span></div></li>
+<li class="curso-eixo" style="--i:0"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-lightbulb"></i></span><span class="curso-eixo__num" aria-hidden="true">01</span><span class="curso-eixo__chave">Compreender</span><span class="curso-eixo__frase">Convivência e clima escolar</span><span class="curso-eixo__desc">Reconhecer como as relações do dia a dia produzem convivência ou conflito, e o que diferencia a resposta restaurativa da disciplinar.</span></div></li>
+<li class="curso-eixo" style="--i:1"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-comments"></i></span><span class="curso-eixo__num" aria-hidden="true">02</span><span class="curso-eixo__chave">Intervir</span><span class="curso-eixo__frase">Conflitos, bullying e danos</span><span class="curso-eixo__desc">Conduzir processos restaurativos nas situações concretas da escola, entre estudantes e na relação com as famílias.</span></div></li>
+<li class="curso-eixo" style="--i:2"><div class="curso-eixo__face"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-seedling"></i></span><span class="curso-eixo__num" aria-hidden="true">03</span><span class="curso-eixo__chave">Transformar</span><span class="curso-eixo__frase">Práticas no projeto da escola</span><span class="curso-eixo__desc">Incorporar protocolos e estratégias permanentes ao projeto político-pedagógico e à rotina da instituição.</span></div></li>
 </ol>
 </div>
 </section>
 
-<section class="curso-cap" id="conteudo-programa" data-cap aria-label="Conteúdo do programa">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>04</span></span><span class="curso-cap__txt">Conteúdo do programa</span></h2>
+<section class="faixa faixa--programa curso-cap" id="conteudo-programa" data-cap aria-label="Conteúdo do programa">
+<div class="container faixa__programa">
+<div>
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Conteúdo do programa</h2></header>
 <div class="course-modules curso-modulos" id="course-modules">
 <div class="course-modules__bar">
 <p class="course-modules__count">4 módulos</p>
 <button type="button" class="course-modules__toggle" data-accordion-toggle aria-expanded="false">Expandir todos</button>
 </div>
 <div class="curso-modulos__pilha">
-<details class="accordion curso-modulo" style="--i:0">
+<details class="accordion curso-modulo" style="--i:0" open>
 <summary class="accordion__summary"><span class="curso-modulo__num" aria-hidden="true">01</span><span class="accordion__label">Fundamentos e cultura de convivência</span><span class="accordion__meta">2 tópicos</span><span class="curso-modulo__mais" aria-hidden="true"></span></summary>
 <div class="accordion__content">
 <ul class="curso-topicos">
@@ -315,59 +341,9 @@
 </details>
 </div>
 </div>
-</section>
-
-<section class="curso-cap" id="fundamento" data-cap aria-label="Fundamento da formação">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>05</span></span><span class="curso-cap__txt">Fundamento da formação</span></h2>
-<div class="curso-fundamento">
-<p>Escolas convivem diariamente com desafios que vão além do processo de ensino-aprendizagem. Bullying, violência, conflitos interpessoais, dificuldades de comunicação, danos ao patrimônio e afastamento das famílias fazem parte da realidade de muitas instituições.</p>
-<p>A formação prepara gestores, professores e equipes para incorporar práticas restaurativas ao cotidiano da escola, fortalecendo a convivência, qualificando a gestão dos conflitos e transformando problemas em oportunidades de aprendizagem coletiva.</p>
 </div>
-</section>
-
-<section class="curso-cap curso-cap--resultado" id="resultados" data-cap aria-label="O que sua instituição será capaz de implementar">
-<div class="curso-resultado">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>06</span></span><span class="curso-cap__txt">O que sua instituição será capaz de implementar</span></h2>
-<p class="curso-resultado__intro">Ao final da formação, a escola ou rede de ensino estará mais preparada para:</p>
-<ul class="curso-checks">
-<li style="--i:0"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Desenvolver um programa institucional de práticas restaurativas.</span></li>
-<li style="--i:1"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Incorporar estratégias restaurativas ao cotidiano escolar.</span></li>
-<li style="--i:2"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Estruturar protocolos para prevenção e enfrentamento de conflitos.</span></li>
-<li style="--i:3"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Fortalecer a participação de estudantes, professores e famílias nas soluções.</span></li>
-<li style="--i:4"><svg class="curso-check" viewBox="0 0 24 24" aria-hidden="true"><circle class="curso-check__aro" cx="12" cy="12" r="10.5" pathLength="1"/><path class="curso-check__traco" d="M7.4 12.4l3.1 3.1 6.1-6.6" pathLength="1"/></svg><span class="curso-checks__txt">Capacitar equipes para dar continuidade às práticas de forma autônoma.</span></li>
-</ul>
-</div>
-</section>
-
-<section class="curso-cap" id="temas" data-cap aria-label="Temas relacionados">
-<h2 class="curso-cap__titulo"><span class="curso-cap__num" aria-hidden="true"><svg class="curso-anel" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" pathLength="1"/></svg><span>07</span></span><span class="curso-cap__txt">Temas relacionados</span></h2>
-<ul class="curso-temas">
-<li style="--i:0"><a class="curso-tema" href="praticas-restaurativas.html#educacao"><span>Práticas Restaurativas na Educação</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:1"><a class="curso-tema" href="praticas-restaurativas.html#jr-praticas"><span>Justiça Restaurativa e Práticas Restaurativas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:2"><a class="curso-tema" href="formacao-relacoes-trabalho.html"><span>Práticas Restaurativas nas Relações de Trabalho</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-<li style="--i:3"><a class="curso-tema" href="como-atuamos.html"><span>Como o IBPR atua</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
-</ul>
-</section>
-</div>
-
 <aside class="curso__aside" aria-label="Acessar a formação">
 <div class="curso-cartao">
-<nav class="curso-indice" aria-label="Nesta página">
-<div class="curso-indice__atual" aria-hidden="true">
-<svg class="curso-indice__anel" viewBox="0 0 44 44"><circle cx="22" cy="22" r="19"/><circle class="curso-indice__progresso" cx="22" cy="22" r="19" pathLength="1"/></svg>
-<span class="curso-indice__num"><span>01</span></span>
-<span class="curso-indice__nome">O que você vai desenvolver</span>
-</div>
-<ol class="curso-indice__lista">
-<li><a href="#desenvolver" data-indice="0" aria-label="01 · O que você vai desenvolver"></a></li>
-<li><a href="#para-quem" data-indice="1" aria-label="02 · Para quem é"></a></li>
-<li><a href="#eixos" data-indice="2" aria-label="03 · Os eixos da formação"></a></li>
-<li><a href="#conteudo-programa" data-indice="3" aria-label="04 · Conteúdo do programa"></a></li>
-<li><a href="#fundamento" data-indice="4" aria-label="05 · Fundamento da formação"></a></li>
-<li><a href="#resultados" data-indice="5" aria-label="06 · O que sua instituição será capaz de implementar"></a></li>
-<li><a href="#temas" data-indice="6" aria-label="07 · Temas relacionados"></a></li>
-</ol>
-</nav>
 <div class="curso-cartao__corpo">
 <h2 class="curso-cartao__titulo">Acesse a formação completa</h2>
 <p class="curso-cartao__nota">Conteúdo gravado, no seu ritmo.</p>
@@ -381,7 +357,20 @@
 </div>
 </div>
 </aside>
+</div>
+</section>
 
+<section class="faixa faixa--temas curso-cap" id="temas" data-cap aria-label="Temas relacionados">
+<div class="container">
+<header class="faixa__topo"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span><h2 class="catalogo__titulo">Temas relacionados</h2></header>
+<ul class="curso-temas">
+<li style="--i:0"><a class="curso-tema" href="praticas-restaurativas.html#educacao"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span><span>Práticas Restaurativas na Educação</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:1"><a class="curso-tema" href="praticas-restaurativas.html#jr-praticas"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-scale-balanced"></i></span><span>Justiça Restaurativa e Práticas Restaurativas</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:2"><a class="curso-tema" href="formacao-relacoes-trabalho.html"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></span><span>Práticas Restaurativas nas Relações de Trabalho</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+<li style="--i:3"><a class="curso-tema" href="como-atuamos.html"><span class="faixa__ico" aria-hidden="true"><i class="fa-solid fa-compass"></i></span><span>Como o IBPR atua</span><span class="link-seta__circ" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span></a></li>
+</ul>
+</div>
+</section>
 </div>
 </section>
 
@@ -409,7 +398,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-execucao-penal.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/execucao-penal-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Servidores caminham em direção à entrada de uma unidade prisional ao fim da tarde" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/execucao-penal-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <article class="fcard" style="--i:1">
@@ -421,7 +410,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>13 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-pena-justa.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Corredor de uma unidade prisional com uma sala de aula ao fundo e uma abertura para o jardim externo" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/pena-justa-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Corredor de uma unidade prisional com uma sala de aula ao fundo e uma abertura para o jardim externo" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/pena-justa-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <article class="fcard" style="--i:2">
@@ -433,7 +422,7 @@
 <p class="fcard__meta"><span><i aria-hidden="true" class="fa-solid fa-layer-group"></i>4 módulos</span><span><i aria-hidden="true" class="fa-solid fa-book-open"></i>12 tópicos</span></p>
 <div class="fcard__acoes"><a class="fcard__btn" href="formacao-relacoes-trabalho.html">Conhecer a formação <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a><a class="fcard__btn fcard__btn--claro" href="formacoes.html">Ver todas</a></div>
 </div>
-<div class="fcard__foto"><img alt="Salão preparado para uma formação corporativa, com mesas redondas e flip charts" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card.webp?v=3" width="800"/></div>
+<div class="fcard__foto"><img alt="Salão preparado para uma formação corporativa, com mesas redondas e flip charts" decoding="async" height="533" loading="lazy" src="assets/images/formacoes/relacoes-trabalho-card-luz.webp" width="800"/></div>
 <span aria-hidden="true" class="fcard__veu"></span>
 </article>
 <!-- /CMS:outras-formacoes -->
@@ -520,6 +509,7 @@ AOS.init({
 <script src="assets/js/site-interactions.js?v=p167"></script>
 <script defer src="assets/js/pilha.js?v=p172"></script>
 <script defer src="assets/js/curso.js?v=p197"></script>
+<script defer src="assets/js/curso-abas.js?v=p267"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
 <script>
 /* Conteúdo do programa: botão "Expandir todos / Recolher todos".

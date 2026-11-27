@@ -1,0 +1,194 @@
+/* ===== PÁGINA DE CURSO EM FAIXAS (27/11/2026). Amostra só em
+   formacao-ambiente-escolar.html, pro João aprovar antes de ir pro molde.
+   Faixas de largura cheia, claras, alternando grão e branco; vidro com grão e
+   cores da logo (lavanda, amarelo, oliva). Nenhum tamanho de fonte novo. */
+.curso.curso--faixas { --grao: url("../images/grao-claro.png"); padding: 0; background: var(--papel-claro); }
+.curso--faixas .curso__main { display: block; }
+.curso--faixas .faixa { padding: clamp(6.4rem, 7vw, 10rem) 0; scroll-margin-top: 9rem; }
+.curso--faixas .faixa--porque, .curso--faixas .faixa--eixos { background: var(--grao),
+    linear-gradient(180deg, var(--papel-claro) 0, transparent 140px, transparent calc(100% - 140px), var(--papel-claro)),
+    radial-gradient(46vw 28vw at 94% 20%, rgba(10, 102, 200, 0.10), transparent 74%),
+    radial-gradient(44vw 26vw at 4% 90%, rgba(97, 117, 214, 0.10), transparent 74%), var(--papel-claro); }
+.curso--faixas .faixa--muda, .curso--faixas .faixa--temas { background: #fff; }
+.curso--faixas .faixa--programa { background: var(--grao),
+    radial-gradient(46vw 28vw at 92% 80%, rgba(237, 186, 44, 0.11), transparent 74%),
+    radial-gradient(44vw 26vw at 6% 14%, rgba(97, 117, 214, 0.10), transparent 74%), var(--papel-claro); }
+
+.faixa__topo { display: grid; justify-items: start; gap: var(--espaco-titulo-subtitulo, 16px); margin-bottom: clamp(3.2rem, 3.6vw, 4.8rem); }
+
+/* cores em ciclo */
+.curso--faixas :is(.curso-publico li, .curso-eixo, .curso-modulo, .curso-temas li, .curso-cartao__lista li) { --tom: 97, 117, 214; --cor: #4F62C4; }
+.curso--faixas :is(.curso-publico li, .curso-eixo, .curso-temas li, .curso-cartao__lista li):nth-child(3n+2), .curso--faixas .curso-modulo:nth-of-type(3n+2) { --tom: 237, 186, 44; --cor: #EDBA2C; }
+.curso--faixas :is(.curso-publico li, .curso-eixo, .curso-temas li, .curso-cartao__lista li):nth-child(3n), .curso--faixas .curso-modulo:nth-of-type(3n) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+
+/* vidro */
+.curso--faixas :is(.curso-publico li, .curso-eixo__face, .curso-modulo, .curso-tema) {
+  background: var(--grao), radial-gradient(ellipse 80% 140% at 100% 0%, rgba(var(--tom), 0.16) 0, transparent 78%), rgba(255, 255, 255, 0.56);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -28px rgba(0, 33, 82, 0.3); }
+
+/* A. por que */
+.faixa__dupla { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(3.2rem, 6vw, 9.6rem); align-items: start; }
+.faixa__dupla .faixa__topo { margin: 0; }
+.curso--faixas .curso-fundamento { padding: 0; border-radius: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.faixa__publico { margin-top: clamp(4.8rem, 5.4vw, 7.2rem); scroll-margin-top: 12rem; }
+/* as 5 placas numa linha, iguais (sem uma sobrando embaixo) */
+@media (min-width: 1200px) {
+  .curso--faixas .curso-publico { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .curso--faixas .curso-publico li { height: 100%; }
+}
+.faixa__rotulo { margin: 0 0 1.8rem; color: var(--color-navy); }
+.curso--faixas .curso-publico li { border-radius: 1.6rem; }
+.curso--faixas .curso-publico li::before { width: 4px; height: 1.6rem; border-radius: 2px; background: rgb(var(--tom)); opacity: 1; }
+
+/* B. o que muda: título no centro, dois botões, cartões quadrados em 3 */
+.faixa--muda .faixa__topo { justify-items: center; text-align: center; margin-bottom: 2.4rem; }
+.faixa__botoes { display: none; }
+.com-abas .faixa__botoes { display: flex; gap: 0.4rem; width: fit-content; margin: 0 auto clamp(3.2rem, 3.6vw, 4.8rem); padding: 0.6rem; border-radius: 16px; background: var(--papel-claro); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1); }
+.faixa__botoes button { min-height: 46px; padding: 0 2.8rem; border: 0; border-radius: 12px; background: transparent; color: var(--color-navy); font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
+.faixa__botoes button[aria-selected="true"] { background: linear-gradient(160deg, #0050B3, #003E8E); color: #fff; box-shadow: 0 10px 22px -12px rgba(0, 62, 142, 0.9); }
+.faixa__botoes button:focus-visible { outline: 2px solid var(--color-navy); outline-offset: 3px; }
+.faixa__cartao { text-align: center; }
+.faixa__cartao + .faixa__cartao { margin-top: 4.8rem; }
+.com-abas .faixa__cartao + .faixa__cartao { margin-top: 0; }
+.faixa__cartao[hidden] { display: none; }
+.faixa__cartao .curso-cartao__titulo { margin-bottom: 0.8rem; }
+.curso--faixas .faixa__cartao .curso-checks { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.4rem, 1.6vw, 2rem); margin-top: 2.8rem; text-align: left; }
+.curso--faixas .faixa__cartao .curso-checks li { --tom: 97, 117, 214; --cor: #4F62C4; flex: 0 1 calc((100% - 4rem) / 3); flex-direction: column; gap: 1.8rem; min-height: 15rem; padding: 2.6rem; border: 0; border-radius: 2rem;
+  background: var(--grao), radial-gradient(ellipse 100% 100% at 100% 0%, rgba(var(--tom), 0.22), transparent 72%), var(--papel-claro);
+  box-shadow: inset 0 0 0 1px rgba(var(--tom), 0.22), 0 20px 40px -30px rgba(0, 33, 82, 0.34); }
+.curso--faixas .faixa__cartao .curso-checks li:nth-child(3n+2) { --tom: 237, 186, 44; --cor: #EDBA2C; }
+.curso--faixas .faixa__cartao .curso-checks li:nth-child(3n) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.curso--faixas .faixa__cartao .curso-check { width: 3.6rem; height: 3.6rem; }
+.curso--faixas .faixa__cartao .curso-check__aro { fill: var(--cor); stroke: var(--cor); }
+.curso--faixas .faixa__cartao .curso-check__traco { stroke: #fff; }
+@media (max-width: 1023px) { .curso--faixas .faixa__cartao .curso-checks li { flex-basis: calc((100% - 2rem) / 2); } }
+@media (max-width: 599px) { .curso--faixas .faixa__cartao .curso-checks li { flex-basis: 100%; min-height: 0; } }
+
+/* C. eixos */
+.curso--faixas .curso-eixos { gap: clamp(1.6rem, 2vw, 2.8rem); }
+.curso--faixas .curso-eixo__face::before { content: ""; position: absolute; left: 2.6rem; top: 0; width: 3.2rem; height: 4px; border-radius: 0 0 3px 3px; background: rgb(var(--tom)); }
+.curso--faixas .curso-eixo__chave { color: var(--cor); }
+
+/* D. programa + acesso */
+.faixa__programa { display: grid; grid-template-columns: minmax(0, 1fr) minmax(30rem, 38rem); gap: clamp(3.2rem, 5vw, 8rem); align-items: start; }
+.curso--faixas .curso__aside { position: sticky; top: 10.4rem; }
+.curso--faixas .curso-modulo .curso-modulo__num { background: rgba(var(--tom), 0.14); color: var(--cor); }
+.curso--faixas .curso-modulo[open] .curso-modulo__num { background: var(--cor); color: #fff; }
+.curso--faixas .curso-modulo .accordion__meta { background: rgba(var(--tom), 0.12); color: var(--cor); }
+.curso--faixas .curso-modulo .curso-topicos__traco path { stroke: var(--cor); }
+.curso--faixas .curso-cartao { background: var(--grao), radial-gradient(ellipse 90% 80% at 100% 0%, rgba(97, 117, 214, 0.18), transparent 75%), rgba(255, 255, 255, 0.72); }
+.curso--faixas .curso-cartao__lista li .curso-cartao__ic { background: rgba(var(--tom), 0.13); color: var(--cor); }
+
+/* E. temas: 4 numa linha */
+.curso--faixas .curso-temas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ===== REFINO (27/11, "mais bonitas e atraentes") ===== */
+.faixa__ico { display: grid; place-items: center; flex: none; width: 4.4rem; height: 4.4rem; border-radius: 1.4rem; background: rgba(var(--tom), 0.16); color: var(--cor); }
+.faixa__ico i { scale: 1.15; }
+
+/* A. foto de um lado, texto do outro */
+.curso--faixas .faixa__dupla { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: stretch; }
+.faixa__foto { position: relative; margin: 0; min-height: 38rem; border-radius: var(--raio-bloco); overflow: hidden; box-shadow: 0 34px 64px -40px rgba(0, 33, 82, 0.5); }
+.faixa__foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.faixa__texto { display: flex; flex-direction: column; justify-content: center; gap: 2.8rem; }
+.curso--faixas .curso-fundamento .faixa__destaque { margin: 0; color: var(--color-navy); }
+.curso--faixas .curso-fundamento p + p { margin-top: 1.8rem; color: #435872; font-weight: 400; }
+.curso--faixas .curso-fundamento p:not(.faixa__destaque) { font-size: inherit; }
+.curso--faixas .curso-publico li { flex-direction: column; align-items: flex-start; gap: 1.6rem; padding: 2.2rem 2rem; border-radius: 2rem; }
+.curso--faixas .curso-publico li::before { display: none; }
+
+/* C. eixos com mais cor */
+.curso--faixas .curso-eixo__face { align-items: flex-start; min-height: 32rem; padding: 3.2rem;
+  background: var(--grao), linear-gradient(180deg, rgba(var(--tom), 0.24), rgba(var(--tom), 0.04) 62%), #fff;
+  box-shadow: inset 0 0 0 1px rgba(var(--tom), 0.28), 0 30px 56px -36px rgba(0, 33, 82, 0.42); }
+.curso--faixas .curso-eixo__face::before { left: 0; right: 0; width: auto; height: 5px; border-radius: 0; }
+.curso--faixas .curso-eixo__face .faixa__ico { background: var(--cor); color: #fff; margin-bottom: auto; box-shadow: 0 14px 26px -14px rgba(var(--tom), 1); }
+.curso--faixas .curso-eixo__num { position: absolute; right: 2.8rem; top: 2.8rem; margin: 0; color: var(--cor); opacity: 0.5; }
+.curso--faixas .curso-eixo__chave { margin-top: 3.2rem; }
+
+/* D. programa */
+.curso--faixas .curso-modulos__pilha { gap: 1.4rem; }
+.curso--faixas .curso-modulo .accordion__summary { padding-block: 2.2rem; }
+.curso--faixas .curso-cartao { box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), 0 40px 70px -40px rgba(0, 33, 82, 0.5); }
+.curso--faixas .curso-cartao::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5px; background: linear-gradient(90deg, #6175D6 0 33.3%, #EDBA2C 0 66.6%, #7A7D34 0); }
+.curso--faixas .curso-cartao__corpo { padding: 3.4rem 3rem 3rem; }
+.curso--faixas .curso-cartao__btn { min-height: 54px; }
+
+/* E. temas */
+.curso--faixas .curso-tema { display: grid; grid-template-columns: 1fr auto; align-content: space-between; align-items: end; gap: 2.4rem 1.2rem; min-height: 16rem; padding: 2.4rem; border-radius: 2rem;
+  background: var(--grao), radial-gradient(ellipse 100% 100% at 100% 0%, rgba(var(--tom), 0.22), transparent 72%), var(--papel-claro); }
+.curso--faixas .curso-tema .faixa__ico { grid-column: 1 / -1; align-self: start; }
+
+@media (max-width: 1023px) {
+  .faixa__dupla, .faixa__par, .faixa__programa { grid-template-columns: minmax(0, 1fr); }
+  .faixa__dupla .faixa__topo { margin-bottom: 0; }
+  .curso--faixas .curso__aside { position: static; max-width: 52rem; }
+  .curso--faixas .curso-temas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .curso--faixas .curso-eixos, .curso--faixas .curso-temas { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* foto nova da header (27/11): no celular enquadra a roda */
+@media (max-width: 899px) {
+  .hero-interna--foto-escolar { background-color: #101216; background-image: none; }
+  .hero-interna--foto-escolar .hero-interna__bg img { height: 64%; object-position: 90% 50%;
+    -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+}
+
+/* sai o risco lateral do módulo aberto (vinha do acordeão antigo) */
+.curso--faixas .curso-modulo[open], .curso--faixas .curso-modulo[open] .accordion__summary { border: 0; box-shadow: none; }
+.curso--faixas .curso-modulo[open] { box-shadow: inset 0 0 0 1px rgba(var(--tom), 0.3), 0 24px 48px -32px rgba(0, 33, 82, 0.4); }
+.curso--faixas .curso-modulo .accordion__summary::before { content: none; }
+
+/* celular e tablet: foto em cima, texto embaixo; placas na largura toda */
+@media (max-width: 1023px) {
+  .curso--faixas .faixa__dupla { grid-template-columns: minmax(0, 1fr); }
+  .faixa__foto { min-height: 0; aspect-ratio: 1100 / 909; max-height: 52rem; }
+  .curso--faixas .curso-publico { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 599px) {
+  .curso--faixas .curso-publico { grid-template-columns: minmax(0, 1fr); }
+  .curso--faixas .curso-publico li { flex-direction: row; align-items: center; gap: 1.4rem; padding: 1.4rem 1.6rem; }
+  .curso--faixas .curso-eixo__face { min-height: 0; }
+}
+
+/* amarelo claro da logo no lugar do mostarda escuro (João, 27/11). Desenho e
+   fundo usam o amarelo; o que é texto ou traço por cima dele fica no azul. */
+.curso--faixas :is(.curso-publico li, .curso-eixo, .curso-temas li, .curso-cartao__lista li):nth-child(3n+2),
+.curso--faixas .curso-modulo:nth-of-type(3n+2),
+.curso--faixas .faixa__cartao .curso-checks li:nth-child(3n+2) { --cor: #EDBA2C; }
+.curso--faixas :is(.curso-publico li, .curso-temas li):nth-child(3n+2) .faixa__ico,
+.curso--faixas .curso-cartao__lista li:nth-child(3n+2) .curso-cartao__ic { background: rgba(237, 186, 44, 0.2); color: #E3A90F; }
+.curso--faixas .curso-eixo:nth-child(3n+2) .curso-eixo__face .faixa__ico { color: #fff; }
+.curso--faixas .curso-eixo:nth-child(3n+2) .curso-eixo__chave { color: var(--color-navy); }
+.curso--faixas .curso-eixo:nth-child(3n+2) .curso-eixo__num { opacity: 1; }
+.curso--faixas .faixa__cartao .curso-checks li:nth-child(3n+2) .curso-check__traco { stroke: #fff; }
+.curso--faixas .curso-modulo:nth-of-type(3n+2) :is(.curso-modulo__num, .accordion__meta) { color: var(--color-navy); }
+.curso--faixas .curso-modulo:nth-of-type(3n+2)[open] .curso-modulo__num { background: var(--cor); color: var(--color-navy); }
+
+/* ícones amarelos claros viram amarelo cheio com desenho branco */
+.curso--faixas :is(.curso-publico li, .curso-temas li):nth-child(3n+2) .faixa__ico,
+.curso--faixas .curso-cartao__lista li:nth-child(3n+2) .curso-cartao__ic { background: #EDBA2C; color: #fff; }
+
+/* curso sem a segunda foto: título de um lado, texto do outro */
+@media (min-width: 1024px) {
+  .curso--faixas .faixa__dupla--sem-foto { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+  .faixa__dupla--sem-foto .faixa__texto { display: contents; }
+  .faixa__dupla--sem-foto .faixa__topo { margin: 0; }
+}
+.faixa__programa--so-acesso { grid-template-columns: minmax(0, 52rem); justify-content: center; }
+
+/* headers com luz nova (27/11): no celular, foto no alto sumindo no escuro,
+   cada uma enquadrada no seu assunto */
+@media (max-width: 899px) {
+  :is(.hero-interna--foto-execucao-penal, .hero-interna--foto-pena-justa, .hero-interna--foto-relacoes-trabalho) { background-color: #101216; background-image: none; }
+  :is(.hero-interna--foto-execucao-penal, .hero-interna--foto-pena-justa, .hero-interna--foto-relacoes-trabalho) .hero-interna__bg img { height: 64%;
+    -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+  .hero-interna--foto-execucao-penal .hero-interna__bg img { object-position: 78% 50%; }
+  .hero-interna--foto-pena-justa .hero-interna__bg img { object-position: 30% 50%; }
+  .hero-interna--foto-relacoes-trabalho .hero-interna__bg img { object-position: 50% 50%; }
+}
+
+/* "Para quem é": os ícones todos preenchidos, cada um na sua cor (27/11) */
+.curso--faixas .curso-publico li .faixa__ico { background: var(--cor); color: #fff; }
