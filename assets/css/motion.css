@@ -24,7 +24,8 @@
   border-radius: var(--raio-bloco);
   overflow: clip; /* clip (não hidden) pra não matar o sticky do Como Atuamos */
 }
-.hero { margin-top: var(--respiro-bloco); min-height: calc(100dvh - 2 * var(--respiro-bloco)); }
+/* svh, não dvh (27/11): no celular o dvh muda quando a barra do navegador some ou volta, a hero crescia e a foto (cover) dava zoom a cada rolagem */
+.hero { margin-top: var(--respiro-bloco); min-height: calc(100svh - 2 * var(--respiro-bloco)); }
 .proposito { margin-top: var(--respiro-bloco); }
 .footer { margin-bottom: var(--respiro-bloco); border-top: 0; }
 .formacoes, .founders, #ibpr-movimento-preview, .cta-final, .quotes { background: var(--color-paper); }
