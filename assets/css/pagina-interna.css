@@ -2426,3 +2426,50 @@
   :root .aluno-passos .passo__ico { margin-bottom: 0; }
   :root .aluno-passos .curso-eixo__chave { margin-top: 2.4rem; }
 }
+
+/* ===== PÁGINAS DE LEITURA (artigo, notícia, privacidade) no padrão novo
+   (27/11): o mesmo véu neutro das outras headers, mantendo a altura menor,
+   porque aqui se vem pra ler; e os rótulos em pílula viram o selo de três
+   traços. */
+:root :is(.hero-interna--artigo, .hero-interna--noticia, .hero-interna--neutro) .hero-interna__overlay {
+  background: radial-gradient(110% 130% at 0% 100%, rgba(16, 18, 22, 0.9) 0%, rgba(16, 18, 22, 0.84) 34%, rgba(16, 18, 22, 0.62) 58%, rgba(16, 18, 22, 0.28) 82%, rgba(16, 18, 22, 0) 100%),
+    linear-gradient(180deg, rgba(16, 18, 22, 0.42), rgba(16, 18, 22, 0) 28%); }
+:root .artigo-corpo-secao .artigo-acoes__titulo, :root .politica-secao .politica-data { display: inline-flex; align-items: center; gap: 1rem; padding: 0; border: 0; border-radius: 0; background: none; box-shadow: none; }
+:root .artigo-corpo-secao .artigo-acoes__titulo::before, :root .politica-secao .politica-data::before { content: ""; flex: none; width: 18px; height: 1.6rem;
+  background: linear-gradient(#6175D6, #6175D6) 0 0 / 4px 100% no-repeat, linear-gradient(#EDBA2C, #EDBA2C) 7px 0 / 4px 100% no-repeat, linear-gradient(#7A7D34, #7A7D34) 14px 0 / 4px 100% no-repeat; }
+
+/* notícia: o topo com a mesma altura das outras páginas (João, 27/11: "o
+   tamanho não está certo"). No celular vale a altura comum (mobile.css). */
+@media (min-width: 900px) {
+  :root .hero-interna.hero-interna--noticia { min-height: calc(100dvh - 2 * var(--respiro-bloco)); }
+}
+
+/* ===== CARD DE NOTÍCIA IGUAL AO DE FORMAÇÃO (João, 27/11): "Continue lendo" e IBPR em Movimento: degradê suave
+   da direita num tom da logo, foto arredondada por dentro sempre à direita,
+   selo de três traços e botão azul padrão. */
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticias__lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.4rem; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticias__lista .noticia-card { --tom: 10, 102, 200; grid-column: auto; margin: 0; padding: 0; overflow: clip; border: 0; border-radius: var(--raio-bloco);
+  background: url("../images/grao-claro.png"), radial-gradient(ellipse 82% 130% at 100% 50%, rgba(var(--tom), 0.24) 0, rgba(var(--tom), 0.24) 38%, transparent 82%), #FAFAFB;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(14, 24, 63, 0.04), 0 22px 50px -26px rgba(14, 24, 63, 0.26); }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticias__lista .noticia-card:nth-child(3n+2) { --tom: 237, 186, 44; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticias__lista .noticia-card:nth-child(3n) { --tom: 97, 117, 214; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card::before, :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card::after { content: none; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__link { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "corpo foto"; align-items: stretch; gap: clamp(2rem, 3vw, 4.8rem); padding: 2rem; background: none; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__media { grid-area: foto; order: 0; position: relative; width: 100%; height: auto; min-height: 0; aspect-ratio: 16 / 10; margin: 0; border-radius: 2rem; overflow: clip; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__media::after { content: none; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__body { grid-area: corpo; order: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: clamp(1.2rem, 2vw, 3.2rem); background: none; box-shadow: none; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__meta { display: flex; align-items: center; gap: 1.2rem; margin: 0 0 1.8rem; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__meta::before { content: ""; flex: none; width: 18px; height: 1.6rem;
+  background: linear-gradient(#6175D6, #6175D6) 0 0 / 4px 100% no-repeat, linear-gradient(#EDBA2C, #EDBA2C) 7px 0 / 4px 100% no-repeat, linear-gradient(#7A7D34, #7A7D34) 14px 0 / 4px 100% no-repeat; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__frente { padding: 0; border-radius: 0; background: none; box-shadow: none; color: var(--color-navy); }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__resumo { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__cta { display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem; min-height: 50px; margin-top: 2.8rem; padding: 0 2.4rem; border-radius: 12px; }
+@media (max-width: 899px) {
+  :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__link { grid-template-columns: minmax(0, 1fr); grid-template-areas: "foto" "corpo"; gap: 0.8rem; padding: 0.8rem; }
+  :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__body { padding: 1.6rem 1rem 1rem; }
+  :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card .noticia-card__cta { align-self: stretch; }
+}
+/* a foto do TJGO é um print com texto: entra inteira, sobre branco */
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__link[href*="tjgo-se-torna"] .noticia-card__media { background: #fff; }
+:root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__link[href*="tjgo-se-torna"] .noticia-card__media img { object-fit: contain; object-position: 50% 50%; }

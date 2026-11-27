@@ -128,3 +128,50 @@
     radial-gradient(37vw 31vw at calc(100% - 2vw) 14vw, rgba(var(--teal-rgb), 0.16), rgba(127, 157, 196, 0.07) 45%, transparent 75%),
     var(--papel-claro);
 }
+
+/* ===== FUNDO NOVO E FOLHA DE LEITURA (João, 27/11: "o fundo ainda está o
+   antigo com granulado"). Sai o grão forte; entra o papel com grão claro e
+   manchas azul e lavanda, como nas outras páginas. O texto fica direto no
+   fundo: o João não gostou da folha branca. */
+.noticia-corpo { --grao: url("../images/grao-claro.png");
+  padding: clamp(4.8rem, 6vw, 8rem) 0 clamp(6.4rem, 7vw, 9.6rem);
+  background: var(--grao),
+    radial-gradient(46vw 28vw at 96% 6%, rgba(10, 102, 200, 0.10), transparent 74%),
+    radial-gradient(44vw 28vw at 2% 46%, rgba(97, 117, 214, 0.10), transparent 74%),
+    radial-gradient(40vw 24vw at 90% 96%, rgba(237, 186, 44, 0.09), transparent 74%),
+    var(--papel-claro); }
+.noticia-corpo article.measure-narrow { max-width: 88rem; }
+.noticia-corpo .noticia-figura { margin-bottom: clamp(3.6rem, 4vw, 5.2rem); }
+.noticia-corpo .noticia-figura__moldura { border-radius: 1.8rem; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.06); }
+.noticia-corpo .noticia-figura__moldura img { width: 100%; }
+@media (max-width: 599px) {
+  .noticia-corpo { padding-top: 3.2rem; }
+}
+
+/* "Outras notícias" no mesmo papel: branco liso, que separa da folha de cima
+   sem o grão antigo */
+:root .noticia-corpo ~ .mov-noticias { background: #fff; }
+
+/* ===== BOTÕES PADRÃO (João, 27/11): o par do site, azul cheio + claro com seta.
+   Os links com bolinha viram o botão claro dos cards de formação. */
+:root :is(.noticia-fim, .mov-noticias) .link-seta { display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem; min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy); text-decoration: none; white-space: nowrap;
+  background: rgba(255, 255, 255, 0.7); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16); transition: background 0.3s ease, box-shadow 0.3s ease; }
+:root :is(.noticia-fim, .mov-noticias) .link-seta:hover { background: #fff; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); }
+:root :is(.noticia-fim, .mov-noticias) .link-seta .link-seta__circ { width: auto; height: auto; border: 0; border-radius: 0; background: none; box-shadow: none; color: inherit; }
+:root :is(.noticia-fim, .mov-noticias) .link-seta:hover .link-seta__circ { background: none; color: inherit; }
+:root .noticia-fim .btn { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; }
+@media (max-width: 599px) { :root .noticia-fim { display: grid; gap: 1.2rem; } :root .noticia-fim > * { width: 100%; justify-content: center; } }
+
+/* ===== FONTE DA NOTÍCIA (João, 27/11): sai a pílula que quebrava torto. Ícone
+   à esquerda, rótulo e nome alinhados, na largura da coluna do texto. */
+:root .noticia-corpo .noticia-fonte { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1.6rem; width: auto; max-width: 62ch; margin: 4rem auto 0; padding: 2.4rem 0 0; border-radius: 0; border-top: 1px solid rgba(var(--navy-rgb), 0.12); background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; text-align: left; }
+.noticia-corpo .noticia-fonte__ico { display: grid; place-items: center; width: 4.4rem; height: 4.4rem; border-radius: 1.4rem; background: var(--color-navy); color: #fff; }
+.noticia-corpo .noticia-fonte__texto { display: grid; gap: 0.4rem; justify-items: start; }
+.noticia-corpo .noticia-fonte__rot { color: var(--n-cinza); }
+:root .noticia-corpo .noticia-fonte a, .noticia-corpo .noticia-fonte__nome { color: var(--color-navy); font-weight: 600; line-height: 1.45; text-wrap: balance; text-decoration: underline; text-decoration-color: rgba(var(--navy-rgb), 0.25); text-underline-offset: 0.3em; }
+.noticia-corpo .noticia-fonte__nome { text-decoration: none; }
+:root .noticia-corpo .noticia-fonte a:hover { text-decoration-color: var(--color-navy); }
+:root .noticia-corpo .noticia-fim { max-width: 62ch; margin-inline: auto; }
+/* alinhada com a coluna do texto, sem a segunda linha (a dos botões basta) */
+:root .noticia-corpo .noticia-fonte { width: 100%; max-width: var(--coluna-leitura, 74.4rem); padding-top: 0; border-top: 0; }
+:root .noticia-corpo .noticia-fim { max-width: var(--coluna-leitura, 74.4rem); }

@@ -521,10 +521,15 @@ async function gerarNoticias(cfg, artigos = []) {
     const fonteNome = String(n.fonte_nome || '').trim().replace(/^fonte\s*:\s*/i, '').replace(/[.\s]+$/, '');
     const fonteUrl  = limparUrlFonte(n.fonte_url);
     const fonteEhOProprioSite = /(^|\.|\/)ibpr\.com\.br(\/|$)/i.test(fonteNome) && !fonteUrl;
+    // 27/11 (João: "desalinhado e feio"): ícone ao lado, rótulo em cima e o
+    // nome embaixo, alinhados; saiu o ponto solto no fim.
     const fonte = fonteNome && !fonteEhOProprioSite
-      ? `<p class="noticia-fonte">Com informações ${fonteUrl
-          ? `de <a href="${esc(fonteUrl)}" rel="noopener" target="_blank">${esc(fonteNome)}<i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i></a>`
-          : `de ${esc(fonteNome)}`}.</p>`
+      ? `<p class="noticia-fonte"><span class="noticia-fonte__ico" aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>` +
+        `<span class="noticia-fonte__texto"><span class="noticia-fonte__rot">Com informações de</span> ` +
+        (fonteUrl
+          ? `<a href="${esc(fonteUrl)}" rel="noopener" target="_blank">${esc(fonteNome)}</a>`
+          : `<span class="noticia-fonte__nome">${esc(fonteNome)}</span>`) +
+        `</span></p>`
       : '';
 
     const html = molde
@@ -1563,7 +1568,9 @@ async function gerarFormacoes(cfg) {
       // og:image e twitter:image continuam ABSOLUTOS e no JPG: os robôs de
       // prévia (WhatsApp, LinkedIn) não resolvem caminho relativo nem
       // aceitam WebP em todo lugar.
-      .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(f.imagem_hero_url || IMAGEM_PADRAO)))
+      .replaceAll('{{IMAGEM_ABS}}', () => esc(absoluto(fotoNovaDoCurso(f)
+        ? `assets/images/og/og-${f.slug}.jpg?v=2`   // cartão de compartilhamento de 27/11
+        : (f.imagem_hero_url || IMAGEM_PADRAO))))
       .replaceAll('{{PRELOAD}}', () => hero.preload)
       .replaceAll('{{HERO_FOTO}}', () => hero.foto)
       /* Placeholder da foto do topo (ver build/dev/lqip.py). Só existe pras

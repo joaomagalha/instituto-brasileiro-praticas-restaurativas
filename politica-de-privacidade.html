@@ -21,12 +21,12 @@
 <meta content="Instituto Brasileiro de Práticas Restaurativas" property="og:site_name"/>
 <meta content="pt_BR" property="og:locale"/>
 <meta content="https://www.ibpr.com.br/politica-de-privacidade.html" property="og:url"/>
-<meta content="https://www.ibpr.com.br/assets/images/hero-instituto-poster.jpg" property="og:image"/>
+<meta content="https://www.ibpr.com.br/assets/images/og/og-home.jpg?v=2" property="og:image"/>
 <meta content="Instituto Brasileiro de Práticas Restaurativas (IBPR)" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Política de Privacidade | Instituto Brasileiro de Práticas Restaurativas (IBPR)" name="twitter:title"/>
 <meta content="Como o site do IBPR trata seus dados (navegação e lista de publicações): o que é coletado, por quê, por quanto tempo e como recusar ou sair." name="twitter:description"/>
-<meta content="https://www.ibpr.com.br/assets/images/hero-instituto-poster.jpg" name="twitter:image"/>
+<meta content="https://www.ibpr.com.br/assets/images/og/og-home.jpg?v=2" name="twitter:image"/>
 <link href="https://www.ibpr.com.br/politica-de-privacidade.html" rel="canonical"/>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -45,8 +45,8 @@
 <link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
 <link href="assets/css/selo.css?v=p273" rel="stylesheet"/>
 <link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p271" rel="stylesheet"/>
-<link href="assets/css/artigo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p293" rel="stylesheet"/>
+<link href="assets/css/artigo.css?v=p301" rel="stylesheet"/>
 <link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
 <link as="image" fetchpriority="high" href="assets/images/home-hero.webp?v=p265" imagesrcset="assets/images/home-hero-1100.webp?v=p265 1100w, assets/images/home-hero.webp?v=p265 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
@@ -175,7 +175,7 @@
 <!-- hero interno -->
 <!-- 20/10/2026: topo no cartão com foto, como as outras páginas (escolha do
      João: a foto de O Instituto, porque a política é do Instituto) -->
-<section aria-label="Política de Privacidade" class="hero-interna" id="topo" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIG/8QAIxAAAgEDBAIDAQAAAAAAAAAAAQIDABExBBITQQVRIWFxof/EABcBAQEBAQAAAAAAAAAAAAAAAAIBAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIRITH/2gAMAwEAAhEDEQA/APK8e4gjIHVUtApmunGzMPXdc6GNGZeRlVfbYrasenm4eJthEY3EMASbn7rlbFKecE6iNkcIkd2uA27423rfwQeNjWeO5msbydjGPVIm0yQG0F3b7YfNTdfr5ixjmGwdDH9pTgL0mTMeUC5sBin6bI/KKK1jgqQE3zSvJAHcSAbYvRRUgt+H/9k=')">
+<section aria-label="Política de Privacidade" class="hero-interna hero-interna--neutro" id="topo" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGQAAAwEBAQAAAAAAAAAAAAAAAAMFBAIG/8QAIxAAAgEDBAIDAQAAAAAAAAAAAQIDABExBBITQQVRIWFxof/EABcBAQEBAQAAAAAAAAAAAAAAAAIBAAP/xAAZEQADAQEBAAAAAAAAAAAAAAAAAQIRITH/2gAMAwEAAhEDEQA/APK8e4gjIHVUtApmunGzMPXdc6GNGZeRlVfbYrasenm4eJthEY3EMASbn7rlbFKecE6iNkcIkd2uA27423rfwQeNjWeO5msbydjGPVIm0yQG0F3b7YfNTdfr5ixjmGwdDH9pTgL0mTMeUC5sBin6bI/KKK1jgqQE3zSvJAHcSAbYvRRUgt+H/9k=')">
 <picture class="hero-interna__bg">
 <source media="(max-width: 899px)" srcset="assets/images/home-hero-1100.webp?v=p265" type="image/webp"/>
 <source srcset="assets/images/home-hero.webp?v=p265" type="image/webp"/>
@@ -201,47 +201,75 @@
 <p class="artigo-resumo__texto">Este site <strong>só pede um dado seu se você quiser</strong>: o nome e o e-mail, quando você clica em "Receber publicações" para receber as novidades do Instituto. Não tem login de visitante. Além disso, ele mede <strong>como as pessoas navegam pelas páginas</strong>, e isso só acontece se você aceitar. Se recusar, o site funciona exatamente igual.</p>
 </div>
 <div class="prose prose--artigo">
+<section class="politica-bloco">
 <h2>Quem é responsável</h2>
+<div class="politica-bloco__texto">
 <p>O Instituto Brasileiro de Práticas Restaurativas (IBPR) é o responsável pelo tratamento dos dados descritos aqui, na condição de controlador, nos termos da Lei nº 13.709/2018 (LGPD).</p>
 <p>O IBPR é nome fantasia de <strong>Azevedo Lopes Formação e Soluções Ltda</strong>, inscrita no CNPJ sob o nº <strong>60.147.864/0001-62</strong>, com sede na Av. Saturnino da Rocha Laranjeiras, nº 78, Loja B, Passagem de Areia, Parnamirim, RN, CEP 59.145-770.</p>
 <p>Para falar sobre seus dados, use o canal de contato do Instituto: <a href="mailto:ibpr@ibpr.com.br">ibpr@ibpr.com.br</a>.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>O que é coletado</h2>
+<div class="politica-bloco__texto">
 <p><strong>Lista de publicações (opcional, depende do seu pedido).</strong> Se você clicar em "Receber publicações" e enviar o formulário, guardamos o nome (se você informar), o e-mail, a página em que você se inscreveu e a data do seu aceite. Esses dados servem só para enviar as novas notícias e artigos do IBPR e ficam armazenados no Supabase, em servidor no Brasil (São Paulo). A base legal é o seu consentimento (art. 7º, I, da LGPD).</p>
 <p><strong>Medição de uso (opcional, depende do seu aceite).</strong> Usamos o Microsoft Clarity para entender como as pessoas circulam pelo site: quais páginas abrem, até onde rolam, onde clicam e em que ponto desistem. Isso gera uma gravação da sua navegação e um mapa de calor das páginas.</p>
 <p>O Clarity está configurado com mascaramento de conteúdo: textos digitados não são gravados. Ele usa cookies para reconhecer que uma mesma sessão continua sendo a mesma. A base legal é o seu consentimento (art. 7º, I, da LGPD), e por isso <strong>nada disso é carregado antes de você clicar em "Aceitar"</strong>.</p>
 <p><strong>Registros técnicos (inevitáveis).</strong> Como qualquer site, este é entregue por servidores que registram o endereço de IP e o navegador de quem acessa, pelo tempo necessário para funcionar e para segurança. O site é hospedado no GitHub Pages, e algumas partes visuais são carregadas de serviços externos: Google Fonts (tipografia), Cloudflare (ícones) e jsDelivr (animações). Ao carregar esses arquivos, seu endereço de IP fica visível para essas empresas. Esses serviços são necessários para a página ser exibida, e por isso não dependem de aceite.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>O que NÃO é coletado</h2>
+<div class="politica-bloco__texto">
 <ul class="dot-list">
 <li>Nome, e-mail, telefone ou qualquer dado que identifique você diretamente, a não ser que você mesmo envie nome e e-mail em "Receber publicações".</li>
 <li>Senhas ou dados de pagamento. Nada é vendido dentro deste site.</li>
 <li>Dados sensíveis, como origem racial, convicção religiosa, opinião política ou dados de saúde.</li>
 <li>Dados de crianças e adolescentes: o site não é dirigido a esse público e não pede idade.</li>
 </ul>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Com quem é compartilhado</h2>
+<div class="politica-bloco__texto">
 <p>Não vendemos, alugamos nem cedemos seus dados a ninguém. Os e-mails da lista de publicações são vistos só pelas pessoas do Instituto que enviam as novidades, e o envio é feito em cópia oculta, sem expor o seu endereço aos outros inscritos. Também não vendemos dados de navegação. Eles ficam acessíveis apenas às empresas que fornecem a infraestrutura citada acima, cada uma sob sua própria política, e às pessoas do Instituto que acompanham os relatórios de uso do site.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Por quanto tempo</h2>
+<div class="politica-bloco__texto">
 <p>Os prazos são os da própria Microsoft: as <strong>gravações de sessão ficam 30 dias</strong>; os <strong>dados agregados</strong>, como mapas de calor e estatísticas de cliques, ficam <strong>9 meses</strong>. Passado o prazo, a Microsoft apaga os dados dos servidores dela, inclusive dos backups, sem possibilidade de recuperação.</p>
 <p>Os dados da lista de publicações ficam guardados enquanto você quiser receber as novidades. Pediu para sair, eles são apagados.</p>
 <p>A sua escolha sobre cookies fica guardada no seu próprio navegador, não em um servidor do Instituto, e some se você limpar os dados do site.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Como recusar ou mudar de ideia</h2>
+<div class="politica-bloco__texto">
 <p><strong>Para sair da lista de publicações</strong>, escreva para <a href="mailto:ibpr@ibpr.com.br">ibpr@ibpr.com.br</a> pedindo a remoção. Seu e-mail é apagado da lista.</p>
 <p>Ao entrar no site pela primeira vez, aparece um aviso com dois botões do mesmo tamanho: aceitar ou recusar. Recusar não tira nenhuma funcionalidade.</p>
 <p>Para rever a escolha que você fez, use o botão abaixo. Você também pode apagar os cookies pelas configurações do seu navegador, a qualquer momento.</p>
 <p><button class="btn btn--dark" id="btnRevisarCookies" type="button">Rever minha escolha sobre cookies</button></p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Seus direitos</h2>
+<div class="politica-bloco__texto">
 <p>A LGPD garante a você, entre outros direitos, confirmar se há tratamento dos seus dados, acessá-los, corrigir dados incompletos ou desatualizados, pedir a eliminação dos dados tratados com base no consentimento e revogar o consentimento a qualquer momento. Para exercer qualquer um deles, fale com o Instituto pelo canal de contato indicado acima.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Cursos e Área do Aluno</h2>
+<div class="politica-bloco__texto">
 <p>As formações do IBPR são vendidas e entregues em plataforma externa. Ao clicar em "Ir para o curso" ou na "Área do Aluno", você sai deste site e passa a ser tratado pela política de privacidade daquela plataforma, que é independente desta.</p>
-
+</div>
+</section>
+<section class="politica-bloco">
 <h2>Mudanças nesta política</h2>
+<div class="politica-bloco__texto">
 <p>Se o site passar a coletar algo diferente, esta página é atualizada e a data no topo muda junto. Alterações relevantes fazem o aviso de cookies aparecer de novo, para que você possa decidir outra vez.</p>
+</div>
+</section>
 </div>
 </div>
 </div>
