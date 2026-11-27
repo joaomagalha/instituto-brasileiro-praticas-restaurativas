@@ -518,3 +518,29 @@
 @media (max-width: 767px) { :root #pratica-viva .pv-ctx2-lista { grid-template-columns: 1fr 1.7fr 1fr; } :root #pratica-viva .pv-palco__arco { aspect-ratio: 6 / 5; } }
 /* etapa 02: a conversa fica nas laterais da foto; enquadra no homem falando e quem escuta */
 @media (max-width: 767px) { :root #solucoes-preview .atua-andar:nth-of-type(2) .atua-ui__ver img { object-position: 18% 50%; } }
+
+/* "Na prática" no celular, menor (João, 27/11): as abas viram um controle de
+   vidro sobre o pé do vídeo, como a nav; frase e botões mais juntos */
+@media (max-width: 767px) {
+  :root #pratica-viva .pv-palco__cartao { padding: 2rem 1.6rem 1.6rem; }
+  :root #pratica-viva .fcard__selo { margin-bottom: 1.2rem; padding-inline: 0.4rem; }
+  :root #pratica-viva .pv-palco__titulo { margin-bottom: 1.6rem; padding-inline: 0.4rem; }
+  :root #pratica-viva .pv-palco__midia { width: 100%; margin-inline: 0; }
+  :root #pratica-viva .pv-palco__arco { aspect-ratio: 6 / 5; border-radius: 1.6rem; }
+  :root #pratica-viva .pv-ctx2-lista { z-index: 2; grid-template-columns: 1fr 1.6fr 1fr; grid-template-rows: 52px auto; align-content: start; margin: -60px 0 0; }
+  :root #pratica-viva .pv-ctx2-lista::before {
+    content: ""; grid-area: 1 / 1 / 2 / -1; margin: 0 8px; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.82); -webkit-backdrop-filter: blur(14px) saturate(1.6); backdrop-filter: blur(14px) saturate(1.6);
+    box-shadow: inset 0 1px 0 #fff, 0 10px 24px -12px rgba(0, 33, 82, 0.45);
+  }
+  :root #pratica-viva .pv-ctx2__topo, :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__topo { position: relative; align-self: center; min-height: 44px; height: 44px; padding: 0 0.4rem; border-radius: 9px; box-shadow: none; }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__topo { background: #003E8E; }
+  :root #pratica-viva .pv-ctx2:nth-child(1) .pv-ctx2__topo { grid-column: 1; margin-left: 12px; width: calc(100% - 12px); }
+  :root #pratica-viva .pv-ctx2:nth-child(2) .pv-ctx2__topo { grid-column: 2; }
+  :root #pratica-viva .pv-ctx2:nth-child(3) .pv-ctx2__topo { grid-column: 3; width: calc(100% - 12px); }
+  :root #pratica-viva .pv-ctx2__titulo { font-size: 1.25rem; line-height: 1.2; }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__titulo { color: #fff; }
+  :root #pratica-viva .pv-ctx2__frase { min-height: calc(4.2em + 1.8rem); padding: 1.8rem 0.4rem 0; font-size: 1.55rem; line-height: 1.4; }
+  :root #pratica-viva .pv-palco__acoes { margin-top: 1.6rem; gap: 0.8rem; }
+  :root #pratica-viva .pv-palco__acoes > a { min-height: 48px; }
+}
