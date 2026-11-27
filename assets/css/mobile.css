@@ -80,8 +80,8 @@
   /* ---------- Propósito: setas no meio do cartão (João, 19/10; ficavam na altura da ilustração) ---------- */
   :root .palco-moldura .palco__seta { top: 50%; }
   /* no meio, a seta da esquerda cobria o número do cartão: um pouco mais pra fora */
-  :root .palco-moldura .palco__seta--ant { left: -18px; }
-  :root .palco-moldura .palco__seta--prox { right: -18px; }
+  :root .palco-moldura .palco__seta--ant { left: -22px; }
+  :root .palco-moldura .palco__seta--prox { right: -22px; }
 
   /* ---------- toque: pontinhos do palco com 44px ---------- */
   :root .palco__dot { width: 44px; height: 44px; min-width: 44px; }
@@ -373,12 +373,22 @@
   :root .hero-interna--home .hero-interna__acoes > * { width: 100%; }
 }
 
-/* auditoria 27/11: as setas do "Nosso propósito" ficam na altura do desenho,
-   não em cima do texto do cartão */
+/* setas do "Nosso propósito" em vidro fosco no celular (João, 27/11): branco
+   leitoso com grão fino, luz na borda de cima e sombra macia; seta no azul */
 @media (max-width: 767px) {
-  :root .palco-moldura .palco__seta { top: calc(2.4rem + (100cqw - 4.4rem) / 4); }
-  :root .palco-moldura .palco__seta--ant { left: -10px; }
-  :root .palco-moldura .palco__seta--prox { right: -10px; }
+  :root .palco-moldura .palco__seta,
+  :root .palco-moldura .palco__seta:hover {
+    width: 40px; height: 40px; border-radius: 12px; border: 0; color: #003E8E;
+    background:
+      url("../images/grao-hero-suave.png"),
+      linear-gradient(160deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.38));
+    -webkit-backdrop-filter: blur(16px) saturate(1.8); backdrop-filter: blur(16px) saturate(1.8);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.6),
+      0 0 0 1px rgba(0, 62, 142, 0.08),
+      0 10px 24px -10px rgba(0, 33, 82, 0.28);
+  }
 }
 
 /* auditoria 27/11: telas de 320 px (artigo estourava; botão longo cortava) */
