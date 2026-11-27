@@ -569,3 +569,24 @@
   :root #pratica-viva .pv-ctx2__frase { min-height: 0; padding: 1.2rem 0.4rem; }
   :root #pratica-viva .pv-palco__acoes { margin-top: 0.4rem; }
 }
+
+/* Como Atuamos no celular: os quatro painéis de vidro com a mesma altura e o
+   título sempre em uma linha, como o do 01 (João, 27/11) */
+@media (max-width: 767px) {
+  :root #solucoes-preview .atua {
+    display: grid; grid-auto-flow: column; grid-auto-columns: 93%; grid-template-rows: minmax(19rem, auto) auto; row-gap: 0;
+  }
+  :root #solucoes-preview .atua-andar { grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; }
+  :root #solucoes-preview .atua-andar__texto { align-self: stretch; container-type: inline-size; margin: 0 0.8rem 0.8rem; padding: 1.6rem 1.2rem; }
+  :root #solucoes-preview .atua-andar__titulo { font-size: clamp(1.7rem, 6.9cqw, 2.2rem); white-space: nowrap; }
+}
+@media (max-width: 359px) { :root #solucoes-preview .atua-andar__titulo { white-space: normal; } } /* tela muito estreita: o título pode quebrar, os painéis seguem iguais */
+
+/* um pouco menor (João, 27/11): cartão, painel e textos um grau abaixo */
+@media (max-width: 767px) {
+  :root #solucoes-preview .atua { grid-auto-columns: 86%; grid-template-rows: minmax(17rem, auto) auto; }
+  :root #solucoes-preview .atua-andar__texto { padding: 1.3rem 1.2rem 0.6rem; }
+  :root #solucoes-preview .atua-andar__titulo { font-size: clamp(1.55rem, 6.9cqw, 1.9rem); margin: 0.8rem 0 0.4rem; }
+  :root #solucoes-preview .atua-andar__desc { font-size: 1.35rem; line-height: 1.5; margin: 0; }
+  :root #solucoes-preview .atua-andar__link { font-size: 1.3rem; }
+}
