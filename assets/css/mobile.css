@@ -425,3 +425,96 @@
 @media (max-width: 767px) {
   :root .atuar .atuar__itens { margin: 1.6rem 0 0; }
 }
+
+/* ===== "NA PRÁTICA" NO CELULAR (João, 27/11: compacta, com os botões do site).
+   Um só respiro lateral (2rem) e passos de 0,8 rem: 24 entre blocos, 12 dentro
+   do bloco. Vídeo quadrado, abas, frase alinhada ao título e o par de botões
+   (azul + claro) igual ao resto do site. ===== */
+@media (max-width: 767px) {
+  :root #pratica-viva .pv-palco__cartao { display: flex; flex-direction: column; align-items: stretch; padding: 2.4rem 2rem 2rem; }
+  :root #pratica-viva .pv-palco__texto { display: contents; }
+  :root #pratica-viva .fcard__selo { position: relative; order: 0; margin: 0 0 1.6rem; }
+  :root #pratica-viva .pv-palco__titulo { position: relative; order: 0; margin: 0 0 2.4rem; }
+  :root #pratica-viva .pv-palco__midia { position: relative; order: 1; display: block; width: 100%; margin: 0; padding: 0; }
+  :root #pratica-viva :is(.pv-palco__orbita, .pv-palco__etiqueta) { display: none; }
+  :root #pratica-viva .pv-palco__arco { width: 100%; height: auto; max-width: none; aspect-ratio: 1; margin: 0; border-radius: 1.6rem; overflow: hidden; }
+  :root #pratica-viva .pv-palco__video { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+
+  :root #pratica-viva .pv-ctx2-lista { position: relative; order: 2; display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 0 0.8rem; margin: 1.2rem 0 0; padding: 0; }
+  :root #pratica-viva .pv-ctx2 { display: contents; }
+  :root #pratica-viva .pv-ctx2__topo {
+    grid-row: 1; display: flex; align-items: center; justify-content: center; width: 100%; min-height: 50px; padding: 0.6rem; border: 0; border-radius: 12px;
+    background: rgba(255, 255, 255, 0.7); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1); text-align: center; cursor: pointer;
+  }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__topo { background: #003E8E; box-shadow: none; }
+  :root #pratica-viva :is(.pv-ctx2__num, .pv-ctx2__icone) { display: none; }
+  :root #pratica-viva .pv-ctx2__titulo { font-size: 1.3rem; line-height: 1.25; color: #003E8E; }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__titulo { color: #fff; }
+  :root #pratica-viva .pv-ctx2__corpo { grid-row: 2; grid-column: 1 / -1; display: none; opacity: 1; }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__corpo { display: block; }
+  :root #pratica-viva .pv-ctx2__corpo-in { overflow: visible; opacity: 1; visibility: visible; }
+  /* altura de 3 linhas pra trocar de aba não empurrar os botões */
+  :root #pratica-viva .pv-ctx2__frase { display: block; min-height: calc(4.5em + 1.6rem); padding: 1.6rem 0 0; font-size: 1.5rem; line-height: 1.5; text-align: left; opacity: 1; transform: none; }
+
+  :root #pratica-viva .pv-palco__acoes { position: relative; order: 3; gap: 1.2rem; margin: 2.4rem 0 0; padding: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  :root #pratica-viva .pv-palco__acoes > a { width: 100%; min-height: 50px; margin: 0; border-radius: 12px; justify-content: center; }
+}
+
+/* Como Atuamos da Home no celular: foto grande com painel de vidro fosco por
+   etapa (opção A escolhida pelo João, 27/11). O computador não muda. */
+@media (max-width: 767px) {
+  :root #solucoes-preview .atua { gap: 1.4rem; counter-reset: etapa; }
+  :root #solucoes-preview .atua-andar {
+    --cor: #003E8E; --num: #fff; counter-increment: etapa;
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 24rem auto; gap: 0; align-items: stretch;
+  }
+  :root #solucoes-preview .atua-andar:nth-of-type(2) { --cor: #6175D6; }
+  :root #solucoes-preview .atua-andar:nth-of-type(3) { --cor: #EDBA2C; --num: #003E8E; }
+  :root #solucoes-preview .atua-andar:nth-of-type(4) { --cor: #7A7D34; }
+  :root #solucoes-preview .atua-painel {
+    grid-area: 1 / 1 / 3 / 2; position: relative; min-height: 0; padding: 0; overflow: hidden;
+    border-radius: 2.2rem; background: #DDE0E3; box-shadow: 0 20px 40px -24px rgba(14, 24, 63, 0.45);
+  }
+  :root #solucoes-preview .atua-painel :is(.atua-ui, .atua-ui__corpo, .atua-ui__ver) {
+    position: absolute; inset: 0; display: block; margin: 0; padding: 0; background: none; border-radius: 0; box-shadow: none;
+  }
+  :root #solucoes-preview .atua-painel :is(.atua-ui__etapa, .atua-ui__lista, .atua-ui__legenda) { display: none; }
+  :root #solucoes-preview .atua-painel .atua-ui__ver img { width: 100%; height: 100%; aspect-ratio: auto; object-fit: cover; border-radius: 0; }
+  :root #solucoes-preview .atua-andar__texto {
+    grid-area: 2 / 1; position: relative; z-index: 1; margin: 0 1rem 1rem; padding: 1.6rem; border-radius: 1.5rem;
+    background: url("../images/grao-hero-suave.png"), rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+  }
+  :root #solucoes-preview .atua-andar__texto::before {
+    content: "0" counter(etapa); display: inline-block; padding: 0.6rem 0.9rem; border-radius: 0.7rem;
+    font: 700 1.1rem/1 var(--font-body); color: var(--num); background: var(--cor);
+  }
+  :root #solucoes-preview .atua-andar__titulo { margin: 1rem 0 0.6rem; line-height: 1.15; }
+  :root #solucoes-preview .atua-andar__desc { margin: 0 0 0.4rem; color: #30435E; }
+  :root #solucoes-preview .atua-andar__link {
+    margin: 0; min-height: 44px; padding: 0; display: inline-flex; align-items: center; gap: 0.8rem;
+    background: none; border: 0; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none;
+  }
+}
+
+/* "Na prática" no celular, refino (João, 27/11): o vídeo sangra até as bordas
+   do cartão, as abas viram texto sobre um fio (só os botões têm caixa) e a
+   frase do contexto ganha presença */
+@media (max-width: 767px) {
+  :root #pratica-viva .pv-palco__titulo { margin-bottom: 2.4rem; }
+  :root #pratica-viva .pv-palco__midia { width: calc(100% + 4rem); margin-inline: -2rem; }
+  :root #pratica-viva .pv-palco__arco { aspect-ratio: 1; border-radius: 0; box-shadow: none; }
+  :root #pratica-viva .pv-ctx2-lista { grid-template-columns: auto auto auto; justify-content: stretch; gap: 0; margin: 0.4rem 0 0; box-shadow: none; }
+  :root #pratica-viva .pv-ctx2__topo, :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__topo {
+    min-height: 56px; padding: 0.8rem 0.4rem; border-radius: 0; background: none;
+    box-shadow: inset 0 -1px 0 rgba(var(--navy-rgb), 0.14);
+  }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__topo { box-shadow: inset 0 -3px 0 #003E8E; }
+  :root #pratica-viva .pv-ctx2__titulo { font-size: 1.35rem; font-weight: 500; color: #435872; }
+  :root #pratica-viva .pv-ctx2.is-ativo .pv-ctx2__titulo { color: #003E8E; font-weight: 600; }
+  :root #pratica-viva .pv-ctx2__frase { min-height: calc(4.35em + 2rem); padding-top: 2rem; font-size: 1.7rem; line-height: 1.45; color: #003E8E; text-wrap: pretty; }
+}
+@media (max-width: 767px) { :root #pratica-viva .pv-ctx2-lista { grid-template-columns: 1fr 1.7fr 1fr; } :root #pratica-viva .pv-palco__arco { aspect-ratio: 6 / 5; } }
+/* etapa 02: a conversa fica nas laterais da foto; enquadra no homem falando e quem escuta */
+@media (max-width: 767px) { :root #solucoes-preview .atua-andar:nth-of-type(2) .atua-ui__ver img { object-position: 18% 50%; } }

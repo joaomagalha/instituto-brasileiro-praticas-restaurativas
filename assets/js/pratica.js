@@ -18,14 +18,19 @@
     sec.setAttribute('data-passo', String(passo));
     itens.forEach(function (li, i) {
       li.classList.toggle('is-ativo', i === passo);
-      li.querySelector('.pv-ctx2__topo').setAttribute('aria-expanded', String(!mq.matches || i === passo));
+      li.querySelector('.pv-ctx2__topo').setAttribute('aria-expanded', String((!mq.matches && !window.matchMedia('(max-width: 767px)').matches) || i === passo));
     });
     if (etqNum) etqNum.textContent = '0' + (passo + 1) + '/0' + itens.length;
     if (etqNome) etqNome.textContent = nomes[passo];
   }
   function mede() {
     pedido = 0;
-    if (!mq.matches) { sec.style.removeProperty('--pv-prog'); marca(0); return; }
+    if (!mq.matches) {
+      sec.style.removeProperty('--pv-prog');
+      /* nas abas do celular a rolagem não pode desfazer a escolha */
+      if (atual < 0 || !window.matchMedia('(max-width: 767px)').matches) marca(0);
+      return;
+    }
     var r = sec.getBoundingClientRect();
     var total = sec.offsetHeight - window.innerHeight;
     var p = total > 0 ? Math.min(Math.max(-r.top / total, 0), 1) * 3 : 0;
@@ -45,6 +50,8 @@
   /* clicar num contexto rola até o trecho dele (só com a trava) */
   itens.forEach(function (li, i) {
     li.querySelector('.pv-ctx2__topo').addEventListener('click', function () {
+      /* no celular os contextos são abas: só troca o escolhido */
+      if (window.matchMedia('(max-width: 767px)').matches) { marca(i); return; }
       if (!mq.matches) return;
       var total = sec.offsetHeight - window.innerHeight;
       var topo = sec.getBoundingClientRect().top + window.scrollY;
