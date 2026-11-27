@@ -1221,7 +1221,12 @@
 }
 
 /* Área do Aluno (20/10/2026): no celular o recorte do meio pegava só a janela; puxa pra pessoa no notebook */
-@media (max-width: 899px) { .hero-interna--aluno .hero-interna__bg img { object-position: 84% 50%; } }
+/* casa nova (27/11): no celular a foto ocupa o alto e some no escuro, com a aluna inteira */
+@media (max-width: 899px) {
+  :root .hero-interna--aluno { background-color: #101216; background-image: none; }
+  :root .hero-interna--aluno .hero-interna__bg img { height: 64%; object-position: 94% 50%;
+    -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+}
 
 /* ===== ÁREA DO ALUNO (21/10): o cartão "Já é aluno" de Formações com o botão
    desativado (a plataforma ainda não existe) e uma nota curta embaixo; os 3
@@ -2355,3 +2360,69 @@
 /* "Desenvolvidas para": os 4 preenchidos, cada um na sua cor, ícone branco
    (João, 27/11). Sai o acende-apaga em rodízio, que apagava o preenchimento. */
 :root .fint .fint__contexto .fint__contexto-ico { background: var(--cor); color: #fff; animation: none; box-shadow: 0 10px 22px -14px rgba(var(--tom), 0.9); }
+
+/* ===== ÁREA DO ALUNO: cartão de acesso menor e limpo (João, 27/11). Só nesta
+   página (.aluno--limpo): mini-tela pequena, sem selos soltos, e os 3 itens
+   numa linha embaixo, preenchidos nas cores da logo. */
+:root .aluno--limpo { padding: clamp(5.6rem, 6vw, 8rem) 0; }
+:root .aluno--limpo .aluno__cartao { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 0 clamp(3.2rem, 4vw, 5.6rem); max-width: 104rem; margin-inline: auto; padding: clamp(3.2rem, 3.6vw, 4.8rem) clamp(3.2rem, 4vw, 5.2rem) 1.6rem;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 20px 48px -34px rgba(0, 33, 82, 0.3); }
+:root .aluno--limpo .aluno__selo { margin-bottom: 1.4rem; }
+:root .aluno--limpo .aluno__btn { margin-top: 2.4rem; }
+:root .aluno--limpo .aluno__tela { padding: 0; width: 100%; max-width: 38rem; justify-self: end; }
+:root .aluno--limpo .aluno__palco { display: none; }
+:root .aluno--limpo .aluno-ui { zoom: 0.84; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 24px 44px -28px rgba(0, 33, 82, 0.4); }
+:root .aluno--limpo .aluno__perks { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.4rem; margin-top: clamp(2.8rem, 3vw, 4rem); border-top: 1px solid rgba(var(--navy-rgb), 0.1); }
+:root .aluno--limpo .aluno__perks li + li { border-top: 0; }
+:root .aluno--limpo .aluno__perk { height: 100%; align-items: center; padding: 1.8rem 0 2rem; }
+:root .aluno--limpo .aluno__perk-ico { width: 4rem; height: 4rem; color: #fff; background: var(--cor); }
+:root .aluno--limpo .aluno__perk.is-ativo .aluno__perk-ico { color: #fff; background: var(--cor); }
+:root .aluno--limpo .aluno__perk-linha { left: 0; bottom: auto; top: -1px; }
+@media (max-width: 899px) {
+  :root .aluno--limpo .aluno__cartao { grid-template-columns: minmax(0, 1fr); padding-bottom: 0.8rem; }
+  :root .aluno--limpo .aluno__tela { justify-self: center; margin-top: 3.2rem; }
+  :root .aluno--limpo .aluno__perks { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  :root .aluno--limpo .aluno__perks li + li { border-top: 1px solid rgba(var(--navy-rgb), 0.08); }
+  :root .aluno--limpo .aluno__perk-linha { display: none; }
+}
+
+/* ===== ÁREA DO ALUNO: "Como funciona" (27/11, 2ª rodada: largura máxima do
+   site, mais refinada). Três passos em cartões largos de vidro, com o degradê
+   suave vindo da direita nas cores da logo, ícone branco, número grande apagado
+   e o progresso no rodapé. */
+:root .aluno-passos { padding: clamp(7.2rem, 8vw, 11.2rem) 0; background: var(--grao),
+    radial-gradient(46vw 24vw at 92% 8%, rgba(10, 102, 200, 0.09), transparent 74%),
+    radial-gradient(44vw 24vw at 6% 96%, rgba(97, 117, 214, 0.09), transparent 74%), var(--papel-claro); --grao: url("../images/grao-claro.png"); }
+:root .aluno-passos .container > .curso__main { display: block; max-width: none; }
+:root .aluno-passos .curso-aluno__topo { display: grid; justify-items: start; gap: var(--espaco-titulo-subtitulo, 16px); max-width: none; margin: 0 0 clamp(3.6rem, 4.4vw, 5.6rem); text-align: left; }
+:root .aluno-passos .curso-eixos-palco { padding-top: 0; }
+:root .aluno-passos .curso-eixos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 2.4vw, 3.2rem); }
+:root .aluno-passos .curso-eixo { position: relative; --tom: 97, 117, 214; --cor: #6175D6; }
+:root .aluno-passos .curso-eixo:nth-child(2) { --tom: 237, 186, 44; --cor: #EDBA2C; }
+:root .aluno-passos .curso-eixo:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+:root .aluno-passos .curso-eixo__face { position: relative; overflow: clip; min-height: 28rem; justify-content: flex-start; padding: clamp(2.8rem, 3vw, 4rem); border-radius: var(--raio-bloco);
+  background: var(--grao), radial-gradient(ellipse 90% 125% at 100% 40%, rgba(var(--tom), 0.24) 0, rgba(var(--tom), 0.09) 45%, transparent 80%), rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 28px 56px -38px rgba(0, 33, 82, 0.34); }
+:root .aluno-passos .curso-eixo__face::before { content: none; }
+.aluno-passos .passo__ico { display: grid; place-items: center; width: 5.2rem; height: 5.2rem; margin-bottom: 0; border-radius: 1.6rem; background: var(--cor); color: #fff; box-shadow: 0 16px 28px -14px rgba(var(--tom), 1); }
+.aluno-passos .passo__ico i { scale: 1.2; }
+:root .aluno-passos .curso-eixo__num { position: absolute; right: clamp(2.4rem, 2.8vw, 3.6rem); top: clamp(2.4rem, 2.8vw, 3.6rem); margin: 0; color: var(--cor); opacity: 0.32; scale: 1.9; transform-origin: top right; }
+:root .aluno-passos .curso-eixo:nth-child(2) .curso-eixo__num { opacity: 0.6; }
+:root .aluno-passos .curso-eixo__chave { margin-top: 5.6rem; color: var(--color-navy); opacity: 0.7; }
+:root .aluno-passos .curso-eixo__desc { max-width: 36ch; }
+/* progresso no rodapé de cada cartão: 3 traços, preenchidos até o passo
+   (no lugar da seta entre os cartões, que o João não gostou) */
+:root .aluno-passos .curso-eixo__face { padding-bottom: clamp(5.6rem, 5.6vw, 7.2rem); --a: var(--cor); --b: rgba(var(--navy-rgb), 0.1); --c: rgba(var(--navy-rgb), 0.1); }
+:root .aluno-passos .curso-eixo:nth-child(2) .curso-eixo__face { --b: var(--cor); }
+:root .aluno-passos .curso-eixo:nth-child(3) .curso-eixo__face { --b: var(--cor); --c: var(--cor); }
+:root .aluno-passos .curso-eixo__face::after { content: ""; position: absolute; left: clamp(2.8rem, 3vw, 4rem); right: clamp(2.8rem, 3vw, 4rem); bottom: clamp(2.6rem, 2.8vw, 3.4rem); height: 5px;
+  background:
+    linear-gradient(var(--a), var(--a)) left / calc((100% - 12px) / 3) 100% no-repeat,
+    linear-gradient(var(--b), var(--b)) center / calc((100% - 12px) / 3) 100% no-repeat,
+    linear-gradient(var(--c), var(--c)) right / calc((100% - 12px) / 3) 100% no-repeat; }
+@media (max-width: 899px) {
+  :root .aluno-passos .curso-eixos { grid-template-columns: minmax(0, 1fr); }
+  :root .aluno-passos .curso-eixo__face { min-height: 0; }
+  :root .aluno-passos .passo__ico { margin-bottom: 0; }
+  :root .aluno-passos .curso-eixo__chave { margin-top: 2.4rem; }
+}
