@@ -24,26 +24,19 @@
   .citacao-cartao { --cit-img: url("../images/citacao-home-cel.webp"); min-height: 0; padding-block: 9rem; }
   .citacao-cartao--praticas { --cit-img: url("../images/citacao-praticas-cel.webp"); }
 }
-/* mancha navy atrás do texto + grão, pra o branco ler sobre o céu */
+/* mancha navy atrás do texto + grão, pra o branco ler sobre o céu.
+   Véu suave desde 27/11 (João: o anterior estava forte demais) */
 .citacao-cartao::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
     url("../images/grao-hero.png"),
-    radial-gradient(52% 58% at 50% 52%, rgba(0, 33, 82, 0.68) 0%, rgba(0, 33, 82, 0.5) 50%, rgba(0, 33, 82, 0.12) 85%, rgba(0, 33, 82, 0) 100%),
-    linear-gradient(180deg, rgba(0, 33, 82, 0.08), rgba(0, 33, 82, 0.12));
-}
-@media (min-width: 641px) and (max-width: 1279px) {
-  .citacao-cartao::before {
-    background:
-      url("../images/grao-hero.png"),
-      radial-gradient(68% 58% at 50% 52%, rgba(0, 33, 82, 0.72) 0%, rgba(0, 33, 82, 0.54) 50%, rgba(0, 33, 82, 0.2) 85%, rgba(0, 33, 82, 0.06) 100%);
-  }
+    radial-gradient(58% 62% at 50% 52%, rgba(0, 33, 82, 0.52) 0%, rgba(0, 33, 82, 0.36) 48%, rgba(0, 33, 82, 0.1) 80%, rgba(0, 33, 82, 0) 100%);
 }
 @media (max-width: 640px) {
   .citacao-cartao::before {
     background:
       url("../images/grao-hero.png"),
-      radial-gradient(95% 60% at 50% 50%, rgba(0, 33, 82, 0.7) 0%, rgba(0, 33, 82, 0.5) 60%, rgba(0, 33, 82, 0.22) 100%);
+      radial-gradient(100% 64% at 50% 50%, rgba(0, 33, 82, 0.58) 0%, rgba(0, 33, 82, 0.44) 58%, rgba(0, 33, 82, 0.14) 100%);
   }
 }
 .citacao-cartao__miolo { position: relative; max-width: 78rem; text-align: center; display: flex; flex-direction: column; align-items: center; }
@@ -63,7 +56,7 @@
   font-size: clamp(2.3rem, 2.5vw, 3.4rem); line-height: 1.3; letter-spacing: -0.015em;
   text-wrap: balance; text-shadow: 0 1px 24px rgba(0, 33, 82, 0.35);
 }
-.citacao-cartao .quote-mark__text .destaque { color: #F1D98A; font-weight: 600; }
+.citacao-cartao .quote-mark__text .destaque { color: #F8E6A6; font-weight: 600; }
 .citacao-cartao__credito { margin-top: 2.8rem; display: flex; flex-direction: column; gap: 0.4rem; font-style: normal; color: rgba(255, 255, 255, 0.94); font-size: 1.5rem; }
 .citacao-cartao__credito strong { color: #fff; font-weight: 600; font-size: 1.6rem; }
 .citacao-cartao__credito em { font-style: italic; }
@@ -118,7 +111,7 @@
 }
 .citacao-cartao--cta .citacao-selo { margin-bottom: 2.4rem; }
 .citacao-cartao--cta .cta-final__title { color: #fff; max-width: 72rem; margin: 0 0 1.6rem; text-wrap: balance; text-shadow: 0 1px 24px rgba(0, 33, 82, 0.35); }
-.citacao-cartao--cta .cta-final__sub { color: rgba(255, 255, 255, 0.86); max-width: 54rem; margin: 0 0 3.2rem; text-wrap: pretty; text-shadow: 0 1px 16px rgba(0, 33, 82, 0.4); }
+.citacao-cartao--cta .cta-final__sub { color: #fff; max-width: 54rem; margin: 0 0 3.2rem; text-wrap: pretty; text-shadow: 0 1px 16px rgba(0, 33, 82, 0.4); }
 .citacao-cartao--cta .cta-final__actions { display: flex; flex-wrap: wrap; gap: 1.6rem 2.8rem; justify-content: center; align-items: center; }
 @media (max-width: 640px) {
   .citacao-cartao--cta .cta-final__actions { flex-direction: column; gap: 2rem; }
@@ -144,3 +137,32 @@
 .citacao-cartao--cta .hero__vidro i { font-size: 1.3rem; transition: transform 0.4s var(--curva-suave, ease); }
 .citacao-cartao--cta .hero__vidro:hover { color: #fff; background: rgba(255, 255, 255, 0.2); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5); }
 .citacao-cartao--cta .hero__vidro:hover i { transform: translateX(3px); }
+
+/* pinturas mais claras (Práticas, O Instituto, Área do Aluno): um grau a mais
+   de véu, só pra o texto ler (27/11) */
+:is(.citacao-cartao--cta-praticas, .citacao-cartao--cta-instituto, .citacao-cartao--cta-aluno)::before {
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(58% 62% at 50% 52%, rgba(0, 33, 82, 0.62) 0%, rgba(0, 33, 82, 0.46) 48%, rgba(0, 33, 82, 0.12) 80%, rgba(0, 33, 82, 0) 100%);
+}
+@media (max-width: 640px) {
+  :is(.citacao-cartao--cta-praticas, .citacao-cartao--cta-instituto, .citacao-cartao--cta-aluno)::before {
+    background:
+      url("../images/grao-hero.png"),
+      radial-gradient(100% 64% at 50% 50%, rgba(0, 33, 82, 0.64) 0%, rgba(0, 33, 82, 0.5) 58%, rgba(0, 33, 82, 0.18) 100%);
+  }
+}
+
+/* no tablet o texto ocupa mais largura: a mancha abre junto, sem escurecer mais */
+@media (min-width: 641px) and (max-width: 1279px) {
+  .citacao-cartao::before {
+    background:
+      url("../images/grao-hero.png"),
+      radial-gradient(76% 64% at 50% 52%, rgba(0, 33, 82, 0.54) 0%, rgba(0, 33, 82, 0.4) 52%, rgba(0, 33, 82, 0.12) 82%, rgba(0, 33, 82, 0) 100%);
+  }
+  :is(.citacao-cartao--cta-praticas, .citacao-cartao--cta-instituto, .citacao-cartao--cta-aluno)::before {
+    background:
+      url("../images/grao-hero.png"),
+      radial-gradient(76% 64% at 50% 52%, rgba(0, 33, 82, 0.64) 0%, rgba(0, 33, 82, 0.5) 52%, rgba(0, 33, 82, 0.14) 82%, rgba(0, 33, 82, 0) 100%);
+  }
+}
