@@ -412,3 +412,12 @@
 @media (max-width: 899px) {
   :root :is(#formacoes, #catalogo, #outras-formacoes) .fcard__selo > span:first-child { color: #fff !important; background: none !important; box-shadow: none !important; border: 0 !important; outline: 0 !important; }
 }
+
+/* celular: véu suave só atrás do texto dos cards de formação (João, 27/11). A
+   regra que tirava o grão das fotos desligava junto o véu do mobile.css */
+@media (max-width: 767px) {
+  :root :is(#formacoes, #catalogo, #outras-formacoes)[data-formato="a"] .fcard__foto::after {
+    display: block; opacity: 1;
+    background: linear-gradient(180deg, rgba(16, 18, 22, 0) 30%, rgba(16, 18, 22, 0.36) 58%, rgba(16, 18, 22, 0.70) 100%);
+  }
+}
