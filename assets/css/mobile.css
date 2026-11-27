@@ -560,3 +560,12 @@
   :root.mo #solucoes-preview .atua-painel { clip-path: none; }
   :root.mo #solucoes-preview :is(.atua-andar__texto > *, .atua-ui > *) { opacity: 1; transform: none; }
 }
+
+/* "Na prática" no celular, respiros (João, 27/11): o das outras seções, ~116 px, em cima e embaixo do
+   cartão; a frase fica centrada na altura reservada, sem buraco antes dos botões */
+@media (max-width: 767px) {
+  :root #pratica-viva { padding: 56px 0 36px; }
+  :root #pratica-viva .pv-ctx2__corpo-in { display: flex; flex-direction: column; justify-content: center; min-height: 9.4rem; }
+  :root #pratica-viva .pv-ctx2__frase { min-height: 0; padding: 1.2rem 0.4rem; }
+  :root #pratica-viva .pv-palco__acoes { margin-top: 0.4rem; }
+}
