@@ -189,3 +189,8 @@ html.mo .pessoa-cartao--foto-inteira.is-in .pessoa-cartao__foto img { translate:
   .pessoa-cartao--busto .pessoa-cartao__arco { width: var(--arco-l); height: var(--arco-a); }
   :root .pessoa-cartao--busto .pessoa-cartao__foto { height: clamp(34rem, 100vw, 41rem); }
 }
+
+/* auditoria 27/11: em O Instituto o título saía em caixa alta; igual à Home */
+@media (max-width: 767px) {
+  :root .founders--cartoes .founders__header:not(.founders__subhead) h2.founders__titulo { font-family: var(--font-titulo); text-transform: none; color: var(--color-navy); }
+}

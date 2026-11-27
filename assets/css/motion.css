@@ -783,3 +783,30 @@ main { counter-reset: secao; }
 /* pontos do carrossel do Propósito: área de toque mínima de 24px na tela; 26px porque o carrossel aparece um pouco reduzido (o botão
    encolhia pra 23px no computador; o ponto desenhado continua do mesmo tamanho) */
 :root .palco__dot { min-width: 26px; min-height: 26px; flex: none; }
+
+/* 27/11/2026: a foto do topo da Home é ao anoitecer e já é escura; o véu fica
+   só atrás do texto, pra aparecer o caminho iluminado e a árvore (pedido do João).
+   A segunda mancha segura a leitura do selo e do título sobre o céu. */
+@media (min-width: 900px) {
+  :root .hero:has(img[src*="home-hero"]) .hero__overlay {
+    background:
+      radial-gradient(46% 38% at 12% 50%, rgba(16, 18, 22, 0.62) 0%, rgba(16, 18, 22, 0.46) 45%, rgba(16, 18, 22, 0.18) 75%, rgba(16, 18, 22, 0) 100%),
+      radial-gradient(88% 84% at 0% 100%, rgba(16, 18, 22, 0.80) 0%, rgba(16, 18, 22, 0.74) 22%, rgba(16, 18, 22, 0.64) 42%, rgba(16, 18, 22, 0.52) 56%, rgba(16, 18, 22, 0.38) 68%, rgba(16, 18, 22, 0.24) 79%, rgba(16, 18, 22, 0.11) 89%, rgba(16, 18, 22, 0) 100%);
+  }
+  :root .hero:has(img[src*="home-hero"]) :is(.hero__eyebrow, .hero__title, .hero__subtitle) { text-shadow: 0 1px 14px rgba(16, 18, 22, 0.55); }
+}
+
+/* 27/11/2026: no celular em pé a Home usa uma foto vertical própria (escolha do
+   João); encostada à direita, o letreiro fica inteiro. */
+@media (max-width: 899px) and (orientation: portrait) {
+  :root .hero .hero__foto img[src*="home-hero"] { object-position: 100% 50%; }
+}
+
+/* 27/11/2026: sombra mais leve no celular em pé, pra aparecer os bancos e o
+   caminho iluminado (pedido do João). */
+@media (max-width: 899px) and (orientation: portrait) {
+  :root #hero:has(img[src*="home-hero"]) .hero__overlay {
+    background: linear-gradient(rgba(16, 18, 22, 0) 24%, rgba(16, 18, 22, 0.30) 36%, rgba(16, 18, 22, 0.56) 45%, rgba(16, 18, 22, 0.58) 52%, rgba(16, 18, 22, 0.62) 62%, rgba(16, 18, 22, 0.66) 74%, rgba(16, 18, 22, 0.74) 86%, rgba(16, 18, 22, 0.82) 100%);
+  }
+  :root #hero:has(img[src*="home-hero"]) :is(.hero__eyebrow, .hero__title, .hero__subtitle) { text-shadow: 0 1px 12px rgba(16, 18, 22, 0.75); }
+}

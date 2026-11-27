@@ -131,7 +131,7 @@
 
 /* foto nova da header (27/11): no celular enquadra a roda */
 @media (max-width: 899px) {
-  .hero-interna--foto-escolar { background-color: #101216; background-image: none; }
+  :root .hero-interna--foto-escolar { background-color: #101216; background-image: none; }
   .hero-interna--foto-escolar .hero-interna__bg img { height: 64%; object-position: 90% 50%;
     -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
 }
@@ -182,7 +182,7 @@
 /* headers com luz nova (27/11): no celular, foto no alto sumindo no escuro,
    cada uma enquadrada no seu assunto */
 @media (max-width: 899px) {
-  :is(.hero-interna--foto-execucao-penal, .hero-interna--foto-pena-justa, .hero-interna--foto-relacoes-trabalho) { background-color: #101216; background-image: none; }
+  :root :is(.hero-interna--foto-execucao-penal, .hero-interna--foto-pena-justa, .hero-interna--foto-relacoes-trabalho) { background-color: #101216; background-image: none; }
   :is(.hero-interna--foto-execucao-penal, .hero-interna--foto-pena-justa, .hero-interna--foto-relacoes-trabalho) .hero-interna__bg img { height: 64%;
     -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
   .hero-interna--foto-execucao-penal .hero-interna__bg img { object-position: 78% 50%; }

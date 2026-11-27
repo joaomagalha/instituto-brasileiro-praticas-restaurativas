@@ -372,3 +372,36 @@
   :root .hero-interna--home .hero-interna__acoes { flex-direction: column; align-items: stretch; gap: 1rem; }
   :root .hero-interna--home .hero-interna__acoes > * { width: 100%; }
 }
+
+/* auditoria 27/11: as setas do "Nosso propósito" ficam na altura do desenho,
+   não em cima do texto do cartão */
+@media (max-width: 767px) {
+  :root .palco-moldura .palco__seta { top: calc(2.4rem + (100cqw - 4.4rem) / 4); }
+  :root .palco-moldura .palco__seta--ant { left: -10px; }
+  :root .palco-moldura .palco__seta--prox { right: -10px; }
+}
+
+/* auditoria 27/11: telas de 320 px (artigo estourava; botão longo cortava) */
+@media (max-width: 389px) {
+  :root .artigo-corpo-secao :is(.artigo-layout, .artigo, .artigo-autores, .artigo-autor) { min-width: 0; max-width: 100%; }
+  :root .artigo-corpo-secao :is(.artigo-layout, .artigo-autores) { grid-template-columns: minmax(0, 1fr); }
+  :root .artigo-corpo-secao .artigo-autor { grid-template-columns: auto minmax(0, 1fr); overflow-wrap: anywhere; }
+  :root main .btn { white-space: normal; text-align: center; height: auto; min-height: 50px; padding: 1.2rem 1.6rem; line-height: 1.35; }
+}
+
+/* auditoria 27/11: links do rodapé com altura de dedo (44 px) */
+@media (max-width: 767px) {
+  :root .footer .footer__links li { margin: 0; }
+  :root .footer .footer__links { gap: 0; }
+  :root .footer a.footer__link, :root .footer .footer__legal-links a, :root .footer .footer__endereco { display: inline-flex; align-items: center; gap: 0.8rem; min-height: 44px; }
+}
+@media (max-width: 767px) {
+  :root .footer a.footer__link--todas { display: block; padding-top: 1.2rem; white-space: nowrap; }
+  :root .footer .footer__legal-links a { border-bottom: 0; text-decoration: underline; text-underline-offset: 0.4em; }
+}
+
+/* auditoria 27/11: em Como Atuamos os cartões não sobem mais por cima da foto
+   no celular (o 1º ficava acinzentado) */
+@media (max-width: 767px) {
+  :root .atuar .atuar__itens { margin: 1.6rem 0 0; }
+}

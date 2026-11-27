@@ -2473,3 +2473,14 @@
 /* a foto do TJGO é um print com texto: entra inteira, sobre branco */
 :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__link[href*="tjgo-se-torna"] .noticia-card__media { background: #fff; }
 :root :is(.noticia-corpo ~ .mov-noticias, #noticias.mov-noticias) .noticia-card__link[href*="tjgo-se-torna"] .noticia-card__media img { object-fit: contain; object-position: 50% 50%; }
+
+/* ===== AUDITORIA DO CELULAR (27/11) ===== */
+/* 1 e 4: letreiro inteiro nas headers de Práticas e Privacidade */
+@media (max-width: 899px) {
+  :root .hero-interna:has(img[src*="praticas-restaurativas-hero"]), :root .hero-interna--neutro:has(img[src*="home-hero"]) { background-color: #101216; background-image: none; }
+  :root .hero-interna .hero-interna__bg img:is([src*="praticas-restaurativas-hero"], [src*="home-hero"]) { height: 66%; -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+  :root .hero-interna .hero-interna__bg img[src*="praticas-restaurativas-hero"] { object-position: 88% 50%; }
+  :root .hero-interna .hero-interna__bg img[src*="home-hero"] { object-position: 100% 50%; }
+  /* em Práticas o letreiro fica no alto da foto: desce pra sair de baixo da barra */
+  :root .hero-interna .hero-interna__bg img[src*="praticas-restaurativas-hero"] { translate: 0 6.4rem; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 76%, transparent); }
+}
