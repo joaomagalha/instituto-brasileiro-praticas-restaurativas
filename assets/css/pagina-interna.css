@@ -517,7 +517,7 @@
 .orienta-bloco__titulo { grid-area: tit; margin: 0.4rem 0 0; font: 500 clamp(1.9rem, 1.55vw, 2.2rem)/1.22 var(--font-titulo); letter-spacing: -0.02em; text-wrap: balance; }
 .orienta-bloco.is-ativo .orienta-bloco__titulo { font-size: clamp(2.4rem, 2vw, 3rem); }
 .orienta-bloco.is-ativo .orienta-bloco__cab { grid-template-areas: "ico num conta" "tit tit tit"; }
-.orienta-bloco.is-ativo .orienta-bloco__num { font-size: clamp(3.2rem, 2.6vw, 4rem); }
+.orienta-bloco__num, .orienta-bloco.is-ativo .orienta-bloco__num { font-size: clamp(3.2rem, 2.6vw, 4rem); } /* 26/11: o mesmo tamanho também nos fechados (regra já existente, sem linha nova) */
 .orienta-bloco__corpo { display: flex; flex-direction: column; flex: 1; min-height: 0; margin-top: 1.2rem; }
 .orienta-bloco__desc { margin: 0; color: #2C4464; font-size: clamp(1.45rem, 1.1vw, 1.6rem); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .orienta-bloco.is-ativo .orienta-bloco__desc { display: block; overflow: visible; max-width: 54ch; font-size: clamp(1.6rem, 1.2vw, 1.75rem); }
@@ -1432,7 +1432,7 @@
 .sustenta--apoio .sustenta__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
 @media (max-width: 899px) { .hero-interna--instituto .hero-interna__bg img { object-position: 97% 50%; } } /* letreiro inteiro no celular (26/11) */
 
-/* ===== MISSÃO E VISÃO NA IDENTIDADE NOVA (João, 27/11: "background igual nas
+/* ===== MISSÃO E VISÃO NA IDENTIDADE NOVA (João, 26/11, noite: "background igual nas
    outras seções" e "melhorar o efeito de vidro dos cards"). Fundo claro granulado
    com as manchas azul/lavanda (igual a Práticas e IBPR em Movimento); os 2 cards
    em vidro como os do Propósito da Home (translúcidos, degradê suave vindo da
@@ -1462,4 +1462,871 @@
 @media (max-width: 767px) {
   .mv2 { background: var(--grao), radial-gradient(120% 300px at 100% 0%, rgba(10, 102, 200, 0.1), transparent 75%), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
   .mv2-cartao { background: var(--grao), radial-gradient(circle at 100% 22%, rgba(var(--tom), 0.3) 0, rgba(var(--tom), 0.16) 24%, transparent 60%), rgba(255, 255, 255, 0.38); }
+}
+
+/* ===== MOTION DA MISSÃO E VISÃO REFINADO (João, 26/11: "refine ainda mais o
+   motion"). Mesma linguagem do Propósito da Home: tudo assenta sem quicar
+   (cubic-bezier(0.16, 1, 0.3, 1)), o conteúdo chega na ordem da leitura
+   (problemas → elos → nó → resposta → itens → medidor; visão → frentes →
+   barras → horizonte → Brasil) e os loops ficam lentos e defasados. Sai o que
+   era enfeite: brilho varrendo a resposta, nó piscando 1x por segundo, mola.
+   Antes: scratchpad instituto/pagina-interna-antes-motion.css. ===== */
+@media (prefers-reduced-motion: no-preference) {
+  .mv2 { --assenta: cubic-bezier(0.16, 1, 0.3, 1); --desenho: cubic-bezier(0.65, 0, 0.35, 1); }
+  /* Missão */
+  .mv2-cartao.is-visible .mv2m-chip { animation: mv2r-lado 0.9s var(--assenta) both; animation-delay: calc(0.3s + var(--i) * 0.14s); }
+  .mv2-cartao.is-visible .mv2m-elo { animation: mv2-desenha 1.1s var(--desenho) both; animation-delay: calc(0.75s + var(--k) * 0.14s); }
+  .mv2-cartao.is-visible .mv2m-no { animation: mv2r-surge 0.9s var(--assenta) 1.3s both; }
+  .mv2-cartao.is-visible .mv2m-resposta { animation: mv2r-assenta 1.2s var(--assenta) 1.5s both, mv2-flutua 6s ease-in-out 3.4s infinite; }
+  .mv2-cartao.is-visible .mv2m-resposta::after { animation: none; }
+  .mv2-cartao.is-visible .mv2m-item { animation: mv2r-sobe 0.8s var(--assenta) both; animation-delay: calc(1.9s + var(--k) * 0.16s); }
+  .mv2-cartao.is-visible .mv2m-item path { animation: mv2-desenha 0.6s var(--desenho) both; animation-delay: calc(2.1s + var(--k) * 0.16s); }
+  .mv2-cartao.is-visible .mv2m-medidor__barra i { animation: mv2-enche 1.4s var(--assenta) 2.4s both, mv2r-medidor 5s ease-in-out 4s infinite; }
+  .mv2-cartao.is-visible .mv2m-pulsos { transition: opacity 0.9s ease 2.6s; }
+  /* o nó "recebe" cada pulso que chega (a cada 1,3 s), sem piscar */
+  .mv2-cartao.is-visible .mv2m-no::before { animation: mv2r-recebe 1.3s ease-out 3.2s infinite; }
+  /* Visão */
+  .mv2-cartao.is-visible .mv2v-card { animation: mv2r-assenta 1.2s var(--assenta) 0.3s both, mv2-flutua 6s ease-in-out 2.6s infinite; }
+  .mv2-cartao.is-visible .mv2v-frentes li { animation: mv2r-lado 0.8s var(--assenta) both; animation-delay: calc(0.7s + var(--k) * 0.14s); }
+  .mv2-cartao.is-visible .mv2v-frentes em { animation: mv2v-barra 1.3s var(--assenta) both, mv2r-barra 5s ease-in-out infinite; animation-delay: calc(0.95s + var(--k) * 0.16s), calc(3s + var(--k) * 0.8s); }
+  .mv2-cartao.is-visible .mv2v-rumo { animation: mv2r-assenta 1.2s var(--assenta) 0.55s both, mv2-flutua 6s ease-in-out 4s infinite; }
+  .mv2-cartao.is-visible .mv2v-rumo__linha { animation: mv2-desenha 1.4s var(--desenho) 1.1s both; }
+  .mv2-cartao.is-visible .mv2v-marco { animation: mv2r-surge 0.6s var(--assenta) both; animation-delay: calc(1.15s + var(--k) * 0.5s); }
+  .mv2-cartao.is-visible .mv2v-marco--fim { animation: mv2r-surge 0.6s var(--assenta) 2.15s both, mv2r-marco 3.2s ease-in-out 3.2s infinite; }
+  .mv2-cartao.is-visible .mv2v-chip { animation: mv2r-surge 0.9s var(--assenta) 1.6s both, mv2-flutua 6s ease-in-out 5.4s infinite; }
+}
+@keyframes mv2r-lado { from { opacity: 0; translate: -0.9em 0; } to { opacity: 1; translate: 0 0; } }
+@keyframes mv2r-sobe { from { opacity: 0; translate: 0 0.6em; } to { opacity: 1; translate: 0 0; } }
+@keyframes mv2r-surge { from { opacity: 0; scale: 0.82; } to { opacity: 1; scale: 1; } }
+@keyframes mv2r-assenta { from { opacity: 0; translate: 0 1.2em; scale: 0.965; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes mv2r-recebe { 0% { scale: 1; opacity: 0.55; } 100% { scale: 1.28; opacity: 0; } }
+@keyframes mv2r-medidor { 0%, 100% { transform: scaleX(0.9); } 50% { transform: scaleX(0.94); } }
+@keyframes mv2r-barra { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.92); } }
+@keyframes mv2r-marco { 0%, 100% { scale: 1; } 50% { scale: 1.22; } }
+
+/* ===== OS PRINCÍPIOS MENOR, MAIS CLEAN, NA IDENTIDADE NOVA (João, 26/11:
+   "diminua um pouco o tamanho, mais clean e bonita"). Mesmo fundo granulado da
+   Missão e visão (sem degrau entre as duas), faixa em vidro no lugar do bege,
+   cabeçalho compacto (ícone e número na mesma linha), sem o contador de
+   segundos, prévia em 2 linhas, ilustração menor e sem vão. Cores dos 4 blocos:
+   lavanda, amarelo, oliva e o azul do site (--tom pro fundo, --cor pro texto).
+   Antes: scratchpad instituto/pagina-interna-antes-orienta.css. ===== */
+.orienta { --grao: url("../images/grao-claro.png"); padding-top: clamp(2.4rem, 3vw, 4rem);
+  background: var(--grao),
+    radial-gradient(42vw 30vw at 100% 6%, rgba(10, 102, 200, 0.1), rgba(127, 157, 196, 0.04) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro); }
+.orienta__topo { margin-bottom: clamp(3.2rem, 3.6vw, 4.4rem); }
+.orienta__faixa { min-height: 0; max-width: 112rem; margin: 0 auto; border-radius: 2.4rem;
+  background: var(--grao), rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26); }
+.orienta-bloco--1 { --tom: 97, 117, 214; --cor: #4F62C4; --claro: #F1F2FB; --painel: #4F62C4; }
+.orienta-bloco--2 { --tom: 237, 186, 44; --cor: #A97C0C; --claro: #FBF6E6; --painel: #A97C0C; }
+.orienta-bloco--3 { --tom: 122, 125, 52; --cor: #6B6E2A; --claro: #F3F3EA; --painel: #6B6E2A; }
+.orienta-bloco--4 { --tom: 0, 62, 142; --cor: #003E8E; --claro: #EDF2F8; --painel: #003E8E; }
+.orienta-bloco { padding: 2.6rem 2.4rem 2.4rem; background: transparent; border-left-color: rgba(var(--navy-rgb), 0.07);
+  transition: flex-grow 0.8s cubic-bezier(0.65, 0, 0.35, 1), background 0.5s ease; }
+.orienta-bloco.is-ativo { flex-grow: 2.7;
+  background: radial-gradient(ellipse 85% 110% at 100% 0%, rgba(var(--tom), 0.2) 0, rgba(var(--tom), 0.07) 50%, transparent 80%), rgba(255, 255, 255, 0.5); }
+@media (hover: hover) { .orienta-bloco:not(.is-ativo):hover { background: rgba(255, 255, 255, 0.42); } }
+.orienta-bloco__linha { height: 3px; background: rgba(var(--navy-rgb), 0.05); }
+.orienta-bloco__linha i { background: rgb(var(--tom)); }
+/* cabeçalho: ícone e número na mesma linha, título embaixo (aberto ou fechado) */
+.orienta-bloco__cab, .orienta-bloco.is-ativo .orienta-bloco__cab { grid-template-areas: "ico num conta" "tit tit tit"; gap: 1.6rem 1.2rem; }
+.orienta-bloco__num { color: rgba(var(--tom), 0.55); }
+.orienta-bloco__icone { width: 4rem; height: 4rem; background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.07), 0 6px 16px -10px rgba(var(--navy-rgb), 0.3); }
+.orienta-bloco.is-ativo .orienta-bloco__icone { background: rgb(var(--tom)); box-shadow: 0 10px 22px -12px rgba(var(--tom), 0.9); }
+.orienta-bloco__conta { align-self: center; color: rgba(var(--navy-rgb), 0.5); }
+.orienta-bloco__tempo { display: none; }
+.orienta-bloco__desc { -webkit-line-clamp: 2; }
+.orienta-bloco.is-ativo .orienta-bloco__corpo { gap: 2rem; }
+/* ilustração: menor e logo abaixo do texto, sem o vão */
+.orienta-ilu { --pf: radial-gradient(80% 90% at 50% 35%, #FFFFFF, var(--claro) 70%, rgba(var(--tom), 0.22));
+  margin-top: 0; width: min(100%, 50rem); border-radius: 1.8rem;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 1px 3px rgba(0, 33, 82, 0.04), 0 18px 40px -28px rgba(0, 33, 82, 0.3); }
+@media (max-width: 1023px) {
+  .orienta-bloco { padding: 2rem; }
+  .orienta-bloco__cab, .orienta-bloco.is-ativo .orienta-bloco__cab { grid-template-areas: "ico tit conta"; gap: 1.2rem; }
+  .orienta-ilu { width: 100%; }
+}
+/* Missão e visão + Os princípios lidos como um fundo só: a mancha azul fica no
+   alto da primeira, a lavanda embaixo da segunda e a emenda é papel limpo (sem
+   linha entre as duas, João 26/11) */
+.mv2 { background: var(--grao), radial-gradient(42vw 30vw at 100% 6%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%), var(--papel-claro); }
+.orienta { background: var(--grao), radial-gradient(44vw 26vw at 0% 100%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%), var(--papel-claro); }
+@media (max-width: 767px) {
+  .mv2 { background: var(--grao), radial-gradient(120% 300px at 100% 0%, rgba(10, 102, 200, 0.1), transparent 75%), var(--papel-claro); }
+  .orienta { background: var(--grao), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+}
+
+/* ===== OS PRINCÍPIOS, 2ª PASSADA (João, 26/11: "mais refinado e clean e
+   melhore bastante os motions"). Uma cor por vez: fechados em neutro (ícone e
+   número em azul apagado, só o título), a cor da logo acende no aberto e no
+   hover. Sai o "N de 4" (repetia o número) e a prévia dos fechados. Motion na
+   linguagem do Propósito: a coluna abre num movimento só e o conteúdo chega
+   depois, em ordem (título, texto, ilustração), sem quique; loops mais lentos;
+   coração vermelho fora da paleta vira a cor do bloco.
+   Antes: scratchpad instituto/pagina-interna-antes-orienta-2.css. ===== */
+.orienta { --assenta: cubic-bezier(0.16, 1, 0.3, 1); --abre: cubic-bezier(0.76, 0, 0.24, 1); }
+.orienta-bloco__conta, .orienta-bloco:not(.is-ativo) .orienta-bloco__desc { display: none; }
+.orienta-bloco { transition: flex-grow 0.9s var(--abre), background 0.6s ease; }
+/* fechados em neutro */
+.orienta-bloco__num { color: rgba(var(--navy-rgb), 0.2); transition: color 0.5s ease; }
+.orienta-bloco__icone { color: rgba(var(--navy-rgb), 0.5); transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease; }
+.orienta-bloco__titulo { color: rgba(var(--navy-rgb), 0.78); transition: color 0.5s ease; }
+@media (hover: hover) {
+  .orienta-bloco:not(.is-ativo):hover .orienta-bloco__num { color: rgba(var(--tom), 0.6); }
+  .orienta-bloco:not(.is-ativo):hover .orienta-bloco__icone { color: var(--cor); }
+  .orienta-bloco:not(.is-ativo):hover .orienta-bloco__titulo { color: var(--color-navy); }
+  .orienta-bloco:not(.is-ativo):hover::before { background: rgb(var(--tom)); height: 3px; }
+}
+/* aberto: a cor acende */
+.orienta-bloco.is-ativo .orienta-bloco__num { color: var(--cor); }
+.orienta-bloco.is-ativo .orienta-bloco__icone { color: #fff; }
+.orienta-bloco.is-ativo .orienta-bloco__titulo { color: var(--color-navy); }
+
+@media (prefers-reduced-motion: no-preference) {
+  /* o conteúdo espera a coluna quase abrir e chega em ordem */
+  .orienta-bloco.is-ativo .orienta-bloco__titulo { animation: mv2r-sobe 0.9s var(--assenta) 0.34s both; }
+  .orienta-bloco.is-ativo .orienta-bloco__desc { animation: mv2r-sobe 0.9s var(--assenta) 0.44s both; }
+  .orienta-bloco.is-ativo .orienta-ilu { animation: mv2r-assenta 1.1s var(--assenta) 0.56s both; }
+  .orienta-bloco.is-ativo .orienta-bloco__icone svg :is(path, circle) { animation: or-icone 1.2s var(--desenho, cubic-bezier(0.65, 0, 0.35, 1)) 0.3s forwards; }
+  /* dentro das ilustrações: tudo assenta, sem mola, e só depois que o quadro chegou */
+  .orienta-ilu { --mola: cubic-bezier(0.16, 1, 0.3, 1); }
+  .orienta-ilu .or-traco { animation: or-desenha 1.3s var(--traco) 0.95s forwards; }
+  .orienta-ilu .or-estacao { animation-delay: calc(1s + var(--k) * 0.16s); }
+  .orienta-ilu .or-elo { animation-delay: calc(1.05s + var(--k) * 0.14s); }
+  .orienta-ilu .or-cartao { animation: or-entra 1s var(--mola) 1.45s both, or-flutua 7s ease-in-out 3s infinite; }
+  .orienta-ilu .or-barras i { animation: or-cresce 1s var(--mola) both, or-respira 5s ease-in-out infinite; animation-delay: calc(1.7s + var(--k) * 0.09s), calc(3.4s + var(--k) * 0.5s); }
+  .orienta-ilu .or-tendencia { animation: or-desenha 1.3s var(--traco) 2.2s forwards; }
+  .orienta-ilu .or-selo-pisca i { animation: or-pisca 3.2s ease-in-out infinite; }
+  .orienta-ilu .or-av { animation-delay: calc(0.8s + var(--k) * 0.1s); }
+  .orienta-ilu .or-centro { animation: or-nasce 0.9s var(--mola) 0.9s both; }
+  .orienta-ilu .or-centro i { animation: or-bate 2.6s ease-in-out 2s infinite; }
+  .orienta-ilu .or-grafico { animation: or-entra 1s var(--mola) 0.7s both; }
+  .orienta-ilu .or-degrau--a { animation-delay: 1.2s; } .orienta-ilu .or-degrau--b { animation-delay: 1.4s; }
+  .orienta-ilu .or-carimbo { animation: or-carimbo 0.8s var(--mola) 2.8s both; }
+  .orienta-ilu .or-tag { animation: or-nasce 0.7s var(--mola) 3s both; }
+  .orienta-ilu .or-broto { animation: or-nasce 0.9s var(--mola) 0.85s both; }
+  .orienta-ilu .or-seta { animation: or-nasce 0.6s ease 2s forwards; }
+}
+/* gestos mais curtos e calmos (estas versões valem pro site todo, só usadas aqui) */
+@keyframes or-nasce { from { opacity: 0; scale: 0.86; } to { opacity: 1; scale: 1; } }
+@keyframes or-entra { from { opacity: 0; translate: 0 1.1em; scale: 0.97; } to { opacity: 1; translate: 0 0; scale: 1; } }
+@keyframes or-flutua { 0%, 100% { translate: 0 0; } 50% { translate: 0 -0.25em; } }
+@keyframes or-respira { 0%, 100% { scale: 1 1; } 50% { scale: 1 0.93; } }
+@keyframes or-pisca { 0%, 100% { opacity: 1; scale: 1; } 50% { opacity: 0.45; scale: 0.8; } }
+@keyframes or-bate { 0%, 46%, 100% { scale: 1; } 16% { scale: 1.14; } 30% { scale: 1.04; } }
+@keyframes or-carimbo { 0% { opacity: 0; scale: 1.35; rotate: -8deg; } 100% { opacity: 1; scale: 1; rotate: 0deg; } }
+.or-centro i { color: var(--cor); }
+/* sem pulo na troca (computador): o conteúdo do bloco aberto já nasce na largura
+   final (2,7 de 5,7 da faixa, menos o respiro), então a altura da faixa não sobe
+   e desce enquanto a coluna abre; a coluna só revela o que já está no lugar */
+@media (min-width: 1024px) {
+  .orienta__faixa { container-type: inline-size; }
+  .orienta-bloco { overflow: hidden; }
+  .orienta-bloco.is-ativo :is(.orienta-bloco__corpo, .orienta-bloco__titulo) { width: calc((100cqw - 19.2rem - 3px) * 2.7 / 5.7); flex: none; } /* faixa menos os 4 respiros (2,4 + 2,4 rem) e as 3 divisórias, na parte do aberto */
+}
+
+/* ===== NOSSA ABORDAGEM BONITA E CLEAN (João, 26/11). Mantém as 2 colunas
+   (escolha dele em 19/10). Fundo no papel granulado das seções de cima, emenda
+   limpa no alto e mancha azul embaixo à direita; a árvore em traço (motivo da
+   logo antiga) sai e entram os três traços da logo sob o título, que acendem um
+   a um com a leitura (abordagem.js marca data-passo), como em Práticas; o fio
+   ao lado do texto sai. Motion: selo, título e traços assentam em ordem, depois
+   os parágrafos. Antes: scratchpad instituto/*-antes-abordagem.*. ===== */
+.abordagem { --grao: url("../images/grao-claro.png"); --assenta: cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--grao), radial-gradient(44vw 28vw at 100% 100%, rgba(10, 102, 200, 0.1), rgba(127, 157, 196, 0.04) 45%, transparent 76%), var(--papel-claro); }
+.abordagem__cartao { align-items: center; max-width: 112rem; margin: 0 auto; }
+.abordagem__texto { padding: 0; max-width: 56rem; }
+.abordagem__tracos { display: flex; gap: 1rem; margin-top: clamp(3.6rem, 4.4vw, 5.6rem); }
+.abordagem__tracos i { width: 1.4rem; height: clamp(8rem, 9vw, 11rem); border-radius: 99px; background: var(--traco);
+  opacity: 0.18; transform-origin: 50% 100%; transform: scaleY(0.72);
+  transition: opacity 0.7s var(--assenta), transform 0.9s var(--assenta); }
+.abordagem__tracos i:nth-child(1) { --traco: #6175D6; }
+.abordagem__tracos i:nth-child(2) { --traco: #EDBA2C; }
+.abordagem__tracos i:nth-child(3) { --traco: #7A7D34; }
+.abordagem[data-passo="1"] .abordagem__tracos i:nth-child(-n+1),
+.abordagem[data-passo="2"] .abordagem__tracos i:nth-child(-n+2),
+.abordagem[data-passo="3"] .abordagem__tracos i { opacity: 1; transform: none; }
+/* entrada em ordem, sem quique (troca a subida em bloco de antes) */
+.abordagem :is(.abordagem__lado, .abordagem__texto) { opacity: 1; animation: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .abordagem :is(.abordagem__selo, .abordagem__titulo, .abordagem__tracos, .abordagem__texto p) { opacity: 0; }
+  .abordagem.is-visible .abordagem__selo { animation: mv2r-sobe 0.9s var(--assenta) 0.05s both; }
+  .abordagem.is-visible .abordagem__titulo { animation: mv2r-sobe 1s var(--assenta) 0.15s both; }
+  .abordagem.is-visible .abordagem__tracos { animation: mv2r-sobe 1s var(--assenta) 0.3s both; }
+  .abordagem.is-visible .abordagem__texto p { animation: mv2r-sobe 1s var(--assenta) 0.35s both; }
+  .abordagem.is-visible .abordagem__texto p + p { animation-delay: 0.5s; }
+}
+@media (prefers-reduced-motion: reduce) { .abordagem__tracos i { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 1023px) {
+  .abordagem__cartao { gap: 3.2rem; }
+  .abordagem__tracos { display: none; }
+  .abordagem__texto { max-width: none; }
+}
+@media (max-width: 767px) {
+  .abordagem { background: var(--grao), radial-gradient(120% 300px at 100% 100%, rgba(10, 102, 200, 0.1), transparent 75%), var(--papel-claro); }
+}
+/* emendas sem linha: a lavanda que termina no pé de "Os princípios" continua no
+   alto da abordagem (mesmo tamanho, espelhada); o azul fica no meio da direita,
+   longe do pé. Título com folga: coluna da esquerda um pouco mais larga. */
+.abordagem { background: var(--grao),
+    radial-gradient(44vw 26vw at 0% 0%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    radial-gradient(36vw 26vw at 100% 55%, rgba(10, 102, 200, 0.09), rgba(127, 157, 196, 0.03) 45%, transparent 76%),
+    var(--papel-claro); }
+.abordagem__cartao { max-width: none; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+@media (max-width: 1023px) { .abordagem__cartao { grid-template-columns: 1fr; } }
+@media (max-width: 767px) {
+  .abordagem { background: var(--grao), radial-gradient(120% 300px at 0% 0%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+  .orienta { background: var(--grao), radial-gradient(120% 300px at 0% 100%, rgba(97, 117, 214, 0.1), transparent 75%), var(--papel-claro); }
+}
+
+/* ===== MISSÃO E VISÃO EM ANDARES (João, 26/11, noite: "duas seções com
+   cards uma acima da outra", pediu algo parecido com o Como Atuamos da Home).
+   O card sai: texto solto sobre o papel de um lado e, do outro, o painel
+   granulado na cor da etapa (lavanda na Missão, amarelo na Visão) com a
+   ilustração de vidro por cima, em zigue-zague. O painel se revela de baixo
+   pra cima quando entra na tela (.is-visible, do missao.js), o texto sobe em
+   cascata e a sequência das ilustrações vem depois. Sem tamanho de fonte novo.
+   Antes: scratchpad instituto/pagina-interna-antes-andares.css. ===== */
+.mv2__grade { gap: clamp(6.4rem, 8vw, 11.2rem); max-width: 112rem; }
+.mv2-cartao, .mv2-cartao--visao {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: clamp(3.2rem, 5vw, 7.2rem);
+  padding: 0; border-radius: 0; background: none; box-shadow: none; transform: none;
+}
+.mv2-cartao--visao { grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); }
+@media (hover: hover) { .mv2-cartao:hover { transform: none; box-shadow: none; } }
+.mv2-cartao--missao { --tom: 97, 117, 214; }
+.mv2-cartao--visao { --tom: 237, 186, 44; }
+.mv2-cartao__desc { max-width: 46ch; }
+/* o painel, como o .atua-painel da Home */
+.mv2-ilu {
+  border-radius: 2.4rem;
+  background: var(--grao),
+    radial-gradient(circle at var(--mx, 18%) 80%, rgba(var(--tom), 0.62) 0, rgba(var(--tom), 0.36) 20%, rgba(var(--tom), 0.14) 42%, transparent 70%),
+    #FAFAFB;
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 22px 50px -26px rgba(14, 24, 63, 0.26);
+}
+.mv2-cartao--visao .mv2-ilu { --mx: 82%; }
+/* entrada: painel abre de baixo pra cima; texto sobe em cascata */
+.mv2-cartao .mv2-ilu { clip-path: inset(100% 0 0 0 round 2.4rem); transition: clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.mv2-cartao.is-visible .mv2-ilu { clip-path: inset(0 0 0 0 round 2.4rem); }
+.mv2-cartao__texto > * { opacity: 0; transform: translate3d(0, 1.6rem, 0); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.mv2-cartao.is-visible .mv2-cartao__texto > * { opacity: 1; transform: none; }
+.mv2-cartao.is-visible .mv2-cartao__texto > :nth-child(2) { transition-delay: 0.08s; }
+.mv2-cartao.is-visible .mv2-cartao__texto > :nth-child(3) { transition-delay: 0.16s; }
+@media (max-width: 1023px) {
+  .mv2__grade { gap: 6.4rem; }
+  .mv2-cartao, .mv2-cartao--visao { grid-template-columns: 1fr; gap: 2.4rem; padding: 0; }
+  .mv2-cartao .mv2-ilu, .mv2-cartao--visao .mv2-ilu { order: 2; }
+  .mv2-cartao__texto { padding: 0; }
+}
+@media (max-width: 767px) {
+  .mv2-cartao, .mv2-cartao--visao { background: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mv2-cartao .mv2-ilu { clip-path: none; transition: none; }
+  .mv2-cartao__texto > * { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===== OS PRINCÍPIOS EM LISTA EDITORIAL (João, 26/11, noite: "mudar a
+   estrutura e deixar o visual mais clean e bonito"; escolheu a lista). Título
+   preso à esquerda enquanto rola; à direita os 4 princípios em linhas
+   numeradas, separadas por fio fino, sem card nem ilustração. Ícone e número
+   nas cores da logo (lavanda, amarelo, oliva, azul do site). A tipografia vem
+   das classes que já existiam (orienta__titulo, orienta-bloco__num/__titulo/
+   __desc): nenhum tamanho novo. Entrada: o fio desenha da esquerda e o
+   conteúdo sobe, um princípio de cada vez (orienta.js marca .is-in).
+   Antes: scratchpad instituto/pagina-interna-antes-lista.css. ===== */
+.orienta--lista .container { display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: clamp(4rem, 7vw, 10rem); align-items: start; max-width: calc(112rem + 2 * var(--container-pad)); } /* mesma largura dos andares da Missão e Visão */
+.orienta--lista .ori2__topo { position: sticky; top: 14rem; text-align: left; margin: 0; max-width: 44rem; }
+.orienta--lista .orienta__titulo { text-wrap: balance; }
+.ori2-lista { list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.ori2-item { --tom: 97, 117, 214; --cor: #4F62C4; position: relative; display: grid; grid-template-columns: 7.2rem minmax(0, 1fr); gap: 0 1.6rem; padding: clamp(2.8rem, 3vw, 3.6rem) 0; }
+.ori2-item--2 { --tom: 237, 186, 44; --cor: #A97C0C; }
+.ori2-item--3 { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.ori2-item--4 { --tom: 0, 62, 142; --cor: #003E8E; }
+.ori2-item:last-child { padding-bottom: 0; }
+.ori2-item__linha { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: rgba(var(--navy-rgb), 0.12); transform-origin: 0 50%; }
+.ori2-item__linha::after { content: ""; position: absolute; left: 0; top: 0; width: 7.2rem; height: 2px; margin-top: -0.5px; background: rgb(var(--tom)); }
+.ori2-item .ori2-item__num { grid-area: auto; align-self: start; margin-top: -0.2rem; color: rgba(var(--tom), 0.55); transition: none; }
+.ori2-item__cab { display: flex; align-items: center; gap: 1.4rem; margin-bottom: 1.2rem; }
+.ori2-item .ori2-item__icone { grid-area: auto; flex: none; width: 4rem; height: 4rem; border-radius: 1.1rem; color: var(--cor); background: rgba(var(--tom), 0.12); box-shadow: none; }
+.ori2-item .ori2-item__icone svg { width: 2.2rem; height: 2.2rem; }
+.ori2-item .ori2-item__titulo { grid-area: auto; margin: 0; color: var(--color-navy); }
+.ori2-item .ori2-item__desc { display: block; overflow: visible; -webkit-line-clamp: unset; max-width: 56ch; }
+/* entrada */
+.ori2-js .ori2-item__linha { transform: scaleX(0); transition: transform 1.1s cubic-bezier(0.65, 0, 0.35, 1); }
+.ori2-js .ori2-item :is(.ori2-item__num, .ori2-item__cab, .ori2-item__desc) { opacity: 0; transform: translate3d(0, 1.4rem, 0); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+.ori2-js .ori2-item.is-in .ori2-item__linha { transform: none; }
+.ori2-js .ori2-item.is-in :is(.ori2-item__num, .ori2-item__cab, .ori2-item__desc) { opacity: 1; transform: none; }
+.ori2-js .ori2-item.is-in .ori2-item__num { transition-delay: 0.15s; }
+.ori2-js .ori2-item.is-in .ori2-item__cab { transition-delay: 0.25s; }
+.ori2-js .ori2-item.is-in .ori2-item__desc { transition-delay: 0.38s; }
+@media (max-width: 1023px) {
+  .orienta--lista .container { grid-template-columns: 1fr; gap: 3.2rem; }
+  .orienta--lista .ori2__topo { position: static; max-width: none; }
+}
+@media (max-width: 767px) {
+  .ori2-item { grid-template-columns: 1fr; }
+  .ori2-item .ori2-item__num { display: none; }
+  .ori2-item__linha::after { width: 4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ori2-js .ori2-item__linha, .ori2-js .ori2-item :is(.ori2-item__num, .ori2-item__cab, .ori2-item__desc) { opacity: 1; transform: none; transition: none; }
+}
+/* fundo branco (João, 26/11, noite: "quero essa seção com fundo branco") */
+.orienta.orienta--lista { background: #fff; padding-block: clamp(6.4rem, 8vw, 10.4rem); }
+
+/* ===== CONVITE "NOVAS CONEXÕES" REFINADO (João, 26/11, noite: "melhorar e
+   refinar"). Vidro claro como os cards aprovados (grão + lavanda vinda da
+   direita), sai o verde-água/dourado antigos; selo de três traços; e-mail numa
+   linha discreta "ou escreva para"; a peça da logo em tons claros
+   (ibpr-marca-clara.svg, a mesma dos cartões das pessoas) cortada no canto
+   direito, atrás da ação. Sem tamanho de fonte novo.
+   Antes: scratchpad instituto/pagina-interna-antes-convite.css. ===== */
+.convite { --grao: url("../images/grao-claro.png");
+  position: relative; isolation: isolate; overflow: hidden;
+  gap: 2.4rem clamp(3.2rem, 5vw, 6.4rem); padding: clamp(3.2rem, 3.8vw, 4.8rem) clamp(2.8rem, 4.4vw, 5.6rem);
+  background: var(--grao), radial-gradient(ellipse 70% 130% at 100% 50%, rgba(97, 117, 214, 0.2) 0, rgba(97, 117, 214, 0.08) 45%, transparent 80%), rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26);
+}
+.convite::after { content: ""; position: absolute; z-index: -1; right: clamp(-4.4rem, -3vw, -2.4rem); top: -14%; width: clamp(17rem, 18vw, 22rem); height: 128%;
+  background: url("../images/ibpr-marca-clara.svg") right center / contain no-repeat; pointer-events: none; }
+.convite__texto, .convite__acao { position: relative; }
+.convite__selo { margin: 0 0 1.4rem; }
+.convite__acao { align-items: center; gap: 1.4rem; }
+.convite__email { margin: 0; color: #3F5675; }
+.convite__email a { color: var(--color-navy); font-weight: 600; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.convite__email a:hover { background-size: 100% 1px; }
+.convite__acao .btn i { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.convite__acao .btn:hover i { transform: translateX(3px); }
+@media (max-width: 767px) {
+  .convite::after { display: none; }
+  .convite__email { align-self: center; text-align: center; }
+}
+@media (max-width: 899px) { .hero-interna--atuamos .hero-interna__bg img { object-position: 84% 50%; } } /* professora e turma no celular (26/11, foto nova da sala de aula) */
+
+/* ===== VÉU DAS FOTOS DAS ETAPAS IGUAL AO DAS HEADERS (João, 27/11: "esse azul
+   está feio, coloque o mesmo que usamos nas heros"). Sai o degradê azul-marinho
+   (0, 33, 82); entra o véu neutro das headers (.hero-interna--home): nasce no
+   canto de baixo à esquerda, atrás do texto, e some antes de chegar ao lado
+   direito da foto. No celular, o mesmo de baixo pra cima. ===== */
+.atuar { --veu: 16, 18, 22; }
+.atuar__mascara::after {
+  background: radial-gradient(96% 100% at 0% 100%,
+    rgba(var(--veu), 0.88) 0%, rgba(var(--veu), 0.86) 22%, rgba(var(--veu), 0.81) 42%,
+    rgba(var(--veu), 0.74) 56%, rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.47) 79%,
+    rgba(var(--veu), 0.28) 88%, rgba(var(--veu), 0.11) 95%, rgba(var(--veu), 0) 100%);
+}
+.atuar__legenda { text-shadow: 0 1px 12px rgba(var(--veu), 0.35); }
+@media (max-width: 1279px) {
+  .atuar__mascara::after {
+    background: radial-gradient(135% 100% at 0% 100%,
+      rgba(var(--veu), 0.9) 0%, rgba(var(--veu), 0.86) 28%, rgba(var(--veu), 0.77) 52%,
+      rgba(var(--veu), 0.63) 68%, rgba(var(--veu), 0.44) 81%, rgba(var(--veu), 0.17) 91%, rgba(var(--veu), 0) 100%);
+  }
+}
+@media (max-width: 767px) {
+  .atuar__mascara::after {
+    background: linear-gradient(180deg, rgba(var(--veu), 0) 0%, rgba(var(--veu), 0) 24%, rgba(var(--veu), 0.14) 38%, rgba(var(--veu), 0.66) 58%, rgba(var(--veu), 0.88) 80%, rgba(var(--veu), 0.92) 100%);
+  }
+}
+
+/* ===== FUNDO DA TRILHA DAS ETAPAS NO PADRÃO NOVO (João, 27/11: "melhorar o
+   fundo granulado"). Era o grão forte com manchas verde-água e douradas da
+   paleta antiga; agora é o mesmo papel de O Instituto: grão claro e manchas
+   suaves azul do site (10,102,200) e lavanda da logo (97,117,214), alternando
+   de lado ao longo das 4 seções, sem emenda, e o pé volta ao papel liso antes
+   da chamada final. ===== */
+.atuar-trilha { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 6vw), var(--papel-claro) 100%),
+    radial-gradient(48vw 13% at 96% 6%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(46vw 13% at 4% 30%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    radial-gradient(48vw 13% at 96% 54%, rgba(10, 102, 200, 0.11), rgba(127, 157, 196, 0.04) 45%, transparent 76%),
+    radial-gradient(46vw 13% at 4% 78%, rgba(97, 117, 214, 0.12), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro); }
+@media (max-width: 767px) {
+  .atuar-trilha { background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 60px), var(--papel-claro) 100%),
+    radial-gradient(140% 300px at 100% 6%, rgba(10, 102, 200, 0.1), transparent 76%),
+    radial-gradient(140% 300px at 0% 30%, rgba(97, 117, 214, 0.1), transparent 76%),
+    radial-gradient(140% 300px at 100% 54%, rgba(10, 102, 200, 0.09), transparent 76%),
+    radial-gradient(140% 300px at 0% 78%, rgba(97, 117, 214, 0.1), transparent 76%),
+    var(--papel-claro); }
+}
+
+/* ===== CARDS DAS ETAPAS EM VIDRO FOSCO (João, 27/11: "mais transparentes e
+   foscos igual estamos fazendo ao decorrer do site"). Era branco 74% quase
+   chapado; agora o vidro dos cards aprovados: branco bem mais transparente com
+   grão, degradê suave da lavanda vindo da direita, contorno por sombra interna
+   e desfoque forte por trás. Como o alto do card fica sobre a foto escura, o
+   desfoque clareia um pouco o que passa por trás (brightness) pro título azul
+   continuar legível. ===== */
+.atuar__item { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    radial-gradient(ellipse 90% 120% at 100% 0%, rgba(97, 117, 214, 0.14) 0, rgba(97, 117, 214, 0.05) 45%, transparent 80%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(255, 255, 255, 0.42) 100%);
+  -webkit-backdrop-filter: blur(24px) saturate(1.35) brightness(1.18);
+  backdrop-filter: blur(24px) saturate(1.35) brightness(1.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 1px 3px rgba(0, 33, 82, 0.04), 0 24px 50px -28px rgba(0, 33, 82, 0.3);
+}
+
+/* ===== REFINO DOS CARDS DAS ETAPAS (João, 27/11: "mais bonitos sem afetar
+   muito"). Só detalhe, nada de tamanho de fonte: o número ganha a cor da logo
+   de cada card (lavanda, amarelo, oliva) com um traço curto antes, como o selo
+   do site; um fio fino separa o título do texto; o card sobe de leve no hover. ===== */
+.atuar__item { --cor: #4F62C4; --tom: 97, 117, 214; display: flex; flex-direction: column; border-radius: 2.4rem; padding: 3.4rem 3rem 3.2rem;
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.atuar__item:nth-child(2) { --cor: #A97C0C; --tom: 237, 186, 44; }
+.atuar__item:nth-child(3) { --cor: #6B6E2A; --tom: 122, 125, 52; }
+.atuar__num { display: inline-flex; align-items: center; gap: 1rem; color: var(--cor); margin-bottom: 1.6rem; }
+.atuar__num::before { content: ""; width: 2.4rem; height: 3px; border-radius: 3px; background: rgb(var(--tom)); }
+.atuar__item-titulo { padding-bottom: 1.6rem; margin-bottom: 1.6rem; border-bottom: 1px solid rgba(var(--navy-rgb), 0.08); }
+@media (hover: hover) {
+  .atuar.is-visible .atuar__item:hover { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 33, 82, 0.05), 0 32px 60px -30px rgba(0, 33, 82, 0.36); }
+}
+@media (max-width: 899px) { .hero-interna--formacoes .hero-interna__bg img { object-position: 94% 50%; } } /* estudantes e estante no celular (27/11, foto nova da biblioteca) */
+
+/* ===== "SOBRE AS FORMAÇÕES" REFINADA NO PADRÃO NOVO (João, 27/11: "refine a
+   seção formações"). Só visual, nada de tamanho de fonte nem de texto:
+   (1) fundo: grão claro e manchas azul/lavanda (sai o grão forte e o
+   verde-água/dourado); (2) os 3 cartões em vidro como os cards aprovados,
+   cada um com a sua cor da logo (lavanda, amarelo, oliva) no degradê, no
+   número com traço e no fundo da mini-interface; (3) a linha que liga os
+   cartões nas cores da logo; (4) a faixa "Desenvolvidas para" no mesmo vidro,
+   ícones nas 4 cores; (5) menos sobra embaixo.
+   Antes: scratchpad atuamos/pagina-interna-antes-fint.css. ===== */
+.fint { --grao: url("../images/grao-claro.png"); padding-bottom: clamp(6.4rem, 7vw, 9.6rem);
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 6vw), var(--papel-claro) 100%),
+    radial-gradient(44vw 26vw at 100% 4%, rgba(10, 102, 200, 0.12), rgba(127, 157, 196, 0.05) 45%, transparent 76%),
+    radial-gradient(44vw 26vw at 0% 70%, rgba(97, 117, 214, 0.11), rgba(97, 117, 214, 0.04) 45%, transparent 76%),
+    var(--papel-claro); }
+.fint__eixo { --tom: 97, 117, 214; --cor: #4F62C4;
+  background: var(--grao),
+    radial-gradient(ellipse 90% 70% at 100% 100%, rgba(var(--tom), 0.16) 0, rgba(var(--tom), 0.05) 50%, transparent 82%),
+    rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26);
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.fint__eixo:nth-child(2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.fint__eixo:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+@media (hover: hover) { .fint.is-visible .fint__eixo:hover { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 33, 82, 0.05), 0 32px 60px -30px rgba(0, 33, 82, 0.34); } }
+.fint__eixo .fint__ilu, .fint__eixo:nth-child(2) .fint__ilu, .fint__eixo:nth-child(3) .fint__ilu {
+  background: radial-gradient(80% 90% at 50% 30%, rgba(255, 255, 255, 0.95), rgba(var(--tom), 0.14) 80%), rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), inset 0 0 0 1px rgba(var(--navy-rgb), 0.04); }
+.fint__num { display: inline-flex; align-items: center; gap: 1rem; color: var(--cor); }
+.fint__num::before { content: ""; width: 2.4rem; height: 3px; border-radius: 3px; background: rgb(var(--tom)); }
+.fint__eixos::before { background: linear-gradient(90deg, rgba(97, 117, 214, 0.5), rgba(237, 186, 44, 0.6), rgba(122, 125, 52, 0.55)); }
+.fint__eixos::after { background: linear-gradient(90deg, transparent, rgba(237, 186, 44, 0.9), transparent); }
+.fint__para { background: var(--grao), radial-gradient(ellipse 70% 140% at 100% 50%, rgba(97, 117, 214, 0.12), transparent 80%), rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 22px 50px -30px rgba(0, 33, 82, 0.22); }
+.fint__para-rot::after { background: linear-gradient(90deg, #6175D6, #EDBA2C, #7A7D34); }
+.fint__contexto { --tom: 97, 117, 214; --cor: #4F62C4; }
+.fint__contexto:nth-child(2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.fint__contexto:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.fint__contexto:nth-child(4) { --tom: 0, 62, 142; --cor: #003E8E; }
+.fint__contexto-ico { color: var(--cor); background: rgba(var(--tom), 0.13); }
+@media (hover: hover) { .fint__contexto:hover .fint__contexto-ico { background: var(--cor); color: #fff; box-shadow: 0 10px 22px -12px rgba(var(--tom), 0.9); } }
+@media (max-width: 767px) {
+  .fint { background: var(--grao), linear-gradient(180deg, transparent calc(100% - 60px), var(--papel-claro) 100%), radial-gradient(140% 320px at 100% 4%, rgba(10, 102, 200, 0.1), transparent 76%), radial-gradient(140% 320px at 0% 70%, rgba(97, 117, 214, 0.1), transparent 76%), var(--papel-claro); }
+}
+
+/* ===== MOTION DA "SOBRE AS FORMAÇÕES" (João, 27/11: "deixe os motions muito
+   mais bonitos e atraentes"). Linguagem do Propósito: tudo assenta sem quique
+   (cubic-bezier(0.16, 1, 0.3, 1)), o conteúdo chega na ordem da leitura e os
+   loops são lentos e defasados. Ordem: título → linha que liga os cartões se
+   desenha → cada cartão surge do desfoque → a mini-interface abre de baixo pra
+   cima → número, rótulo, frase e texto sobem → a cena de dentro acontece
+   (linhas do estudo se escrevem e a lupa passa; balões chegam e as etapas
+   acendem; barras crescem e o selo carimba) → a faixa "Desenvolvidas para" e
+   os 4 contextos, que depois acendem um de cada vez, em ciclo. ===== */
+.fint { --assenta: cubic-bezier(0.16, 1, 0.3, 1); --desenho: cubic-bezier(0.65, 0, 0.35, 1); }
+@keyframes fi2-surge { from { opacity: 0; translate: 0 3.2rem; scale: 0.97; filter: blur(8px); } to { opacity: 1; translate: 0 0; scale: 1; filter: blur(0); } }
+@keyframes fi2-sobe { from { opacity: 0; translate: 0 1.6rem; } to { opacity: 1; translate: 0 0; } }
+@keyframes fi2-abre { from { clip-path: inset(100% 0 0 0 round 1.6rem); } to { clip-path: inset(0 0 0 0 round 1.6rem); } }
+@keyframes fi2-pop-a { from { opacity: 0; scale: 0.6; translate: -0.6em 0.6em; } to { opacity: 1; scale: 1; translate: 0 0; } }
+@keyframes fi2-pop-b { from { opacity: 0; scale: 0.6; translate: 0.6em 0.6em; } to { opacity: 1; scale: 1; translate: 0 0; } }
+@keyframes fi2-boia { 0%, 100% { translate: 0 0; } 50% { translate: 0 -0.35em; } }
+@keyframes fi2-cresce { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes fi2-respira { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.9); } }
+@keyframes fi2-carimbo { from { opacity: 0; scale: 1.8; rotate: -12deg; } to { opacity: 1; scale: 1; rotate: 0deg; } }
+@keyframes fi2-varre { 0%, 100% { translate: 0 0; } 30% { translate: 9em 1.4em; } 60% { translate: 3.5em 2.8em; } }
+@keyframes fi2-luz { 0% { left: 4%; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { left: 86%; opacity: 0; } }
+@keyframes fi2-acende { 0%, 6% { background: rgba(var(--tom), 0.13); color: var(--cor); translate: 0 0; box-shadow: none; }
+  10%, 22% { background: var(--cor); color: #fff; translate: 0 -2px; box-shadow: 0 10px 22px -12px rgba(var(--tom), 0.9); }
+  28%, 100% { background: rgba(var(--tom), 0.13); color: var(--cor); translate: 0 0; box-shadow: none; } }
+
+/* título e linha que liga os cartões */
+.fint.is-visible .fint__topo { animation: fi2-surge 1.2s var(--assenta) both; }
+.fint__eixos::before { transition: transform 1.8s var(--desenho) 0.5s; }
+.fint.is-visible .fint__eixos::after { animation: fi2-luz 6.5s ease-in-out 3s infinite; }
+/* cartões */
+.fint.is-visible .fint__eixo { animation: fi2-surge 1.2s var(--assenta) both; animation-delay: calc(0.35s + var(--k) * 0.18s); }
+.fint.is-visible .fint__ilu { animation: fi2-abre 1.1s var(--desenho) both; animation-delay: calc(0.6s + var(--k) * 0.18s); }
+.fint__texto > * { opacity: 0; }
+.fint.is-visible .fint__texto > * { animation: fi2-sobe 0.9s var(--assenta) both; animation-delay: calc(0.95s + var(--k) * 0.18s); }
+.fint.is-visible .fint__texto > :nth-child(3) { animation-delay: calc(1.03s + var(--k) * 0.18s); }
+.fint.is-visible .fint__texto > :nth-child(4) { animation-delay: calc(1.11s + var(--k) * 0.18s); }
+.fint.is-visible .fint__texto > :nth-child(5) { animation-delay: calc(1.19s + var(--k) * 0.18s); }
+/* cena 1: estudo */
+.fint.is-visible .fint-doc__linha { animation: fint-linha 0.9s var(--desenho) both; animation-delay: calc(1.3s + var(--k) * 0.18s); }
+.fint.is-visible .fint-lupa { animation: fi2-pop-a 0.8s var(--assenta) 2s both, fi2-varre 8s ease-in-out 2.9s infinite; }
+/* cena 2: prática */
+.fint.is-visible .fint-balao--a { animation: fi2-pop-a 0.8s var(--assenta) 1.5s both, fi2-boia 6s ease-in-out 2.6s infinite; transform-origin: 0 100%; }
+.fint.is-visible .fint-balao--b { animation: fi2-pop-b 0.8s var(--assenta) 2s both, fi2-boia 6s ease-in-out 3.6s infinite; transform-origin: 100% 100%; }
+.fint.is-visible .fint-etapas span { animation: fint-marca 7.5s ease-in-out infinite; animation-delay: calc(2.6s + var(--k) * 0.9s); }
+.fint.is-visible .fint-etapas i { animation: fint-marca-i 7.5s ease-in-out infinite; animation-delay: calc(2.6s + var(--k) * 0.9s); }
+/* cena 3: aplicação */
+.fint.is-visible .fint-comp__barras i { animation: fi2-cresce 1.1s var(--assenta) both, fi2-respira 5s ease-in-out infinite; animation-delay: calc(1.6s + var(--k) * 0.14s), calc(3.4s + var(--k) * 0.5s); }
+.fint.is-visible .fint-comp__ok { animation: fi2-carimbo 0.8s var(--assenta) 2.5s both; }
+/* faixa "Desenvolvidas para" */
+.fint__para { opacity: 0; }
+.fint.is-visible .fint__para { animation: fi2-surge 1.1s var(--assenta) 1.5s both; }
+.fint.is-visible .fint__para-rot { animation: fi2-sobe 0.9s var(--assenta) 1.75s both; }
+.fint__para-rot::after { transition: transform 1s var(--desenho) 2s; }
+.fint.is-visible .fint__contexto { animation: fi2-sobe 0.9s var(--assenta) both; animation-delay: calc(1.9s + var(--k) * 0.1s); }
+.fint__contexto + .fint__contexto::before { transition: transform 0.9s var(--desenho); transition-delay: calc(2.1s + var(--k) * 0.12s); }
+.fint.is-visible .fint__contexto .fint__contexto-ico { animation: fi2-acende 10s ease-in-out infinite; animation-delay: calc(4s + var(--k) * 2.5s); }
+@media (hover: hover) { .fint.is-visible .fint__contexto:hover .fint__contexto-ico { animation-play-state: paused; } }
+@media (prefers-reduced-motion: reduce) {
+  .fint *, .fint *::before, .fint *::after { animation: none !important; transition: none !important; }
+  .fint :is(.fint__topo, .fint__eixo, .fint__texto > *, .fint__para, .fint__para-rot, .fint__contexto, .fint-lupa, .fint-balao, .fint-comp__ok) { opacity: 1 !important; }
+  .fint :is(.fint-doc__linha, .fint-comp__barras i) { transform: none !important; }
+  .fint .fint__eixos::before { transform: scaleX(1) !important; }
+}
+/* a linha que ligava os cartões aparecia através do vidro (João, 27/11: "uma
+   linha feia passando nos cards"): sai a linha e a luz que corria nela */
+.fint__eixos::before, .fint__eixos::after { display: none; }
+
+/* ===== "DESENVOLVIDAS PARA" REFINADA (João, 27/11: "melhore o desenvolvidas
+   para"). Sai a barra única com fios entre os itens; o rótulo vira o selo do
+   site (três traços + texto) e os 4 contextos viram 4 placas de vidro iguais
+   aos cartões de cima, cada uma com o ícone na sua cor da logo, que sobem de
+   leve no hover. Mesmo texto, mesma ordem, sem tamanho de fonte novo. ===== */
+.fint__para { display: grid; grid-template-columns: 1fr; gap: 1.6rem; padding: 0; margin-top: clamp(2.4rem, 3vw, 3.6rem); background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 0; }
+.fint__para-rot { display: inline-flex; align-items: center; gap: 1.2rem; max-width: none; padding-bottom: 0; }
+.fint__para-rot::before { content: ""; width: 18px; height: 1.6rem; flex: none;
+  background: linear-gradient(#6175D6, #6175D6) 0 0 / 4px 100% no-repeat, linear-gradient(#EDBA2C, #EDBA2C) 7px 0 / 4px 100% no-repeat, linear-gradient(#7A7D34, #7A7D34) 14px 0 / 4px 100% no-repeat; }
+.fint__para-rot::after { display: none; }
+.fint__contextos { gap: clamp(1.2rem, 1.6vw, 2rem); }
+.fint__contexto { padding: 1.8rem 2rem; border-radius: 2rem;
+  background: var(--grao), radial-gradient(ellipse 90% 120% at 100% 0%, rgba(var(--tom), 0.14) 0, transparent 75%), rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -28px rgba(0, 33, 82, 0.28);
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.fint__contexto + .fint__contexto::before { display: none; }
+@media (hover: hover) { .fint.is-visible .fint__contexto:hover { translate: 0 -3px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 26px 50px -28px rgba(0, 33, 82, 0.34); } }
+.fint.is-visible .fint__para { animation: none; opacity: 1; }
+@media (max-width: 1023px) { .fint__contextos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .fint__contextos { grid-template-columns: 1fr; } }
+
+/* ===== ÁREA DO ALUNO (seção "Já é aluno?") NO PADRÃO NOVO (João, 27/11:
+   "refine a área do aluno"). Só visual, sem texto nem tamanho de fonte novo:
+   (1) fundo: papel com grão claro, que começa liso (emenda sem linha com a
+   seção de cima) e ganha azul e lavanda suaves; (2) o cartão no vidro dos
+   cards aprovados; (3) os 3 itens com o ícone na cor da logo de cada um
+   (lavanda, amarelo, oliva), e a linha do tempo na mesma cor; (4) o palco
+   atrás da mini-tela nas cores da logo (sai verde-água e dourado); (5) a
+   mini-tela troca o verde-água pelo azul do site e o dourado pelo amarelo.
+   Antes: scratchpad atuamos/pagina-interna-antes-aluno.css. ===== */
+.aluno { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    linear-gradient(180deg, var(--papel-claro) 0, transparent 22%),
+    radial-gradient(48vw 22vw at 92% 50%, rgba(10, 102, 200, 0.11), rgba(127, 157, 196, 0.04) 45%, transparent 76%),
+    radial-gradient(44vw 20vw at 6% 88%, rgba(97, 117, 214, 0.1), rgba(97, 117, 214, 0.03) 45%, transparent 76%),
+    var(--papel-claro); }
+.aluno__cartao {
+  background: var(--grao),
+    radial-gradient(ellipse 66% 125% at 100% 50%, rgba(97, 117, 214, 0.16) 0, rgba(97, 117, 214, 0.06) 40%, transparent 82%),
+    rgba(255, 255, 255, 0.42);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 33, 82, 0.04), 0 24px 56px -30px rgba(0, 33, 82, 0.28); }
+/* os 3 itens nas cores da logo */
+.aluno__perks li { --tom: 97, 117, 214; --cor: #4F62C4; }
+.aluno__perks li:nth-child(2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.aluno__perks li:nth-child(3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.aluno__perk-ico { color: var(--cor); background: rgba(var(--tom), 0.13); }
+.aluno__perk.is-ativo .aluno__perk-ico { color: #fff; background: var(--cor); box-shadow: 0 10px 22px -12px rgba(var(--tom), 0.9); }
+@media (hover: hover) { .aluno__perk:not(.is-ativo):hover .aluno__perk-ico { background: rgba(var(--tom), 0.22); } }
+.aluno__perk-linha i { background: linear-gradient(90deg, rgba(var(--tom), 0.35), rgb(var(--tom))); }
+/* palco e mini-tela */
+.aluno__palco {
+  background: var(--grao),
+    radial-gradient(80% 70% at 100% 0%, rgba(237, 186, 44, 0.24), transparent 70%),
+    radial-gradient(90% 80% at 0% 100%, rgba(97, 117, 214, 0.28), transparent 72%),
+    #EDF0F6; }
+.aluno-ui__marca { background: rgba(97, 117, 214, 0.12); }
+.aluno-ui__lateral span.is-ativo { color: #0A66C8; background: rgba(10, 102, 200, 0.12); }
+.aluno-ui__curso:first-child { background: linear-gradient(145deg, #E8ECF8, #F4F5F7); box-shadow: inset 0 0 0 1px rgba(97, 117, 214, 0.3); }
+.aluno-ui__arquivos i { background: rgba(10, 102, 200, 0.1); }
+.aluno-ui__tempo i { background: #EDBA2C; }
+@media (max-width: 767px) {
+  .aluno { background: var(--grao), linear-gradient(180deg, var(--papel-claro) 0, transparent 120px), radial-gradient(140% 320px at 100% 50%, rgba(10, 102, 200, 0.1), transparent 76%), radial-gradient(140% 300px at 0% 90%, rgba(97, 117, 214, 0.09), transparent 76%), var(--papel-claro); }
+}
+@media (max-width: 899px) { .hero-interna--movimento .hero-interna__bg img { object-position: 78% 50%; } } /* pessoas em movimento no celular (27/11, foto nova da galeria) */
+/* título do IBPR em Movimento em duas linhas (João, 27/11): "Práticas
+   Restaurativas" em cima e "em movimento." embaixo, sem mexer no texto do CMS */
+.hero-interna--movimento .hero-interna__titulo { max-width: none; text-wrap: wrap; }
+.hero-interna--movimento .hero-interna__titulo .hero-interna__destaque::before { content: "\A"; white-space: pre; } /* quebra antes de "em movimento", o ponto fica junto */
+/* subtítulo das headers sem palavra órfã (João, 27/11): as linhas se equilibram
+   em vez de sobrar "realizam." ou "instituições." sozinha na última linha */
+.hero-interna .hero-interna__sub { text-wrap: balance; }
+
+/* ===== NOTÍCIAS DO IBPR EM MOVIMENTO NO PADRÃO NOVO (João, 27/11: "refinar
+   a próxima seção"). Só visual, a lista continua vindo do painel (robô):
+   (1) fundo: papel com grão claro e manchas azul/lavanda; (2) cada notícia
+   num cartão de vidro com grão e degradê suave na cor da logo (alternando
+   lavanda, amarelo e oliva), a foto recolhida dentro do cartão com cantos
+   arredondados; (3) a frente ("Rede") e o círculo do "Ler notícia" na cor do
+   cartão; (4) o cartão sobe de leve no hover; (5) "Receber publicações" no
+   botão de vidro do site. Antes: scratchpad atuamos/pagina-interna-antes-noticias.css. ===== */
+.mov-noticias { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 6vw), var(--papel-claro) 100%),
+    radial-gradient(46vw 22vw at 100% 6%, rgba(10, 102, 200, 0.11), rgba(127, 157, 196, 0.04) 45%, transparent 76%),
+    radial-gradient(44vw 22vw at 0% 48%, rgba(97, 117, 214, 0.1), rgba(97, 117, 214, 0.03) 45%, transparent 76%),
+    radial-gradient(46vw 22vw at 100% 88%, rgba(10, 102, 200, 0.09), transparent 76%),
+    var(--papel-claro); }
+.mov-noticias .noticia-card { --tom: 97, 117, 214; --cor: #4F62C4;
+  background: var(--grao), radial-gradient(ellipse 70% 120% at 100% 50%, rgba(var(--tom), 0.15) 0, rgba(var(--tom), 0.05) 45%, transparent 82%), rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26);
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.mov-noticias .noticia-card:nth-child(3n+2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+.mov-noticias .noticia-card:nth-child(3n+3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+.mov-noticias .noticia-card:nth-child(even) { background: var(--grao), radial-gradient(ellipse 70% 120% at 0% 50%, rgba(var(--tom), 0.15) 0, rgba(var(--tom), 0.05) 45%, transparent 82%), rgba(255, 255, 255, 0.5); }
+.mov-noticias .noticia-card:hover, .mov-noticias .noticia-card:focus-within { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 33, 82, 0.05), 0 32px 60px -30px rgba(0, 33, 82, 0.34); }
+.mov-noticias .noticia-card__body { background: none; }
+.mov-noticias .noticia-card__media { margin: 1.2rem; height: calc(100% - 2.4rem); border-radius: 1.6rem; overflow: hidden; box-shadow: 0 14px 30px -20px rgba(0, 33, 82, 0.4); }
+.mov-noticias .noticia-card__frente { color: var(--cor); background: rgba(var(--tom), 0.14); }
+.mov-noticias .noticia-card__cta i { color: var(--cor); box-shadow: inset 0 0 0 1px rgba(var(--tom), 0.55); }
+.mov-noticias .noticia-card:hover .noticia-card__cta i { background: var(--cor); color: #fff; box-shadow: none; }
+/* "Receber publicações": botão de vidro claro, como o do topo das seções da Home */
+.mov-noticias .section-header__acao.btn { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy); background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16); }
+.mov-noticias .section-header__acao.btn::before, .mov-noticias .section-header__acao.btn::after { display: none; }
+.mov-noticias .section-header__acao.btn:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); transform: none; }
+@media (max-width: 767px) {
+  .mov-noticias { background: var(--grao), radial-gradient(140% 320px at 100% 4%, rgba(10, 102, 200, 0.1), transparent 76%), radial-gradient(140% 320px at 0% 50%, rgba(97, 117, 214, 0.09), transparent 76%), var(--papel-claro); }
+  .mov-noticias .noticia-card__media { height: auto; margin: 1rem 1rem 0; }
+}
+:root .mov-noticias .section-header .section-header__acao.btn.btn--dark { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy); background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16); }
+:root .mov-noticias .section-header .section-header__acao.btn.btn--dark:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); color: var(--color-navy); transform: none; }
+:root .mov-noticias .section-header .section-header__acao.btn.btn--dark::before, :root .mov-noticias .section-header .section-header__acao.btn.btn--dark::after { display: none; }
+/* ajuste (João, 27/11): a foto volta a preencher 100% do lado dela, sem a
+   borda em volta; o "Ler notícia" vira o botão azul dos cards de formação
+   (o padrão do site: degradê azul, reflexo de luz no hover, seta que anda);
+   mais refino: título acende pro azul de destaque no hover e mais ar no texto */
+.mov-noticias .noticia-card__media { margin: 0; height: 100%; border-radius: 0; box-shadow: none; }
+.mov-noticias .noticia-card__body { gap: 0; }
+.mov-noticias .noticia-card__title { transition: color 0.45s ease; }
+.mov-noticias .noticia-card:hover .noticia-card__title { color: #0A66C8; }
+.mov-noticias .noticia-card__resumo { max-width: 52ch; }
+:root .mov-noticias .noticia-card__cta {
+  position: relative; isolation: isolate; overflow: hidden; align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem;
+  min-height: 48px; padding: 0 2.2rem; margin-top: 2.4rem; border-radius: 12px; white-space: nowrap;
+  background: linear-gradient(180deg, #0050B3 0%, #003E8E 100%); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px -10px rgba(var(--navy-rgb), 0.55);
+}
+:root .mov-noticias .noticia-card__cta::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 48%, transparent 66%); transform: translateX(-120%);
+}
+:root .mov-noticias .noticia-card__cta i, :root .mov-noticias .noticia-card:hover .noticia-card__cta i {
+  display: inline; width: auto; height: auto; border-radius: 0; background: none; box-shadow: none; color: inherit; transition: transform 0.5s var(--curva-suave, ease);
+}
+:root .mov-noticias .noticia-card:hover .noticia-card__cta { color: #fff; }
+@media (hover: hover) {
+  :root .mov-noticias .noticia-card:hover .noticia-card__cta::before { transform: translateX(120%); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+  :root .mov-noticias .noticia-card:hover .noticia-card__cta i { transform: translateX(3px); }
+}
+@media (max-width: 767px) { .mov-noticias .noticia-card__media { height: auto; margin: 0; } }
+/* cabeças cortadas nas fotos das notícias (João, 27/11): o recorte passa a
+   segurar a parte de cima da foto, onde ficam os rostos, e o zoom parte do topo */
+.mov-noticias .noticia-card__media img { object-position: 50% 18%; transform-origin: 50% 0; }
+
+/* ===== ARTIGOS EM GRADE DE CARTÕES DE VIDRO (João, 27/11: "refine a seção de
+   artigos, deixe bem mais bonita do que está hoje"). Sai a "folha de papel"
+   (canto dobrado, número grande, capa em polaroide inclinada, capitular) e
+   entram 3 cartões lado a lado no vidro do site: capa no alto com cantos
+   arredondados, etiqueta e cor da logo por cartão (lavanda, amarelo, oliva),
+   título, resumo de 3 linhas, palavras-chave, autores e o botão azul padrão.
+   Só CSS: a lista continua vindo do painel (gerarArtigos). Sem tamanho de
+   fonte novo. Antes: scratchpad atuamos/pagina-interna-antes-artigos.css. ===== */
+#artigos { --grao: url("../images/grao-claro.png");
+  background: var(--grao),
+    linear-gradient(180deg, transparent calc(100% - 6vw), var(--papel-claro) 100%),
+    radial-gradient(46vw 22vw at 100% 10%, rgba(10, 102, 200, 0.11), rgba(127, 157, 196, 0.04) 45%, transparent 76%),
+    radial-gradient(44vw 22vw at 0% 80%, rgba(97, 117, 214, 0.1), rgba(97, 117, 214, 0.03) 45%, transparent 76%),
+    var(--papel-claro); }
+/* topo: selo de três traços e botão de vidro */
+#artigos .section-header .overline { gap: 1.2rem; padding: 0; border-radius: 0; box-shadow: none; }
+#artigos .section-header .overline::before { content: "" !important; width: 18px; height: 1.6rem; flex: none;
+  background: linear-gradient(#6175D6, #6175D6) 0 0 / 4px 100% no-repeat, linear-gradient(#EDBA2C, #EDBA2C) 7px 0 / 4px 100% no-repeat, linear-gradient(#7A7D34, #7A7D34) 14px 0 / 4px 100% no-repeat; }
+:root #artigos .section-header .btn.btn--dark { min-height: 50px; padding: 0 2.4rem; border-radius: 12px; color: var(--color-navy); background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.16); }
+:root #artigos .section-header .btn.btn--dark::before { display: none; }
+:root #artigos .section-header .btn.btn--dark:hover { background: rgba(255, 255, 255, 0.9); box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.34); color: var(--color-navy); }
+/* a grade */
+#artigos .artigos__lista { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.6rem, 2vw, 2.4rem); align-items: stretch; }
+#artigos .artigo-card { --tom: 97, 117, 214; --cor: #4F62C4; display: flex; border-radius: 2.4rem; clip-path: none; overflow: clip;
+  background: var(--grao), radial-gradient(ellipse 90% 60% at 100% 100%, rgba(var(--tom), 0.16) 0, rgba(var(--tom), 0.05) 50%, transparent 82%), rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26);
+  transition: translate 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+#artigos .artigo-card:nth-child(3n+2) { --tom: 237, 186, 44; --cor: #A97C0C; }
+#artigos .artigo-card:nth-child(3n+3) { --tom: 122, 125, 52; --cor: #6B6E2A; }
+#artigos .artigo-card::before, #artigos .artigo-card::after { display: none; }
+#artigos .artigo-card:is(:hover, :focus-within) { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 33, 82, 0.05), 0 32px 60px -30px rgba(0, 33, 82, 0.34); }
+#artigos .artigo-card__link { display: flex; flex-direction: column; width: 100%; padding: 1.2rem; gap: 0; }
+#artigos .artigo-card__link::before, #artigos .artigo-card__link::after { display: none; }
+/* capa */
+#artigos .artigo-card__media, #artigos .artigo-card:nth-child(even) .artigo-card__media, #artigos .artigo-card:is(:hover, :focus-within) .artigo-card__media {
+  position: relative; aspect-ratio: 16 / 10; border: 0; border-radius: 1.6rem; rotate: 0deg; translate: 0 0; overflow: hidden; box-shadow: 0 14px 30px -20px rgba(0, 33, 82, 0.4); }
+#artigos .artigo-card__media img { inset: 0; height: 100%; object-fit: cover; object-position: 50% 30%; transform: none; }
+#artigos .artigo-card:is(:hover, :focus-within) .artigo-card__media img { scale: 1.05; }
+#artigos .artigo-card__selo { background: rgba(255, 255, 255, 0.85); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+#artigos .artigo-card__selo i { color: var(--cor); }
+/* corpo */
+#artigos .artigo-card__body { display: flex; flex-direction: column; flex: 1; padding: 2.2rem 1.6rem 1.6rem; }
+#artigos .artigo-card__body .noticia-card__frente { padding: 0.5rem 0.9rem; border-radius: 99px; color: var(--cor); background: rgba(var(--tom), 0.14); }
+#artigos .artigo-card__body .noticia-card__data::before { content: none; }
+#artigos .artigo-card__title, #artigos .artigo-card:is(:hover, :focus-within) .artigo-card__title { text-decoration: none; }
+#artigos .artigo-card:is(:hover, :focus-within) .artigo-card__title { color: #0A66C8; }
+#artigos .artigo-card__resumo, #artigos .artigo-card:is(:hover, :focus-within) .artigo-card__resumo {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; max-height: none; -webkit-mask-image: none; mask-image: none; }
+#artigos .artigo-card__resumo::first-letter { font: inherit; color: inherit; padding: 0; }
+#artigos .artigo-card__palavras .tag-pill { color: var(--cor); background: rgba(var(--tom), 0.1); box-shadow: none; }
+/* rodapé: autores em cima, botão azul padrão embaixo */
+#artigos .artigo-card__rodape { margin-top: auto; padding-top: 1.6rem; border-top: 1px solid rgba(var(--navy-rgb), 0.08); display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1.2rem 1rem; }
+#artigos .artigo-card__palavras { margin-bottom: 2rem; }
+#artigos .artigo-card__avatar { border-color: #fff; }
+:root #artigos .artigo-card__rodape .noticia-card__cta {
+  grid-column: 1 / -1; justify-self: start; position: relative; isolation: isolate; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.9rem; min-height: 48px; padding: 0 2.2rem; border-radius: 12px; white-space: nowrap;
+  background: linear-gradient(180deg, #0050B3 0%, #003E8E 100%); color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 8px 20px -10px rgba(var(--navy-rgb), 0.55); }
+:root #artigos .artigo-card__rodape .noticia-card__cta::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit; background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.3) 48%, transparent 66%); transform: translateX(-120%); }
+:root #artigos .artigo-card__rodape .noticia-card__cta i, :root #artigos .artigo-card:is(:hover, :focus-within) .noticia-card__cta i { display: inline; width: auto; height: auto; border-radius: 0; background: none; box-shadow: none; color: inherit; }
+:root #artigos .artigo-card:is(:hover, :focus-within) .noticia-card__cta { color: #fff; }
+@media (hover: hover) {
+  :root #artigos .artigo-card:hover .noticia-card__cta::before { transform: translateX(120%); transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1); }
+  :root #artigos .artigo-card:hover .noticia-card__cta i { transform: translateX(3px); }
+}
+@media (max-width: 1100px) { #artigos .artigos__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 680px) {
+  #artigos .artigos__lista { grid-template-columns: 1fr; }
+  #artigos { background: var(--grao), radial-gradient(140% 320px at 100% 6%, rgba(10, 102, 200, 0.1), transparent 76%), radial-gradient(140% 320px at 0% 80%, rgba(97, 117, 214, 0.09), transparent 76%), var(--papel-claro); }
+}
+/* correções da grade de artigos: a capa ocupa a largura do cartão; rodapé em
+   flex com o botão numa linha própria, alinhado à esquerda */
+#artigos .artigo-card__link { align-items: stretch; }
+#artigos .artigo-card__media { width: 100%; flex: none; }
+#artigos .artigo-card__rodape { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+#artigos .artigo-card__rodape .artigo-card__autores { flex: 1 1 0; min-width: 0; }
+:root #artigos .artigo-card__rodape .noticia-card__cta { order: 3; flex: none; margin: 0.6rem auto 0 0; }
+#artigos .artigo-card__rodape::after { content: ""; order: 2; flex-basis: 100%; height: 0; }
+
+/* ===== ARTIGOS EM FORMATO DE REVISTA (João, 27/11: "já tinha falado que não
+   gosto dos artigos como card em pé; deixe mais bonito, criativo e fora da
+   caixa"). Nada de cartão em pé: o mais recente vira a MATÉRIA DE CAPA (foto
+   grande sangrando à esquerda, texto em vidro à direita) e os outros viram o
+   ÍNDICE da revista: linhas largas com número, título grande, autores e o
+   botão; ao passar o mouse a capa do artigo aparece flutuando, inclinada, ao
+   lado do título, e a linha ganha a cor da logo. No celular o índice mostra a
+   capa pequena à esquerda. Só CSS, a lista continua vindo do painel. ===== */
+#artigos .artigos__lista { display: grid; grid-template-columns: 1fr; gap: 0; counter-reset: art; }
+#artigos .artigo-card { counter-increment: art; }
+
+/* ---- matéria de capa: o 1º artigo ---- */
+#artigos .artigo-card:first-child { margin-bottom: clamp(3.2rem, 4vw, 5.6rem); }
+#artigos .artigo-card:first-child .artigo-card__link { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); padding: 0; }
+#artigos .artigo-card:first-child .artigo-card__media, #artigos .artigo-card:first-child:is(:hover, :focus-within) .artigo-card__media {
+  aspect-ratio: auto; height: 100%; min-height: clamp(36rem, 32vw, 46rem); border-radius: 0; box-shadow: none; }
+#artigos .artigo-card:first-child .artigo-card__body { justify-content: center; padding: clamp(3.2rem, 3.6vw, 5.6rem); }
+#artigos .artigo-card:first-child .artigo-card__resumo, #artigos .artigo-card:first-child:is(:hover, :focus-within) .artigo-card__resumo { -webkit-line-clamp: 4; }
+
+/* ---- o índice: do 2º artigo em diante ---- */
+#artigos .artigo-card:not(:first-child), #artigos .artigo-card:not(:first-child):is(:hover, :focus-within) {
+  position: relative; overflow: visible; border-radius: 0; background: none; box-shadow: none; translate: none;
+  border-top: 1px solid rgba(var(--navy-rgb), 0.12); }
+#artigos .artigo-card:last-child { border-bottom: 1px solid rgba(var(--navy-rgb), 0.12); }
+#artigos .artigo-card:not(:first-child)::before { content: ""; display: block; position: absolute; inset: 0; z-index: 0; border-radius: 2rem; pointer-events: none;
+  background: var(--grao), radial-gradient(ellipse 60% 140% at 0% 50%, rgba(var(--tom), 0.16), transparent 75%), rgba(255, 255, 255, 0.45);
+  opacity: 0; transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+#artigos .artigo-card:not(:first-child):is(:hover, :focus-within)::before { opacity: 1; }
+#artigos .artigo-card:not(:first-child) .artigo-card__link { position: relative; z-index: 1; display: grid; grid-template-columns: 9.6rem minmax(0, 1fr); align-items: center; padding: clamp(2.8rem, 3vw, 3.6rem) clamp(1.6rem, 2vw, 2.8rem); }
+/* o número da edição */
+#artigos .artigo-card:not(:first-child) .artigo-card__link::before { display: none; } /* o número do índice saiu quando os artigos viraram todos cartão deitado */
+#artigos .artigo-card:not(:first-child):is(:hover, :focus-within) .artigo-card__link::before { color: var(--cor); }
+#artigos .artigo-card:not(:first-child) .artigo-card__body { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "meta cta" "titulo cta" "resumo cta" "rodape cta"; column-gap: clamp(3.2rem, 5vw, 8rem); padding: 0; max-width: none; }
+#artigos .artigo-card:not(:first-child) .noticia-card__meta { grid-area: meta; }
+#artigos .artigo-card:not(:first-child) .artigo-card__title { grid-area: titulo; max-width: 30ch; }
+#artigos .artigo-card:not(:first-child) .artigo-card__resumo { grid-area: resumo; max-width: 62ch; -webkit-line-clamp: 2; }
+#artigos .artigo-card:not(:first-child) .artigo-card__palavras { display: none; }
+#artigos .artigo-card:not(:first-child) .artigo-card__rodape { grid-area: rodape; display: flex; margin-top: 1.4rem; padding-top: 0; border-top: 0; }
+#artigos .artigo-card:not(:first-child) .artigo-card__rodape::after { display: none; }
+:root #artigos .artigo-card:not(:first-child) .artigo-card__rodape .noticia-card__cta { position: absolute; right: clamp(1.6rem, 2vw, 2.8rem); top: 50%; translate: 0 -50%; margin: 0; }
+/* a capa que aparece flutuando */
+#artigos .artigo-card:not(:first-child) .artigo-card__media, #artigos .artigo-card:not(:first-child):is(:hover, :focus-within) .artigo-card__media {
+  position: absolute; z-index: 2; right: clamp(17rem, 15vw, 22rem); top: 50%; width: clamp(20rem, 18vw, 26rem); height: auto; aspect-ratio: 4 / 3;
+  border-radius: 1.4rem; pointer-events: none; box-shadow: 0 30px 60px -24px rgba(0, 33, 82, 0.5), 0 0 0 6px rgba(255, 255, 255, 0.9); }
+#artigos .artigo-card:not(:first-child) .artigo-card__media { opacity: 0; translate: 0 -40%; rotate: -6deg; scale: 0.85;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), translate 0.7s cubic-bezier(0.16, 1, 0.3, 1), rotate 0.7s cubic-bezier(0.16, 1, 0.3, 1), scale 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+#artigos .artigo-card:not(:first-child):is(:hover, :focus-within) .artigo-card__media { opacity: 1; translate: 0 -50%; rotate: -3deg; scale: 1; }
+#artigos .artigo-card:nth-child(odd):not(:first-child):is(:hover, :focus-within) .artigo-card__media { rotate: 3deg; }
+#artigos .artigo-card:not(:first-child) .artigo-card__selo { display: none; }
+
+@media (max-width: 1100px) { #artigos .artigos__lista { grid-template-columns: 1fr; } }
+@media (max-width: 899px) {
+  #artigos .artigo-card:first-child .artigo-card__link { grid-template-columns: 1fr; }
+  #artigos .artigo-card:first-child .artigo-card__media { min-height: 0; aspect-ratio: 16 / 10; }
+  #artigos .artigo-card:first-child .artigo-card__body { padding: 2.4rem 2rem; }
+  /* índice no celular: capa pequena à esquerda, botão embaixo */
+  #artigos .artigo-card:not(:first-child) .artigo-card__link { grid-template-columns: 9.6rem minmax(0, 1fr); column-gap: 1.6rem; align-items: start; padding: 2.4rem 0; }
+  #artigos .artigo-card:not(:first-child) .artigo-card__link::before { display: none; }
+  #artigos .artigo-card:not(:first-child) .artigo-card__media, #artigos .artigo-card:not(:first-child):is(:hover, :focus-within) .artigo-card__media {
+    position: relative; right: auto; top: auto; width: 100%; opacity: 1; translate: none; rotate: 0deg; scale: 1; box-shadow: 0 10px 24px -16px rgba(0, 33, 82, 0.5); }
+  #artigos .artigo-card:not(:first-child) .artigo-card__body { grid-template-columns: 1fr; grid-template-areas: "meta" "titulo" "resumo" "rodape" "cta"; }
+  :root #artigos .artigo-card:not(:first-child) .artigo-card__rodape { flex-wrap: wrap; }
+  :root #artigos .artigo-card:not(:first-child) .artigo-card__rodape .noticia-card__cta { position: static; translate: none; margin-top: 1rem; }
+  #artigos .artigo-card:not(:first-child)::before { display: none; }
+}
+/* a capa e o corpo ainda carregavam as áreas da grade antiga ("capa"/"corpo"),
+   o que zerava a largura da foto da matéria de capa */
+#artigos .artigo-card:first-child :is(.artigo-card__media, .artigo-card__body) { grid-area: auto; }
+#artigos .artigo-card:not(:first-child) .artigo-card__media { grid-area: auto; }
+#artigos .artigo-card:not(:first-child) .artigo-card__body { grid-column: 2; grid-row: 1; }
+@media (max-width: 899px) { #artigos .artigo-card:not(:first-child) .artigo-card__media { grid-column: 1; grid-row: 1; } }
+@media (max-width: 899px) {
+  #artigos .artigo-card:not(:first-child) .artigo-card__rodape::after { display: block; content: ""; order: 2; flex-basis: 100%; height: 0; }
+  :root #artigos .artigo-card:not(:first-child) .artigo-card__rodape .noticia-card__cta { order: 3; position: static; translate: none; margin: 0.4rem auto 0 0; }
+}
+
+/* ===== ARTIGOS: TODOS COMO A MATÉRIA DE CAPA, UM POUCO MENORES (João, 27/11:
+   "deixe todos igual esse, mas um pouco menor"). Sai o índice; cada artigo é
+   um cartão deitado: foto sangrando à esquerda, texto em vidro à direita, na
+   cor da logo de cada um. Mais baixo que a capa anterior (foto ~30rem). ===== */
+#artigos .artigos__lista { gap: clamp(1.6rem, 2vw, 2.4rem); }
+#artigos .artigos__lista > .artigo-card:nth-child(n), #artigos .artigos__lista > .artigo-card:nth-child(n):is(:hover, :focus-within) {
+  margin: 0; overflow: clip; border: 0; border-radius: 2.4rem;
+  background: var(--grao), radial-gradient(ellipse 70% 120% at 100% 50%, rgba(var(--tom), 0.15) 0, rgba(var(--tom), 0.05) 45%, transparent 82%), rgba(255, 255, 255, 0.5);
+  box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 33, 82, 0.04), 0 22px 50px -26px rgba(0, 33, 82, 0.26); }
+#artigos .artigos__lista > .artigo-card:nth-child(n):is(:hover, :focus-within) { translate: 0 -4px; box-shadow: inset 0 0 0 1px rgba(var(--navy-rgb), 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(0, 33, 82, 0.05), 0 32px 60px -30px rgba(0, 33, 82, 0.34); }
+#artigos .artigos__lista > .artigo-card:nth-child(n)::before { display: none; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__link { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: stretch; padding: 0; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__link::before { display: none; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__media, #artigos .artigos__lista > .artigo-card:nth-child(n):is(:hover, :focus-within) .artigo-card__media {
+  position: relative; grid-area: auto; grid-column: 1; grid-row: 1; right: auto; top: auto; width: 100%; height: 100%; min-height: clamp(28rem, 24vw, 34rem); aspect-ratio: auto;
+  opacity: 1; translate: none; rotate: 0deg; scale: 1; border-radius: 0; box-shadow: none; pointer-events: auto; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__selo { display: inline-flex; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__body { grid-area: auto; grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; padding: clamp(2.8rem, 3vw, 4.4rem); }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__title { max-width: none; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__resumo { max-width: none; -webkit-line-clamp: 3; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__palavras { display: flex; margin-bottom: 1.6rem; }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__rodape { margin-top: 0; padding-top: 1.4rem; border-top: 1px solid rgba(var(--navy-rgb), 0.08); }
+#artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__rodape::after { display: block; content: ""; order: 2; flex-basis: 100%; height: 0; }
+:root #artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__rodape .noticia-card__cta { order: 3; position: relative; right: auto; top: auto; translate: none; margin: 0.4rem auto 0 0; }
+@media (max-width: 899px) {
+  #artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__link { grid-template-columns: 1fr; }
+  #artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__media, #artigos .artigos__lista > .artigo-card:nth-child(n):is(:hover, :focus-within) .artigo-card__media { min-height: 0; height: auto; aspect-ratio: 16 / 10; }
+  #artigos .artigos__lista > .artigo-card:nth-child(n) .artigo-card__body { grid-column: 1; grid-row: 2; padding: 2.4rem 2rem; }
 }

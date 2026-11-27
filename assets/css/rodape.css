@@ -138,3 +138,37 @@
   content: ""; width: 14px; height: 12px; flex: none;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='16'%3E%3Crect width='4' height='16' rx='2' fill='%236175d6'/%3E%3Crect x='7' width='4' height='16' rx='2' fill='%23edba2c'/%3E%3Crect x='14' width='4' height='16' rx='2' fill='%237a7d34'/%3E%3C/svg%3E") center / 14px 12px no-repeat;
 }
+
+/* ===== RODAPÉ, 3ª VERSÃO (João, 27/11: "o card está desalinhado, mais
+   padding em cima do que embaixo; aumentar um pouquinho; um azul mais
+   bonito"). (1) Folga igual em cima e embaixo do cartão e um pouco maior;
+   (2) cartão com mais respiro dentro; (3) azul: nem o claro recusado em 26/11
+   nem o marinho quase preto: o azul do site (#003E8E) com profundidade,
+   luz azul mais viva no alto à direita e lavanda embaixo à esquerda, e um
+   vidro levemente mais claro. Antes: scratchpad atuamos/rodape-antes.css. ===== */
+.footer.footer--rod { padding: clamp(2.8rem, 3.4vw, 4.4rem) 0; }
+.footer.footer--rod .footer__cartao { padding: clamp(2.8rem, 3.2vw, 4rem); }
+.footer.footer--rod {
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(60rem 40rem at 94% 0%, rgba(10, 102, 200, 0.42), rgba(10, 102, 200, 0.12) 45%, transparent 70%),
+    radial-gradient(52rem 34rem at 0% 100%, rgba(97, 117, 214, 0.3), rgba(97, 117, 214, 0.08) 45%, transparent 70%),
+    linear-gradient(160deg, #0A4596 0%, #003A85 45%, #002B66 100%);
+}
+:root .footer.footer--rod .footer__cartao {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 45%, rgba(255, 255, 255, 0.06) 100%),
+    radial-gradient(70% 90% at 0% 0%, rgba(255, 255, 255, 0.07), transparent 60%);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 30px 70px -30px rgba(0, 18, 50, 0.6);
+}
+@media (max-width: 767px) { .footer.footer--rod { padding: 1.6rem 0; } .footer.footer--rod .footer__cartao { padding: 2.4rem 2rem; } }
+/* ajuste (João, 27/11: "um pouco mais escuro, degradê de azul mais escuro e um
+   claro pra dar destaque bem suave, com menos"): base mais escura, uma luz
+   azul só, discreta, no alto à direita; a lavanda sai */
+.footer.footer--rod {
+  background:
+    url("../images/grao-hero.png"),
+    radial-gradient(64rem 42rem at 92% 0%, rgba(30, 110, 200, 0.24), rgba(30, 110, 200, 0.06) 50%, transparent 72%),
+    linear-gradient(160deg, #003276 0%, #00285F 50%, #001F4C 100%);
+}

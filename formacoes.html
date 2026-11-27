@@ -39,19 +39,19 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/components.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/base.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/citacao.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/menu.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/pilha.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/saida.css?v=p262" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pilha.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/formacoes-hero.webp" imagesrcset="assets/images/formacoes-hero-1100.webp 1100w, assets/images/formacoes-hero.webp 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/formacoes-hero.webp?v=p264" imagesrcset="assets/images/formacoes-hero-1100.webp?v=p264 1100w, assets/images/formacoes-hero.webp?v=p264 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -164,12 +164,12 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=p262" defer></script>
+<script src="assets/js/cookies.js?v=p263" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
 <script>document.documentElement.classList.add('mo')</script>
-<link href="assets/css/mobile.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/menu-mobile.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/voltar.css?v=p262" rel="stylesheet"/>
+<link href="assets/css/mobile.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p263" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -271,15 +271,15 @@
 <!-- hero interno -->
 <!-- 18/10/2026: hero no padrão da Práticas (cartão, foto do Magnific, camada
      granulada suave, selo, destaque dourado); o "Voltar" saiu -->
-<section aria-label="Formações" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAQFAwb/xAApEAACAQMDAQcFAAAAAAAAAAABAgMABBESITEiBQYTQVFhkRUzQoGh/8QAFgEBAQEAAAAAAAAAAAAAAAAAAQAC/8QAGBEBAQEBAQAAAAAAAAAAAAAAAAECMhH/2gAMAwEAAhEDEQA/AFry4tT2sAsqkiQIfZs1XvLy0lvbOQzxlJNSqWPJHl81xN8J4rpoj0yjBIUbg1opmFoGWNgySfkNwcZ29KxctSuleW0Ns8/ipoDkEnbG5xt+ql3EkTWyzbYZtJ/uDU7GnsyUs2ppHBXB58ztWcTnwBgkFmAZjwAPSjxL3edV+sZ0jOOce1K2DMLsKGIB05APPSKKKNcnPRG86JmVOkZ4G1Jr9n5oopir/9k=')">
+<section aria-label="Formações" class="hero-interna hero-interna--home hero-interna--formacoes" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwCqUAvFKEnCfeHOee/tVOWBHXcowQBnv2q7ahpLwEF8KoOSOozU0mmM6qUlAYKAR1HT2rnadjWm7PUgngQRjcCRgZAOM1BOGYR5CogIwg6AVp3EDov7wOyY6xn+mKrTLDLGogmVipAYZ5xzntUs0RpPxMyjgbTx+NVZuHz3wP5UUVszJDYnbP3j+dUbtVW9jZQAxY5IHJooqGWj/9k=')">
 <picture class="hero-interna__bg">
-<source media="(max-width: 899px)" srcset="assets/images/formacoes-hero-1100.webp" type="image/webp"/>
-<source srcset="assets/images/formacoes-hero.webp" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/formacoes-hero.jpg" width="1920"/>
+<source media="(max-width: 899px)" srcset="assets/images/formacoes-hero-1100.webp?v=p264" type="image/webp"/>
+<source srcset="assets/images/formacoes-hero.webp?v=p264" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/formacoes-hero.jpg?v=p264" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">Formações</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Formações</span>
 <h1 class="hero-interna__titulo"><!-- CMS:texto:formacoes-hero-titulo -->Conhecimento que <span class="hero-interna__destaque">transforma a prática</span>.<!-- /CMS:texto:formacoes-hero-titulo --></h1>
 <p class="hero-interna__sub"><!-- CMS:texto:formacoes-hero-sub -->Uma boa formação não se mede em horas-aula, mas na capacidade de preparar profissionais para desafios reais.<!-- /CMS:texto:formacoes-hero-sub --></p>
 </div>
@@ -460,14 +460,15 @@
 <div class="container">
 <div class="citacao-cartao citacao-cartao--cta citacao-cartao--cta-formacoes">
 <div class="citacao-cartao__miolo" data-aos="fade-up">
-<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>Formações</span>
 <h2 class="cta-final__title">Cada instituição tem seus próprios desafios.</h2>
 <p class="cta-final__sub">Compreender o contexto, as relações e as necessidades envolvidas é o primeiro passo para identificar como as práticas restaurativas podem contribuir.</p>
 <div class="cta-final__actions">
 <a class="btn btn--white" href="como-atuamos.html">Ver como atuamos <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
-<a class="link-seta link-seta--claro" href="o-instituto.html"><span>Conhecer o Instituto</span><span aria-hidden="true" class="link-seta__circ"><i class="fa-solid fa-arrow-right"></i></span></a>
+<a class="hero__vidro" href="o-instituto.html">Conhecer o Instituto <i aria-hidden="true" class="fa-solid fa-arrow-right"></i></a>
 </div>
 </div>
+<img class="citacao-logo" width="62" height="30" loading="lazy" decoding="async" alt="" aria-hidden="true" src="assets/images/ibpr-logo-nova-branca.svg"/>
 </div>
 </div>
 </section>
@@ -571,6 +572,6 @@ AOS.init({
 <script defer src="assets/js/fint.js?v=p174"></script>
 <script defer src="assets/js/pilha.js?v=p172"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
-<script defer src="assets/js/rolagem.js?v=p262"></script>
+<script defer src="assets/js/rolagem.js?v=p263"></script>
 </body>
 </html>

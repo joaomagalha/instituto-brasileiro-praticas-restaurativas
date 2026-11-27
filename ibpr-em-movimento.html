@@ -39,18 +39,18 @@
 <!-- AOS 2.3.1 — scroll reveal, CDN, biblioteca aberta -->
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous" rel="stylesheet"/>
 <!-- Tokens e componentes reais do site (mesma base do design system) -->
-<link href="assets/css/tokens.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/components.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/base.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/citacao.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/rodape.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/botao.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/selo.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/menu.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/pagina-interna.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/saida.css?v=p262" rel="stylesheet"/>
+<link href="assets/css/tokens.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/components.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/base.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/citacao.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/rodape.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/botao.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/selo.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/menu.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/pagina-interna.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/saida.css?v=p263" rel="stylesheet"/>
 <!-- A foto do hero começa a baixar junto com o CSS, antes do layout. -->
-<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp?v=2" imagesrcset="assets/images/ibpr-movimento-hero-1100.webp?v=2 1100w, assets/images/ibpr-movimento-hero.webp?v=2 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
+<link as="image" fetchpriority="high" href="assets/images/ibpr-movimento-hero.webp?v=p264" imagesrcset="assets/images/ibpr-movimento-hero-1100.webp?v=p264 1100w, assets/images/ibpr-movimento-hero.webp?v=p264 1920w" imagesizes="100vw" rel="preload" type="image/webp"/>
 <link rel="icon" href="favicon.ico" sizes="any"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16.png"/>
@@ -70,11 +70,11 @@
      NÃO entra em painel/*.html: ali trabalham a Fernanda, o Decildo e o
      Rauny com os dados do Instituto, e gravar a sessão de quem administra
      não serve pra nada e é invasivo. -->
-<script src="assets/js/cookies.js?v=p262" defer></script>
+<script src="assets/js/cookies.js?v=p263" defer></script>
 <noscript><style>[data-aos]{opacity:1!important;transform:none!important}</style></noscript>
-<link href="assets/css/mobile.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/menu-mobile.css?v=p262" rel="stylesheet"/>
-<link href="assets/css/voltar.css?v=p262" rel="stylesheet"/>
+<link href="assets/css/mobile.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/menu-mobile.css?v=p263" rel="stylesheet"/>
+<link href="assets/css/voltar.css?v=p263" rel="stylesheet"/>
 </head>
 <body data-aos-delay="0" data-aos-duration="800" data-aos-easing="ease-out">
 <svg aria-hidden="true" focusable="false" height="0" style="position:absolute;width:0;height:0;overflow:hidden" width="0"><filter color-interpolation-filters="sRGB" height="100%" id="vidro-liquido" width="100%" x="0%" y="0%"><feTurbulence baseFrequency="0.007 0.011" numOctaves="2" result="ruido" seed="7" type="fractalNoise"/><feGaussianBlur in="ruido" result="ruidoSuave" stdDeviation="2"/><feDisplacementMap in="SourceGraphic" in2="ruidoSuave" scale="45" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
@@ -177,15 +177,15 @@
 <!-- hero interno -->
 <!-- 18/10/2026: hero no padrão da Práticas (cartão, foto do Magnific, camada
      granulada suave, selo, destaque dourado); o "Voltar" saiu -->
-<section aria-label="IBPR em Movimento" class="hero-interna" style="--hero-lqip: url('data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAGgAAAQUBAAAAAAAAAAAAAAAAAAECAwUGBP/EACoQAAIBAwIFAQkAAAAAAAAAAAECAwAEESExBRITIkEVMjNRUnKBkaLB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAgH/xAAZEQEBAAMBAAAAAAAAAAAAAAAAAQIRMUH/2gAMAwEAAhEDEQA/AMvZx8wkA+WuhU6ZCue7G2RTLGVIUmZvKgD70trCkioWKoude72tvAoUokZWZMjABPKCPJ+FSNaP0UKxoCe7JYZIqf0xZbWzjtXPMZ3GCd8gYpYOH36JHK0QlQxbJjfJ0P4NTS3JSr7iX6f7TYCcEZO9FFOjF5wJmEuQxyEYjXY6VqYtbG0HjpA/qKKKPq3j/9k=')">
+<section aria-label="IBPR em Movimento" class="hero-interna hero-interna--home hero-interna--movimento" style="--hero-lqip: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwAsLJJnzISFB5A61n20aoVMeZIpCSpHbHY1twSQQkoSTlzjHp61WtbWPyI41XftJJyfU+1cslqdKejKMwO8ADPI49BkUDdtnYHaCzZAPWr8umhpkwdmFOMn6f4VAbOZPNMTF8MQ5B9enFJxfQlsE+8x77zWhp/JweRjpRRTY0TQcSNj+9TgSd3PVjRRVoln/9k=')">
 <picture class="hero-interna__bg">
-<source media="(max-width: 899px)" srcset="assets/images/ibpr-movimento-hero-1100.webp?v=2" type="image/webp"/>
-<source srcset="assets/images/ibpr-movimento-hero.webp?v=2" type="image/webp"/>
-<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/ibpr-movimento-hero.jpg?v=2" width="1920"/>
+<source media="(max-width: 899px)" srcset="assets/images/ibpr-movimento-hero-1100.webp?v=p264" type="image/webp"/>
+<source srcset="assets/images/ibpr-movimento-hero.webp?v=p264" type="image/webp"/>
+<img alt="" decoding="async" fetchpriority="high" height="1080" src="assets/images/ibpr-movimento-hero.jpg?v=p264" width="1920"/>
 </picture>
 <div aria-hidden="true" class="hero-interna__overlay"></div>
 <div class="container hero-interna__conteudo">
-<span class="citacao-selo">IBPR em Movimento</span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>IBPR em Movimento</span>
 <h1 class="hero-interna__titulo hero-interna__titulo--estreito"><!-- CMS:texto:movimento-hero-titulo -->Práticas Restaurativas <span class="hero-interna__destaque">em movimento</span>.<!-- /CMS:texto:movimento-hero-titulo --></h1>
 <p class="hero-interna__sub"><!-- CMS:texto:movimento-hero-sub -->Um espaço para acompanhar o que o IBPR e os profissionais da sua rede realizam.<!-- /CMS:texto:movimento-hero-sub --></p>
 <nav aria-label="Seções desta página" class="hero-interna__atalhos">
@@ -352,13 +352,14 @@
 <div class="container">
 <div class="citacao-cartao citacao-cartao--cta citacao-cartao--cta-movimento">
 <div class="citacao-cartao__miolo" data-aos="fade-up">
-<span class="citacao-selo"><span class="selo-longo">Instituto Brasileiro de Práticas Restaurativas</span><span aria-hidden="true" class="selo-curto">IBPR</span></span>
+<span class="citacao-selo selo-logo-claro"><span aria-hidden="true" class="hero__marca"><i></i><i></i><i></i></span>IBPR em Movimento</span>
 <h2 class="cta-final__title">Tem uma experiência, ideia ou reflexão que pode contribuir para esse debate?</h2>
 <p class="cta-final__sub">Compartilhe conosco.</p>
 <div class="cta-final__actions">
 <a class="btn btn--white" href="mailto:ibpr@ibpr.com.br"><i aria-hidden="true" class="fa-regular fa-envelope"></i> ibpr@ibpr.com.br</a>
 </div>
 </div>
+<img class="citacao-logo" width="62" height="30" loading="lazy" decoding="async" alt="" aria-hidden="true" src="assets/images/ibpr-logo-nova-branca.svg"/>
 </div>
 </div>
 </section>
@@ -444,6 +445,6 @@ AOS.init({
 <script defer src="assets/js/artigos-hub.js?v=p250"></script>
 <script defer src="assets/js/noticias.js?v=p250"></script>
 <script defer src="assets/js/menu-vidro.js?v=p167"></script>
-<script defer src="assets/js/rolagem.js?v=p262"></script>
+<script defer src="assets/js/rolagem.js?v=p263"></script>
 </body>
 </html>
