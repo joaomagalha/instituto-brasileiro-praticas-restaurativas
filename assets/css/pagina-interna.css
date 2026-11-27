@@ -1430,7 +1430,12 @@
 .sustenta--apoio .sustenta__pilar:nth-child(4n+4) { --tom: 0, 62, 142; --cor: #003E8E; }
 .sustenta--apoio .sustenta__num { display: flex; align-items: center; gap: 1rem; color: var(--cor); }
 .sustenta--apoio .sustenta__num::after { content: ""; width: 2.4rem; height: 4px; border-radius: 2px; background: rgb(var(--tom)); }
-@media (max-width: 899px) { .hero-interna--instituto .hero-interna__bg img { object-position: 97% 50%; } } /* letreiro inteiro no celular (26/11) */
+/* recepção no celular (27/11): a foto ocupa o alto e some no escuro, pro letreiro caber inteiro */
+@media (max-width: 899px) {
+  .hero-interna--instituto { background-color: #101216; background-image: none; }
+  .hero-interna--instituto .hero-interna__bg img { height: 68%; object-position: 78% 50%;
+    -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+}
 
 /* ===== MISSÃO E VISÃO NA IDENTIDADE NOVA (João, 26/11, noite: "background igual nas
    outras seções" e "melhorar o efeito de vidro dos cards"). Fundo claro granulado

@@ -45,7 +45,10 @@ html.mo [data-aos].is-in { opacity: 1; transform: none; }
 /* Hero: o vídeo assenta (zoom-out) e o texto sobe em cascata ao carregar */
 @keyframes mo-assenta { from { transform: scale(1.12); } to { transform: scale(1); } }
 @keyframes mo-sobe { from { opacity: 0; transform: translate3d(0, 24px, 0); } to { opacity: 1; transform: none; } }
-html.mo .hero__video { animation: mo-assenta 2.4s var(--curva-saida) both; }
+html.mo .hero__video, html.mo .hero__foto img { animation: mo-assenta 2.4s var(--curva-saida) both; }
+/* Foto parada da header da Home (27/11/2026); no celular enquadra no letreiro */
+.hero__foto img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; object-fit: cover; object-position: 100% 50%; } /* à direita: letreiro inteiro */
+@media (max-width: 899px) { .hero__foto img { object-position: 97% 50%; } }
 html.mo .hero__content > * { animation: mo-sobe 1s var(--curva-saida) both; }
 html.mo .hero__content > :nth-child(1) { animation-delay: 0.15s; }
 html.mo .hero__content > :nth-child(2) { animation-delay: 0.28s; }
@@ -80,7 +83,7 @@ html.mo .fio.is-in path { stroke-dashoffset: 0; }
 /* (20/10/2026) A animação presa à rolagem que ficava aqui saiu: dezenas delas recalculadas a cada quadro davam trancos (João, 20/10). Agora a saída perto do topo e as entradas que eram presas à rolagem são tocadas em tempo por assets/js/rolagem.js. Original em prototipo/backups/rolagem-antes/. */
 
 @media (prefers-reduced-motion: reduce) {
-  html.mo [data-aos], html.mo .hero__content > *, html.mo .hero__video,
+  html.mo [data-aos], html.mo .hero__content > *, html.mo .hero__video, html.mo .hero__foto img,
   html.mo .quote-mark__text .palavra, html.mo .founder__frame,
   .hero__content, .hero__bg, .proposito, .solucoes, .pratica-viva, .footer,
   .solucoes__panel .proj-card__photo {
